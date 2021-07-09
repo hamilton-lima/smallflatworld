@@ -15,13 +15,7 @@ import {
   Space,
   Camera,
 } from '@babylonjs/core';
-
-class EngineState {
-  engine: Engine;
-  scene: Scene;
-  camera: FreeCamera;
-  mainLight: HemisphericLight;
-}
+import { EngineState } from './renderer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +26,7 @@ export class RendererService {
     result.engine = new Engine(canvas.nativeElement, true);
     result.scene = new Scene(result.engine);
     result.scene.clearColor = new Color4(0, 0, 0, 0);
-    
+
     result.camera = new FreeCamera(
       'camera1',
       new Vector3(5, 10, -20),
@@ -40,7 +34,7 @@ export class RendererService {
     );
 
     result.camera.setTarget(Vector3.Zero());
-    result.camera.attachControl(canvas, false);
+    //result.camera.attachControl(canvas, false);
     result.mainLight = new HemisphericLight(
       'light1',
       new Vector3(0, 1, 0),
