@@ -22,7 +22,7 @@ import { EngineState } from './renderer.model';
 })
 export class RendererService {
   setup(canvas: ElementRef<HTMLCanvasElement>): EngineState {
-    let result = new EngineState();
+    const result = new EngineState();
     result.engine = new Engine(canvas.nativeElement, true);
     result.scene = new Scene(result.engine);
     result.scene.clearColor = new Color4(0, 0, 0, 0);
@@ -34,7 +34,7 @@ export class RendererService {
     );
 
     result.camera.setTarget(Vector3.Zero());
-    //result.camera.attachControl(canvas, false);
+
     result.mainLight = new HemisphericLight(
       'light1',
       new Vector3(0, 1, 0),

@@ -1,9 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RendererService } from './renderer.service';
 import { MeshService } from './mesh.service';
 import { MovementService } from './movement.service';
@@ -24,7 +19,7 @@ export class RendererComponent implements AfterViewInit {
     private movement: MovementService
   ) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.init();
     this.canvas.nativeElement.focus();
   }
@@ -44,7 +39,7 @@ export class RendererComponent implements AfterViewInit {
     });
   }
 
-  keydown(event) {
+  keydown(event: KeyboardEvent): void {
     this.keyboard.next(event);
   }
 }

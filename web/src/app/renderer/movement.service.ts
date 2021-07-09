@@ -42,7 +42,7 @@ export class MovementService {
     this.handlers.KeyD = this.handlers.ArrowRight;
   }
 
-  setup(engineState: EngineState, keyboard: Subject<KeyboardEvent>) {
+  setup(engineState: EngineState, keyboard: Subject<KeyboardEvent>): void {
     keyboard.subscribe((event) => {
       const handler = this.handlers[event.code];
 
@@ -52,23 +52,23 @@ export class MovementService {
       }
     });
 
-    this.handlers.ArrowLeft.subscribe( event =>{
+    this.handlers.ArrowLeft.subscribe( event => {
       console.log('left');
     });
 
-    this.handlers.ArrowRight.subscribe( event =>{
+    this.handlers.ArrowRight.subscribe( event => {
       console.log('right');
     });
 
-    this.handlers.ArrowUp.subscribe( event =>{
+    this.handlers.ArrowUp.subscribe( event => {
       console.log('up');
     });
 
-    this.handlers.ArrowDown.subscribe( event =>{
+    this.handlers.ArrowDown.subscribe( event => {
       console.log('down');
     });
 
-    this.handlers.Space.subscribe( event =>{
+    this.handlers.Space.subscribe( event => {
       console.log('space');
     });
 
