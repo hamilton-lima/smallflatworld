@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { RendererService } from './renderer.service';
 import { MeshService } from './mesh.service';
-import { KeyboardService } from './keyboard.service';
+import { MovementService } from './movement.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -21,7 +21,7 @@ export class RendererComponent implements AfterViewInit {
   constructor(
     private service: RendererService,
     private mesh: MeshService,
-    private keyboardService: KeyboardService
+    private movement: MovementService
   ) {}
 
   ngAfterViewInit() {
@@ -37,7 +37,7 @@ export class RendererComponent implements AfterViewInit {
       engineState.engine.resize();
     });
 
-    this.keyboardService.setup(engineState, this.keyboard);
+    this.movement.setup(engineState, this.keyboard);
 
     engineState.engine.runRenderLoop(() => {
       engineState.scene.render();
