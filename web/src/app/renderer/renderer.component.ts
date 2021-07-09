@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { RendererService } from './renderer.service';
 import { MeshService } from './mesh.service';
 
@@ -18,6 +24,10 @@ export class RendererComponent implements AfterViewInit {
   init(): void {
     const engineState = this.service.setup(this.canvas);
     this.mesh.addbox(engineState.scene);
+
+    window.addEventListener('resize', () => {
+      engineState.engine.resize();
+    });
 
     engineState.engine.runRenderLoop(() => {
       engineState.scene.render();
