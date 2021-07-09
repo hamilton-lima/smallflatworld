@@ -18,7 +18,6 @@ import {
 } from '@babylonjs/core';
 import { Subject } from 'rxjs';
 import { EngineState } from './renderer.model';
-import { Key } from './key.enum';
 
 @Injectable({
   providedIn: 'root',
