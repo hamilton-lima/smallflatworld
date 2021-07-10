@@ -22,6 +22,17 @@ export class MeshService {
     box.isVisible = true;
     return box;
   }
+    addTallbox(scene: Scene): Mesh {
+      const box = MeshBuilder.CreateBox('box', { width: 1, height: 3 }, scene);
+  
+      const material = new StandardMaterial('material', scene);
+      material.diffuseColor = Color3.FromHexString('#00FF00');
+      box.material = material;
+      box.position.x = 0;
+      box.position.z = 0;
+      box.isVisible = true;
+      return box;
+    }
 
   constructor() {}
 }
