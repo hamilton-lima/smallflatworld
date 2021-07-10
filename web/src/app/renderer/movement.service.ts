@@ -15,12 +15,13 @@ import {
   Space,
   Camera,
   MeshBuilder,
+  Axis,
 } from '@babylonjs/core';
 import { Subject } from 'rxjs';
 import { EngineState } from './renderer.model';
 
 const ROTATION_SPEED = 0.3;
-const MOVEMENT_SPEED = 0.3;
+const MOVEMENT_SPEED = 3;
 
 @Injectable({
   providedIn: 'root',
@@ -66,11 +67,19 @@ export class MovementService {
     });
 
     this.handlers.ArrowUp.subscribe((event) => {
-      engineState.character.position.z += MOVEMENT_SPEED;
+      const x = Math.sin(engineState.character.rotation.y) / MOVEMENT_SPEED;
+      const z = Math.cos(engineState.character.rotation.y) / MOVEMENT_SPEED;
+      
+      const forward = new Vector3(x, 0, z);
+      engineState.character.moveWithCollisions(forward);
     });
 
     this.handlers.ArrowDown.subscribe((event) => {
-      engineState.character.position.z -= MOVEMENT_SPEED;
+      const x = Math.sin(engineState.character.rotation.y) / MOVEMENT_SPEED;
+      const z = Math.cos(engineState.character.rotation.y) / MOVEMENT_SPEED;
+      
+      const forward = new Vector3(x, 0, z);
+      engineState.character.moveWithCollisions(forward.negate());
     });
 
     this.handlers.Space.subscribe((event) => {
