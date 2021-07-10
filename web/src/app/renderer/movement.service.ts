@@ -4,8 +4,8 @@ import {
   Vector3,
 } from '@babylonjs/core';
 
-const ROTATION_SPEED = 0.05;
-const MOVEMENT_SPEED = 2.0;
+const ROTATION_SPEED = 0.03;
+const MOVEMENT_SPEED = 1.5;
 
 class KeyState {
   ArrowLeft: boolean;
