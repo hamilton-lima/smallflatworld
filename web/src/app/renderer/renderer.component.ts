@@ -26,13 +26,13 @@ export class RendererComponent implements AfterViewInit {
 
   init(): void {
     const engineState = this.service.setup(this.canvas);
-    this.mesh.addbox(engineState.scene);
+    engineState.character = this.mesh.addbox(engineState.scene);
+
+    this.movement.setup(engineState, this.keyboard);
 
     window.addEventListener('resize', () => {
       engineState.engine.resize();
     });
-
-    this.movement.setup(engineState, this.keyboard);
 
     engineState.engine.runRenderLoop(() => {
       engineState.scene.render();

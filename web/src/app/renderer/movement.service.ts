@@ -19,6 +19,9 @@ import {
 import { Subject } from 'rxjs';
 import { EngineState } from './renderer.model';
 
+const ROTATION_SPEED = 0.3;
+const MOVEMENT_SPEED = 0.3;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -35,7 +38,7 @@ export class MovementService {
     Space: new Subject<KeyboardEvent>(),
   };
 
-  constructor() {
+  registerWSADKeys() {
     this.handlers.KeyW = this.handlers.ArrowUp;
     this.handlers.KeyS = this.handlers.ArrowDown;
     this.handlers.KeyA = this.handlers.ArrowLeft;
@@ -43,6 +46,8 @@ export class MovementService {
   }
 
   setup(engineState: EngineState, keyboard: Subject<KeyboardEvent>): void {
+    this.registerWSADKeys();
+
     keyboard.subscribe((event) => {
       const handler = this.handlers[event.code];
 
@@ -52,26 +57,24 @@ export class MovementService {
       }
     });
 
-    this.handlers.ArrowLeft.subscribe( event => {
-      console.log('left');
+    this.handlers.ArrowLeft.subscribe((event) => {
+      engineState.character.rotation.y -= ROTATION_SPEED;
     });
 
-    this.handlers.ArrowRight.subscribe( event => {
-      console.log('right');
+    this.handlers.ArrowRight.subscribe((event) => {
+      engineState.character.rotation.y += ROTATION_SPEED;
     });
 
-    this.handlers.ArrowUp.subscribe( event => {
-      console.log('up');
+    this.handlers.ArrowUp.subscribe((event) => {
+      engineState.character.position.z += MOVEMENT_SPEED;
     });
 
-    this.handlers.ArrowDown.subscribe( event => {
-      console.log('down');
+    this.handlers.ArrowDown.subscribe((event) => {
+      engineState.character.position.z -= MOVEMENT_SPEED;
     });
 
-    this.handlers.Space.subscribe( event => {
+    this.handlers.Space.subscribe((event) => {
       console.log('space');
     });
-
   }
-
 }
