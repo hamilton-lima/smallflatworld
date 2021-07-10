@@ -11,7 +11,6 @@ import { Subject } from 'rxjs';
 })
 export class RendererComponent implements AfterViewInit {
   @ViewChild('game') canvas: ElementRef<HTMLCanvasElement>;
-  keyboard: Subject<KeyboardEvent> = new Subject();
 
   constructor(
     private service: RendererService,
@@ -28,18 +27,21 @@ export class RendererComponent implements AfterViewInit {
     const engineState = this.service.setup(this.canvas);
     engineState.character = this.mesh.addbox(engineState.scene);
 
-    this.movement.setup(engineState, this.keyboard);
-
     window.addEventListener('resize', () => {
       engineState.engine.resize();
     });
 
     engineState.engine.runRenderLoop(() => {
+      this.movement.move(engineState.character);
       engineState.scene.render();
     });
   }
 
   keydown(event: KeyboardEvent): void {
-    this.keyboard.next(event);
+    this.movement.down(event);
+  }
+
+  keyup(event: KeyboardEvent): void {
+    this.movement.up(event);
   }
 }
