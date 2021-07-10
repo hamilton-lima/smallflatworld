@@ -29,7 +29,9 @@ export class MeshService {
   }
 
   addbox(scene: Scene): Mesh {
-    return this._addbox(scene, 1, 1, "#FF0000", Vector3.Zero());
+    const position = Vector3.Zero();
+    position.y = 1
+    return this._addbox(scene, 1, 1, "#FF0000", position);
   }
 
   addTallbox(scene: Scene, position: Vector3): Mesh {
