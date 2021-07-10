@@ -15,5 +15,14 @@ import {
 })
 export class ScenarioService {
 
-  constructor() {}
+  setup(scene: Scene){
+    const ground = MeshBuilder.CreateGround("ground", {width:1000, height:1000}, scene);
+    const material = new StandardMaterial('ground-material', scene);
+
+    material.diffuseColor = Color3.FromHexString("#7C6650");
+    ground.material = material;
+
+    return ground;
+  }
+
 }

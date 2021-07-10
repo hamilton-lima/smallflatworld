@@ -3,6 +3,7 @@ import {
   Scene,
   Mesh,
   Color3,
+  Vector3,
   StandardMaterial,
   MeshBuilder,
 } from '@babylonjs/core';
@@ -11,28 +12,29 @@ import {
   providedIn: 'root',
 })
 export class MeshService {
-  addbox(scene: Scene): Mesh {
-    const box = MeshBuilder.CreateBox('box', { width: 1, height: 1 }, scene);
-
+  private _addbox(
+    scene: Scene,
+    width: number,
+    height: number,
+    color: string,
+    position: Vector3
+  ): Mesh {
+    const box = MeshBuilder.CreateBox('box', { width: width, height: height }, scene);
     const material = new StandardMaterial('material', scene);
-    material.diffuseColor = Color3.FromHexString('#FF0000');
+    material.diffuseColor = Color3.FromHexString(color);
     box.material = material;
-    box.position.x = 0;
-    box.position.z = 0;
+    box.position = position;
     box.isVisible = true;
     return box;
   }
-    addTallbox(scene: Scene): Mesh {
-      const box = MeshBuilder.CreateBox('box', { width: 1, height: 3 }, scene);
-  
-      const material = new StandardMaterial('material', scene);
-      material.diffuseColor = Color3.FromHexString('#00FF00');
-      box.material = material;
-      box.position.x = 0;
-      box.position.z = 0;
-      box.isVisible = true;
-      return box;
-    }
+
+  addbox(scene: Scene): Mesh {
+    return this._addbox(scene, 1, 1, "#FF0000", Vector3.Zero());
+  }
+
+  addTallbox(scene: Scene, position: Vector3): Mesh {
+    return this._addbox(scene, 1, 3, "#00FF00", position);
+  }
 
   constructor() {}
 }

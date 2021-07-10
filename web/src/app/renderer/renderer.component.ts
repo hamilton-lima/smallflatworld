@@ -4,6 +4,7 @@ import { MeshService } from './mesh.service';
 import { MovementService } from './movement.service';
 import { CameraService } from './camera.service';
 import { EditorService } from './editor.service';
+import { ScenarioService} from './scenario.service';
 import {
   Mesh,
   Vector3,
@@ -23,6 +24,7 @@ export class RendererComponent implements AfterViewInit {
     private movement: MovementService,
     private camera: CameraService,
     private editor: EditorService,
+    private scenario: ScenarioService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -34,6 +36,7 @@ export class RendererComponent implements AfterViewInit {
     const engineState = this.service.setup(this.canvas);
     engineState.character = this.mesh.addbox(engineState.scene);
     this.editor.setup(engineState.scene);
+    this.scenario.setup(engineState.scene);
     
     engineState.camera = this.camera.setup(
       engineState.scene,
