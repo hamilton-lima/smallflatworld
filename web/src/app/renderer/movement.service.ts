@@ -49,10 +49,10 @@ export class MovementService {
       const z = Math.cos(character.rotation.y) / MOVEMENT_SPEED;
       const forward = new Vector3(x, 0, z);
       if (this.keyState.ArrowUp) {
-        character.moveWithCollisions(forward);
+        character.moveWithCollisions(forward.negate());
       }
       if (this.keyState.ArrowDown) {
-        character.moveWithCollisions(forward.negate());
+        character.moveWithCollisions(forward);
       }
     }
   }
