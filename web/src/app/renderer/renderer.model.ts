@@ -1,9 +1,9 @@
-import { Engine, FreeCamera, Scene, HemisphericLight, Mesh } from '@babylonjs/core';
+import { Engine, Camera, Scene, HemisphericLight, Mesh } from '@babylonjs/core';
 
 export class EngineState {
   engine: Engine;
   scene: Scene;
-  camera: FreeCamera;
+  camera: Camera;
   mainLight: HemisphericLight;
   character: Mesh;
 }

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RendererService } from './renderer.service';
 import { MeshService } from './mesh.service';
 import { MovementService } from './movement.service';
-import { Subject } from 'rxjs';
+import { CameraService} from './camera.service';
 
 @Component({
   selector: 'app-renderer',
@@ -15,7 +15,8 @@ export class RendererComponent implements AfterViewInit {
   constructor(
     private service: RendererService,
     private mesh: MeshService,
-    private movement: MovementService
+    private movement: MovementService,
+    private camera: CameraService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -26,6 +27,7 @@ export class RendererComponent implements AfterViewInit {
   init(): void {
     const engineState = this.service.setup(this.canvas);
     engineState.character = this.mesh.addbox(engineState.scene);
+    engineState.camera = this.camera.setup(engineState.scene, engineState.character);
 
     window.addEventListener('resize', () => {
       engineState.engine.resize();
