@@ -21,18 +21,17 @@ const uniqueNameConfig: Config = {
   length: 3,
 };
 
-const REALM = 'realm';
-const ENVIRONMENT = 'environment';
+const REALMLIST = 'realm-list';
 
 export class Realm {
   id: string;
   name: string;
 }
 
-export class RealmList {}
-
-export class Environment {
+export class RealmList {
+  _id: string;
   currentRealm: string;
+  realms: Realm[];
 }
 
 @Injectable({
@@ -43,20 +42,53 @@ export class PersistenceService {
 
   constructor() {
     this.db = new PouchDB('smallflatworld');
-    console.log('persistence service', this.db);
+    console.log('Local database', this.db);
   }
 
-  healthCheck(){
-    console.log('fine. everything is fine.');
+  healthCheck() {
+    this.getRealmList().then(
+      (realmList) => {
+        console.log('[SFW] Realm list', realmList);
+      },
+      (reject) => {
+        if (reject.status == 404) {
+          console.warn('[SFW] Realm list is not here, will create', reject);
+          const realmList = this.getDefaultRealmList();
+          console.log('[SFW] realmlist to be created', realmList);
+          this.updateRealms(realmList).then(
+            (result) => {
+              console.log('[SFW] Realm created with success', result);
+            },
+            (reject) => {
+              console.error(
+                'Something really bad happened when trying to create the realm',
+                reject
+              );
+            }
+          );
+        }
+      }
+    );
+
+    console.log('[SFW] Fine. everything is fine.');
   }
 
-  // getRealms(): Promise<Realm[]> {
-  //   return this.db.get(REALM);
-  // }
+  getDefaultRealmList(): RealmList {
+    const result = <RealmList>{
+      _id: REALMLIST,
+      currentRealm: null,
+      realms: []
+    }
+    return result;
+  }
 
-  // updateRealms(realms: Realm[]) {
-  //   return this.db.put(REALM, realms);
-  // }
+  getRealmList(): Promise<Realm[]> {
+    return this.db.get(REALMLIST);
+  }
+
+  updateRealms(realmList: RealmList) {
+    return this.db.put(REALMLIST, realmList);
+  }
 
   // getEnvironment(): Promise<Environment> {
   //   return this.db.get(ENVIRONMENT);
