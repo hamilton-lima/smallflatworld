@@ -22,7 +22,8 @@ const uniqueNameConfig: Config = {
   length: 3,
 };
 
-const REALMLIST = 'realm-list';
+export const REALMLIST = 'realm-list';
+export const DB_NAME = 'smallflatworld';
 
 @Injectable({
   providedIn: 'root',
@@ -31,18 +32,22 @@ export class PersistenceService {
   db: PouchDB.Database;
 
   constructor() {
-    this.db = new PouchDB('smallflatworld');
+    this.db = new PouchDB(DB_NAME);
   }
 
-  async healthCheck() {
+  async healthCheck(): Promise<RealmList> {
+    let realmList: RealmList;
+
     try {
-      const realmList = await this.getRealmList();
+      realmList = await this.getRealmList();
     } catch (error) {
       if (error.status == 404) {
         console.warn('[SFW] Realm list is not here, will create', error);
         await this.createDefaultRealmList();
+        realmList = await this.getRealmList();
       }
     }
+    return realmList;
   }
 
   async createDefaultRealmList() {
