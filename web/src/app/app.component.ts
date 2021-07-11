@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PersistenceService } from './persistence.service';
+import { PersistenceService } from './realm/persistence.service';
 
 @Component({
   selector: 'app-root',
