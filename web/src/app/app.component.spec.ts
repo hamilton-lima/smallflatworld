@@ -5,22 +5,25 @@ import { AppComponent } from './app.component';
 import { RendererComponent } from './renderer/renderer.component';
 
 describe('AppComponent', () => {
+  let fixture;
+  let native;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent,
-        RendererComponent
-      ],
+      imports: [RouterTestingModule],
+      declarations: [AppComponent, RendererComponent],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    native = fixture.debugElement.nativeElement;
   }));
 
+  afterEach(() => {
+    native.remove();
+  });
+
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
 });
