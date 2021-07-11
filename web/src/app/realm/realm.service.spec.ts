@@ -6,39 +6,35 @@ import { RealmService } from './realm.service';
 fdescribe('RealmService', () => {
   let service: RealmService;
 
-  beforeEach((done) => {
+  beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(RealmService);
-    let persistence = TestBed.inject(PersistenceService);
-    
-    persistence.ready().then(
-      () => {
-        done();
-      },
-      (error) => {
-        console.error(
-          'Error when checking for readiness of persistence service',
-          error
-        );
-      }
-    );
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  // it('healthCheck should create realmlist and default values', (done) => {
-  //   const info = service.healthCheck().then((list) => {
-  //     expect(list).toBeTruthy();
-  //     expect(list._id).toBeTruthy();
-  //     expect(list.currentRealm).toBeTruthy();
-  //     expect(list.realms).toBeTruthy();
-  //     expect(list.realms.length).toBe(1);
-  //     expect(list.realms[0]._id).toBe(list.currentRealm);
-  //     expect(list.realms[0].name).toBeTruthy();
+  it('after setup is done objects should be available', (done) => {
+    const info = service.ready().then(() => {
+      
+      const list = service.getRealmList();
+      expect(list).toBeTruthy();
+      expect(list._id).toBeTruthy();
+      expect(list.currentRealm).toBeTruthy();
+      expect(list.realms).toBeTruthy();
+      expect(list.realms.length).toBe(1);
+      expect(list.realms[0]._id).toBe(list.currentRealm);
+      expect(list.realms[0].name).toBeTruthy();
 
-  //     done();
-  //   });
-  // });
+      const realm = service.getCurrentRealm();
+      expect(realm).toBeTruthy();
+      expect(realm._id).toBeTruthy();
+      expect(realm.name).toBeTruthy();
+      expect(realm.elements).toBeTruthy();
+      expect(realm.elements.length).toBe(0);
+
+      done();
+    });
+  });
 });

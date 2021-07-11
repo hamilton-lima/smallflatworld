@@ -9,23 +9,31 @@ export class RealmService {
   private realmList: RealmList;
   private currentRealm: Realm;
 
-  constructor(private persistence: PersistenceService) {
-    // TODO: wait for this to be ready
-    this.setup().then(() => {
-      console.log('setup is done');
-    }, (error)=>{
+  constructor(private persistence: PersistenceService) {}
+
+  async ready(): Promise<Realm> {
+    try {
+      this.realmList = await this.persistence.ready();
+      this.currentRealm = await this.persistence.getRealm(
+        this.realmList.currentRealm
+      );
+
+      console.log('[SMF] Realm setup is done');
+      return this.currentRealm;
+
+    } catch (error) {
       console.error('[SMF] Error on Realm setup', error);
-    });
+      return null;
+    }
   }
 
-  async setup() {
-    this.realmList = await this.persistence.getRealmList();
-    this.currentRealm = await this.persistence.getRealm(
-      this.realmList.currentRealm
-    );
+  getRealmList(): RealmList{
+    return this.realmList;
   }
 
-  // TODO: support multiple realms
+  getCurrentRealm(): Realm{
+    return this.currentRealm;
+  }
 
   // TODO: handle errors
   add(element: SceneElement) {

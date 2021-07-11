@@ -71,7 +71,6 @@ export class PersistenceService {
   }
 
   defaultRealmList(firstRealm: Realm): RealmList {
-    const realm = this.newRealm();
     const info = <RealmInfo>{
       _id: firstRealm._id,
       name: firstRealm.name,
@@ -97,18 +96,6 @@ export class PersistenceService {
     return this.db.put(realm);
   }
 
-  // async getRealm(_id: string): Promise<Realm> {
-  //   try {
-  //     const result = await this.db.get(_id);
-  //     return result;
-  //   } catch (error) {
-  //     if (error.status == 404) {
-  //       console.error('[SFW] Realm does not exist', error);
-  //       throw error;
-  //     }
-  //   }
-  // }  
-  
   async getRealm(_id: string): Promise<Realm> {
     return this.db.get(_id);
   }
@@ -117,6 +104,7 @@ export class PersistenceService {
     const result = <Realm>{
       _id: uuidv4(),
       name: uniqueNamesGenerator(uniqueNameConfig),
+      elements: []
     };
 
     return result;

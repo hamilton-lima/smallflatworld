@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PersistenceService } from './realm/persistence.service';
+import { RealmService } from './realm/realm.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,10 @@ import { PersistenceService } from './realm/persistence.service';
 export class AppComponent implements OnInit{
   title = 'web';
   ready = false;
-  constructor(private persistence: PersistenceService){
+  constructor(private realm: RealmService){
   }
   ngOnInit(): void {
-    this.persistence.ready().then( ()=>{
+    this.realm.ready().then( ()=>{
       this.ready = true;
     }, (error)=>{
       console.error('Something happened when initializing the system', error);
