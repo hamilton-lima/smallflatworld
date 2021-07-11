@@ -10,6 +10,9 @@ import {
   Vector3,
 } from '@babylonjs/core';
 import { MeshService } from './mesh.service';
+import { RealmService } from '../realm/realm.service';
+import { SceneElement } from '../realm/realm.model';
+import { v4 as uuidv4 } from 'uuid';
 
 const POINTERDOWN = 'pointerdown';
 
@@ -17,7 +20,7 @@ const POINTERDOWN = 'pointerdown';
   providedIn: 'root',
 })
 export class EditorService {
-  constructor(private mesh: MeshService) {}
+  constructor(private mesh: MeshService, private realm: RealmService) {}
 
   setup(scene: Scene): Scene {
     scene.onPointerObservable.add((pointerInfo) => {
@@ -26,11 +29,22 @@ export class EditorService {
           console.log('pointerinfo', pointerInfo.pickInfo.pickedPoint);
           const position = pointerInfo.pickInfo.pickedPoint;
           position.y = 1;
-          this.mesh.addTallbox(scene, position);
+          const mesh = this.mesh.addTallbox(scene, position, uuidv4());
+          const element = this.mesh2SceneElement(mesh);
+          this.realm.add(element);
         }
       }
     });
 
     return scene;
+  }
+
+  mesh2SceneElement(mesh: Mesh): SceneElement {
+    const result = <SceneElement>{
+      name: mesh.name,
+      position: mesh.position,
+      rotation: mesh.rotation,
+    };
+    return result;
   }
 }

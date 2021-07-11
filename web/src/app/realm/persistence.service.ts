@@ -15,6 +15,7 @@ import {
   animals,
   names,
 } from 'unique-names-generator';
+import { Realm, RealmInfo, RealmList } from './realm.model';
 
 const uniqueNameConfig: Config = {
   dictionaries: [adjectives, colors, animals, names],
@@ -22,17 +23,6 @@ const uniqueNameConfig: Config = {
 };
 
 const REALMLIST = 'realm-list';
-
-export class Realm {
-  _id: string;
-  name: string;
-}
-
-export class RealmList {
-  _id: string;
-  currentRealm: string;
-  realms: Realm[];
-}
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +37,7 @@ export class PersistenceService {
   async healthCheck() {
     try {
       const realmList = await this.getRealmList();
-    } catch(error){
+    } catch (error) {
       if (error.status == 404) {
         console.warn('[SFW] Realm list is not here, will create', error);
         await this.createDefaultRealmList();
@@ -57,16 +47,17 @@ export class PersistenceService {
 
   async createDefaultRealmList() {
     try {
-      const realmList = this.defaultRealmList();
-      console.log('[SFW] Realm list to be created', realmList);
-      
+      const firstRealm = this.newRealm();
+      const realmList = this.defaultRealmList(firstRealm);
+      console.log('[SFW] Realm and list to be created', firstRealm, realmList);
+
       const created = await this.updateRealms(realmList);
       console.log('[SFW] Realm list created', created);
-      
-      const firstRealm = await this.updateRealm(realmList.realms[0]);
-      console.log('[SFW] First realm created', firstRealm);
 
-    } catch(error){
+      const result = await this.updateRealm(firstRealm);
+      console.log('[SFW] First realm created', result);
+
+    } catch (error) {
       console.error(
         'Something really bad happened when trying to create the realm',
         error
@@ -74,12 +65,17 @@ export class PersistenceService {
     }
   }
 
-  defaultRealmList(): RealmList {
+  defaultRealmList(firstRealm: Realm): RealmList {
     const realm = this.newRealm();
+    const info = <RealmInfo>{
+      _id: firstRealm._id,
+      name: firstRealm.name,
+    };
+
     const result = <RealmList>{
       _id: REALMLIST,
-      currentRealm: realm._id,
-      realms: [realm],
+      currentRealm: firstRealm._id,
+      realms: [info],
     };
     return result;
   }
@@ -91,9 +87,25 @@ export class PersistenceService {
   updateRealms(realmList: RealmList) {
     return this.db.put(realmList);
   }
-  
+
   updateRealm(realm: Realm) {
     return this.db.put(realm);
+  }
+
+  // async getRealm(_id: string): Promise<Realm> {
+  //   try {
+  //     const result = await this.db.get(_id);
+  //     return result;
+  //   } catch (error) {
+  //     if (error.status == 404) {
+  //       console.error('[SFW] Realm does not exist', error);
+  //       throw error;
+  //     }
+  //   }
+  // }  
+  
+  async getRealm(_id: string): Promise<Realm> {
+    return this.db.get(_id);
   }
 
   newRealm(): Realm {
