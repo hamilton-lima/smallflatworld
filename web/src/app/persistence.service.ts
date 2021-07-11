@@ -45,32 +45,34 @@ export class PersistenceService {
     console.log('[SFW] Local database', this.db);
   }
 
-  healthCheck() {
-    this.getRealmList().then(
-      (realmList) => {
-        console.log('[SFW] Realm list', realmList);
-      },
-      (reject) => {
-        if (reject.status == 404) {
-          console.warn('[SFW] Realm list is not here, will create', reject);
-          const realmList = this.defaultRealmList();
-          console.log('[SFW] realmlist to be created', realmList);
-          this.updateRealms(realmList).then(
-            (result) => {
-              console.log('[SFW] Realm created with success', result);
-            },
-            (reject) => {
-              console.error(
-                'Something really bad happened when trying to create the realm',
-                reject
-              );
-            }
-          );
-        }
+  async healthCheck() {
+    try {
+      const realmList = await this.getRealmList();
+    } catch(error){
+      if (error.status == 404) {
+        console.warn('[SFW] Realm list is not here, will create', error);
+        await this.createDefaultRealmList();
       }
-    );
+    }
+  }
 
-    console.log('[SFW] Fine. everything is fine.');
+  async createDefaultRealmList() {
+    try {
+      const realmList = this.defaultRealmList();
+      console.log('[SFW] Realm list to be created', realmList);
+      
+      const created = await this.updateRealms(realmList);
+      console.log('[SFW] Realm list created', created);
+      
+      const firstRealm = await this.updateRealm(realmList.realms[0]);
+      console.log('[SFW] First realm created', firstRealm);
+
+    } catch(error){
+      console.error(
+        'Something really bad happened when trying to create the realm',
+        error
+      );
+    }
   }
 
   defaultRealmList(): RealmList {
@@ -83,12 +85,16 @@ export class PersistenceService {
     return result;
   }
 
-  getRealmList(): Promise<Realm[]> {
+  getRealmList(): Promise<RealmList> {
     return this.db.get(REALMLIST);
   }
 
   updateRealms(realmList: RealmList) {
     return this.db.put(realmList);
+  }
+  
+  updateRealm(realm: Realm) {
+    return this.db.put(realm);
   }
 
   newRealm(): Realm {
