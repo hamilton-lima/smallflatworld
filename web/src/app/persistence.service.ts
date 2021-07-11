@@ -24,7 +24,7 @@ const uniqueNameConfig: Config = {
 const REALMLIST = 'realm-list';
 
 export class Realm {
-  id: string;
+  _id: string;
   name: string;
 }
 
@@ -53,7 +53,7 @@ export class PersistenceService {
       (reject) => {
         if (reject.status == 404) {
           console.warn('[SFW] Realm list is not here, will create', reject);
-          const realmList = this.getDefaultRealmList();
+          const realmList = this.defaultRealmList();
           console.log('[SFW] realmlist to be created', realmList);
           this.updateRealms(realmList).then(
             (result) => {
@@ -73,11 +73,12 @@ export class PersistenceService {
     console.log('[SFW] Fine. everything is fine.');
   }
 
-  getDefaultRealmList(): RealmList {
+  defaultRealmList(): RealmList {
+    const realm = this.newRealm();
     const result = <RealmList>{
       _id: REALMLIST,
-      currentRealm: null,
-      realms: [],
+      currentRealm: realm._id,
+      realms: [realm],
     };
     return result;
   }
@@ -90,13 +91,12 @@ export class PersistenceService {
     return this.db.put(realmList);
   }
 
-  // addRealm(): Promise<Realm> {
-  //   this.getRealms().then( (realms: Realm[])=>{
-  //     const realm = new Realm();
-  //     realm.id = uuidv4();
-  //     realm.name = uniqueNamesGenerator(uniqueNameConfig);
-  //     realms.push(realm);
-  //     return this.updateRealms(realms);
-  //   })
-  // }
+  newRealm(): Realm {
+    const result = <Realm>{
+      _id: uuidv4(),
+      name: uniqueNamesGenerator(uniqueNameConfig),
+    };
+
+    return result;
+  }
 }
