@@ -42,7 +42,7 @@ export class PersistenceService {
 
   constructor() {
     this.db = new PouchDB('smallflatworld');
-    console.log('Local database', this.db);
+    console.log('[SFW] Local database', this.db);
   }
 
   healthCheck() {
@@ -77,8 +77,8 @@ export class PersistenceService {
     const result = <RealmList>{
       _id: REALMLIST,
       currentRealm: null,
-      realms: []
-    }
+      realms: [],
+    };
     return result;
   }
 
@@ -87,12 +87,8 @@ export class PersistenceService {
   }
 
   updateRealms(realmList: RealmList) {
-    return this.db.put(REALMLIST, realmList);
+    return this.db.put(realmList);
   }
-
-  // getEnvironment(): Promise<Environment> {
-  //   return this.db.get(ENVIRONMENT);
-  // }
 
   // addRealm(): Promise<Realm> {
   //   this.getRealms().then( (realms: Realm[])=>{
