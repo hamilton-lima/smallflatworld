@@ -13,6 +13,8 @@ export class RealmService {
     // TODO: wait for this to be ready
     this.setup().then(() => {
       console.log('setup is done');
+    }, (error)=>{
+      console.error('[SMF] Error on Realm setup', error);
     });
   }
 

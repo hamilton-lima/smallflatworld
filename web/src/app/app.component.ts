@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PersistenceService } from './realm/persistence.service';
 
 @Component({
@@ -6,9 +6,16 @@ import { PersistenceService } from './realm/persistence.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'web';
+  ready = false;
   constructor(private persistence: PersistenceService){
-    persistence.healthCheck();
+  }
+  ngOnInit(): void {
+    this.persistence.ready().then( ()=>{
+      this.ready = true;
+    }, (error)=>{
+      console.error('Something happened when initializing the system', error);
+    });
   }
 }

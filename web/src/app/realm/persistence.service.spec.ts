@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { DB_NAME, PersistenceService } from './persistence.service';
 import * as PouchDB from 'pouchdb/dist/pouchdb';
 
-fdescribe('PersistenceService', () => {
+describe('PersistenceService', () => {
   let service: PersistenceService;
 
   beforeEach((done) => {
@@ -34,8 +34,8 @@ fdescribe('PersistenceService', () => {
     });
   });
 
-  it('healthCheck should create realmlist and default values', (done) => {
-    const info = service.healthCheck().then((list) => {
+  it('ready() should create realmlist and default values', (done) => {
+    const info = service.ready().then((list) => {
       expect(list).toBeTruthy();
       expect(list._id).toBeTruthy();
       expect(list.currentRealm).toBeTruthy();

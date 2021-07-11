@@ -35,7 +35,7 @@ export class PersistenceService {
     this.db = new PouchDB(DB_NAME);
   }
 
-  async healthCheck(): Promise<RealmList> {
+  async ready(): Promise<RealmList> {
     let realmList: RealmList;
 
     try {
