@@ -10,7 +10,7 @@ describe('PersistenceService', () => {
     service = TestBed.inject(PersistenceService);
   });
 
-  fit('should be created', () => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
   });
 });

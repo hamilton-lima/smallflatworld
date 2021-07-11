@@ -42,7 +42,6 @@ export class PersistenceService {
 
   constructor() {
     this.db = new PouchDB('smallflatworld');
-    console.log('[SFW] Local database', this.db);
   }
 
   async healthCheck() {
