@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import * as PouchDB from 'pouchdb';
+/*
+ Removed the expected import below to fix error: 'global is not defined'
+ `import * as PouchDB from 'pouchdb';`
+ @see https://github.com/pouchdb/pouchdb/issues/7263
+*/
+import * as PouchDB from 'pouchdb/dist/pouchdb';
 import { v4 as uuidv4 } from 'uuid';
 import {
   uniqueNamesGenerator,
@@ -37,7 +42,11 @@ export class PersistenceService {
 
   constructor() {
     this.db = new PouchDB('smallflatworld');
-    console.log('persistenc service', this.db);
+    console.log('persistence service', this.db);
+  }
+
+  healthCheck(){
+    console.log('fine. everything is fine.');
   }
 
   // getRealms(): Promise<Realm[]> {
