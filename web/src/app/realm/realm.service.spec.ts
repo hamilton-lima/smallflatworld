@@ -3,7 +3,7 @@ import { PersistenceService } from './persistence.service';
 
 import { RealmService } from './realm.service';
 
-fdescribe('RealmService', () => {
+describe('RealmService', () => {
   let service: RealmService;
 
   beforeEach(() => {

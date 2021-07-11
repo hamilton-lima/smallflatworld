@@ -2,18 +2,19 @@ import { TestBed } from '@angular/core/testing';
 
 import { DB_NAME, PersistenceService } from './persistence.service';
 import * as PouchDB from 'pouchdb/dist/pouchdb';
+import { Realm } from './realm.model';
 
 describe('PersistenceService', () => {
   let service: PersistenceService;
 
-  beforeEach((done) => {
+  beforeEach(() => {
     TestBed.configureTestingModule({});
+    service = TestBed.inject(PersistenceService);
+  });
 
-    // clear all preexisting database data
-    const db = new PouchDB(DB_NAME);
-    db.destroy().then((err, response) => {
-      console.log(err, response);
-      service = TestBed.inject(PersistenceService);
+  afterEach((done) => {
+    service.db.destroy().then((err, response) => {
+      console.log('destroying the database', err);
       done();
     });
   });
@@ -46,5 +47,31 @@ describe('PersistenceService', () => {
 
       done();
     });
+  });
+
+  it('updateRealm should save empty array', async (done) => {
+    try {
+      const ready = await service.ready();
+
+      const realm = <Realm>{
+        _id: 'test-id',
+        name: 'test-name',
+        elements: [],
+      };
+
+      const result = await service.updateRealm(realm);
+      console.log('testing update realm, result of update call', result);
+      const saved = await service.getRealm(realm._id);
+
+      expect(saved._id).toBeTruthy();
+      expect(saved.name).toBeTruthy();
+      expect(saved.elements).toBeTruthy();
+      expect(saved.elements.length).toBe(0);
+      done();
+    } catch (error) {
+      console.error('error testing updateRealm for empty array', error);
+      fail('error when testing update realm');
+      done();
+    }
   });
 });
