@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { PersistenceService } from './persistence.service';
 import { Realm, RealmList, SceneElement } from './realm.model';
 
@@ -9,7 +10,7 @@ export class RealmService {
   private realmList: RealmList;
   private currentRealm: Realm;
 
-  constructor(private persistence: PersistenceService) {}
+  constructor(private persistence: PersistenceService, private logger: NgxFancyLoggerService) {}
 
   async ready(): Promise<Realm> {
     try {
@@ -18,20 +19,24 @@ export class RealmService {
         this.realmList.currentRealm
       );
 
-      console.log('[SMF] Realm setup is done', this.realmList, this.currentRealm);
+      this.logger.info(
+        'Realm setup is done',
+        this.realmList,
+        this.currentRealm
+      );
+      
       return this.currentRealm;
-
     } catch (error) {
-      console.error('[SMF] Error on Realm setup', error);
+      this.logger.error('Error on Realm setup', error);
       return null;
     }
   }
 
-  getRealmList(): RealmList{
+  getRealmList(): RealmList {
     return this.realmList;
   }
 
-  getCurrentRealm(): Realm{
+  getCurrentRealm(): Realm {
     return this.currentRealm;
   }
 
