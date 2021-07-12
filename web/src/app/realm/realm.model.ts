@@ -1,24 +1,26 @@
 import { Vector3 } from '@babylonjs/core';
 
-export class SceneElement {
+export class PouchDBDocument {
+  _id: string;
+  _rev: string;
+}
+
+export class SceneElement extends PouchDBDocument {
   name: string;
   position: Vector3;
   rotation: Vector3;
 }
 
-export class RealmInfo {
-  _id: string;
+export class RealmInfo extends PouchDBDocument {
   name: string;
 }
 
-export class Realm {
-  _id: string;
+export class Realm extends PouchDBDocument {
   name: string;
   elements: SceneElement[];
 }
 
-export class RealmList {
-  _id: string;
+export class RealmList extends PouchDBDocument {
   currentRealm: string;
   realms: RealmInfo[];
 }

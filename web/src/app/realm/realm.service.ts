@@ -36,8 +36,9 @@ export class RealmService {
   }
 
   // TODO: handle errors
-  add(element: SceneElement) {
+  async add(element: SceneElement) {
     this.currentRealm.elements.push(element);
-    this.persistence.updateRealm(this.currentRealm);
+    const updated = await this.persistence.updateRealm(this.currentRealm);
+    this.currentRealm._rev = updated.rev;
   }
 }
