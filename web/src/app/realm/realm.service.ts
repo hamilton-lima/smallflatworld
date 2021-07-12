@@ -18,7 +18,7 @@ export class RealmService {
         this.realmList.currentRealm
       );
 
-      console.log('[SMF] Realm setup is done');
+      console.log('[SMF] Realm setup is done', this.realmList, this.currentRealm);
       return this.currentRealm;
 
     } catch (error) {
