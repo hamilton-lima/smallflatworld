@@ -35,6 +35,7 @@ export class RendererComponent implements AfterViewInit {
     engineState.engine.displayLoadingUI();
 
     engineState.character = this.mesh.addbox(engineState.scene);
+    console.log('character', engineState.character);
     this.editor.setup(engineState.scene);
     this.scenario.setup(engineState.scene);
 
@@ -50,13 +51,12 @@ export class RendererComponent implements AfterViewInit {
     this.scenario.buildRealm(engineState).then(
       () => {
         console.log('engineState after loading', engineState);
-        
-        engineState.engine.hideLoadingUI();
-
         engineState.engine.runRenderLoop(() => {
           this.movement.move(engineState.character);
           engineState.scene.render();
         });
+
+        engineState.engine.hideLoadingUI();
       },
       (error) => {
         this.logger.error('Error when building scenario', error);

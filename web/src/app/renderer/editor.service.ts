@@ -42,8 +42,16 @@ export class EditorService {
   mesh2SceneElement(mesh: Mesh): SceneElement {
     const result = <SceneElement>{
       name: mesh.name,
-      position: mesh.position,
-      rotation: mesh.rotation,
+      position: <Vector3>{
+        x: mesh.position.x,
+        y: mesh.position.y,
+        z: mesh.position.z,
+      },
+      rotation: <Vector3>{
+        x: mesh.rotation.x,
+        y: mesh.rotation.y,
+        z: mesh.rotation.z,
+      },
     };
     return result;
   }
