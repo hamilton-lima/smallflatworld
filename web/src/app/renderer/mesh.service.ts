@@ -18,6 +18,7 @@ export class MeshService {
     height: number,
     color: string,
     position: Vector3,
+    rotation: Vector3,
     name: string
   ): Mesh {
     const box = MeshBuilder.CreateBox(
@@ -28,7 +29,9 @@ export class MeshService {
     const material = new StandardMaterial('material', scene);
     material.diffuseColor = Color3.FromHexString(color);
     box.material = material;
+    console.log('position', position);
     box.position = position;
+    box.rotation = rotation;
     box.isVisible = true;
     return box;
   }
@@ -36,11 +39,28 @@ export class MeshService {
   addbox(scene: Scene): Mesh {
     const position = Vector3.Zero();
     position.y = 1;
-    return this._addbox(scene, 1, 1, '#FF0000', position, 'box');
+    return this._addbox(
+      scene,
+      1,
+      1,
+      '#FF0000',
+      position,
+      Vector3.Zero(),
+      'box'
+    );
   }
 
   addTallbox(scene: Scene, position: Vector3, name: string): Mesh {
-    return this._addbox(scene, 1, 3, '#00FF00', position, name);
+    return this._addbox(scene, 1, 3, '#00FF00', position, Vector3.Zero(), name);
+  }
+
+  addRotatedTallbox(
+    scene: Scene,
+    position: Vector3,
+    rotation: Vector3,
+    name: string
+  ) {
+    return this._addbox(scene, 1, 3, '#00FF00', position, rotation, name);
   }
 
   constructor() {}

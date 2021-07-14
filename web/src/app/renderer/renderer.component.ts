@@ -49,6 +49,8 @@ export class RendererComponent implements AfterViewInit {
 
     this.scenario.buildRealm(engineState).then(
       () => {
+        console.log('engineState after loading', engineState);
+        
         engineState.engine.hideLoadingUI();
 
         engineState.engine.runRenderLoop(() => {
