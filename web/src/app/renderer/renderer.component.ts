@@ -4,11 +4,7 @@ import { MeshService } from './mesh.service';
 import { MovementService } from './movement.service';
 import { CameraService } from './camera.service';
 import { EditorService } from './editor.service';
-import { ScenarioService} from './scenario.service';
-import {
-  Mesh,
-  Vector3,
-} from '@babylonjs/core';
+import { ScenarioService } from './scenario.service';
 
 @Component({
   selector: 'app-renderer',
@@ -24,7 +20,7 @@ export class RendererComponent implements AfterViewInit {
     private movement: MovementService,
     private camera: CameraService,
     private editor: EditorService,
-    private scenario: ScenarioService,
+    private scenario: ScenarioService
   ) {}
 
   ngAfterViewInit(): void {
@@ -37,7 +33,7 @@ export class RendererComponent implements AfterViewInit {
     engineState.character = this.mesh.addbox(engineState.scene);
     this.editor.setup(engineState.scene);
     this.scenario.setup(engineState.scene);
-    
+
     engineState.camera = this.camera.setup(
       engineState.scene,
       engineState.character
@@ -51,7 +47,6 @@ export class RendererComponent implements AfterViewInit {
       this.movement.move(engineState.character);
       engineState.scene.render();
     });
-
   }
 
   keydown(event: KeyboardEvent): void {
