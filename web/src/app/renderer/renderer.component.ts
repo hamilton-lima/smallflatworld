@@ -5,6 +5,7 @@ import { MovementService } from './movement.service';
 import { CameraService } from './camera.service';
 import { EditorService } from './editor.service';
 import { ScenarioService } from './scenario.service';
+import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 
 @Component({
   selector: 'app-renderer',
@@ -20,7 +21,8 @@ export class RendererComponent implements AfterViewInit {
     private movement: MovementService,
     private camera: CameraService,
     private editor: EditorService,
-    private scenario: ScenarioService
+    private scenario: ScenarioService,
+    private logger: NgxFancyLoggerService
   ) {}
 
   ngAfterViewInit(): void {
@@ -30,6 +32,8 @@ export class RendererComponent implements AfterViewInit {
 
   init(): void {
     const engineState = this.service.setup(this.canvas);
+    engineState.engine.displayLoadingUI();
+
     engineState.character = this.mesh.addbox(engineState.scene);
     this.editor.setup(engineState.scene);
     this.scenario.setup(engineState.scene);
@@ -43,10 +47,19 @@ export class RendererComponent implements AfterViewInit {
       engineState.engine.resize();
     });
 
-    engineState.engine.runRenderLoop(() => {
-      this.movement.move(engineState.character);
-      engineState.scene.render();
-    });
+    this.scenario.buildRealm(engineState).then(
+      () => {
+        engineState.engine.hideLoadingUI();
+
+        engineState.engine.runRenderLoop(() => {
+          this.movement.move(engineState.character);
+          engineState.scene.render();
+        });
+      },
+      (error) => {
+        this.logger.error('Error when building scenario', error);
+      }
+    );
   }
 
   keydown(event: KeyboardEvent): void {
