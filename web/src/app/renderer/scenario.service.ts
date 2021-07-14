@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Scene, Color3, StandardMaterial, MeshBuilder, Vector3 } from '@babylonjs/core';
+import {
+  Scene,
+  Color3,
+  StandardMaterial,
+  MeshBuilder,
+  Vector3,
+} from '@babylonjs/core';
+import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { RealmService } from '../realm/realm.service';
 import { MeshService } from './mesh.service';
 import { EngineState } from './renderer.model';
@@ -8,27 +15,27 @@ import { EngineState } from './renderer.model';
   providedIn: 'root',
 })
 export class ScenarioService {
-  constructor(private mesh: MeshService, private realm: RealmService) {}
+  constructor(
+    private mesh: MeshService,
+    private realm: RealmService,
+    private logger: NgxFancyLoggerService
+  ) {}
 
   buildRealm(engineState: EngineState): Promise<void> {
     return new Promise((resolve) => {
       const total = this.realm.getCurrentRealm().elements.length;
-      console.log('loading ' + total + ' elements');
-      console.log('elements', this.realm.getCurrentRealm().elements);
+      this.logger.info('Loading ' + total + ' elements');
 
-      
       this.realm.getCurrentRealm().elements.forEach((element) => {
-          console.log('loading', element);
-          const position = this.buildVector3(element.position);
-          const rotation = this.buildVector3(element.rotation);
+        const position = this.buildVector3(element.position);
+        const rotation = this.buildVector3(element.rotation);
 
-          const mesh = this.mesh.addRotatedTallbox(
-            engineState.scene,
-            position,
-            rotation,
-            element.name
-          );
-          console.log('mesh', mesh);
+        const mesh = this.mesh.addRotatedTallbox(
+          engineState.scene,
+          position,
+          rotation,
+          element.name
+        );
       });
       resolve();
     });
