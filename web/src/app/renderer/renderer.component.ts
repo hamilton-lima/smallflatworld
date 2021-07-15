@@ -6,6 +6,7 @@ import { CameraService } from './camera.service';
 import { EditorService } from './editor.service';
 import { ScenarioService } from './scenario.service';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
+import { InputService } from '../input.service';
 
 @Component({
   selector: 'app-renderer',
@@ -22,12 +23,14 @@ export class RendererComponent implements AfterViewInit {
     private camera: CameraService,
     private editor: EditorService,
     private scenario: ScenarioService,
-    private logger: NgxFancyLoggerService
+    private logger: NgxFancyLoggerService,
+    private input: InputService
   ) {}
 
   ngAfterViewInit(): void {
     this.init();
-    this.canvas.nativeElement.focus();
+    this.input.setTarget(this.canvas);
+    this.input.focus();
   }
 
   init(): void {
