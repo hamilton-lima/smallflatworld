@@ -17,6 +17,7 @@ export class RealmInfo extends PouchDBDocument {
 
 export class Realm extends PouchDBDocument {
   name: string;
+  character: SceneElement;
   elements: SceneElement[];
 }
 

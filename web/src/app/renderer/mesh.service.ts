@@ -50,6 +50,15 @@ export class MeshService {
     );
   }
 
+  addRotatedBox(
+    scene: Scene,
+    position: Vector3,
+    rotation: Vector3,
+    name: string
+  ) {
+    return this._addbox(scene, 1, 1, '#FF0000', position, rotation, name);
+  }
+
   addTallbox(scene: Scene, position: Vector3, name: string): Mesh {
     return this._addbox(scene, 1, 3, '#00FF00', position, Vector3.Zero(), name);
   }

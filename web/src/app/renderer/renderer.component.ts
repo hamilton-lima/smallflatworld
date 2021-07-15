@@ -34,15 +34,8 @@ export class RendererComponent implements AfterViewInit {
     const engineState = this.service.setup(this.canvas);
     engineState.engine.displayLoadingUI();
 
-    engineState.character = this.mesh.addbox(engineState.scene);
-    console.log('character', engineState.character);
     this.editor.setup(engineState.scene);
     this.scenario.setup(engineState.scene);
-
-    engineState.camera = this.camera.setup(
-      engineState.scene,
-      engineState.character
-    );
 
     window.addEventListener('resize', () => {
       engineState.engine.resize();
@@ -51,6 +44,12 @@ export class RendererComponent implements AfterViewInit {
     this.scenario.buildRealm(engineState).then(
       () => {
         console.log('engineState after loading', engineState);
+
+        engineState.camera = this.camera.setup(
+          engineState.scene,
+          engineState.character
+        );
+    
         engineState.engine.runRenderLoop(() => {
           this.movement.move(engineState.character);
           engineState.scene.render();

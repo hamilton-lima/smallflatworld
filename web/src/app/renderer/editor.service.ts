@@ -13,6 +13,7 @@ import { MeshService } from './mesh.service';
 import { RealmService } from '../realm/realm.service';
 import { SceneElement } from '../realm/realm.model';
 import { v4 as uuidv4 } from 'uuid';
+import { mesh2SceneElement } from './builders';
 
 const POINTERDOWN = 'pointerdown';
 
@@ -30,7 +31,7 @@ export class EditorService {
           const position = pointerInfo.pickInfo.pickedPoint;
           position.y = 1;
           const mesh = this.mesh.addTallbox(scene, position, uuidv4());
-          const element = this.mesh2SceneElement(mesh);
+          const element = mesh2SceneElement(mesh);
           this.realm.add(element);
         }
       }
@@ -39,20 +40,5 @@ export class EditorService {
     return scene;
   }
 
-  mesh2SceneElement(mesh: Mesh): SceneElement {
-    const result = <SceneElement>{
-      name: mesh.name,
-      position: <Vector3>{
-        x: mesh.position.x,
-        y: mesh.position.y,
-        z: mesh.position.z,
-      },
-      rotation: <Vector3>{
-        x: mesh.rotation.x,
-        y: mesh.rotation.y,
-        z: mesh.rotation.z,
-      },
-    };
-    return result;
-  }
+
 }

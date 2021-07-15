@@ -7,7 +7,9 @@ import {
   Vector3,
 } from '@babylonjs/core';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
+import { SceneElement } from '../realm/realm.model';
 import { RealmService } from '../realm/realm.service';
+import { buildVector3 } from './builders';
 import { MeshService } from './mesh.service';
 import { EngineState } from './renderer.model';
 
@@ -26,9 +28,12 @@ export class ScenarioService {
       const total = this.realm.getCurrentRealm().elements.length;
       this.logger.info('Loading ' + total + ' elements');
 
+      const character = this.realm.getCurrentRealm().character;
+      engineState.character = this.addCharacter(engineState.scene, character);
+
       this.realm.getCurrentRealm().elements.forEach((element) => {
-        const position = this.buildVector3(element.position);
-        const rotation = this.buildVector3(element.rotation);
+        const position = buildVector3(element.position);
+        const rotation = buildVector3(element.rotation);
 
         const mesh = this.mesh.addRotatedTallbox(
           engineState.scene,
@@ -41,8 +46,11 @@ export class ScenarioService {
     });
   }
 
-  buildVector3(vector3: Vector3) {
-    return new Vector3(vector3.x, vector3.y, vector3.z);
+  addCharacter(scene: Scene, character: SceneElement) {
+    const position = buildVector3(character.position);
+    const rotation = buildVector3(character.rotation);
+
+    return this.mesh.addRotatedBox(scene, position, rotation, character.name);
   }
 
   setup(scene: Scene) {
