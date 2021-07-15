@@ -1,1 +1,9 @@
 <app-renderer *ngIf="ready"></app-renderer>
+<mat-sidenav-container class="container">
+  <mat-sidenav>Start</mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-icon-button class="mr-2 mt-2" (click)="download()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </mat-sidenav-content>
+</mat-sidenav-container>
