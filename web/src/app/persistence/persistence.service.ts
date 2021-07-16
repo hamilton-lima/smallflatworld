@@ -1,11 +1,4 @@
 import { Injectable } from '@angular/core';
-/*
- Removed the expected import below to fix error: 'global is not defined'
- `import * as PouchDB from 'pouchdb';`
- @see for recommended import https://pouchdb.com/guides/setup-pouchdb.html#typescript
- @see for issue and fix https://github.com/pouchdb/pouchdb/issues/7263
-*/
-import * as PouchDB from 'pouchdb/dist/pouchdb';
 import { v4 as uuidv4 } from 'uuid';
 import {
   uniqueNamesGenerator,
