@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { InputService } from '../input.service';
 import { RealmUploadComponent } from './realm-upload/realm-upload.component';
 
 @Injectable({
@@ -7,7 +8,8 @@ import { RealmUploadComponent } from './realm-upload/realm-upload.component';
 })
 export class RealmUploadService {
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog,     private input: InputService,
+    ) {}
 
   openDialog() {
   }
@@ -15,6 +17,7 @@ export class RealmUploadService {
     const dialogRef = this.dialog.open(RealmUploadComponent, {minWidth: 500});
 
     dialogRef.afterClosed().subscribe(result => {
+      this.input.focus();
     });
 
   }

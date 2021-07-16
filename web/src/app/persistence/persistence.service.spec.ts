@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { DB_NAME, PersistenceService } from './persistence.service';
 import * as PouchDB from 'pouchdb/dist/pouchdb';
-import { Realm } from './realm.model';
+import { Realm } from './persistence.model';
 
 describe('PersistenceService', () => {
   let service: PersistenceService;
@@ -13,10 +13,10 @@ describe('PersistenceService', () => {
   });
 
   afterEach((done) => {
-    service.db.destroy().then((err, response) => {
-      console.log('destroying the database', err);
-      done();
-    });
+    // service.db.destroy().then((err, response) => {
+    //   console.log('destroying the database', err);
+    //   done();
+    // });
   });
 
   it('should be created', () => {

@@ -29,7 +29,6 @@ export class MeshService {
     const material = new StandardMaterial('material', scene);
     material.diffuseColor = Color3.FromHexString(color);
     box.material = material;
-    console.log('position', position);
     box.position = position;
     box.rotation = rotation;
     box.isVisible = true;

@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
+import { Realm } from 'src/app/persistence/persistence.model';
 import { RendererService } from 'src/app/renderer/renderer.service';
-import { Realm } from '../realm.model';
 import { RealmService } from '../realm.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class RealmUploadComponent {
     public dialogRef: MatDialogRef<RealmUploadComponent>,
     private logger: NgxFancyLoggerService,
     private realmService: RealmService,
-    private renderer: RendererService,
+    private renderer: RendererService
   ) {}
 
   uploadFileEvt(imgFile: any) {
@@ -40,10 +40,10 @@ export class RealmUploadComponent {
     this.dialogRef.close();
   }
 
-  import(){
-    this.realmService.addRealm(this.realm).then( ()=>{
+  import() {
+    this.realmService.updateRealm(this.realm).then(() => {
       this.renderer.reload.next();
       this.dialogRef.close();
-    })
+    });
   }
 }

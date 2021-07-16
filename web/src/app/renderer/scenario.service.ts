@@ -7,7 +7,7 @@ import {
   Vector3,
 } from '@babylonjs/core';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
-import { SceneElement } from '../realm/realm.model';
+import { SceneElement } from '../persistence/persistence.model';
 import { RealmService } from '../realm/realm.service';
 import { buildVector3 } from './builders';
 import { MeshService } from './mesh.service';
