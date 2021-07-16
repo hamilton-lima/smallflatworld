@@ -61,7 +61,38 @@ export class PersistenceService {
       await this.defaultRealm();
       await this.defaultConfiguration();
     } catch (error) {
-      this.logger.error('Error when initializing default values for the database', error);
+      this.logger.error(
+        'Error when initializing default values for the database',
+        error
+      );
+    }
+  }
+
+  // create an empty realm if none exists
+  async defaultRealm() {
+    const realms = await this.db.realms.toArray();
+    this.logger.info('default realm found', realms);
+
+    console.log('realms', realms);
+    if (realms.length == 0) {
+      const realm = this.buildRealm();
+      const add = await this.db.realms.add(realm);
+      this.logger.info('default realm created', realm, add);
+    }
+  }
+
+  // add default configuration if does not exist
+  async defaultConfiguration() {
+    const configuration = await this.db.configuration.toArray();
+    this.logger.info('default configuration found', configuration);
+    if (configuration.length == 0) {
+      const realm = await this.getLastRealm();
+      const configuration = <Configuration>{
+        id: uuidv4(),
+        currentRealm: realm.id,
+      };
+      const add = await this.db.configuration.add(configuration);
+      this.logger.info('default configuration created', configuration, add);
     }
   }
 
@@ -73,27 +104,6 @@ export class PersistenceService {
   async getConfiguration() {
     const configurations = await this.db.configuration.toCollection().toArray();
     return configurations[0];
-  }
-
-  // create an empty realm if none exists
-  async defaultRealm() {
-    const realms = await this.db.realms.toArray();
-    if (realms.length == 0) {
-      const realm = this.buildRealm();
-      const add = await this.db.realms.add(realm);
-    }
-  }
-
-  // add default configuration if does not exist
-  async defaultConfiguration() {
-    const configuration = await this.db.configuration.toArray();
-    if (configuration.length == 0) {
-      const realm = await this.getLastRealm();
-      const configuration = <Configuration>{
-        currentRealm: realm.id,
-      };
-      const add = await this.db.configuration.add(configuration);
-    }
   }
 
   // last realm in the database to be used in the configuration

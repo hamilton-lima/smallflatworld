@@ -21,12 +21,11 @@ export class RealmService {
   async ready(): Promise<Realm> {
     try {
       await this.persistence.ready();
+      const configuration = await this.configuration.getConfiguration();
 
       // gets current realm
       this.currentRealm = await this.persistence.getRealm(
-        (
-          await this.configuration.getConfiguration()
-        ).currentRealm
+        configuration.currentRealm
       );
 
       // checks for character in the current realm
@@ -37,7 +36,6 @@ export class RealmService {
 
       this.logger.info('Realm setup is done', this.currentRealm);
       return this.currentRealm;
-
     } catch (error) {
       this.logger.error('Error on Realm setup', error);
       return null;

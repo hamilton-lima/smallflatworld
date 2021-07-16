@@ -14,5 +14,6 @@ export class Realm {
 }
 
 export class Configuration {
+  id: string;
   currentRealm: string;
 }
