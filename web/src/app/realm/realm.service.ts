@@ -1,40 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Vector3 } from '@babylonjs/core';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
-import { PersistenceService } from './persistence.service';
-import { Realm, RealmInfo, RealmList, SceneElement } from './realm.model';
+import { Realm, SceneElement } from '../persistence/persistence.model';
+import { PersistenceService } from '../persistence/persistence.service';
+import { ConfigurationService } from '../configuration.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RealmService {
-  private realmList: RealmList;
   private currentRealm: Realm;
   acceptingUpdates = true;
 
   constructor(
     private persistence: PersistenceService,
-    private logger: NgxFancyLoggerService
+    private logger: NgxFancyLoggerService,
+    private configuration: ConfigurationService
   ) {}
 
   async ready(): Promise<Realm> {
     try {
-      this.realmList = await this.persistence.ready();
+      await this.persistence.ready();
+
+      // gets current realm
       this.currentRealm = await this.persistence.getRealm(
-        this.realmList.currentRealm
+        (
+          await this.configuration.getConfiguration()
+        ).currentRealm
       );
 
+      // checks for character in the current realm
       if (!this.currentRealm.character) {
         this.currentRealm.character = this.defaultCharacter();
+        await this.persistence.updateRealm(this.currentRealm);
       }
 
-      this.logger.info(
-        'Realm setup is done',
-        this.realmList,
-        this.currentRealm
-      );
-
+      this.logger.info('Realm setup is done', this.currentRealm);
       return this.currentRealm;
+
     } catch (error) {
       this.logger.error('Error on Realm setup', error);
       return null;
@@ -51,63 +54,30 @@ export class RealmService {
     };
   }
 
-  getRealmList(): RealmList {
-    return this.realmList;
-  }
-
   getCurrentRealm(): Realm {
     return this.currentRealm;
   }
 
-  // TODO: remove this
-  updateRealmBusy = false;
-
-  // TODO: add queue to prevent synchronization issues with udpateCharacter
   async _updateRealm() {
-    if (this.updateRealmBusy) {
-      return;
-    }
-    this.updateRealmBusy = true;
     const updated = await this.persistence.updateRealm(this.currentRealm);
-    this.currentRealm._rev = updated.rev;
-    this.updateRealmBusy = false;
-    return this.currentRealm;
   }
 
+  // add new scene elements
   async add(element: SceneElement) {
-    if (this.acceptingUpdates) {
-      this.currentRealm.elements.push(element);
-      return this._updateRealm();
-    } else {
-      this.logger.warning('not accepting updates');
-    }
-    return;
+    this.currentRealm.elements.push(element);
+    return this._updateRealm();
   }
 
+  // update character state
   async updateCharacter(character: SceneElement) {
-    if (this.acceptingUpdates) {
-      this.currentRealm.character = character;
-      return this._updateRealm();
-    } else {
-      this.logger.warning('not accepting updates');
-    }
-    return;
+    this.currentRealm.character = character;
+    return this._updateRealm();
   }
 
   // add new realm and set as current
-  async addRealm(realm: Realm) {
-    this.acceptingUpdates = false;
-    this.realmList.realms.push(<RealmInfo>{ name: realm.name, _id: realm._id });
-    await this._updateRealmList();
+  async updateRealm(realm: Realm) {
     this.currentRealm = realm;
     await this._updateRealm();
-    this.acceptingUpdates = true;
-    return;
-  }
-
-  async _updateRealmList() {
-    const updated = await this.persistence.updateRealms(this.realmList);
-    this.realmList._rev = updated.rev;
-    return this.realmList;
+    await this.configuration.setCurrentRealm(realm.id);
   }
 }

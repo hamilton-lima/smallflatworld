@@ -1,5 +1,5 @@
 import { Mesh, Vector3 } from '@babylonjs/core';
-import { SceneElement } from '../realm/realm.model';
+import { SceneElement } from '../persistence/persistence.model';
 
 export function mesh2SceneElement(mesh: Mesh): SceneElement {
   const result = <SceneElement>{
