@@ -7,9 +7,10 @@ import { RendererComponent } from './renderer/renderer.component';
 import { LogLevel, NgxFancyLoggerModule } from 'ngx-fancy-logger';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialAllComponentsModule } from './material-all-components-module';
+import { RealmUploadComponent } from './realm/realm-upload/realm-upload.component';
 
 @NgModule({
-  declarations: [AppComponent, RendererComponent],
+  declarations: [AppComponent, RendererComponent, RealmUploadComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
