@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Vector3 } from '@babylonjs/core';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { PersistenceService } from './persistence.service';
-import { Realm, RealmList, SceneElement } from './realm.model';
+import { Realm, RealmInfo, RealmList, SceneElement } from './realm.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,7 @@ import { Realm, RealmList, SceneElement } from './realm.model';
 export class RealmService {
   private realmList: RealmList;
   private currentRealm: Realm;
+  acceptingUpdates = true;
 
   constructor(
     private persistence: PersistenceService,
@@ -58,12 +59,12 @@ export class RealmService {
     return this.currentRealm;
   }
 
-  // TODO: remove this 
+  // TODO: remove this
   updateRealmBusy = false;
 
   // TODO: add queue to prevent synchronization issues with udpateCharacter
   async _updateRealm() {
-    if( this.updateRealmBusy ){
+    if (this.updateRealmBusy) {
       return;
     }
     this.updateRealmBusy = true;
@@ -74,12 +75,39 @@ export class RealmService {
   }
 
   async add(element: SceneElement) {
-    this.currentRealm.elements.push(element);
-    return this._updateRealm();
+    if (this.acceptingUpdates) {
+      this.currentRealm.elements.push(element);
+      return this._updateRealm();
+    } else {
+      this.logger.warning('not accepting updates');
+    }
+    return;
   }
 
   async updateCharacter(character: SceneElement) {
-    this.currentRealm.character = character;
-    return this._updateRealm();
+    if (this.acceptingUpdates) {
+      this.currentRealm.character = character;
+      return this._updateRealm();
+    } else {
+      this.logger.warning('not accepting updates');
+    }
+    return;
+  }
+
+  // add new realm and set as current
+  async addRealm(realm: Realm) {
+    this.acceptingUpdates = false;
+    this.realmList.realms.push(<RealmInfo>{ name: realm.name, _id: realm._id });
+    await this._updateRealmList();
+    this.currentRealm = realm;
+    await this._updateRealm();
+    this.acceptingUpdates = true;
+    return;
+  }
+
+  async _updateRealmList() {
+    const updated = await this.persistence.updateRealms(this.realmList);
+    this.realmList._rev = updated.rev;
+    return this.realmList;
   }
 }

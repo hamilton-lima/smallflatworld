@@ -31,6 +31,8 @@ export class RendererComponent implements AfterViewInit {
     this.init();
     this.input.setTarget(this.canvas);
     this.input.focus();
+    
+    this.service.reload.subscribe( _ => this.init() );
   }
 
   init(): void {

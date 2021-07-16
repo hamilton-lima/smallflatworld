@@ -15,12 +15,15 @@ import {
   Space,
   Camera,
 } from '@babylonjs/core';
+import { Subject } from 'rxjs';
 import { EngineState } from './renderer.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RendererService {
+  reload: Subject<void> = new Subject();
+  
   setup(canvas: ElementRef<HTMLCanvasElement>): EngineState {
     const result = new EngineState();
     result.engine = new Engine(canvas.nativeElement, true);
