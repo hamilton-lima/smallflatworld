@@ -1,7 +1,5 @@
-<h2 mat-dialog-title>Install Angular</h2>
+<h2 mat-dialog-title>Upload a realm file</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Upload a saved realm</h3>
-
   <div>
     <!-- Fetch selected filed on change -->
     <input
@@ -13,8 +11,16 @@
       accept="application/JSON"
     />
   </div>
+  <div class="confirm-message" *ngIf="realm">
+    <p>
+      Realm <b>{{realm.name}}</b> has <b>{{realm.elements.length}}</b> elements, 
+      this will override your current realm. are you sure?
+    </p>
+    <p>
+      <button mat-raised-button (click)="import()" cdkFocusInitial>YES</button>  
+    </p>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+  <button mat-raised-button (click)="close()" cdkFocusInitial>CLOSE</button>
 </mat-dialog-actions>

@@ -15,7 +15,6 @@ export class RealmUploadService {
     const dialogRef = this.dialog.open(RealmUploadComponent, {minWidth: 500});
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
 
   }
