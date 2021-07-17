@@ -9,7 +9,7 @@ import {
   Skeleton,
 } from '@babylonjs/core';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
-import { GLTFFileLoader} from '@babylonjs/loaders';
+import { GLTFFileLoader } from '@babylonjs/loaders';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,39 @@ import { GLTFFileLoader} from '@babylonjs/loaders';
 export class MeshLoaderService {
   constructor(private logger: NgxFancyLoggerService) {
     GLTFFileLoader.IncrementalLoading = false;
+  }
+
+  public loadVisible(scene: Scene, fileName: string, meshName: string) {
+    return this.load(scene, fileName, meshName, true);
+  }
+
+  public load(
+    scene: Scene,
+    fileName: string,
+    meshName: string,
+    visible = false
+  ) {
+    const self = this;
+    return new Promise<AbstractMesh>((resolve, reject) => {
+      this.loadAllMeshes(scene, fileName, visible).then(
+        (meshes: AbstractMesh[]) => {
+          let result: AbstractMesh;
+          meshes.forEach((mesh) => {
+            if (mesh.name === meshName) {
+              result = mesh;
+            }
+          });
+
+          if (result) {
+            result.isVisible = visible;
+            result.isPickable = true;
+            resolve(result);
+          } else {
+            reject('Mesh not found: ' + meshName);
+          }
+        }
+      );
+    });
   }
 
   // load all meshes from specific file from /assets folder
