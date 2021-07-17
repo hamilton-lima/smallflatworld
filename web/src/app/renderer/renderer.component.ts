@@ -8,6 +8,7 @@ import { ScenarioService } from './scenario.service';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { InputService } from '../input.service';
 import { MeshLoaderService } from '../mesh/mesh-loader.service';
+import { CharacterService} from '../mesh/character.service';
 
 @Component({
   selector: 'app-renderer',
@@ -26,7 +27,8 @@ export class RendererComponent implements AfterViewInit {
     private scenario: ScenarioService,
     private logger: NgxFancyLoggerService,
     private input: InputService,
-    private loader: MeshLoaderService
+    private loader: MeshLoaderService,
+    private character: CharacterService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -52,21 +54,7 @@ export class RendererComponent implements AfterViewInit {
       () => {
         console.log('engineState after loading', engineState);
 
-        engineState.camera = this.camera.setup(
-          engineState.scene,
-          engineState.character
-        );
-
-        const character = this.loader.loadAllMeshes(
-          engineState.scene,
-          'character/model/characterMedium.glb',
-          true
-        );
-
-        engineState.engine.runRenderLoop(() => {
-          this.movement.move(engineState.character);
-          engineState.scene.render();
-        });
+        this.character.load(engineState);
 
         engineState.engine.hideLoadingUI();
       },
