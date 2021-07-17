@@ -28,32 +28,19 @@ export class CharacterService {
       true
     );
     const run = animations[1];
-    // experiment 1
-    // run.start(true);
 
-    // experiment 2
-    // const newRun = run.clone('new-run', ()=>{
-    //   return mesh;
-    // })
-    // newRun.start(true);
-
-    // experiment 3
-    // run.targetedAnimations.forEach( (animation)=>{
-    //   animation.target = mesh.skeleton;
-    // })
-    // run.start(true);
-
-    // experiment 4
-    // run.targetedAnimations.forEach((animation) => {
-    //   animation.target = mesh;
-    // });
-    // run.start(true);
-
-    // check playAnimation() https://playground.babylonjs.com/#9CLJEF
+    // oldTarget represents the name of the bone in the imported animation group
+    // clone will use the provided function to search for the bone in the target mesh skeleton
+    // and target the cloned animationGroup to the new bones.
+    // the function will be called for each animation
+    const newRun = run.clone('new-run', (oldTarget)=>{
+      const target = mesh.skeleton.bones.filter( bone => bone.id == oldTarget.id );
+      console.log('old target', oldTarget, target);
+      return target;
+    })
+    newRun.start(true);
 
     console.log('animations', run.targetedAnimations[0].target);
-
-    // console.log('animations', run.targetedAnimations, run.targetedAnimations[0].target);
 
     const material = new StandardMaterial(
       'character-texture',
