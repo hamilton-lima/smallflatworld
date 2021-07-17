@@ -26,6 +26,7 @@ class LocalDatabase extends Dexie {
 
   public constructor() {
     super(DB_NAME);
+    // defines indexed fields of the entities
     this.version(1).stores({
       realms: 'id,&name',
       configuration: 'id',

@@ -7,6 +7,7 @@ import { EditorService } from './editor.service';
 import { ScenarioService } from './scenario.service';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { InputService } from '../input.service';
+import { MeshLoaderService } from '../mesh/mesh-loader.service';
 
 @Component({
   selector: 'app-renderer',
@@ -24,15 +25,16 @@ export class RendererComponent implements AfterViewInit {
     private editor: EditorService,
     private scenario: ScenarioService,
     private logger: NgxFancyLoggerService,
-    private input: InputService
+    private input: InputService,
+    private loader: MeshLoaderService
   ) {}
 
   ngAfterViewInit(): void {
     this.init();
     this.input.setTarget(this.canvas);
     this.input.focus();
-    
-    this.service.reload.subscribe( _ => this.init() );
+
+    this.service.reload.subscribe((_) => this.init());
   }
 
   init(): void {
@@ -54,7 +56,13 @@ export class RendererComponent implements AfterViewInit {
           engineState.scene,
           engineState.character
         );
-    
+
+        const character = this.loader.loadAllMeshes(
+          engineState.scene,
+          'character/model/characterMedium.glb',
+          true
+        );
+
         engineState.engine.runRenderLoop(() => {
           this.movement.move(engineState.character);
           engineState.scene.render();
