@@ -67,6 +67,7 @@ export class MeshLoaderService {
             skeletons: Skeleton[];
             animationGroups: AnimationGroup[];
           }) => {
+            console.log('loaded', value);
             value.meshes.forEach((mesh) => {
               mesh.isVisible = visible;
             });
@@ -79,4 +80,31 @@ export class MeshLoaderService {
       }
     });
   }
+
+    // load all animations from specific file from /assets folder
+    public loadAllAnimations(
+      scene: Scene,
+      fileName: string,
+      visible = false
+    ): Promise<AnimationGroup[]> {
+      return new Promise<AnimationGroup[]>((resolve, reject) => {
+        try {
+          SceneLoader.ImportMeshAsync('', 'assets/', fileName, scene).then(
+            (value: {
+              meshes: AbstractMesh[];
+              particleSystems: IParticleSystem[];
+              skeletons: Skeleton[];
+              animationGroups: AnimationGroup[];
+            }) => {
+              console.log('animation loaded', value);
+              resolve(value.animationGroups);
+            }
+          );
+        } catch (error) {
+          this.logger.error('Error while loading all meshes', fileName, error);
+          reject(error);
+        }
+      });
+    }
+  
 }
