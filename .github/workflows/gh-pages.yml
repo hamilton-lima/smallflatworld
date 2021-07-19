@@ -1,0 +1,23 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1 
+      with:
+        node-version: '12.x'
+    - run: cd web
+    - run: npm install
+    - run: npm install -g @angular/cli > /dev/null
+    - run: ng build --prod --output-path=dist 
+    - name: Publish generated content to GitHub Pages
+      uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+      with:
+          dir: dist
+          branch: gh-pages
+          token: ${{ secrets.ACCESS_TOKEN }}
