@@ -17,11 +17,9 @@ jobs:
     - uses: actions/setup-node@v1 
       with:
         node-version: '12.x'
-    - run: pwd
-    - run: ls -alh 
-    # - run: npm install
-    # - run: npm install -g @angular/cli > /dev/null
-    # - run: ng build --prod --output-path=dist 
+    - run: npm install
+    - run: npm install -g @angular/cli > /dev/null
+    - run: ng build --prod --output-path=dist 
 
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.1.4
