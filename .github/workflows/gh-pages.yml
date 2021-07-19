@@ -19,7 +19,7 @@ jobs:
         node-version: '12.x'
     - run: npm install
     - run: npm install -g @angular/cli > /dev/null
-    - run: ng build --prod --output-path=dist 
+    - run: ng build --prod --output-path=dist --base-href="https://hamiltonlima.com/smallflatworld/"
 
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.1.4
