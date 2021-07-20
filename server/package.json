@@ -2,14 +2,21 @@
   "name": "smallflatworld-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "dist/app.js",
   "scripts": {
+    "start": "tsc && node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^14.0.4",
+    "@types/ws": "^7.4.7",
     "uuid": "^8.3.2",
     "ws": "^7.5.3"
+  },
+  "devDependencies": {
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
   }
 }
