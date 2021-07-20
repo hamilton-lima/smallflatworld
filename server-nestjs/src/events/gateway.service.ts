@@ -15,13 +15,14 @@ import {
   export class GatewayService {
     @WebSocketServer()
     server: Server;
-  
+
+ 
     @SubscribeMessage('events')
     handleEvent(
       @MessageBody() data: string,
       @ConnectedSocket() client: Socket,
     ): string {
-        console.log('message received', data);
+        console.log('message received', data, JSON.stringify(client));
         return data + '-echo';
     }
 
