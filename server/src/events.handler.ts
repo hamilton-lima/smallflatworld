@@ -29,6 +29,7 @@ export class EventsHandler {
       handler.handle(this.client, input.data);
     } catch (error) {
       console.error("error parsing message", message);
+      this.client.close();
     }
   }
 
