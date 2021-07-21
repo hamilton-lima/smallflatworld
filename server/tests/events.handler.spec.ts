@@ -4,7 +4,13 @@ import { mock, verify, capture, anything, instance } from "ts-mockito";
 import { EventsHandler } from "../src/events.handler";
 import WebSocket from "ws";
 import { assert } from "console";
-import { Actions, ClientMessage, PingRequest } from "../src/events.model";
+import {
+  Actions,
+  ClientMessage,
+  PingRequest,
+  ShareResponse,
+} from "../src/events.model";
+import { RealmData } from "../src/memory.storage";
 
 _chai.should();
 
@@ -21,12 +27,33 @@ export class EventsHandlerUnitTests {
   }
 
   @test "should respond a ping with a pong"() {
-    const message = JSON.stringify(<ClientMessage>{ action: Actions.Ping, data: {} });
-    console.log('ping message', JSON.stringify(message));
+    const message = JSON.stringify(<ClientMessage>{
+      action: Actions.Ping,
+      data: {},
+    });
+    console.log("ping message", JSON.stringify(message));
     this.handler.onMessage(message);
     verify(this.mockedWebSocket.send(anything())).called();
 
     const response = capture(this.mockedWebSocket.send).first();
     assert(response.toString() == '{ data: "pong"}');
+  }
+
+  @test "should create realm in storage when calling SHARE"() {
+    const message = JSON.stringify(<ClientMessage>{
+      action: Actions.Share,
+      data: {},
+    });
+    console.log("share message", JSON.stringify(message));
+    this.handler.onMessage(message);
+    verify(this.mockedWebSocket.send(anything())).called();
+
+    const response = capture(this.mockedWebSocket.send).first();
+    const joinResponse: ShareResponse = JSON.parse(response.toString());
+    const realmData: RealmData = this.handler.handlers.share.storage.getRealm(
+      joinResponse.uuid
+    );
+    console.log('realmData', JSON.stringify(realmData));
+    assert(realmData);
   }
 }

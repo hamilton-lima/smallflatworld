@@ -28,7 +28,6 @@ export class JoinResponse {}
 export class StateUpdate implements ClientData {}
 
 export class ShareRequest implements ClientData {
-  realmState: string;
 }
 
 export class ShareResponse {

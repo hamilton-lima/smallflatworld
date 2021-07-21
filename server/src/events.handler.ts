@@ -1,23 +1,23 @@
 import WebSocket from "ws";
-import { v4 as uuidv4 } from "uuid";
+
 import { ShareHandler } from "./share.handler";
 import { JoinHandler } from "./join.handler";
 import { UpdateHandler } from "./update.handler";
 import { Handler } from "./handler.interface";
 import { ClientMessage } from "./events.model";
 import { PingHandler } from "./ping.handler";
+import { MemoryStorage } from "./memory.storage";
 
-const handlers = {
-  share: new ShareHandler(),
-  join: new JoinHandler(),
-  update: new UpdateHandler(),
-  ping: new PingHandler(),
-};
-
-uuidv4();
 export class EventsHandler {
   private client: WebSocket;
-
+  
+  readonly handlers = {
+    share: new ShareHandler(new MemoryStorage()),
+    join: new JoinHandler(),
+    update: new UpdateHandler(),
+    ping: new PingHandler(),
+  };
+  
   constructor(client: WebSocket) {
     this.client = client;
   }
@@ -34,7 +34,7 @@ export class EventsHandler {
   }
 
   parse(message: ClientMessage): Handler {
-    const handler = handlers[message.action];
+    const handler = this.handlers[message.action];
     return handler;
   }
 }
