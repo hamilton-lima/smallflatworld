@@ -3,7 +3,7 @@ import { Handler } from "./handler.interface";
 import WebSocket from "ws";
 
 export class PingHandler implements Handler {
-    readonly result = (<PingResponse>{ data: "pong"}).toString();
+    readonly result = JSON.stringify(<PingResponse>{ data: "pong"});
 
     handle(client: WebSocket, request: PingRequest): void {
       console.log("ping");

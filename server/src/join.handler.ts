@@ -23,6 +23,7 @@ export class JoinHandler implements Handler {
       console.error("realm not found", request.uuid);
     }
 
-    client.send(response);
+    const payload = JSON.stringify(response);
+    client.send(payload);
   }
 }
