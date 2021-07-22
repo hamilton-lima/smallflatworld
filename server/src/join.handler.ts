@@ -22,6 +22,8 @@ export class JoinHandler implements Handler {
       response.ready = true;
       
       parent.setRealmID(request.uuid);
+      this.storage.addParticipant(request.uuid, parent.getID(), client);
+      // TODO: notify all participants about the new participant
     } catch (error) {
       console.error("realm not found", request.uuid);
     }

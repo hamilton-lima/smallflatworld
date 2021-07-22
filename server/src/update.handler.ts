@@ -15,5 +15,14 @@ export class UpdateHandler implements Handler {
     request.data.forEach((element) => {
       this.storage.update(parent.getRealmID(), element);
     });
+
+    const payload = JSON.stringify(request);
+
+    // sends udpates to all participants
+    this.storage
+      .getStorage(parent.getRealmID())
+      .participants.map.forEach((participant: WebSocket, key: string) => {
+        participant.send(payload);
+      });
   }
 }

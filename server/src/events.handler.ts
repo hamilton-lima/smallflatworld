@@ -18,7 +18,7 @@ export class EventsHandler {
     share: new ShareHandler(MemoryStorage.getInstance()),
     join: new JoinHandler(MemoryStorage.getInstance()),
     update: new UpdateHandler(MemoryStorage.getInstance()),
-    // TODO: consider add "leave" event 
+    // TODO: consider add "leave" event
     ping: new PingHandler(),
   };
 
@@ -56,7 +56,6 @@ export class EventsHandler {
   }
 
   onClose() {
-    throw new Error('Method not implemented.');
+    MemoryStorage.getInstance().removeParticipant(this.realmID, this.id);
   }
-
 }

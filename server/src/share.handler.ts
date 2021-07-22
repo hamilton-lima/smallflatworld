@@ -11,7 +11,11 @@ export class ShareHandler implements Handler {
     this.storage = storage;
   }
 
-  handle(client: WebSocket, request: ShareRequest, parent: EventsHandler): void {
+  handle(
+    client: WebSocket,
+    request: ShareRequest,
+    parent: EventsHandler
+  ): void {
     console.log("share", request);
 
     const response: ShareResponse = {
@@ -19,7 +23,8 @@ export class ShareHandler implements Handler {
     };
 
     parent.setRealmID(response.uuid);
-    
+    this.storage.addParticipant(response.uuid, parent.getID(), client);
+
     this.storage.addRealm(response.uuid);
     const payload = JSON.stringify(response);
     client.send(payload);
