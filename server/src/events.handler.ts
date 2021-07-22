@@ -10,12 +10,11 @@ import { MemoryStorage } from "./memory.storage";
 
 export class EventsHandler {
   private client: WebSocket;
-  memoryStorage = new MemoryStorage();
 
   readonly handlers = {
-    share: new ShareHandler(this.memoryStorage),
-    join: new JoinHandler(this.memoryStorage),
-    update: new UpdateHandler(),
+    share: new ShareHandler(MemoryStorage.getInstance()),
+    join: new JoinHandler(MemoryStorage.getInstance()),
+    update: new UpdateHandler(MemoryStorage.getInstance()),
     ping: new PingHandler(),
   };
 

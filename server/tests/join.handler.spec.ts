@@ -9,6 +9,7 @@ import {
   JoinRequest,
   JoinResponse,
 } from "../src/events.model";
+import { MemoryStorage } from "../src/memory.storage";
 
 @suite
 export class JoinUnitTests {
@@ -20,6 +21,7 @@ export class JoinUnitTests {
     this.mockedWebSocket = mock(WebSocket);
     this.socket = instance(this.mockedWebSocket);
     this.handler = new EventsHandler(this.socket);
+    MemoryStorage.getInstance().reset();
   }
 
   @test "should return current state when joining a realm"() {
@@ -30,7 +32,7 @@ export class JoinUnitTests {
     console.log("join message", JSON.stringify(message));
 
     // adds fake realm
-    this.handler.memoryStorage.addRealm("foo.bar");
+    MemoryStorage.getInstance().addRealm("foo.bar");
 
     // join the realm
     this.handler.onMessage(message);

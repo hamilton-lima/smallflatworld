@@ -9,7 +9,20 @@ class StateUpdateCached {
 }
 
 export class MemoryStorage {
-  data: Map<string, StateUpdateCached> = new Map<string, StateUpdateCached>();
+  private static instance: MemoryStorage = new MemoryStorage();
+  private data: Map<string, StateUpdateCached>;
+
+  private constructor(){
+    this.reset();
+  }
+
+  public static getInstance(){
+    return MemoryStorage.instance;
+  }
+
+  reset(){
+    this.data = new Map<string, StateUpdateCached>();
+  }
 
   addRealm(uuid: string) {
     if (this.data.has(uuid)) {
