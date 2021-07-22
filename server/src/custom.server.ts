@@ -10,6 +10,11 @@ export class CustomServer {
       ws.on('message', function incoming(message:WebSocket.Data) {
         handler.onMessage(message);
       });
+
+      ws.on('close', function incoming(message:WebSocket.Data) {
+        handler.onClose();
+      });
+
     });
   }
 }

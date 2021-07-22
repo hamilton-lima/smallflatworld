@@ -7,20 +7,24 @@ import { Handler } from "./handler.interface";
 import { ClientMessage } from "./events.model";
 import { PingHandler } from "./ping.handler";
 import { MemoryStorage } from "./memory.storage";
+import { v4 as uuidv4 } from "uuid";
 
 export class EventsHandler {
   private client: WebSocket;
   private realmID: string;
+  private id: string;
 
   readonly handlers = {
     share: new ShareHandler(MemoryStorage.getInstance()),
     join: new JoinHandler(MemoryStorage.getInstance()),
     update: new UpdateHandler(MemoryStorage.getInstance()),
+    // TODO: consider add "leave" event 
     ping: new PingHandler(),
   };
 
   constructor(client: WebSocket) {
     this.client = client;
+    this.id = uuidv4();
   }
 
   onMessage(message: WebSocket.Data) {
@@ -46,4 +50,13 @@ export class EventsHandler {
   getRealmID() {
     return this.realmID;
   }
+
+  getID() {
+    return this.id;
+  }
+
+  onClose() {
+    throw new Error('Method not implemented.');
+  }
+
 }
