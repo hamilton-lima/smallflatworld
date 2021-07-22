@@ -12,15 +12,15 @@ export class MemoryStorage {
   private static instance: MemoryStorage = new MemoryStorage();
   private data: Map<string, StateUpdateCached>;
 
-  private constructor(){
+  private constructor() {
     this.reset();
   }
 
-  public static getInstance(){
+  public static getInstance() {
     return MemoryStorage.instance;
   }
 
-  reset(){
+  reset() {
     this.data = new Map<string, StateUpdateCached>();
   }
 
@@ -32,16 +32,25 @@ export class MemoryStorage {
     }
   }
 
-  getRealmState(uuid: string): StateUpdate {
+  getCachedRealmState(uuid: string): StateUpdateCached {
     if (!this.data.has(uuid)) {
       throw new Error("uuid dont exist in memory");
     } else {
-      const data = this.data.get(uuid);
-      const array = Array.from(data.map.values());
-      const result = <StateUpdate>{
-        data: array,
-      };
-      return result;
+      return this.data.get(uuid);
     }
+  }
+
+  getRealmState(uuid: string): StateUpdate {
+    const data = this.getCachedRealmState(uuid);
+    const array = Array.from(data.map.values());
+    const result = <StateUpdate>{
+      data: array,
+    };
+    return result;
+  }
+
+  update(uuid: string, element: SceneElement) {
+    const state = this.getCachedRealmState(uuid);
+    state.map.set(element.name, element);
   }
 }
