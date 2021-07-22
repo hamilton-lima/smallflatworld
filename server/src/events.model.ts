@@ -20,8 +20,14 @@ export class ClientMessage {
 export interface ClientData {}
 export interface ClientResponse {}
 
-export class JoinRequest implements ClientData {}
-export class JoinResponse {}
+export class JoinRequest implements ClientData {
+  uuid: string;
+}
+
+export class JoinResponse {
+  ready: boolean;
+  data: StateUpdate;
+}
 
 export class Vector3{
   x:string;

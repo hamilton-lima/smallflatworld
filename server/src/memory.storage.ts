@@ -19,7 +19,7 @@ export class MemoryStorage {
     }
   }
 
-  getRealm(uuid: string): StateUpdate {
+  getRealmState(uuid: string): StateUpdate {
     if (!this.data.has(uuid)) {
       throw new Error("uuid dont exist in memory");
     } else {

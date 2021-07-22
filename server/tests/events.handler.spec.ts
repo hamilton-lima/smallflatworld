@@ -50,7 +50,7 @@ export class EventsHandlerUnitTests {
 
     const response = capture(this.mockedWebSocket.send).first();
     const joinResponse: ShareResponse = JSON.parse(response.toString());
-    const realmData: RealmData = this.handler.handlers.share.storage.getRealm(
+    const realmData: RealmData = this.handler.handlers.share.storage.getRealmState(
       joinResponse.uuid
     );
     console.log('realmData', JSON.stringify(realmData));
