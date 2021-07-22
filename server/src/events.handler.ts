@@ -10,6 +10,7 @@ import { MemoryStorage } from "./memory.storage";
 
 export class EventsHandler {
   private client: WebSocket;
+  private realmID: string;
 
   readonly handlers = {
     share: new ShareHandler(MemoryStorage.getInstance()),
@@ -26,7 +27,7 @@ export class EventsHandler {
     try {
       const input: ClientMessage = JSON.parse(message.toString());
       const handler = this.parse(input);
-      handler.handle(this.client, input.data);
+      handler.handle(this.client, input.data, this);
     } catch (error) {
       console.error("error parsing message", message);
       this.client.close();
@@ -36,5 +37,13 @@ export class EventsHandler {
   parse(message: ClientMessage): Handler {
     const handler = this.handlers[message.action];
     return handler;
+  }
+
+  setRealmID(id: string) {
+    this.realmID = id;
+  }
+
+  getRealmID() {
+    return this.realmID;
   }
 }

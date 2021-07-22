@@ -6,7 +6,7 @@ import WebSocket from "ws";
 import { Actions, ClientMessage, PingResponse } from "../src/events.model";
 
 @suite
-export class EventsHandlerUnitTests {
+export class PingHandlerUnitTests {
   private handler: EventsHandler;
   private socket: WebSocket;
   mockedWebSocket: WebSocket;

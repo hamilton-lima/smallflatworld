@@ -48,6 +48,7 @@ export class JoinUnitTests {
     // should be ready as the realm exists
     expect(joinResponse.ready).to.be.true;
     expect(joinResponse.data.data).to.be.an.instanceof(Array);
+    expect(this.handler.getRealmID()).to.be.equal("foo.bar");
   }
 
   @test
@@ -72,5 +73,6 @@ export class JoinUnitTests {
     // should be ready as the realm exists
     expect(joinResponse.ready).to.be.false;
     expect(joinResponse.data).to.be.null;
+    expect(this.handler.getRealmID()).to.be.undefined;
   }
 }

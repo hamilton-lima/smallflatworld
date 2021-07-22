@@ -2,6 +2,7 @@ import { JoinRequest, JoinResponse } from "./events.model";
 import { Handler } from "./handler.interface";
 import WebSocket from "ws";
 import { MemoryStorage } from "./memory.storage";
+import { EventsHandler } from "./events.handler";
 
 export class JoinHandler implements Handler {
   storage: MemoryStorage;
@@ -9,7 +10,7 @@ export class JoinHandler implements Handler {
     this.storage = storage;
   }
 
-  handle(client: WebSocket, request: JoinRequest): void {
+  handle(client: WebSocket, request: JoinRequest, parent: EventsHandler): void {
     console.log("join", request);
     const response: JoinResponse = {
       ready: false,
@@ -19,6 +20,8 @@ export class JoinHandler implements Handler {
     try {
       response.data = this.storage.getRealmState(request.uuid);
       response.ready = true;
+      
+      parent.setRealmID(request.uuid);
     } catch (error) {
       console.error("realm not found", request.uuid);
     }
