@@ -9,9 +9,11 @@ export class UpdateHandler implements Handler {
   constructor(storage: MemoryStorage) {
     this.storage = storage;
   }
-  
+
   handle(client: WebSocket, request: StateUpdate, parent: EventsHandler): void {
     console.log("update");
+    request.data.forEach((element) => {
+      this.storage.update(parent.getRealmID(), element);
+    });
   }
 }
-
