@@ -23,9 +23,21 @@ export interface ClientResponse {}
 export class JoinRequest implements ClientData {}
 export class JoinResponse {}
 
-// Can use StateUpdate as full state when JoinRequest is received?
-// or connect then send a full StateUpdate
-export class StateUpdate implements ClientData {}
+export class Vector3{
+  x:string;
+  y:string;
+  z:string;
+}
+
+export class SceneElement {
+  name: string;
+  position: Vector3;
+  rotation: Vector3;
+}
+
+export class StateUpdate implements ClientData {
+  data: SceneElement[]
+}
 
 export class ShareRequest implements ClientData {
 }
