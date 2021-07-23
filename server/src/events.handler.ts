@@ -14,11 +14,11 @@ export class EventsHandler {
   private realmID: string;
   private id: string;
 
+  // TODO: consider add "leave" event
   readonly handlers = {
     share: new ShareHandler(MemoryStorage.getInstance()),
     join: new JoinHandler(MemoryStorage.getInstance()),
     update: new UpdateHandler(MemoryStorage.getInstance()),
-    // TODO: consider add "leave" event
     ping: new PingHandler(),
   };
 
@@ -39,6 +39,7 @@ export class EventsHandler {
   }
 
   parse(message: ClientMessage): Handler {
+    console.log("action", message.action);
     const handler = this.handlers[message.action];
     return handler;
   }

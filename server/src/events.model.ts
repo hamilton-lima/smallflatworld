@@ -6,7 +6,7 @@ export enum Actions {
   Join = "join",
 
   // send udpate to a connected realm
-  Update = "udpate",
+  Update = "update",
 
   // ping
   Ping = "ping",
