@@ -33,7 +33,7 @@ export class EventsHandler {
       const handler = this.parse(input);
       handler.handle(this.client, input.data, this);
     } catch (error) {
-      console.error("error parsing message", message);
+      console.error("error parsing message", error, message);
       this.client.close();
     }
   }

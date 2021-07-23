@@ -22,11 +22,16 @@ export class ShareHandler implements Handler {
       uuid: uuidv4(),
     };
 
+    // set the realmID in the parent
     parent.setRealmID(response.uuid);
+
+    // create the realm and add participant to it
+    this.storage.addRealm(response.uuid);
     this.storage.addParticipant(response.uuid, parent.getID(), client);
 
-    this.storage.addRealm(response.uuid);
+    // build the response
     const payload = JSON.stringify(response);
+    console.log('payload', payload);
     client.send(payload);
   }
 }

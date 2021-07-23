@@ -38,6 +38,7 @@ export class EventsHandlerUnitTests {
       this.handler.handlers.share.storage.getRealmState(joinResponse.uuid);
     console.log("realmData", JSON.stringify(state));
     expect(state.data).to.be.an.instanceof(Array);
+    // check if handler received the realmID
     expect(this.handler.getRealmID()).to.be.equal(joinResponse.uuid);
   }
 }
