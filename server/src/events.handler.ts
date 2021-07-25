@@ -33,8 +33,9 @@ export class EventsHandler {
       const handler = this.parse(input);
       handler.handle(this.client, input.data, this);
     } catch (error) {
-      console.error("error parsing message", error, message);
+      console.error("Error parsing message", error, message);
       this.client.close();
+      throw new Error("Error parsing message: [" + message + "]");
     }
   }
 
@@ -57,6 +58,10 @@ export class EventsHandler {
   }
 
   onClose() {
-    MemoryStorage.getInstance().removeParticipant(this.realmID, this.id);
+    try{ 
+      MemoryStorage.getInstance().removeParticipant(this.realmID, this.id);
+    } catch(error){
+      console.error("Error removing participant", error);
+    }
   }
 }
