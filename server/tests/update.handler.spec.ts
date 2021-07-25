@@ -7,12 +7,11 @@ import {
   Actions,
   ClientMessage,
   JoinRequest,
+  JoinResponse,
   SceneElement,
-  ShareResponse,
   StateUpdate,
   Vector3,
 } from "../src/events.model";
-import { generateKeyPair } from "crypto";
 import { MemoryStorage } from "../src/memory.storage";
 
 const vector3A = <Vector3>{
@@ -67,10 +66,13 @@ export class UpdateHandlerUnitTests {
     MemoryStorage.getInstance().reset();
   }
 
-  createAndJoinRealm(realm: string) {
-    // create fake realm
+  // create fake realm
+  createRealm(realm: string) {
     MemoryStorage.getInstance().addRealm(realm);
+  }
 
+  // make sure to call create first
+  joinRealm(realm: string, handler: EventsHandler) {
     // join fake realm
     const join = JSON.stringify(<ClientMessage>{
       action: Actions.Join,
@@ -79,11 +81,12 @@ export class UpdateHandlerUnitTests {
     console.log("join message", JSON.stringify(join));
 
     // join the realm
-    this.handler.onMessage(join);
+    handler.onMessage(join);
   }
 
   @test "should update storage with new state"() {
-    this.createAndJoinRealm(realm1);
+    this.createRealm(realm1);
+    this.joinRealm(realm1, this.handler);
 
     const message = JSON.stringify(<ClientMessage>{
       action: Actions.Update,
@@ -110,7 +113,8 @@ export class UpdateHandlerUnitTests {
   }
 
   @test "should update storage with new state, for an existing element"() {
-    this.createAndJoinRealm(realm1);
+    this.createRealm(realm1);
+    this.joinRealm(realm1, this.handler);
 
     this.handler.onMessage(
       this.buildMessageForSceneElement([sceneElement1, sceneElement2])
@@ -129,7 +133,31 @@ export class UpdateHandlerUnitTests {
   }
 
   @test "should send message to realm participants"() {
-    // TODO: implement this
-    expect(false).to.be.true;
+    this.createRealm(realm2);
+    this.joinRealm(realm2, this.handler);
+
+    // sends first state of the realm
+    const message = JSON.stringify(<ClientMessage>{
+      action: Actions.Update,
+      data: <StateUpdate>{
+        data: [sceneElement1],
+      },
+    });
+    console.log("first state", message);
+    this.handler.onMessage(message);
+
+    // second client
+    const mockedWebSocket2 = mock(WebSocket);
+    const socket2 = instance(mockedWebSocket2);
+    const handler2 = new EventsHandler(socket2);
+    this.joinRealm(realm2, handler2);
+
+    // checks if received the current state of the realm
+    verify(mockedWebSocket2.send(anything())).called();
+
+    const [response] = capture(mockedWebSocket2.send).first();
+    const update: JoinResponse = JSON.parse(response);
+    console.log('update data', update.data);
+    expect(update.data.data).to.be.eql([sceneElement1]);
   }
 }

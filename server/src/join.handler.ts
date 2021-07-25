@@ -29,6 +29,7 @@ export class JoinHandler implements Handler {
     }
 
     const payload = JSON.stringify(response);
+    console.log('join payload', payload);
     client.send(payload);
   }
 }
