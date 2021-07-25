@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FileService } from './file.service';
 import { RealmService } from './realm/realm.service';
 import { InputService } from './input.service';
-import { RealmUploadService} from './realm/realm-upload.service';
+import { RealmUploadService } from './realm/realm-upload.service';
+import { ServerService } from './server.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
     private file: FileService,
     private realm: RealmService,
     private input: InputService,
-    private uploadService: RealmUploadService
+    private uploadService: RealmUploadService,
+    private server: ServerService
   ) {}
   ngOnInit(): void {
     this.realm.ready().then(
@@ -27,6 +29,11 @@ export class AppComponent implements OnInit {
         console.error('Something happened when initializing the system', error);
       }
     );
+
+    // connects to the local server to test
+    this.server.connect('ws://localhost:8080/').subscribe((connected) => {
+      console.log('connected', connected);
+    });
   }
 
   download() {
@@ -37,5 +44,13 @@ export class AppComponent implements OnInit {
   upload() {
     this.uploadService.show();
     this.input.focus();
+  }
+
+  // sends a test message
+  send() {
+    const updates = this.server.share(new Date().toUTCString());
+    updates.subscribe((update) => {
+      console.log('update', update);
+    });
   }
 }
