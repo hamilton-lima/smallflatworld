@@ -11,7 +11,6 @@ export class UpdateHandler implements Handler {
   }
 
   handle(client: WebSocket, request: StateUpdate, parent: EventsHandler): void {
-    console.log("update");
     request.data.forEach((element) => {
       this.storage.update(parent.getRealmID(), element);
     });

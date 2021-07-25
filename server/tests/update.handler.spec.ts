@@ -1,6 +1,13 @@
 import { suite, test } from "@testdeck/mocha";
 import { expect } from "chai";
-import { mock, verify, capture, anything, instance } from "ts-mockito";
+import {
+  mock,
+  verify,
+  capture,
+  anything,
+  instance,
+  resetCalls,
+} from "ts-mockito";
 import { EventsHandler } from "../src/events.handler";
 import WebSocket from "ws";
 import {
@@ -157,7 +164,27 @@ export class UpdateHandlerUnitTests {
 
     const [response] = capture(mockedWebSocket2.send).first();
     const update: JoinResponse = JSON.parse(response);
-    console.log('update data', update.data);
+    console.log("update data", update.data);
     expect(update.data.data).to.be.eql([sceneElement1]);
+
+    // reset calls to websocket
+    resetCalls(mockedWebSocket2);
+
+    // send another state update
+    const message2 = JSON.stringify(<ClientMessage>{
+      action: Actions.Update,
+      data: <StateUpdate>{
+        data: [sceneElement3],
+      },
+    });
+    this.handler.onMessage(message2);
+
+    // checks if received the updates
+    verify(mockedWebSocket2.send(anything())).called();
+
+    const [response2] = capture(mockedWebSocket2.send).last();
+    const update2: StateUpdate = JSON.parse(response2);
+    console.log("update data2 ", update2);
+    expect(update2.data).to.be.eql([sceneElement3]);
   }
 }
