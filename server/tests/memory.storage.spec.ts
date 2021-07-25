@@ -55,16 +55,6 @@ export class MemoryStorageUnitTests {
     return instance(mockedWebSocket);
   }
 
-  // addParticipant(realmID: string, clientID: string, participant: WebSocket) {
-  //   const storage = this.getStorage(realmID);
-  //   storage.participants.map.set(clientID, participant);
-  // }
-
-  // removeParticipant(realmID: string, clientID: string) {
-  //   const storage = this.getStorage(realmID);
-  //   storage.participants.map.delete(clientID);
-  // }
-
   getParticipantIDsAsArray(realm: string) {
     const participants = this.storage.getStorage(realm).participants;
     const keys = Array.from(participants.map.keys());
