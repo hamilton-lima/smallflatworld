@@ -39,4 +39,61 @@ export class MemoryStorageUnitTests {
       expect(error.message).to.be.equal("uuid dont exist in memory");
     }
   }
+
+  @test "should return error if realm already exist"() {
+    this.storage.addRealm("foo");
+
+    try {
+      this.storage.addRealm("foo");
+    } catch (error) {
+      expect(error.message).to.be.equal("uuid already in memory");
+    }
+  }
+
+  mockWebSocket() {
+    const mockedWebSocket = mock(WebSocket);
+    return instance(mockedWebSocket);
+  }
+
+  // addParticipant(realmID: string, clientID: string, participant: WebSocket) {
+  //   const storage = this.getStorage(realmID);
+  //   storage.participants.map.set(clientID, participant);
+  // }
+
+  // removeParticipant(realmID: string, clientID: string) {
+  //   const storage = this.getStorage(realmID);
+  //   storage.participants.map.delete(clientID);
+  // }
+
+  getParticipantIDsAsArray(realm: string) {
+    const participants = this.storage.getStorage(realm).participants;
+    const keys = Array.from(participants.map.keys());
+    console.log("current participants", keys);
+    return keys;
+  }
+
+  @test "should add and remove participants from realm"() {
+    this.storage.addRealm("foo");
+    this.storage.addParticipant("foo", "hulk", this.mockWebSocket());
+    this.storage.addParticipant("foo", "loki", this.mockWebSocket());
+
+    const keys = this.getParticipantIDsAsArray("foo");
+    expect(keys).to.have.members(["hulk", "loki"]);
+
+    this.storage.addParticipant("foo", "Black widow", this.mockWebSocket());
+
+    expect(this.getParticipantIDsAsArray("foo")).to.have.members([
+      "hulk",
+      "loki",
+      "Black widow",
+    ]);
+
+    // TVA interference here...
+    this.storage.removeParticipant("foo", "loki");
+
+    expect(this.getParticipantIDsAsArray("foo")).to.have.members([
+      "hulk",
+      "Black widow",
+    ]);
+  }
 }
