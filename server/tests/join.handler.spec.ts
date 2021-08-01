@@ -75,4 +75,55 @@ export class JoinUnitTests {
     expect(joinResponse.data).to.be.null;
     expect(this.handler.getRealmID()).to.be.undefined;
   }
+
+  @test "should remove participant from other realms when joining a second"() {
+    const message = JSON.stringify(<ClientMessage>{
+      action: Actions.Join,
+      data: <JoinRequest>{ uuid: "foo.bar" },
+    });
+    console.log("join message", JSON.stringify(message));
+
+    // adds fake realm
+    MemoryStorage.getInstance().addRealm("foo.bar");
+    MemoryStorage.getInstance().addRealm("second");
+
+    // join the realm
+    this.handler.onMessage(message);
+
+    // check the response
+    const [response] = capture(this.mockedWebSocket.send).first();
+    const joinResponse: JoinResponse = JSON.parse(response);
+    console.log("join response", joinResponse);
+
+    const firstRealmStorage1 = MemoryStorage.getInstance().getStorage("foo.bar");
+    const participants1 = Array.from(firstRealmStorage1.participants.map.keys());
+    console.log("current participants", participants1);
+
+    // first time we have the participant ID 
+    expect(participants1).to.have.members([this.handler.getID()]);
+
+    // join the second realm
+    const message2 = JSON.stringify(<ClientMessage>{
+      action: Actions.Join,
+      data: <JoinRequest>{ uuid: "second" },
+    });
+    console.log("join message 2", JSON.stringify(message2));
+
+    this.handler.onMessage(message2);
+    expect(this.handler.getRealmID()).to.be.equal("second");
+
+    const firstRealmStorage2 = MemoryStorage.getInstance().getStorage("foo.bar");
+    const participants2 = Array.from(firstRealmStorage2.participants.map.keys());
+    console.log("current participants", participants2);
+
+    // list of participants from the previous realm should be empty
+    expect(participants2).to.be.empty;
+
+    const secondRealmStorage = MemoryStorage.getInstance().getStorage("second");
+    const participantsSecond = Array.from(secondRealmStorage.participants.map.keys());
+    console.log("current participants of second realm", participantsSecond);
+
+    expect(participantsSecond).to.have.members([this.handler.getID()]);
+
+  }
 }
