@@ -1,6 +1,5 @@
-import { StateUpdate } from "./events.model";
+import { Actions, StateUpdate } from "./events.model";
 import { Handler } from "./handler.interface";
-import WebSocket from "ws";
 import { MemoryStorage } from "./memory.storage";
 import { EventsHandler } from "./events.handler";
 
@@ -10,18 +9,18 @@ export class UpdateHandler implements Handler {
     this.storage = storage;
   }
 
-  handle(client: WebSocket, request: StateUpdate, parent: EventsHandler): void {
+  handle(request: StateUpdate, parent: EventsHandler): void {
     request.data.forEach((element) => {
       this.storage.update(parent.getRealmID(), element);
     });
 
-    const payload = JSON.stringify(request);
+    // TODO: sanitize request to prevent propagation of issues
 
     // sends udpates to all participants
     this.storage
       .getStorage(parent.getRealmID())
-      .participants.map.forEach((participant: WebSocket, key: string) => {
-        participant.send(payload);
+      .participants.map.forEach((participant: EventsHandler, key: string) => {
+        participant.send(Actions.Update, request);
       });
   }
 }

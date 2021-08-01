@@ -1,6 +1,5 @@
-import { ShareRequest, ShareResponse } from "./events.model";
+import { Actions, ShareRequest, ShareResponse } from "./events.model";
 import { Handler } from "./handler.interface";
-import WebSocket from "ws";
 import { v4 as uuidv4 } from "uuid";
 import { MemoryStorage } from "./memory.storage";
 import { EventsHandler } from "./events.handler";
@@ -11,11 +10,7 @@ export class ShareHandler implements Handler {
     this.storage = storage;
   }
 
-  handle(
-    client: WebSocket,
-    request: ShareRequest,
-    parent: EventsHandler
-  ): void {
+  handle(request: ShareRequest, parent: EventsHandler): void {
     console.log("share", request);
 
     const response: ShareResponse = {
@@ -28,11 +23,8 @@ export class ShareHandler implements Handler {
     // create the realm and add participant to it
     this.storage.addRealm(response.uuid);
     this.storage.removeParticipantFromAllRealms(parent.getID());
-    this.storage.addParticipant(response.uuid, parent.getID(), client);
+    this.storage.addParticipant(response.uuid, parent.getID(), parent);
 
-    // build the response
-    const payload = JSON.stringify(response);
-    console.log('payload', payload);
-    client.send(payload);
+    parent.send(Actions.Share, response);
   }
 }

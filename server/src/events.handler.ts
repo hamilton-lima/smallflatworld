@@ -36,7 +36,7 @@ export class EventsHandler {
     try {
       const input: ClientMessage = JSON.parse(message.toString());
       const handler = this.parse(input);
-      handler.handle(this.client, input.data, this);
+      handler.handle(input.data, this);
     } catch (error) {
       console.error("Error parsing message", error, message);
       this.client.close();

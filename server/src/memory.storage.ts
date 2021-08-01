@@ -1,5 +1,5 @@
 import { SceneElement, StateUpdate } from "./events.model";
-import WebSocket from "ws";
+import { EventsHandler } from "./events.handler";
 
 class StateUpdateCached {
   map: Map<string, SceneElement>;
@@ -10,10 +10,10 @@ class StateUpdateCached {
 }
 
 class Participants {
-  map: Map<string, WebSocket>;
+  map: Map<string, EventsHandler>;
 
   constructor() {
-    this.map = new Map<string, WebSocket>();
+    this.map = new Map<string, EventsHandler>();
   }
 }
 
@@ -73,7 +73,7 @@ export class MemoryStorage {
     state.map.set(element.name, element);
   }
 
-  addParticipant(realmID: string, clientID: string, participant: WebSocket) {
+  addParticipant(realmID: string, clientID: string, participant: EventsHandler) {
     const storage = this.getStorage(realmID);
     storage.participants.map.set(clientID, participant);
   }
