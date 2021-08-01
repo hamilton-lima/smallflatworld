@@ -1,9 +1,10 @@
 // force full coverage check
 import { suite, test } from "@testdeck/mocha";
 import { expect } from "chai";
-import { anything, instance, mock, verify } from "ts-mockito";
+import { anything, capture, instance, mock, verify, when } from "ts-mockito";
 import WebSocket from "ws";
 import { EventsHandler } from "../src/events.handler";
+import { Actions, ClientResponse, JoinRequest } from "../src/events.model";
 import { MemoryStorage } from "../src/memory.storage";
 
 const chai = require("chai");
@@ -59,7 +60,7 @@ export class EventsHandlerTests {
 
     this.storage.addRealm("foo");
     this.storage.addParticipant("foo", eh.getID(), client);
-    
+
     // this mocks share/join behaviour that set the realmID back to the event handler
     eh.setRealmID("foo");
 
@@ -69,8 +70,50 @@ export class EventsHandlerTests {
     eh.onClose();
 
     const keysAfterClose = this.getParticipantIDsAsArray("foo");
-    console.log('members after on close', keysAfterClose);
+    console.log("members after on close", keysAfterClose);
     expect(keysAfterClose).to.not.have.members([eh.getID()]);
+  }
 
+  @test
+  "send add realmID to the message and call websocket.send"() {
+    const mockedWebSocket = mock(WebSocket);
+    const client = instance(mockedWebSocket);
+    const eh = new EventsHandler(client);
+    eh.setRealmID("foo.realm");
+    const joinData = <JoinRequest>{ uuid: "foo" };
+    eh.send(Actions.Join, joinData);
+
+    verify(mockedWebSocket.send(anything())).called();
+
+    const [response] = capture(mockedWebSocket.send).first();
+    const message: ClientResponse = JSON.parse(response);
+
+    expect(message.uuid).to.be.equal("foo.realm");
+    expect(message.action).to.be.equal(Actions.Join);
+    expect(message.data).to.be.eql(joinData);
+  }
+
+  @test
+  "when sending the message should throw exception and close connection in case of error"() {
+    const mockedWebSocket = mock(WebSocket);
+    const client = instance(mockedWebSocket);
+
+    // simulate error on websocket client
+    when(mockedWebSocket.send(anything())).thenThrow(
+      new Error("something bad happened here")
+    );
+
+    const eh = new EventsHandler(client);
+    eh.setRealmID("foo.realm");
+    const joinData = <JoinRequest>{ uuid: "foo" };
+
+    try {
+      eh.send(Actions.Join, joinData);
+    } catch (error) {
+      // connection should be closed
+      verify(mockedWebSocket.close()).called();
+      // and exception generated
+      expect(error.message).to.have.string("Error sending message ");
+    }
   }
 }

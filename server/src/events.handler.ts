@@ -52,12 +52,12 @@ export class EventsHandler {
         action: action,
         data: data,
       };
-      const message = JSON.stringify(output);
+      message = JSON.stringify(output);
       this.client.send(message);
     } catch (error) {
       console.error("Error sending message", error, action, data, message);
       this.client.close();
-      throw new Error("Error sending message: [" + message + "]");
+      throw new Error("Error sending message " + message);
     }
   }
 
