@@ -3,7 +3,7 @@ import { FileService } from './file.service';
 import { RealmService } from './realm/realm.service';
 import { InputService } from './input.service';
 import { RealmUploadService } from './realm/realm-upload.service';
-import { ServerService } from './server.service';
+import { ServerService } from '../app/multiplayer/server.service';
 
 @Component({
   selector: 'app-root',
