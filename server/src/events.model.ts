@@ -17,22 +17,28 @@ export class ClientMessage {
   data: ClientData;
 }
 
+export class ClientResponse {
+  uuid: string;
+  action: Actions;
+  data: ClientResponseData;
+}
+
 export interface ClientData {}
-export interface ClientResponse {}
+export interface ClientResponseData {}
 
 export class JoinRequest implements ClientData {
   uuid: string;
 }
 
-export class JoinResponse {
+export class JoinResponse implements ClientResponseData {
   ready: boolean;
   data: StateUpdate;
 }
 
-export class Vector3{
-  x:string;
-  y:string;
-  z:string;
+export class Vector3 {
+  x: string;
+  y: string;
+  z: string;
 }
 
 export class SceneElement {
@@ -41,19 +47,18 @@ export class SceneElement {
   rotation: Vector3;
 }
 
-export class StateUpdate implements ClientData {
-  data: SceneElement[]
+export class StateUpdate implements ClientData, ClientResponseData {
+  data: SceneElement[];
 }
 
-export class ShareRequest implements ClientData {
-}
+export class ShareRequest implements ClientData {}
 
-export class ShareResponse {
+export class ShareResponse implements ClientResponseData {
   uuid: string;
 }
 
 export class PingRequest implements ClientData {}
 
-export class PingResponse {
+export class PingResponse implements ClientResponseData {
   data: string;
 }

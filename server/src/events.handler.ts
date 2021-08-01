@@ -4,7 +4,12 @@ import { ShareHandler } from "./share.handler";
 import { JoinHandler } from "./join.handler";
 import { UpdateHandler } from "./update.handler";
 import { Handler } from "./handler.interface";
-import { ClientMessage } from "./events.model";
+import {
+  Actions,
+  ClientMessage,
+  ClientResponse,
+  ClientResponseData,
+} from "./events.model";
 import { PingHandler } from "./ping.handler";
 import { MemoryStorage } from "./memory.storage";
 import { v4 as uuidv4 } from "uuid";
@@ -39,6 +44,23 @@ export class EventsHandler {
     }
   }
 
+  send(action: Actions, data: ClientResponseData) {
+    let message: string;
+    try {
+      const output: ClientResponse = <ClientResponse>{
+        uuid: this.realmID,
+        action: action,
+        data: data,
+      };
+      const message = JSON.stringify(output);
+      this.client.send(message);
+    } catch (error) {
+      console.error("Error sending message", error, action, data, message);
+      this.client.close();
+      throw new Error("Error sending message: [" + message + "]");
+    }
+  }
+
   parse(message: ClientMessage): Handler {
     console.log("action", message.action);
     const handler = this.handlers[message.action];
@@ -58,9 +80,9 @@ export class EventsHandler {
   }
 
   onClose() {
-    try{ 
+    try {
       MemoryStorage.getInstance().removeParticipant(this.realmID, this.id);
-    } catch(error){
+    } catch (error) {
       console.error("Error removing participant", error);
     }
   }
