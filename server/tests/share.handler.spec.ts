@@ -6,6 +6,7 @@ import WebSocket from "ws";
 import {
   Actions,
   ClientMessage,
+  ClientResponse,
   ShareResponse,
   StateUpdate,
 } from "../src/events.model";
@@ -57,25 +58,27 @@ export class EventsHandlerUnitTests {
     });
     console.log("share message", JSON.stringify(message));
     this.handler.onMessage(message);
-  
+
     const [response] = capture(this.mockedWebSocket.send).first();
-    const joinResponse: ShareResponse = JSON.parse(response);
-    console.log("--- share response 1", joinResponse);
+    const clientResponse: ClientResponse = JSON.parse(response);
+    const shareResponse: ShareResponse = <ShareResponse>clientResponse.data;
+    console.log("--- share response 1", shareResponse);
 
     const state: StateUpdate =
-      this.handler.handlers.share.storage.getRealmState(joinResponse.uuid);
+      this.handler.handlers.share.storage.getRealmState(shareResponse.uuid);
     console.log("after first share", JSON.stringify(state));
     expect(state.data).to.be.an.instanceof(Array);
 
-    // share second time 
+    // share second time
     this.handler.onMessage(message);
-  
+
     const [response2] = capture(this.mockedWebSocket.send).last();
-    const joinResponse2: ShareResponse = JSON.parse(response2);
-    console.log("--- share response 2", joinResponse2);
+    const clientResponse2: ClientResponse = JSON.parse(response2);
+    const shareResponse2: ShareResponse = <ShareResponse>clientResponse2.data;
+    console.log("--- share response 2", shareResponse2);
 
     const stateAfterSecond: Storage =
-      this.handler.handlers.share.storage.getStorage(joinResponse.uuid);
+      this.handler.handlers.share.storage.getStorage(shareResponse.uuid);
 
     console.log("after second share", JSON.stringify(stateAfterSecond));
     const participants = Array.from(stateAfterSecond.participants.map.keys());
@@ -85,7 +88,7 @@ export class EventsHandlerUnitTests {
     expect(participants).to.be.empty;
 
     // check if handler received the updated realmID
-    expect(this.handler.getRealmID()).to.be.equal(joinResponse2.uuid);
+    expect(this.handler.getRealmID()).to.be.equal(shareResponse2.uuid);
+    expect(clientResponse2.action).to.be.equal("share");
   }
-
 }

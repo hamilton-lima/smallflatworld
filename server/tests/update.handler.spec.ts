@@ -13,6 +13,7 @@ import WebSocket from "ws";
 import {
   Actions,
   ClientMessage,
+  ClientResponse,
   JoinRequest,
   JoinResponse,
   SceneElement,
@@ -163,7 +164,9 @@ export class UpdateHandlerUnitTests {
     verify(mockedWebSocket2.send(anything())).called();
 
     const [response] = capture(mockedWebSocket2.send).first();
-    const update: JoinResponse = JSON.parse(response);
+    const clientResponse: ClientResponse = JSON.parse(response);
+
+    const update: JoinResponse = <JoinResponse>clientResponse.data;
     console.log("update data", update.data);
     expect(update.data.data).to.be.eql([sceneElement1]);
 
@@ -183,8 +186,12 @@ export class UpdateHandlerUnitTests {
     verify(mockedWebSocket2.send(anything())).called();
 
     const [response2] = capture(mockedWebSocket2.send).last();
-    const update2: StateUpdate = JSON.parse(response2);
+    const clientResponse2: ClientResponse = JSON.parse(response2);
+
+    const update2: StateUpdate = <StateUpdate>clientResponse2.data;
     console.log("update data2 ", update2);
     expect(update2.data).to.be.eql([sceneElement3]);
+
+    expect(clientResponse2.action).to.be.equal("update");
   }
 }

@@ -3,7 +3,12 @@ import { expect } from "chai";
 import { mock, verify, capture, anything, instance } from "ts-mockito";
 import { EventsHandler } from "../src/events.handler";
 import WebSocket from "ws";
-import { Actions, ClientMessage, PingResponse } from "../src/events.model";
+import {
+  Actions,
+  ClientMessage,
+  ClientResponse,
+  PingResponse,
+} from "../src/events.model";
 
 @suite
 export class PingHandlerUnitTests {
@@ -22,13 +27,16 @@ export class PingHandlerUnitTests {
       action: Actions.Ping,
       data: {},
     });
-    console.log("ping message", JSON.stringify(message));
     this.handler.onMessage(message);
     verify(this.mockedWebSocket.send(anything())).called();
 
     const [response] = capture(this.mockedWebSocket.send).first();
-    console.log('pong', JSON.stringify(response));
-    const pong: PingResponse = JSON.parse(response);
+    console.log("pong response", response);
+
+    const clientResponse: ClientResponse = JSON.parse(response);
+    const pong: PingResponse = <PingResponse>clientResponse.data;
+
+    expect(clientResponse.action).to.be.equal("ping");
     expect(pong.data).to.be.equal("pong");
   }
 }
