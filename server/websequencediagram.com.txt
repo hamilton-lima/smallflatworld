@@ -1,0 +1,13 @@
+Web->Server: share
+note right of Server: Create Realm
+note right of Server: Subscribe to all updates
+Server->Web: realm uuid
+
+Web->Server: join( realm uuid )
+note right of Server: Subscribe to all updates
+Server->Web: current realm state
+
+Web->Server: update( []SceneElements )
+note right of Server: Send update to all subscribers
+note right of Server: Update internal state
+Server->Web: send updates
