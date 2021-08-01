@@ -13,7 +13,7 @@ export class FPSService {
 
   constructor(private logger: NgxFancyLoggerService) {}
 
-  setup(message: Subject<string>) {
+  setup(message: Subject<Object>) {
     this.unsubscribe();
     this.messages = 0;
     this.subscription = message.subscribe(() => this.messages++);

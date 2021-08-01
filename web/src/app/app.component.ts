@@ -48,9 +48,6 @@ export class AppComponent implements OnInit {
 
   // sends a test message
   send() {
-    const updates = this.server.share(new Date().toUTCString());
-    updates.subscribe((update) => {
-      console.log('update', update);
-    });
+    const updates = this.server.share();
   }
 }

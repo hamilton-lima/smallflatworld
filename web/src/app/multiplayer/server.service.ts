@@ -3,14 +3,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import {
   Actions,
   ClientMessage,
+  ClientResponse,
   ShareRequest,
 } from '../../../../server/src/events.model';
 import { FPSService } from './fps.service';
-
-class Message {
-  event: string;
-  data: string;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +15,7 @@ export class ServerService {
   private socket: WebSocket;
 
   public readonly ready: Subject<boolean> = new Subject();
-  private readonly message: Subject<string> = new Subject();
+  private readonly message: Subject<ClientResponse> = new Subject();
 
   constructor(fps: FPSService) {
     fps.setup(this.message);
@@ -39,7 +35,12 @@ export class ServerService {
     };
 
     this.socket.onmessage = (event: MessageEvent) => {
-      this.message.next(event.data);
+      try {
+        const response = <ClientResponse>JSON.parse(event.data);
+        this.message.next(response);
+      } catch (error) {
+        console.error('Error parsing socket message', error, event.data);
+      }
     };
 
     return this.ready;
@@ -51,7 +52,7 @@ export class ServerService {
     }
   }
 
-  share(details: string): Subject<string> {
+  share() {
     const shareRequest = <ShareRequest>{};
     const message = <ClientMessage>{
       action: Actions.Share,
@@ -60,6 +61,5 @@ export class ServerService {
     const payload = JSON.stringify(message);
 
     this.socket.send(payload);
-    return this.message;
   }
 }
