@@ -17,7 +17,7 @@ class Participants {
   }
 }
 
-class Storage {
+export class Storage {
   states: StateUpdateCached;
   participants: Participants;
 
@@ -84,6 +84,8 @@ export class MemoryStorage {
   }
 
   removeParticipantFromAllRealms(clientID: string) {
-    throw new Error("Method not implemented.");
+    this.data.forEach((storage: Storage) => {
+      storage.participants.map.delete(clientID);
+    });
   }
 }
