@@ -27,6 +27,7 @@ export class ShareHandler implements Handler {
 
     // create the realm and add participant to it
     this.storage.addRealm(response.uuid);
+    this.storage.removeParticipantFromAllRealms(parent.getID());
     this.storage.addParticipant(response.uuid, parent.getID(), client);
 
     // build the response

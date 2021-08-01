@@ -82,4 +82,8 @@ export class MemoryStorage {
     const storage = this.getStorage(realmID);
     storage.participants.map.delete(clientID);
   }
+
+  removeParticipantFromAllRealms(clientID: string) {
+    throw new Error("Method not implemented.");
+  }
 }
