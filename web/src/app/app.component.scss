@@ -1,6 +1,6 @@
 .drawer-left {
-  min-width: 500px;
-  width: 10%;
+  min-width: 300px;
+  width: 5%;
   left: 0;
 }
 
@@ -13,4 +13,8 @@
 .mat-drawer-container {
   height: 100%;
   width: 100%;
+}
+
+.sidenav-container{
+  margin-top: 50px;
 }

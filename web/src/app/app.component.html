@@ -6,19 +6,21 @@
     position="start"
     class="drawer-left"
   >
-    <button mat-icon-button class="mr-2 mt-2" (click)="download()">
-      <mat-icon>save</mat-icon>DOWNLOAD
-    </button>
-    <button mat-icon-button class="mr-2 mt-2" (click)="upload()">
-      <mat-icon>upload</mat-icon>UPLOAD
-    </button>
-    <button mat-icon-button class="mr-2 mt-2" (click)="send()">
-      <mat-icon>send</mat-icon>SEND
-    </button>
+    <div class="sidenav-container">
+      <button mat-raised-button class="mr-2 mt-2" (click)="download()">
+        <mat-icon>save</mat-icon>DOWNLOAD
+      </button>
+      <button mat-raised-button class="mr-2 mt-2" (click)="upload()">
+        <mat-icon>upload</mat-icon>UPLOAD
+      </button>
+      <button mat-raised-button class="mr-2 mt-2" (click)="send()">
+        <mat-icon>send</mat-icon>SEND
+      </button>
+    </div>
   </mat-sidenav>
 
   <section>
-    <button mat-raised-button class="toogle" (click)="drawer.toggle()">
+    <button mat-raised-button class="toogle" (click)="toggle()">
       TOGGLE
 <!-- TOGGLE      <mat-icon svgIcon="arrow"></mat-icon> -->
     </button>
