@@ -7,22 +7,25 @@
     class="drawer-left"
   >
     <div class="sidenav-container">
+      <p>Current Realm: <b>{{name}}</b></p>
       <button mat-raised-button class="mr-2 mt-2" (click)="download()">
         <mat-icon>save</mat-icon>DOWNLOAD
       </button>
       <button mat-raised-button class="mr-2 mt-2" (click)="upload()">
         <mat-icon>upload</mat-icon>UPLOAD
       </button>
+      <hr>
+      <p>Current server ADDINFO-HERE</p>
       <button mat-raised-button class="mr-2 mt-2" (click)="send()">
         <mat-icon>send</mat-icon>SEND
       </button>
+      <hr>
     </div>
   </mat-sidenav>
 
   <section>
     <button mat-raised-button class="toogle" (click)="toggle()">
       TOGGLE
-<!-- TOGGLE      <mat-icon svgIcon="arrow"></mat-icon> -->
     </button>
     <app-renderer *ngIf="ready"></app-renderer>
 

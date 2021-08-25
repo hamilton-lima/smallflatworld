@@ -12,8 +12,8 @@ import { MatDrawer } from '@angular/material/sidenav';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'web';
   ready = false;
+  name = '';
 
   @ViewChild('drawer') drawer: MatDrawer;
 
@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
     this.realm.ready().then(
       () => {
         this.ready = true;
+        this.name = this.realm.getCurrentRealm().name;
       },
       (error) => {
         console.error('Something happened when initializing the system', error);
@@ -50,7 +51,7 @@ export class AppComponent implements OnInit {
     this.input.focus();
   }
 
-  // sends a test message
+  // TODO: remove this
   send() {
     const updates = this.server.share();
   }
