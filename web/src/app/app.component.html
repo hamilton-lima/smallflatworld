@@ -1,15 +1,28 @@
-<app-renderer *ngIf="ready"></app-renderer>
-<mat-sidenav-container class="container">
-  <mat-sidenav>Start</mat-sidenav>
-  <mat-sidenav-content>
+<mat-drawer-container>
+  <mat-sidenav
+    #drawer
+    mode="side"
+    opened="true"
+    position="start"
+    class="drawer-left"
+  >
     <button mat-icon-button class="mr-2 mt-2" (click)="download()">
-      <mat-icon>save</mat-icon>
+      <mat-icon>save</mat-icon>DOWNLOAD
     </button>
     <button mat-icon-button class="mr-2 mt-2" (click)="upload()">
-      <mat-icon>upload</mat-icon>
+      <mat-icon>upload</mat-icon>UPLOAD
     </button>
     <button mat-icon-button class="mr-2 mt-2" (click)="send()">
-      <mat-icon>send</mat-icon>
+      <mat-icon>send</mat-icon>SEND
     </button>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-sidenav>
+
+  <section>
+    <button mat-raised-button class="toogle" (click)="drawer.toggle()">
+      TOGGLE
+<!-- TOGGLE      <mat-icon svgIcon="arrow"></mat-icon> -->
+    </button>
+    <app-renderer *ngIf="ready"></app-renderer>
+
+  </section>
+</mat-drawer-container>

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileService } from './file.service';
 import { RealmService } from './realm/realm.service';
 import { InputService } from './input.service';
 import { RealmUploadService } from './realm/realm-upload.service';
 import { ServerService } from '../app/multiplayer/server.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,9 @@ import { ServerService } from '../app/multiplayer/server.service';
 export class AppComponent implements OnInit {
   title = 'web';
   ready = false;
+
+  @ViewChild('drawer') drawer: MatDrawer;
+
   constructor(
     private file: FileService,
     private realm: RealmService,
