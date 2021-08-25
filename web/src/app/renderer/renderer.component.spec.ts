@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppModule } from '../app.module';
 
 import { RendererComponent } from './renderer.component';
 
@@ -6,12 +8,13 @@ describe('RendererComponent', () => {
   let component: RendererComponent;
   let fixture: ComponentFixture<RendererComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ RendererComponent ]
+      declarations: [ RendererComponent ],
+      imports: [RouterTestingModule, AppModule],
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RendererComponent);
