@@ -34,11 +34,6 @@ export class AppComponent implements OnInit {
         console.error('Something happened when initializing the system', error);
       }
     );
-
-    // connects to the local server to test
-    this.server.connect('ws://localhost:8080/').subscribe((connected) => {
-      console.log('connected', connected);
-    });
   }
 
   download() {

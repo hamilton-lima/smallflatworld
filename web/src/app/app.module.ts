@@ -8,9 +8,10 @@ import { LogLevel, NgxFancyLoggerModule } from 'ngx-fancy-logger';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialAllComponentsModule } from './material-all-components-module';
 import { RealmUploadComponent } from './realm/realm-upload/realm-upload.component';
+import { ConnectComponent } from './multiplayer/connect/connect.component';
 
 @NgModule({
-  declarations: [AppComponent, RendererComponent, RealmUploadComponent],
+  declarations: [AppComponent, RendererComponent, RealmUploadComponent, ConnectComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
