@@ -38,4 +38,9 @@ export class ConnectComponent implements OnInit {
       }
     );
   }
+
+  close(){
+    this.server.close();
+    this.connected = false;
+  }
 }

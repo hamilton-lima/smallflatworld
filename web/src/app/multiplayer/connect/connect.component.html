@@ -1,4 +1,4 @@
-<div class="container" [formGroup]="form">
+<div *ngIf="!connected" class="container" [formGroup]="form">
   <div class="row">
     <div class="col"><span class="title">Connect to server</span></div>
   </div>
@@ -22,10 +22,22 @@
 
   <div class="row">
     <div class="col">
-      <button [disabled]="!form.valid" mat-raised-button class="mr-2 mt-2" (click)="connect()">
+      <button
+        [disabled]="!form.valid"
+        mat-raised-button
+        class="mr-2 mt-2"
+        (click)="connect()"
+      >
         CONNECT
       </button>
     </div>
   </div>
+</div>
 
+<div *ngIf="connected" class="row">
+  <div class="col">
+    <button mat-raised-button class="mr-2 mt-2" (click)="close()">
+      DISCONNECT from {{ form.get('url').value }}
+    </button>
+  </div>
 </div>
