@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialAllComponentsModule } from './material-all-components-module';
 import { RealmUploadComponent } from './realm/realm-upload/realm-upload.component';
 import { ConnectComponent } from './multiplayer/connect/connect.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, RendererComponent, RealmUploadComponent, ConnectComponent],
@@ -27,6 +28,7 @@ import { ConnectComponent } from './multiplayer/connect/connect.component';
     }),
     BrowserAnimationsModule,
     MaterialAllComponentsModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent],

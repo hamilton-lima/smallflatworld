@@ -1,7 +1,31 @@
-<p>connect works!</p>
+<div class="container" [formGroup]="form">
+  <div class="row">
+    <div class="col"><span class="title">Connect to server</span></div>
+  </div>
 
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="col-10 mt-3 mx-auto">
+        <mat-label>Server address</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="url"
+          placeholder="Ex. ws://localhost:8080"
+        />
+        <mat-error *ngIf="form.get('url').hasError('required')">
+          Server address is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
 
-<!-- <p>Current server ADDINFO-HERE</p>
-<button mat-raised-button class="mr-2 mt-2" (click)="send()">
-  <mat-icon>send</mat-icon>SEND
-</button> -->
+  <div class="row">
+    <div class="col">
+      <button [disabled]="!form.valid" mat-raised-button class="mr-2 mt-2" (click)="connect()">
+        CONNECT
+      </button>
+    </div>
+  </div>
+
+</div>

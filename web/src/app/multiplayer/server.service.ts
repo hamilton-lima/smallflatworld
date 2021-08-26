@@ -34,6 +34,11 @@ export class ServerService {
       this.ready.next(true);
     };
 
+    this.socket.onerror = (error) => {
+      console.log('error connecting');
+      this.ready.error(error);
+    };
+
     this.socket.onmessage = (event: MessageEvent) => {
       try {
         const response = <ClientResponse>JSON.parse(event.data);
