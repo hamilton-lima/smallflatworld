@@ -34,10 +34,18 @@
   </div>
 </div>
 
-<div *ngIf="connected" class="row">
-  <div class="col">
-    <button mat-raised-button class="mr-2 mt-2" (click)="close()">
-      DISCONNECT from {{ form.get('url').value }}
-    </button>
+<div *ngIf="connected" class="container">
+  <div class="row">
+    <div class="col">
+      <button mat-raised-button class="mr-2 mt-2" (click)="close()">
+        DISCONNECT from {{ form.get("url").value }}
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <app-share></app-share>
+    </div>
   </div>
 </div>
