@@ -1,15 +1,30 @@
-<app-renderer *ngIf="ready"></app-renderer>
-<mat-sidenav-container class="container">
-  <mat-sidenav>Start</mat-sidenav>
-  <mat-sidenav-content>
-    <button mat-icon-button class="mr-2 mt-2" (click)="download()">
-      <mat-icon>save</mat-icon>
-    </button>
-    <button mat-icon-button class="mr-2 mt-2" (click)="upload()">
-      <mat-icon>upload</mat-icon>
-    </button>
-    <button mat-icon-button class="mr-2 mt-2" (click)="send()">
-      <mat-icon>send</mat-icon>
-    </button>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<mat-drawer-container>
+  <mat-sidenav
+    #drawer
+    mode="side"
+    opened="true"
+    position="start"
+    class="drawer-left"
+  >
+    <div class="sidenav-container">
+      <p>
+        Current Realm: <b>{{ name }}</b>
+      </p>
+      <button mat-raised-button class="mr-2 mt-2" (click)="download()">
+        DOWNLOAD
+      </button>
+      <button mat-raised-button class="mr-2 mt-2" (click)="upload()">
+        UPLOAD
+      </button>
+      <hr />
+      <app-connect></app-connect>
+
+      <hr />
+    </div>
+  </mat-sidenav>
+
+  <section>
+    <button mat-raised-button class="toogle" (click)="toggle()">TOGGLE</button>
+    <app-renderer *ngIf="ready"></app-renderer>
+  </section>
+</mat-drawer-container>

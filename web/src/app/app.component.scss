@@ -1,6 +1,22 @@
-.container {
-  position: absolute;
-  top: 0;
+.drawer-left {
+  min-width: 300px;
+  width: 5%;
   left: 0;
-  z-index: 2;
+}
+
+.toogle {
+  z-index: 5;
+  right: 0%;
+  top: 1%;
+}
+
+.mat-drawer-container {
+  height: 100%;
+  width: 100%;
+}
+
+.sidenav-container{
+  margin-top: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
 }

@@ -17,6 +17,7 @@ export class ClientMessage {
   data: ClientData;
 }
 
+// Abstract response from all types of requests
 export class ClientResponse {
   uuid: string;
   action: Actions;

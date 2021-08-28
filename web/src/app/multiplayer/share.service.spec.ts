@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RealmUploadService } from './realm-upload.service';
+import { ShareService } from './share.service';
 
-describe('RealmUploadService', () => {
-  let service: RealmUploadService;
+describe('ShareService', () => {
+  let service: ShareService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RealmUploadService);
+    service = TestBed.inject(ShareService);
   });
 
   it('should be created', () => {

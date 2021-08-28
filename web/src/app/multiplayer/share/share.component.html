@@ -1,0 +1,13 @@
+<div *ngIf="!service.realmUUID" class="row">
+  <div class="col">
+    <button mat-raised-button class="mr-2 mt-2" (click)="start()">SHARE</button>
+  </div>
+</div>
+
+<div *ngIf="service.realmUUID" class="row">
+  <div class="col">
+    <button mat-raised-button class="mr-2 mt-2" (click)="stop()">
+      STOP SHARING
+    </button>
+  </div>
+</div>
