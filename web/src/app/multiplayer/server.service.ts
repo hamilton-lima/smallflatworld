@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import {
   Actions,
   ClientData,
   ClientMessage,
   ClientResponse,
   JoinRequest,
+  JoinResponse,
   SceneElement,
   ShareRequest,
+  ShareResponse,
   StateUpdate,
 } from '../../../../server/src/events.model';
 import { FPSService } from './fps.service';
@@ -21,8 +23,38 @@ export class ServerService {
   public readonly ready: Subject<boolean> = new Subject();
   private readonly message: Subject<ClientResponse> = new Subject();
 
+  public readonly onShare: Subject<ShareResponse> = new Subject();
+  public readonly onStateUpdate: Subject<StateUpdate> = new Subject();
+  public readonly onJoin: Subject<JoinResponse> = new Subject();
+
+  private subscription: Subscription;
+
   constructor(fps: FPSService) {
     fps.setup(this.message);
+    this.messageBroker(this.message);
+  }
+
+  messageBroker(message: Subject<ClientResponse>) {
+    this.subscription = message.subscribe((message: ClientResponse) => {
+      try {
+        if (message.action == Actions.Update) {
+          this.onStateUpdate.next(<StateUpdate>message.data);
+          return;
+        }
+
+        if (message.action == Actions.Join) {
+          this.onJoin.next(<JoinResponse>message.data);
+          return;
+        }
+
+        if (message.action == Actions.Share) {
+          this.onShare.next(<ShareResponse>message.data);
+          return;
+        }
+      } catch (error) {
+        console.error('Error redirecting messages from server', error);
+      }
+    });
   }
 
   connect(server: string) {
