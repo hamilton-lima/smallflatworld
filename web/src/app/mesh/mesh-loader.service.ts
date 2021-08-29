@@ -3,19 +3,17 @@ import {
   AbstractMesh,
   AnimationGroup,
   IParticleSystem,
-  Logger,
   Scene,
   SceneLoader,
   Skeleton,
 } from '@babylonjs/core';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { GLTFFileLoader } from '@babylonjs/loaders';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeshLoaderService {
-  constructor(private logger: NgxFancyLoggerService) {
+  constructor() {
     GLTFFileLoader.IncrementalLoading = false;
   }
 
@@ -75,36 +73,35 @@ export class MeshLoaderService {
           }
         );
       } catch (error) {
-        this.logger.error('Error while loading all meshes', fileName, error);
+        console.error('Error while loading all meshes', fileName, error);
         reject(error);
       }
     });
   }
 
-    // load all animations from specific file from /assets folder
-    public loadAllAnimations(
-      scene: Scene,
-      fileName: string,
-      visible = false
-    ): Promise<AnimationGroup[]> {
-      return new Promise<AnimationGroup[]>((resolve, reject) => {
-        try {
-          SceneLoader.ImportMeshAsync('', 'assets/', fileName, scene).then(
-            (value: {
-              meshes: AbstractMesh[];
-              particleSystems: IParticleSystem[];
-              skeletons: Skeleton[];
-              animationGroups: AnimationGroup[];
-            }) => {
-              console.log('animation loaded', value);
-              resolve(value.animationGroups);
-            }
-          );
-        } catch (error) {
-          this.logger.error('Error while loading all meshes', fileName, error);
-          reject(error);
-        }
-      });
-    }
-  
+  // load all animations from specific file from /assets folder
+  public loadAllAnimations(
+    scene: Scene,
+    fileName: string,
+    visible = false
+  ): Promise<AnimationGroup[]> {
+    return new Promise<AnimationGroup[]>((resolve, reject) => {
+      try {
+        SceneLoader.ImportMeshAsync('', 'assets/', fileName, scene).then(
+          (value: {
+            meshes: AbstractMesh[];
+            particleSystems: IParticleSystem[];
+            skeletons: Skeleton[];
+            animationGroups: AnimationGroup[];
+          }) => {
+            console.log('animation loaded', value);
+            resolve(value.animationGroups);
+          }
+        );
+      } catch (error) {
+        console.error('Error while loading all meshes', fileName, error);
+        reject(error);
+      }
+    });
+  }
 }

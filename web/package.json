@@ -25,7 +25,6 @@
     "@babylonjs/loaders": "^4.2.0",
     "@types/node": "^12.11.1",
     "dexie": "^3.0.3",
-    "ngx-fancy-logger": "^1.0.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "unique-names-generator": "^4.5.0",

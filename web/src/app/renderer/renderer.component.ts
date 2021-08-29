@@ -5,7 +5,6 @@ import { MovementService } from './movement.service';
 import { CameraService } from './camera.service';
 import { EditorService } from './editor.service';
 import { ScenarioService } from './scenario.service';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { InputService } from '../input.service';
 import { MeshLoaderService } from '../mesh/mesh-loader.service';
 import { CharacterService} from '../mesh/character.service';
@@ -25,7 +24,6 @@ export class RendererComponent implements AfterViewInit {
     private camera: CameraService,
     private editor: EditorService,
     private scenario: ScenarioService,
-    private logger: NgxFancyLoggerService,
     private input: InputService,
     private loader: MeshLoaderService,
     private character: CharacterService,
@@ -68,7 +66,7 @@ export class RendererComponent implements AfterViewInit {
         engineState.engine.hideLoadingUI();
       },
       (error) => {
-        this.logger.error('Error when building scenario', error);
+        console.error('Error when building scenario', error);
       }
     );
   }

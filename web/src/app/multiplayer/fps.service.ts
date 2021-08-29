@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { Subject, Subscription, timer } from 'rxjs';
 
 @Injectable({
@@ -11,7 +10,7 @@ export class FPSService {
   private readonly timer = timer(1000, 1000);
   public readonly fps: Subject<number> = new Subject();
 
-  constructor(private logger: NgxFancyLoggerService) {}
+  constructor() {}
 
   setup(message: Subject<Object>) {
     this.unsubscribe();
@@ -29,7 +28,7 @@ export class FPSService {
       try {
         this.subscription.unsubscribe();
       } catch (error) {
-        this.logger.error('Error unsubscribing from message emitter', error);
+        console.error('Error unsubscribing from message emitter', error);
       }
     }
   }

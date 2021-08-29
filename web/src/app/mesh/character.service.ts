@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Scene, StandardMaterial, Texture } from '@babylonjs/core';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
+import { StandardMaterial, Texture } from '@babylonjs/core';
 import { EngineState } from '../renderer/renderer.model';
 import { MeshLoaderService } from './mesh-loader.service';
 
@@ -9,7 +8,6 @@ import { MeshLoaderService } from './mesh-loader.service';
 })
 export class CharacterService {
   constructor(
-    private logger: NgxFancyLoggerService,
     private loader: MeshLoaderService
   ) {}
 
