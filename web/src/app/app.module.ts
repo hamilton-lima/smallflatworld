@@ -11,9 +11,16 @@ import { RealmUploadComponent } from './realm/realm-upload/realm-upload.componen
 import { ConnectComponent } from './multiplayer/connect/connect.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './multiplayer/share/share.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, RendererComponent, RealmUploadComponent, ConnectComponent, ShareComponent],
+  declarations: [
+    AppComponent,
+    RendererComponent,
+    RealmUploadComponent,
+    ConnectComponent,
+    ShareComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,7 +36,7 @@ import { ShareComponent } from './multiplayer/share/share.component';
     }),
     BrowserAnimationsModule,
     MaterialAllComponentsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

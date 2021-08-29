@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { PersistenceService } from '../persistence/persistence.service';
-
+import { APP_TESTBED_MODULE } from '../app.testbed';
 import { RealmService } from './realm.service';
 
 describe('RealmService', () => {
   let service: RealmService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
     service = TestBed.inject(RealmService);
   });
 
@@ -17,7 +16,6 @@ describe('RealmService', () => {
 
   it('after setup is done objects should be available', (done) => {
     const info = service.ready().then(() => {
-      
       // const list = service.getRealmList();
       // expect(list).toBeTruthy();
       // expect(list._id).toBeTruthy();

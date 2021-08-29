@@ -1,7 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppModule } from '../app.module';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { APP_TESTBED_MODULE } from '../app.testbed';
 import { RendererComponent } from './renderer.component';
 
 describe('RendererComponent', () => {
@@ -9,11 +7,7 @@ describe('RendererComponent', () => {
   let fixture: ComponentFixture<RendererComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RendererComponent ],
-      imports: [RouterTestingModule, AppModule],
-    })
-    .compileComponents();
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
   });
 
   beforeEach(() => {
