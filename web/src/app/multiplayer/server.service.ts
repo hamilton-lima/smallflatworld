@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import {
   Actions,
+  ClientData,
   ClientMessage,
   ClientResponse,
+  JoinRequest,
+  SceneElement,
   ShareRequest,
+  StateUpdate,
 } from '../../../../server/src/events.model';
 import { FPSService } from './fps.service';
 
@@ -57,14 +61,31 @@ export class ServerService {
     }
   }
 
-  share() {
-    const shareRequest = <ShareRequest>{};
+  send(action: Actions, data: ClientData) {
     const message = <ClientMessage>{
-      action: Actions.Share,
-      data: shareRequest,
+      action: action,
+      data: data,
     };
     const payload = JSON.stringify(message);
-
     this.socket.send(payload);
+  }
+
+  share() {
+    const request = <ShareRequest>{};
+    this.send(Actions.Share, request);
+  }
+
+  join(realmUUID: string) {
+    const request = <JoinRequest>{
+      uuid: realmUUID,
+    };
+    this.send(Actions.Join, request);
+  }
+
+  update(elements: SceneElement[]) {
+    const request = <StateUpdate>{
+      data: elements,
+    };
+    this.send(Actions.Join, request);
   }
 }
