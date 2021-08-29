@@ -7,7 +7,7 @@ import { ClientService } from '../client.service';
   styleUrls: ['./share.component.scss'],
 })
 export class ShareComponent implements OnInit {
-  constructor(private service: ClientService) {}
+  constructor(public service: ClientService) {}
 
   ngOnInit(): void {}
 
