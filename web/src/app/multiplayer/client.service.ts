@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class ShareService {
+export class ClientService {
   realmUUID: string;
   constructor() {}
 
-  start() {
+  share() {
     this.realmUUID = 'test-realmUUID';
   }
-  stop() {
+
+  stopShare() {
     this.realmUUID = null;
   }
 }
