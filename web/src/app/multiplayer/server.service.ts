@@ -27,15 +27,13 @@ export class ServerService {
   public readonly onStateUpdate: Subject<StateUpdate> = new Subject();
   public readonly onJoin: Subject<JoinResponse> = new Subject();
 
-  private subscription: Subscription;
-
   constructor(fps: FPSService) {
     fps.setup(this.message);
     this.messageBroker(this.message);
   }
 
   messageBroker(message: Subject<ClientResponse>) {
-    this.subscription = message.subscribe((message: ClientResponse) => {
+    message.subscribe((message: ClientResponse) => {
       try {
         if (message.action == Actions.Update) {
           this.onStateUpdate.next(<StateUpdate>message.data);
