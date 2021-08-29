@@ -12,10 +12,8 @@ describe('PersistenceService', () => {
   });
 
   afterEach(() => {
-    // service.db.destroy().then((err, response) => {
-    //   console.log('destroying the database', err);
-    //   done();
-    // });
+    console.log('delete database');
+    service.db.delete();
   });
 
   it('should be created', () => {

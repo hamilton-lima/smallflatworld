@@ -39,6 +39,7 @@ class LocalDatabase extends Dexie {
     this.configuration.mapToClass(Configuration);
     console.log('local database created', DB_NAME);
   }
+
 }
 
 @Injectable({
