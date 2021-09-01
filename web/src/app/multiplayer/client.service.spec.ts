@@ -91,8 +91,6 @@ describe('ClientService', () => {
     let response: SceneElement[];
     service.onUpdate.subscribe((update) => {
       response = update;
-      console.log('on Update subscription');
-
       expect(spyNext).toHaveBeenCalled();
       expect(response.length).toBe(1);
       const one = response[0];
