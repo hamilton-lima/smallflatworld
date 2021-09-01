@@ -4,9 +4,7 @@ import {
   Color3,
   StandardMaterial,
   MeshBuilder,
-  Vector3,
 } from '@babylonjs/core';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { SceneElement } from '../persistence/persistence.model';
 import { RealmService } from '../realm/realm.service';
 import { buildVector3 } from './builders';
@@ -20,13 +18,12 @@ export class ScenarioService {
   constructor(
     private mesh: MeshService,
     private realm: RealmService,
-    private logger: NgxFancyLoggerService
   ) {}
 
   buildRealm(engineState: EngineState): Promise<void> {
     return new Promise((resolve) => {
       const total = this.realm.getCurrentRealm().elements.length;
-      this.logger.info('Loading ' + total + ' elements');
+      console.info('Loading ' + total + ' elements');
 
       const character = this.realm.getCurrentRealm().character;
       engineState.character = this.addCharacter(engineState.scene, character);

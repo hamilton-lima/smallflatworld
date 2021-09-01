@@ -10,7 +10,6 @@ import {
 } from 'unique-names-generator';
 import { Realm, Configuration } from './persistence.model';
 import Dexie from 'dexie';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 
 const uniqueNameConfig: Config = {
   dictionaries: [adjectives, colors, animals, names],
@@ -25,6 +24,8 @@ class LocalDatabase extends Dexie {
   public configuration: Dexie.Table<Configuration, number>;
 
   public constructor() {
+    console.log('creating local database', DB_NAME);
+
     super(DB_NAME);
     // defines indexed fields of the entities
     this.version(1).stores({
@@ -36,7 +37,9 @@ class LocalDatabase extends Dexie {
 
     this.realms.mapToClass(Realm);
     this.configuration.mapToClass(Configuration);
+    console.log('local database created', DB_NAME);
   }
+
 }
 
 @Injectable({
@@ -45,7 +48,7 @@ class LocalDatabase extends Dexie {
 export class PersistenceService {
   db: LocalDatabase;
 
-  constructor(private logger: NgxFancyLoggerService) {
+  constructor() {
     this.db = new LocalDatabase();
   }
 
@@ -55,7 +58,7 @@ export class PersistenceService {
       await this.defaultRealm();
       await this.defaultConfiguration();
     } catch (error) {
-      this.logger.error(
+      console.error(
         'Error when initializing default values for the database',
         error
       );
@@ -65,20 +68,20 @@ export class PersistenceService {
   // create an empty realm if none exists
   async defaultRealm() {
     const realms = await this.db.realms.toArray();
-    this.logger.info('default realm found', realms);
+    console.info('default realm found', realms);
 
     console.log('realms', realms);
     if (realms.length == 0) {
       const realm = this.buildRealm();
       const add = await this.db.realms.add(realm);
-      this.logger.info('default realm created', realm, add);
+      console.info('default realm created', realm, add);
     }
   }
 
   // add default configuration if does not exist
   async defaultConfiguration() {
     const configuration = await this.db.configuration.toArray();
-    this.logger.info('default configuration found', configuration);
+    console.info('default configuration found', configuration);
     if (configuration.length == 0) {
       const realm = await this.getLastRealm();
       const configuration = <Configuration>{
@@ -86,7 +89,7 @@ export class PersistenceService {
         currentRealm: realm.id,
       };
       const add = await this.db.configuration.add(configuration);
-      this.logger.info('default configuration created', configuration, add);
+      console.info('default configuration created', configuration, add);
     }
   }
 

@@ -1,24 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RealmUploadComponent } from './realm-upload.component';
-import { AppModule } from '../../app.module';
-import { RouterTestingModule } from '@angular/router/testing';
+import { APP_TESTBED_MODULE } from '../../app.testbed';
 
 describe('RealmUploadComponent', () => {
   let component: RealmUploadComponent;
   let fixture: ComponentFixture<RealmUploadComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule, AppModule],
-      declarations: [RealmUploadComponent],
-    }).compileComponents();
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
 
     fixture = TestBed.createComponent(RealmUploadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  fit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

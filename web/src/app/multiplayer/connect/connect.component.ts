@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 
 const DEFAULT_SERVER = 'ws://localhost:8080';
 
@@ -20,7 +19,6 @@ export class ConnectComponent implements OnInit {
   constructor(
     private server: ServerService,
     private formBuilder: FormBuilder,
-    private logger: NgxFancyLoggerService
   ) {}
 
   ngOnInit(): void {}
@@ -34,7 +32,7 @@ export class ConnectComponent implements OnInit {
         this.connected = connected;
       },
       (error) => {
-        this.logger.error('Error connecting to the server', url, error);
+        console.error('Error connecting to the server', url, error);
       }
     );
   }

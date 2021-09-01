@@ -1,24 +1,19 @@
 import { Injectable } from '@angular/core';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { PersistenceService } from './persistence/persistence.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigurationService {
- 
   async setCurrentRealm(id: string) {
     const configuration = await this.persistence.getConfiguration();
     configuration.currentRealm = id;
     await this.persistence.updateConfiguration(configuration);
   }
 
-  constructor(
-    private persistence: PersistenceService,
-    private logger: NgxFancyLoggerService
-  ) {}
+  constructor(private persistence: PersistenceService) {}
 
-  async getConfiguration(){
+  async getConfiguration() {
     return this.persistence.getConfiguration();
   }
 }

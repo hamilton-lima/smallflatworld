@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { APP_TESTBED_MODULE } from 'src/app/app.testbed';
 
 import { ConnectComponent } from './connect.component';
 
@@ -7,10 +8,7 @@ describe('ConnectComponent', () => {
   let fixture: ComponentFixture<ConnectComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ConnectComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
   }));
 
   beforeEach(() => {

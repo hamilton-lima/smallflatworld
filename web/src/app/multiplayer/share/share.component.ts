@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShareService } from '../share.service';
+import { ClientService } from '../client.service';
 
 @Component({
   selector: 'app-share',
@@ -7,17 +7,17 @@ import { ShareService } from '../share.service';
   styleUrls: ['./share.component.scss'],
 })
 export class ShareComponent implements OnInit {
-  constructor(private service: ShareService) {}
+  constructor(public service: ClientService) {}
 
   ngOnInit(): void {}
 
   start() {
     console.log('start');
-    this.service.start();
+    this.service.share();
   }
 
   stop() {
     console.log('stop');
-    this.service.stop();
+    this.service.stopShare();
   }
 }

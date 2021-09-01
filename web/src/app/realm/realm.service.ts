@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Vector3 } from '@babylonjs/core';
-import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { Realm, SceneElement } from '../persistence/persistence.model';
 import { PersistenceService } from '../persistence/persistence.service';
 import { ConfigurationService } from '../configuration.service';
@@ -14,7 +13,6 @@ export class RealmService {
 
   constructor(
     private persistence: PersistenceService,
-    private logger: NgxFancyLoggerService,
     private configuration: ConfigurationService
   ) {}
 
@@ -34,10 +32,10 @@ export class RealmService {
         await this.persistence.updateRealm(this.currentRealm);
       }
 
-      this.logger.info('Realm setup is done', this.currentRealm);
+      console.info('Realm setup is done', this.currentRealm);
       return this.currentRealm;
     } catch (error) {
-      this.logger.error('Error on Realm setup', error);
+      console.error('Error on Realm setup', error);
       return null;
     }
   }

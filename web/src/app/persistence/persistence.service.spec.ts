@@ -1,21 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-
-import { DB_NAME, PersistenceService } from './persistence.service';
-import { Realm } from './persistence.model';
+import { PersistenceService } from './persistence.service';
+import { APP_TESTBED_MODULE } from '../app.testbed';
 
 describe('PersistenceService', () => {
   let service: PersistenceService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
+
     service = TestBed.inject(PersistenceService);
   });
 
-  afterEach((done) => {
-    // service.db.destroy().then((err, response) => {
-    //   console.log('destroying the database', err);
-    //   done();
-    // });
+  afterEach(() => {
+    console.log('delete database');
+    service.db.delete();
   });
 
   it('should be created', () => {
