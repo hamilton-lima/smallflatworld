@@ -12,7 +12,7 @@ import { ServerService } from './server.service';
 })
 export class ClientService {
   realmUUID: string;
-  subscriptions: Subscription[];
+  subscriptions: Subscription[] = [];
   onUpdate: Subject<SceneElement[]> = new Subject();
 
   constructor(private server: ServerService) {}
