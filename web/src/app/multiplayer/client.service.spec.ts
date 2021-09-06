@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import {
   ShareResponse,
   StateUpdate,
@@ -50,6 +50,7 @@ describe('ClientService', () => {
   });
 
   it('should unsubcribe to all when calling share', () => {
+    const spy = spyOn(serverService, 'share');
     const spyUnsubscribe = spyOn(service, 'unsubscribe');
     service.share();
     expect(spyUnsubscribe).toHaveBeenCalled();
@@ -57,6 +58,7 @@ describe('ClientService', () => {
 
   it('should update realmUUID with response and call listen2Updates', () => {
     const spyListen = spyOn(service, 'listen2Updates');
+    const spy = spyOn(serverService, 'share');
     service.share();
     serverService.onShare.next(<ShareResponse>{ uuid: 'foo.bar.42' });
 
@@ -65,6 +67,7 @@ describe('ClientService', () => {
   });
 
   it('should add subscription when share()', () => {
+    const spy = spyOn(serverService, 'share');
     expect(service.subscriptions.length).toBe(0);
     service.share();
     expect(service.subscriptions.length).toBe(1);
@@ -120,5 +123,11 @@ describe('ClientService', () => {
 
     expect(spy).toHaveBeenCalled();
     expect(service.realmUUID).toBeNull();
+  });
+
+  it('should call server.share when calling share()', () => {
+    const spy = spyOn(serverService, 'share');
+    service.share();
+    expect(spy).toHaveBeenCalled();
   });
 });

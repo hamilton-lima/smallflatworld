@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ObjectUnsubscribedError, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import {
   SceneElement,
   ShareResponse,
@@ -35,6 +35,7 @@ export class ClientService {
         this.listen2Updates();
       })
     );
+    this.server.share();
   }
 
   listen2Updates() {
