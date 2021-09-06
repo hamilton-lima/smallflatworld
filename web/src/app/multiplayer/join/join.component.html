@@ -1,1 +1,35 @@
-<p>join works!</p>
+<div class="container" [formGroup]="form">
+    <div class="row">
+      <div class="col"><span class="title">Join a realm</span></div>
+    </div>
+  
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="col-10 mt-3 mx-auto">
+          <mat-label>Realm ID</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="realmUUID"
+            placeholder="Ex. 600933db-dbdc-4afd-942d-67a556b8b1c3"
+          />
+          <mat-error *ngIf="form.get('realmUUID').hasError('required')">
+            Realm ID is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col">
+        <button
+          [disabled]="!form.valid"
+          mat-raised-button
+          class="mr-2 mt-2"
+          (click)="join()"
+        >
+          JOIN
+        </button>
+      </div>
+    </div>
+  </div>
