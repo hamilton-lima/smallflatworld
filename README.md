@@ -12,10 +12,11 @@ Web 3D programable sandbox
 ## next steps 
 
 web
-- add join implementation
-- update 3D scene with events
+- add join implementation UI
+- update 3D scene with events from server
+
 - add edit mode to 3D
-- change edit mode to stack elements
+- change edit mode to stack elements, maybe highlight target of the creation?
 - add library of 3D elements to the UI (bottom)
 - add jump
 - add on click event handler to 3D element - introduce code ui with blocks
@@ -26,6 +27,7 @@ web
 
 ## To be investigated
 
+Rename user after join a realm
 Plugins, to create programable parts of the engine
 - create separated repository for approved plugins
 - creation of plugins to allow custom UI generation and creation of scene elements
