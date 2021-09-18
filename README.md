@@ -15,6 +15,11 @@ web
 - add join implementation UI
 - update 3D scene with events from server
 
+multiplayer
+- when sharing, disable join button.
+- add event when changing realm
+- update current realm after joining
+
 - add edit mode to 3D
 - change edit mode to stack elements, maybe highlight target of the creation?
 - add library of 3D elements to the UI (bottom)

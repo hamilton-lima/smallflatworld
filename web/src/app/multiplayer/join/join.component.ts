@@ -13,7 +13,8 @@ export class JoinComponent implements OnInit {
   });
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public service: ClientService
   ) {}
 
   ngOnInit(): void {}
@@ -21,5 +22,6 @@ export class JoinComponent implements OnInit {
   join() {
     const realmUUID = this.form.get('realmUUID').value;
     console.log('join', realmUUID);
+    this.service.join(realmUUID);
   }
 }

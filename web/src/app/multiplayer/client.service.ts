@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import {
+  JoinResponse,
   SceneElement,
   ShareResponse,
   StateUpdate,
@@ -38,12 +39,26 @@ export class ClientService {
     this.server.share();
   }
 
+  join(realmUUID: string) {
+    this.realmUUID = null;
+    this.unsubscribe();
+    this.subscriptions.push(
+      this.server.onJoin.subscribe((response:JoinResponse) => {
+        this.realmUUID = realmUUID;
+        this.listen2Updates();
+      })
+    );
+    this.server.join(realmUUID);
+  }
+
   listen2Updates() {
     this.subscriptions.push(
       this.server.onStateUpdate.subscribe((response: StateUpdate) => {
         this.onUpdate.next(response.data);
       })
     );
+    // REMOVE THIS
+    this.onUpdate.subscribe( elements => console.log('update', elements));
   }
 
   stopShare() {
