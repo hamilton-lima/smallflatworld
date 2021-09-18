@@ -12,8 +12,8 @@ Web 3D programable sandbox
 ## next steps 
 
 web
-- add join implementation UI
-- update 3D scene with events from server
+- update 3D scene with events from server, link client.onUpdate events with renderer
+- send player position updates, at realmService.updateCharacter send events to multiplayer
 
 multiplayer
 - when sharing, disable join button
