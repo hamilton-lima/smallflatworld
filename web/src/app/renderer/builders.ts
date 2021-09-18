@@ -1,4 +1,5 @@
 import { Mesh, Vector3 } from '@babylonjs/core';
+import { Vector3Memento } from '../../../../server/src/events.model';
 import { SceneElement } from '../persistence/persistence.model';
 
 export function mesh2SceneElement(mesh: Mesh): SceneElement {
@@ -19,6 +20,6 @@ export function mesh2SceneElement(mesh: Mesh): SceneElement {
 }
 
 // convert exported vector3 data object in real Vector3 instance
-export function buildVector3(vector3: Vector3) {
+export function buildVector3(vector3: Vector3Memento) {
   return new Vector3(vector3.x, vector3.y, vector3.z);
 }

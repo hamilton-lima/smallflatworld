@@ -16,7 +16,7 @@ web
 - update 3D scene with events from server
 
 multiplayer
-- when sharing, disable join button.
+- when sharing, disable join button
 - add event when changing realm
 - update current realm after joining
 

@@ -7,11 +7,11 @@ import {
   ClientResponse,
   JoinRequest,
   JoinResponse,
-  SceneElement,
   ShareRequest,
   ShareResponse,
   StateUpdate,
 } from '../../../../server/src/events.model';
+import { SceneElement } from '../persistence/persistence.model';
 import { FPSService } from './fps.service';
 
 @Injectable({

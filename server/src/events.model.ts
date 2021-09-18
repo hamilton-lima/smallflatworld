@@ -36,20 +36,20 @@ export class JoinResponse implements ClientResponseData {
   data: StateUpdate;
 }
 
-export class Vector3 {
-  x: string;
-  y: string;
-  z: string;
+export class Vector3Memento {
+  x: number;
+  y: number;
+  z: number;
 }
 
-export class SceneElement {
+export class SceneElementMemento {
   name: string;
-  position: Vector3;
-  rotation: Vector3;
+  position: Vector3Memento;
+  rotation: Vector3Memento;
 }
 
 export class StateUpdate implements ClientData, ClientResponseData {
-  data: SceneElement[];
+  data: SceneElementMemento[];
 }
 
 export class ShareRequest implements ClientData {}
