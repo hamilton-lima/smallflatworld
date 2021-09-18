@@ -46,11 +46,6 @@ export class AppComponent implements OnInit {
     this.input.focus();
   }
 
-  // TODO: remove this
-  send() {
-    const updates = this.server.share();
-  }
-
   toggle(){
     this.drawer.toggle();
     this.input.focus();
