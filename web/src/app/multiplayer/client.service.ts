@@ -78,6 +78,7 @@ export class ClientService {
         position: buildVector3(element.position),
         rotation: buildVector3(element.rotation),
       };
+      result.push(converted);
     });
     return result;
   }

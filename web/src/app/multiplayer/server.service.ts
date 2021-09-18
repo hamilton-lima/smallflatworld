@@ -116,6 +116,6 @@ export class ServerService {
     const request = <StateUpdate>{
       data: elements,
     };
-    this.send(Actions.Join, request);
+    this.send(Actions.Update, request);
   }
 }
