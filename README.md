@@ -11,25 +11,32 @@ Web 3D programable sandbox
 
 ## next steps 
 
-web
-- update 3D scene with events from server, link client.onUpdate events with renderer
-- send player position updates, at realmService.updateCharacter send events to multiplayer
+editor
+- add edit mode to 3D
+- add library of 3D elements to the UI (bottom)
+    - add sceneelement type to identify the asset used
+    - add all kenney resources as libraries, write script?
+- change edit mode to stack elements, maybe highlight target of the creation?
 
 multiplayer
 - wait for the full state of the realm after joining and update current realm
+- send player position updates, at realmService.updateCharacter send events to multiplayer
 - when sharing, disable join button
 - add event when changing realm
 
-- add edit mode to 3D
-- change edit mode to stack elements, maybe highlight target of the creation?
-- add library of 3D elements to the UI (bottom)
-    - add sceneelement type to identify the asset used
+scenario
+- add skybox
+
+actions
 - add jump
+
+coding
 - add on click event handler to 3D element - introduce code ui with blocks
 - add function to display message 
 - add shared state of the realm available to the coding with blocks
 
-- add all kenney resources as libraries
+realm management
+- create new 
 
 ## To be investigated
 
