@@ -12,9 +12,9 @@ Web 3D programable sandbox
 ## next steps 
 
 web
+- only send update events if connected,sharing/joined
 - update 3D scene with events from server, link client.onUpdate events with renderer
 - send player position updates, at realmService.updateCharacter send events to multiplayer
-- only send update events if connected,sharing/joined
 
 multiplayer
 - when sharing, disable join button

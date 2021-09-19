@@ -92,6 +92,12 @@ export class ServerService {
   }
 
   send(action: Actions, data: ClientData) {
+    // skip sending messages if not connected
+    const connected = this.socket && this.socket.readyState == WebSocket.OPEN;
+    if (!connected) {
+      return;
+    }
+
     const message = <ClientMessage>{
       action: action,
       data: data,
