@@ -65,9 +65,6 @@ export class ClientService {
         this.onUpdate.next(data);
       })
     );
-
-    // REMOVE THIS
-    this.onUpdate.subscribe((elements) => console.log('update', elements));
   }
 
   memento2Vector3(data: SceneElementMemento[]): SceneElement[] {

@@ -14,8 +14,11 @@ import {
   DynamicTexture,
   Space,
   Camera,
+  AbstractMesh,
 } from '@babylonjs/core';
 import { Subject } from 'rxjs';
+import { SceneElement } from '../persistence/persistence.model';
+import { EditorService } from './editor.service';
 import { EngineState } from './renderer.model';
 
 @Injectable({
@@ -23,7 +26,9 @@ import { EngineState } from './renderer.model';
 })
 export class RendererService {
   reload: Subject<void> = new Subject();
-  
+
+  constructor(private editor: EditorService) {}
+
   setup(canvas: ElementRef<HTMLCanvasElement>): EngineState {
     const result = new EngineState();
     result.engine = new Engine(canvas.nativeElement, true);
@@ -39,5 +44,16 @@ export class RendererService {
     return result;
   }
 
-  constructor() {}
+  update(state: EngineState, elements: SceneElement[]) {
+    elements.forEach((element: SceneElement) => {
+      const found = state.scene.getMeshByName(element.name);
+      console.log('update event', element.name, 'found == null', found == null);
+
+      if (found) {
+        this.editor.update(state.scene, element);
+      } else {
+        this.editor.add(state.scene, element);
+      }
+    });
+  }
 }

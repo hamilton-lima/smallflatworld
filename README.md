@@ -12,18 +12,18 @@ Web 3D programable sandbox
 ## next steps 
 
 web
-- only send update events if connected,sharing/joined
 - update 3D scene with events from server, link client.onUpdate events with renderer
 - send player position updates, at realmService.updateCharacter send events to multiplayer
 
 multiplayer
+- wait for the full state of the realm after joining and update current realm
 - when sharing, disable join button
 - add event when changing realm
-- update current realm after joining
 
 - add edit mode to 3D
 - change edit mode to stack elements, maybe highlight target of the creation?
 - add library of 3D elements to the UI (bottom)
+    - add sceneelement type to identify the asset used
 - add jump
 - add on click event handler to 3D element - introduce code ui with blocks
 - add function to display message 

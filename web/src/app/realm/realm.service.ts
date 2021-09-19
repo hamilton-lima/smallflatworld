@@ -63,7 +63,6 @@ export class RealmService {
   // add new scene elements
   async add(element: SceneElement) {
     this.currentRealm.elements.push(element);
-    this.client.update(element);
     return this._updateRealm();
   }
 
