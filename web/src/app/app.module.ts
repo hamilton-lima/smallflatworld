@@ -11,6 +11,7 @@ import { ConnectComponent } from './multiplayer/connect/connect.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './multiplayer/share/share.component';
 import { JoinComponent } from './multiplayer/join/join.component';
+import { FileComponent } from './file/file/file.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { JoinComponent } from './multiplayer/join/join.component';
     ConnectComponent,
     ShareComponent,
     JoinComponent,
+    FileComponent,
   ],
   imports: [
     BrowserModule,

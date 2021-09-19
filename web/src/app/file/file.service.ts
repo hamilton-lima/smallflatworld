@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RealmService } from './realm/realm.service';
+import { RealmService } from '../realm/realm.service';
 
 @Injectable({
   providedIn: 'root',
