@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Library } from '../editor-library.model';
 import { EditorLibraryService } from '../editor-library.service';
+import { EditorService } from '../editor.service';
 
 @Component({
   selector: 'app-editor-toolbar',
@@ -9,14 +10,18 @@ import { EditorLibraryService } from '../editor-library.service';
 })
 export class EditorToolbarComponent implements OnInit {
   libraries: Library[];
-  constructor(private service: EditorLibraryService) {}
+  constructor(
+    private service: EditorLibraryService,
+    private editor: EditorService
+  ) {}
 
   ngOnInit(): void {
     this.libraries = this.service.getLibraries();
   }
 
   // REPLACE with Library component
-  use(library: Library){
-    console.log("library", library);
+  use(library: Library) {
+    console.log('library', library);
+    this.editor.setCurrent(library.components[0]);
   }
 }

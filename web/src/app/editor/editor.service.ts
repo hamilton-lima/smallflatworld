@@ -9,12 +9,13 @@ import {
   Camera,
   Vector3,
 } from '@babylonjs/core';
-import { MeshService } from './mesh.service';
+import { MeshService } from '../renderer/mesh.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
-import { mesh2SceneElement } from './builders';
+import { mesh2SceneElement } from '../renderer/builders';
 import { SceneElement } from '../persistence/persistence.model';
 import { ClientService } from '../multiplayer/client.service';
+import { LibraryComponent } from './editor-library.model';
 
 const POINTERDOWN = 'pointerdown';
 
@@ -22,6 +23,9 @@ const POINTERDOWN = 'pointerdown';
   providedIn: 'root',
 })
 export class EditorService {
+  // TODO: set default
+  private current: LibraryComponent;
+
   constructor(
     private mesh: MeshService,
     private realm: RealmService,
@@ -45,6 +49,10 @@ export class EditorService {
     });
 
     return scene;
+  }
+
+  setCurrent(component: LibraryComponent) {
+    this.current = component;
   }
 
   // TODO: use different mesh based on the sceneElement Type

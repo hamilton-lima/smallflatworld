@@ -3,7 +3,7 @@ import { RendererService } from './renderer.service';
 import { MeshService } from './mesh.service';
 import { MovementService } from './movement.service';
 import { CameraService } from './camera.service';
-import { EditorService } from './editor.service';
+import { EditorService } from '../editor/editor.service';
 import { ScenarioService } from './scenario.service';
 import { InputService } from '../input.service';
 import { MeshLoaderService } from '../mesh/mesh-loader.service';

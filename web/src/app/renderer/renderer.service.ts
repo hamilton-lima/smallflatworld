@@ -18,7 +18,7 @@ import {
 } from '@babylonjs/core';
 import { Subject } from 'rxjs';
 import { SceneElement } from '../persistence/persistence.model';
-import { EditorService } from './editor.service';
+import { EditorService } from '../editor/editor.service';
 import { EngineState } from './renderer.model';
 
 @Injectable({
