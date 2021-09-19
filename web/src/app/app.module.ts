@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './multiplayer/share/share.component';
 import { JoinComponent } from './multiplayer/join/join.component';
 import { FileComponent } from './file/file/file.component';
+import { EditorToolbarComponent } from './editor/editor-toolbar/editor-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FileComponent } from './file/file/file.component';
     ShareComponent,
     JoinComponent,
     FileComponent,
+    EditorToolbarComponent,
   ],
   imports: [
     BrowserModule,

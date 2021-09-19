@@ -1,0 +1,9 @@
+<div>
+  <button mat-raised-button
+    *ngFor="let library of libraries"
+    aria-label="{{ library.name }}"
+    (click)="use(library)"
+  >
+    <img width="36" height="36" [src]="library.icon" />
+  </button>
+</div>
