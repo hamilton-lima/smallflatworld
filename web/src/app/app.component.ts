@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FileService } from './file.service';
+import { FileService } from './file/file.service';
 import { RealmService } from './realm/realm.service';
 import { InputService } from './input.service';
 import { RealmUploadService } from './realm/realm-upload.service';
@@ -17,13 +17,8 @@ export class AppComponent implements OnInit {
 
   @ViewChild('drawer') drawer: MatDrawer;
 
-  constructor(
-    private file: FileService,
-    private realm: RealmService,
-    private input: InputService,
-    private uploadService: RealmUploadService,
-    private server: ServerService
-  ) {}
+  constructor(private realm: RealmService, private input: InputService) {}
+
   ngOnInit(): void {
     this.realm.ready().then(
       () => {
@@ -36,22 +31,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  download() {
-    this.file.download();
-    this.input.focus();
-  }
-
-  upload() {
-    this.uploadService.show();
-    this.input.focus();
-  }
-
-  // TODO: remove this
-  send() {
-    const updates = this.server.share();
-  }
-
-  toggle(){
+  toggle() {
     this.drawer.toggle();
     this.input.focus();
   }

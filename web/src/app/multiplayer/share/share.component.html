@@ -6,8 +6,11 @@
 
 <div *ngIf="service.realmUUID" class="row">
   <div class="col">
-    <button mat-raised-button class="mr-2 mt-2" (click)="stop()">
-      STOP SHARING
-    </button>
+    <p>
+      <button mat-raised-button class="mr-2 mt-2" (click)="stop()">
+        STOP SHARING
+      </button>
+    </p>
+    <p>Sharing on {{service.realmUUID}}</p>
   </div>
 </div>

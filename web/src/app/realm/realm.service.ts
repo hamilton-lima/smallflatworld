@@ -3,6 +3,7 @@ import { Vector3 } from '@babylonjs/core';
 import { Realm, SceneElement } from '../persistence/persistence.model';
 import { PersistenceService } from '../persistence/persistence.service';
 import { ConfigurationService } from '../configuration.service';
+import { ClientService } from '../multiplayer/client.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,8 @@ export class RealmService {
 
   constructor(
     private persistence: PersistenceService,
-    private configuration: ConfigurationService
+    private configuration: ConfigurationService,
+    private client: ClientService
   ) {}
 
   async ready(): Promise<Realm> {

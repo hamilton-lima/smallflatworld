@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ObjectUnsubscribedError, Subject, Subscription } from 'rxjs';
+import { Vector3 } from '@babylonjs/core';
+import { Subject, Subscription } from 'rxjs';
 import {
-  SceneElement,
+  JoinResponse,
+  SceneElementMemento,
   ShareResponse,
   StateUpdate,
 } from '../../../../server/src/events.model';
+import { SceneElement } from '../persistence/persistence.model';
 import { ServerService } from './server.service';
+import { buildVector3 } from '../renderer/builders';
 
 @Injectable({
   providedIn: 'root',
@@ -35,14 +39,45 @@ export class ClientService {
         this.listen2Updates();
       })
     );
+    this.server.share();
+  }
+
+  join(realmUUID: string) {
+    this.realmUUID = null;
+    this.unsubscribe();
+    this.subscriptions.push(
+      this.server.onJoin.subscribe((response: JoinResponse) => {
+        this.realmUUID = realmUUID;
+        this.listen2Updates();
+      })
+    );
+    this.server.join(realmUUID);
+  }
+
+  update(sceneElement: SceneElement) {
+    this.server.update([sceneElement]);
   }
 
   listen2Updates() {
     this.subscriptions.push(
       this.server.onStateUpdate.subscribe((response: StateUpdate) => {
-        this.onUpdate.next(response.data);
+        const data = this.memento2Vector3(response.data);
+        this.onUpdate.next(data);
       })
     );
+  }
+
+  memento2Vector3(data: SceneElementMemento[]): SceneElement[] {
+    const result: SceneElement[] = [];
+    data.forEach((element: SceneElementMemento) => {
+      const converted = <SceneElement>{
+        name: element.name,
+        position: buildVector3(element.position),
+        rotation: buildVector3(element.rotation),
+      };
+      result.push(converted);
+    });
+    return result;
   }
 
   stopShare() {

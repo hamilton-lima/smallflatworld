@@ -7,7 +7,9 @@ import { EditorService } from './editor.service';
 import { ScenarioService } from './scenario.service';
 import { InputService } from '../input.service';
 import { MeshLoaderService } from '../mesh/mesh-loader.service';
-import { CharacterService} from '../mesh/character.service';
+import { CharacterService } from '../mesh/character.service';
+import { ClientService } from '../multiplayer/client.service';
+import { SceneElement } from '../persistence/persistence.model';
 
 @Component({
   selector: 'app-renderer',
@@ -19,14 +21,13 @@ export class RendererComponent implements AfterViewInit {
 
   constructor(
     private service: RendererService,
-    private mesh: MeshService,
     private movement: MovementService,
     private camera: CameraService,
     private editor: EditorService,
     private scenario: ScenarioService,
     private input: InputService,
-    private loader: MeshLoaderService,
     private character: CharacterService,
+    private client: ClientService
   ) {}
 
   ngAfterViewInit(): void {
@@ -62,8 +63,13 @@ export class RendererComponent implements AfterViewInit {
           this.movement.move(engineState.character);
           engineState.scene.render();
         });
-        
+
         engineState.engine.hideLoadingUI();
+
+        // subscribe to updates from multiplayer client
+        this.client.onUpdate.subscribe((elements: SceneElement[]) => {
+          this.service.update(engineState, elements);
+        });
       },
       (error) => {
         console.error('Error when building scenario', error);

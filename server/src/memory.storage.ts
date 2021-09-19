@@ -1,11 +1,11 @@
-import { SceneElement, StateUpdate } from "./events.model";
+import { SceneElementMemento, StateUpdate } from "./events.model";
 import { EventsHandler } from "./events.handler";
 
 class StateUpdateCached {
-  map: Map<string, SceneElement>;
+  map: Map<string, SceneElementMemento>;
 
   constructor() {
-    this.map = new Map<string, SceneElement>();
+    this.map = new Map<string, SceneElementMemento>();
   }
 }
 
@@ -68,7 +68,7 @@ export class MemoryStorage {
     return result;
   }
 
-  update(uuid: string, element: SceneElement) {
+  update(uuid: string, element: SceneElementMemento) {
     const state = this.getStorage(uuid).states;
     state.map.set(element.name, element);
   }
