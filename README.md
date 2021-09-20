@@ -12,6 +12,8 @@ Web 3D programable sandbox
 ## next steps 
 
 editor
+- when adding component x axis is inverted
+- y needs to be calculated based on the bounding box
 - add edit mode to 3D
 - add library of 3D elements to the UI (bottom)
     - add sceneelement type to identify the asset used
