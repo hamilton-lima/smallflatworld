@@ -3,7 +3,7 @@ const suffix = "_E.png";
 const modelExtension = ".glb";
 const iconExtension = ".png";
 const fs = require('fs');
-modelPath = "assets/library/kenney/survival-kit-1.0/Models/GLTF format/";
+modelPath = "library/kenney/survival-kit-1.0/Models/GLTF format/";
 iconPath = "assets/library/kenney/survival-kit-1.0/Isometric/";
 
 result =[];

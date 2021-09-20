@@ -33,12 +33,9 @@ export class CharacterService {
         const target = mesh.skeleton.bones.filter(
           (bone) => bone.id == oldTarget.id
         );
-        console.log('old target', oldTarget, target);
         return target;
       });
       newRun.start(true);
-
-      console.log('animations', run.targetedAnimations[0].target);
     }
 
     const material = new StandardMaterial(
@@ -52,8 +49,6 @@ export class CharacterService {
     );
 
     material.diffuseTexture = texture;
-
-    console.log('material', material);
     mesh.material = material;
   }
 }

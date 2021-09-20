@@ -6,7 +6,10 @@ import {
   Vector3,
   StandardMaterial,
   MeshBuilder,
+  AbstractMesh,
+  AssetsManager,
 } from '@babylonjs/core';
+import { MeshLoaderService } from '../mesh/mesh-loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -71,5 +74,23 @@ export class MeshService {
     return this._addbox(scene, 1, 3, '#00FF00', position, rotation, name);
   }
 
-  constructor() {}
+  cloneAndAdd(
+    scene: Scene,
+    mesh: AbstractMesh,
+    position: Vector3,
+    rotation: Vector3,
+    name: string
+  ): AbstractMesh {
+    const result = mesh.clone(name, null);
+    result.name = name;
+    result.position = position;
+    result.rotation = rotation;
+    result.isVisible = true;
+
+    scene.addMesh(result);
+    console.log('clone and add', mesh, result);
+    return result;
+  }
+
+  constructor(private loader: MeshLoaderService) {}
 }

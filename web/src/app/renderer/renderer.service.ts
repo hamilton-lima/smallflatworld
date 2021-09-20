@@ -50,9 +50,9 @@ export class RendererService {
       console.log('update event', element.name, 'found == null', found == null);
 
       if (found) {
-        this.editor.update(state.scene, element);
+        this.editor.update(element);
       } else {
-        this.editor.add(state.scene, element);
+        this.editor.add(element);
       }
     });
   }
