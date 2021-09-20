@@ -32,11 +32,23 @@ export class MeshLoaderService {
       this.loadAllMeshes(scene, fileName, visible).then(
         (meshes: AbstractMesh[]) => {
           let result: AbstractMesh;
+          
           meshes.forEach((mesh) => {
             if (mesh.name === meshName) {
               result = mesh;
             }
           });
+
+          if(!result){
+            // try to skip "__root__" and get first mesh
+            // TODO: combine all meshes
+            const filtered = meshes.filter( mesh => {
+              return mesh.name !== "__root__";
+            });
+            if( filtered.length > 0){
+              result = filtered[0];
+            }
+          }
 
           if (result) {
             result.isVisible = visible;

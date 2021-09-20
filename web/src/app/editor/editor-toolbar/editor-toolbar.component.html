@@ -1,9 +1,9 @@
 <div>
   <button mat-raised-button
-    *ngFor="let library of libraries"
-    aria-label="{{ library.name }}"
-    (click)="use(library)"
+    *ngFor="let component of libraries[0].components"
+    aria-label="{{ component.name }}"
+    (click)="use(component)"
   >
-    <img width="36" height="36" [src]="library.icon" />
+    <img width="36" height="36" [src]="component.icon" />
   </button>
 </div>

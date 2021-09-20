@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Library } from '../editor-library.model';
+import { Library, LibraryComponent } from '../editor-library.model';
 import { EditorLibraryService } from '../editor-library.service';
 import { EditorService } from '../editor.service';
 
@@ -20,8 +20,8 @@ export class EditorToolbarComponent implements OnInit {
   }
 
   // REPLACE with Library component
-  use(library: Library) {
-    console.log('library', library);
-    this.editor.setCurrent(library.components[0]);
+  use(component: LibraryComponent) {
+    console.log('component', component);
+    this.editor.setCurrent(component);
   }
 }
