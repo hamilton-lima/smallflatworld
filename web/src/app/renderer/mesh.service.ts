@@ -80,8 +80,8 @@ export class MeshService {
     position: Vector3,
     rotation: Vector3,
     name: string
-  ): AbstractMesh {
-    const result = mesh.clone(name, null);
+  ): Mesh {
+    const result = <Mesh>mesh.clone(name, null);
     result.name = name;
     result.position = position;
     result.rotation = rotation;

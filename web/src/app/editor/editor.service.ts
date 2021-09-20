@@ -44,8 +44,8 @@ export class EditorService {
         if (pointerInfo.event.type == POINTERDOWN) {
           const position = pointerInfo.pickInfo.pickedPoint;
           position.y = 1;
-          let createdMesh = null;
-
+          let createdMesh: Mesh = null;
+          console.log('position', position);
           if (this.currentMesh) {
             createdMesh = await this.mesh.cloneAndAdd(
               scene,
@@ -58,6 +58,7 @@ export class EditorService {
             createdMesh = this.mesh.addTallbox(scene, position, uuidv4());
           }
 
+          console.log('created mesh', createdMesh);
           const element = mesh2SceneElement(createdMesh);
 
           // update local realm and send client event
