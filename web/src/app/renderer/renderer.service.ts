@@ -33,6 +33,8 @@ export class RendererService {
     const result = new EngineState();
     result.engine = new Engine(canvas.nativeElement, true);
     result.scene = new Scene(result.engine);
+
+    result.scene.useRightHandedSystem = true;
     result.scene.clearColor = new Color4(0, 0, 0, 0);
 
     result.mainLight = new HemisphericLight(

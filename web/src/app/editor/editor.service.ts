@@ -54,6 +54,7 @@ export class EditorService {
               Vector3.Zero(),
               uuidv4()
             );
+
           } else {
             createdMesh = this.mesh.addTallbox(scene, position, uuidv4());
           }

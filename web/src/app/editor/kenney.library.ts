@@ -181,15 +181,11 @@ const survivalKit1 = [
     model3D: 'library/kenney/survival-kit-1.0/Models/GLTF format/workbench.glb',
   },
 ];
+
 export const kenneyLibrary: Library[] = [
   {
     name: 'kenney/survival-kit-1.0',
     icon: 'assets/library/kenney/survival-kit-1.0/Isometric/rockA_E.png',
-    components: survivalKit1,
-  },
-  {
-    name: 'kenney/survival-kit-1.0 -B',
-    icon: 'assets/library/kenney/survival-kit-1.0/Isometric/structureBase_E.png',
     components: survivalKit1,
   },
 ];
