@@ -32,6 +32,7 @@ scenario
 - add skybox
 
 actions
+- replace red box with running boy model
 - add jump
 
 coding
