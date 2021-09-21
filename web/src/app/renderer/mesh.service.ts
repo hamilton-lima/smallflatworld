@@ -92,7 +92,6 @@ export class MeshService {
     result.position = shiftedPosition;
     result.rotation = rotation;
     result.isVisible = true;
-    result.showBoundingBox = true;
 
     scene.addMesh(result);
     console.log('clone and add', mesh, result);
