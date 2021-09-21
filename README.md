@@ -13,6 +13,9 @@ Web 3D programable sandbox
 
 editor
 - fix load of objects with submeshes
+- fix stack objects, second instance is not stacking
+- save sceneElement information of the mesh used
+- reload scene with the correct meshes 
 - add edit mode to 3D
 - add library of 3D elements to the UI (bottom)
     - add sceneelement type to identify the asset used
