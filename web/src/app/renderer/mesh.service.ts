@@ -81,15 +81,18 @@ export class MeshService {
     rotation: Vector3,
     name: string
   ): Mesh {
+
     const shiftedPosition = position.subtract(
       mesh.getBoundingInfo().boundingBox.center
     );
-
+    shiftedPosition.y = 0;
+ 
     const result = <Mesh>mesh.clone(name, null);
     result.name = name;
     result.position = shiftedPosition;
     result.rotation = rotation;
     result.isVisible = true;
+    result.showBoundingBox = true;
 
     scene.addMesh(result);
     console.log('clone and add', mesh, result);

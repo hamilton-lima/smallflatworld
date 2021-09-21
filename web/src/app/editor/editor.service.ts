@@ -43,7 +43,6 @@ export class EditorService {
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
           const position = pointerInfo.pickInfo.pickedPoint;
-          position.y = 1;
           let createdMesh: Mesh = null;
           console.log('position', position);
           if (this.currentMesh) {
