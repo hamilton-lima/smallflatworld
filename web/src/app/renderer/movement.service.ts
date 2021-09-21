@@ -40,11 +40,11 @@ export class MovementService {
     let rotated = false;
     let moved = false;
 
-    if (this.keyState.ArrowLeft) {
+    if (this.keyState.ArrowRight) {
       character.rotation.y -= ROTATION_SPEED;
       rotated = true;
     }
-    if (this.keyState.ArrowRight) {
+    if (this.keyState.ArrowLeft) {
       character.rotation.y += ROTATION_SPEED;
       rotated = true;
     }
