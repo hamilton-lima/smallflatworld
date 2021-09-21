@@ -14,6 +14,7 @@ Web 3D programable sandbox
 editor
 - y needs to be calculated based on the bounding box
 - center mesh on the click position
+
 - add edit mode to 3D
 - add library of 3D elements to the UI (bottom)
     - add sceneelement type to identify the asset used

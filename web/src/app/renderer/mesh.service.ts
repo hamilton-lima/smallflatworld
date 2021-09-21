@@ -81,9 +81,13 @@ export class MeshService {
     rotation: Vector3,
     name: string
   ): Mesh {
+    const shiftedPosition = position.subtract(
+      mesh.getBoundingInfo().boundingBox.center
+    );
+
     const result = <Mesh>mesh.clone(name, null);
     result.name = name;
-    result.position = position;
+    result.position = shiftedPosition;
     result.rotation = rotation;
     result.isVisible = true;
 
