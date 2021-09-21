@@ -43,6 +43,9 @@ export class EditorService {
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
           const position = pointerInfo.pickInfo.pickedPoint;
+          // allow to stack elements
+          position.y = pointerInfo.pickInfo.pickedMesh.getBoundingInfo().maximum.y;
+
           let createdMesh: Mesh = null;
           console.log('position', position);
           if (this.currentMesh) {

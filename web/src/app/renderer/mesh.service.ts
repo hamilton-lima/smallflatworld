@@ -85,7 +85,7 @@ export class MeshService {
     const shiftedPosition = position.subtract(
       mesh.getBoundingInfo().boundingBox.center
     );
-    shiftedPosition.y = 0;
+    shiftedPosition.y += mesh.getBoundingInfo().boundingBox.center.y;
  
     const result = <Mesh>mesh.clone(name, null);
     result.name = name;
