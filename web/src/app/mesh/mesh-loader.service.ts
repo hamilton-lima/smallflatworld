@@ -90,9 +90,6 @@ export class MeshLoaderService {
             animationGroups: AnimationGroup[];
           }) => {
             console.log('loaded', value);
-            // value.meshes.forEach((mesh) => {
-            //   mesh.isVisible = visible;
-            // });
             resolve(value.meshes);
           }
         );

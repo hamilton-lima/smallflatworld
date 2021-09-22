@@ -3,10 +3,11 @@ import { Scene, Vector3 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
-import { SceneElement } from '../persistence/persistence.model';
 import { ClientService } from '../multiplayer/client.service';
 import { LibraryComponent, PRIMITIVE_COMPONENT } from './editor-library.model';
 import { EditorLibraryService } from './editor-library.service';
+import { sceneElement2Memento } from '../renderer/builders';
+import { SceneElement } from '../renderer/renderer.model';
 
 const POINTERDOWN = 'pointerdown';
 
@@ -46,8 +47,9 @@ export class EditorService {
           await this.create(scene, element);
 
           // update local realm and send client event
-          this.realm.add(element);
-          this.client.update(element);
+          const memento = sceneElement2Memento(element);
+          await this.realm.add(memento);
+          this.client.update(memento);
         }
       }
     });
@@ -62,14 +64,7 @@ export class EditorService {
 
   async create(scene: Scene, element: SceneElement) {
     console.log('create', element.name, element.position);
-
     const templateMesh = await this.library.getMesh(scene, element.componentID);
-
-    console.log(
-      'templateMesh',
-      element.componentID,
-      templateMesh.getBoundingInfo().boundingBox.maximum.y
-    );
 
     const mesh = this.mesh.cloneMesh(
       scene,
@@ -86,7 +81,8 @@ export class EditorService {
   async add(scene: Scene, element: SceneElement) {
     await this.create(scene, element);
     console.log('add', element.name, element.position);
-    this.realm.add(element);
+    const memento = sceneElement2Memento(element);
+    this.realm.add(memento);
   }
 
   update(scene: Scene, element: SceneElement) {

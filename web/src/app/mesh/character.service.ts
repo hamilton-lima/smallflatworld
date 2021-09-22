@@ -16,7 +16,6 @@ export class CharacterService {
       'characterMedium',
       true
     );
-    console.log('mesh', mesh);
 
     const animations = await this.loader.loadAllAnimations(
       engineState.scene,

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Vector3 } from '@babylonjs/core';
-import { Realm, SceneElement } from '../persistence/persistence.model';
+import { Realm } from '../persistence/persistence.model';
 import { PersistenceService } from '../persistence/persistence.service';
 import { ConfigurationService } from '../configuration.service';
 import { ClientService } from '../multiplayer/client.service';
+import { SceneElementMemento, Vector3Memento, Vector3MementoZero } from '../../../../server/src/events.model';
 
 @Injectable({
   providedIn: 'root',
@@ -42,13 +42,17 @@ export class RealmService {
     }
   }
 
-  defaultCharacter(): SceneElement {
-    const position = Vector3.Zero();
-    position.y = 1;
-    return <SceneElement>{
+  defaultCharacter(): SceneElementMemento {
+    const position = <Vector3Memento>{
+      x: 0,
+      y: 1,
+      z: 0,
+    };
+
+    return <SceneElementMemento>{
       name: 'character',
       position: position,
-      rotation: Vector3.Zero(),
+      rotation: Vector3MementoZero,
     };
   }
 
@@ -57,17 +61,17 @@ export class RealmService {
   }
 
   async _updateRealm() {
-    const updated = await this.persistence.updateRealm(this.currentRealm);
+    return await this.persistence.updateRealm(this.currentRealm);
   }
 
   // add new scene elements
-  async add(element: SceneElement) {
+  async add(element: SceneElementMemento) {
     this.currentRealm.elements.push(element);
     return this._updateRealm();
   }
 
   // update character state
-  async updateCharacter(character: SceneElement) {
+  async updateCharacter(character: SceneElementMemento) {
     this.currentRealm.character = character;
     return this._updateRealm();
   }

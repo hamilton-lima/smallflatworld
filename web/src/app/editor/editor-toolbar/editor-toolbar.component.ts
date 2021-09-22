@@ -21,7 +21,6 @@ export class EditorToolbarComponent implements OnInit {
 
   // REPLACE with Library component
   use(component: LibraryComponent) {
-    console.log('component', component);
     this.editor.setCurrent(component);
   }
 }

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Scene, Color3, StandardMaterial, MeshBuilder } from '@babylonjs/core';
 import { EditorService } from '../editor/editor.service';
-import { SceneElement } from '../persistence/persistence.model';
 import { RealmService } from '../realm/realm.service';
-import { buildVector3 } from './builders';
+import { buildVector3, memento2SceneElement } from './builders';
 import { MeshService } from './mesh.service';
-import { EngineState } from './renderer.model';
+import { EngineState, SceneElement } from './renderer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,25 +22,29 @@ export class ScenarioService {
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
 
-      const character = this.realm.getCurrentRealm().character;
+      const character = memento2SceneElement(
+        this.realm.getCurrentRealm().character
+      );
       engineState.character = this.addCharacter(engineState.scene, character);
 
       const createPromises = [];
       // add realm elements to the scene
-      this.realm.getCurrentRealm().elements.forEach((element) => {
+      this.realm.getCurrentRealm().elements.forEach((memento) => {
+        const element = memento2SceneElement(memento);
+
         console.log(
           'create element',
           element.componentID,
           element.name,
           element.position
         );
+
         createPromises.push(this.editor.create(engineState.scene, element));
       });
 
       Promise.all(createPromises).then(
         () => {
           console.log('Finish building realm');
-          console.info('Scene AFTER ', engineState.scene.meshes);
           resolve();
         },
         (error) => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import {
   Actions,
   ClientData,
@@ -7,11 +7,11 @@ import {
   ClientResponse,
   JoinRequest,
   JoinResponse,
+  SceneElementMemento,
   ShareRequest,
   ShareResponse,
   StateUpdate,
 } from '../../../../server/src/events.model';
-import { SceneElement } from '../persistence/persistence.model';
 import { FPSService } from './fps.service';
 
 @Injectable({
@@ -118,7 +118,7 @@ export class ServerService {
     this.send(Actions.Join, request);
   }
 
-  update(elements: SceneElement[]) {
+  update(elements: SceneElementMemento[]) {
     const request = <StateUpdate>{
       data: elements,
     };

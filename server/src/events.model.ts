@@ -42,6 +42,12 @@ export class Vector3Memento {
   z: number;
 }
 
+export const Vector3MementoZero = <Vector3Memento>{
+  x: 0,
+  y: 0,
+  z: 0,
+};
+
 export class SceneElementMemento {
   name: string;
   componentID: string;

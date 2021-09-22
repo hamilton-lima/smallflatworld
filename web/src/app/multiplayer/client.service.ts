@@ -7,9 +7,9 @@ import {
   ShareResponse,
   StateUpdate,
 } from '../../../../server/src/events.model';
-import { SceneElement } from '../persistence/persistence.model';
 import { ServerService } from './server.service';
 import { buildVector3 } from '../renderer/builders';
+import { SceneElement } from '../renderer/renderer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +54,7 @@ export class ClientService {
     this.server.join(realmUUID);
   }
 
-  update(sceneElement: SceneElement) {
+  update(sceneElement: SceneElementMemento) {
     this.server.update([sceneElement]);
   }
 

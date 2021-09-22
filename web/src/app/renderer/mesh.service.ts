@@ -118,7 +118,7 @@ export class MeshService {
     });
 
     scene.addMesh(result);
-    console.log('clone and add', result);
+    console.log('clone', result);
     return result;
   }
 

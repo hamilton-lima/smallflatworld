@@ -1,17 +1,10 @@
-import { Vector3 } from '@babylonjs/core';
-
-export class SceneElement {
-  name: string;
-  componentID: string;
-  position: Vector3;
-  rotation: Vector3;
-}
+import { SceneElementMemento } from '../../../../server/src/events.model';
 
 export class Realm {
   id: string;
   name: string;
-  character: SceneElement;
-  elements: SceneElement[];
+  character: SceneElementMemento;
+  elements: SceneElementMemento[];
 }
 
 export class Configuration {

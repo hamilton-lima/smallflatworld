@@ -1,6 +1,9 @@
 import { Mesh, Vector3 } from '@babylonjs/core';
-import { Vector3Memento } from '../../../../server/src/events.model';
-import { SceneElement } from '../persistence/persistence.model';
+import {
+  SceneElementMemento,
+  Vector3Memento,
+} from '../../../../server/src/events.model';
+import { SceneElement } from './renderer.model';
 
 export function mesh2SceneElement(mesh: Mesh): SceneElement {
   const result = <SceneElement>{
@@ -15,6 +18,38 @@ export function mesh2SceneElement(mesh: Mesh): SceneElement {
       y: mesh.rotation.y,
       z: mesh.rotation.z,
     },
+  };
+  return result;
+}
+
+export function sceneElement2Memento(
+  element: SceneElement
+): SceneElementMemento {
+  const result = <SceneElementMemento>{
+    name: element.name,
+    componentID: element.componentID,
+    position: <Vector3Memento>{
+      x: element.position.x,
+      y: element.position.y,
+      z: element.position.z,
+    },
+    rotation: <Vector3Memento>{
+      x: element.rotation.x,
+      y: element.rotation.y,
+      z: element.rotation.z,
+    },
+  };
+  return result;
+}
+
+export function memento2SceneElement(
+  element: SceneElementMemento
+): SceneElement {
+  const result = <SceneElement>{
+    name: element.name,
+    componentID: element.componentID,
+    position: buildVector3(element.position),
+    rotation: buildVector3(element.rotation),
   };
   return result;
 }
