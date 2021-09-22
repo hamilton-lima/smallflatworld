@@ -32,7 +32,7 @@ export class ScenarioService {
 
       // add realm elements to the scene
       this.realm.getCurrentRealm().elements.forEach(async (element) => {
-        console.log('create element', element.componentID, element.name);
+        console.log('create element', element.componentID, element.name, element.position);
         await this.editor.create(element);
       });
       resolve();

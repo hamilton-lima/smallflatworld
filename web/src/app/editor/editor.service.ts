@@ -42,9 +42,11 @@ export class EditorService {
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
           const position = pointerInfo.pickInfo.pickedPoint;
+
           // allow to stack elements
-          position.y =
-            pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox.maximumWorld.y;
+          const boundingBox =
+            pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox;
+          position.y = boundingBox.maximumWorld.y;
 
           let createdMesh: Mesh = null;
           console.log('pointer position', position);
@@ -56,7 +58,7 @@ export class EditorService {
             rotation: Vector3.Zero(),
           };
 
-          this.add(element);
+          this.create(element);
 
           // if (this.currentMesh) {
           //   createdMesh = await this.mesh.cloneAndAdd(
@@ -96,9 +98,13 @@ export class EditorService {
       element.componentID
     );
 
-    console.log('templateMesh', element.componentID, templateMesh.getBoundingInfo().boundingBox.maximum.y);
+    console.log(
+      'templateMesh',
+      element.componentID,
+      templateMesh.getBoundingInfo().boundingBox.maximum.y
+    );
 
-    const mesh = await this.mesh.cloneAndAdd(
+    const mesh = this.mesh.cloneMesh(
       this.scene,
       templateMesh,
       element.position,
@@ -111,8 +117,9 @@ export class EditorService {
   }
 
   async add(element: SceneElement) {
-    console.log('add', element.name, element.position);
+    console.log('--- add', element.name, element.position);
     await this.create(element);
+    console.log('--- add(2)', element.name, element.position);
     this.realm.add(element);
   }
 
