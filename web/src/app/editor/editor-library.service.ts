@@ -45,29 +45,32 @@ export class EditorLibraryService {
   }
 
   // get Mesh based on componentID
-  async getMesh(scene: Scene, componentID: string): Promise<AbstractMesh> {
-    const component = this.getComponent(componentID);
+  getMesh(scene: Scene, componentID: string): Promise<AbstractMesh> {
+    return new Promise<AbstractMesh>((resolve, reject) => {
+      const component = this.getComponent(componentID);
 
-    let result = null;
-    if (this.cache.has(component.id)) {
-      result = this.cache.get(component.id);
-    } else {
-      // if primitive dont load, create the primitive box
-      if (component.id == PRIMITIVE_COMPONENT.id) {
-        result = this.mesh.getBox(scene);
+      let result = null;
+      if (this.cache.has(component.id)) {
+        const cached = this.cache.get(component.id);
+        console.log('getmesh cached', component.id);
+        resolve(cached);
       } else {
-        // not present in the cache load the model
-        result = await this.loader.load(
-          scene,
-          component.model3D,
-          component.name,
-          false
-        );
+        // if primitive dont load, create the primitive box
+        if (component.id == PRIMITIVE_COMPONENT.id) {
+          const box = this.mesh.getBox(scene);
+          console.log('getmesh created primitive', component.id);
+          resolve(box);
+        } else {
+          // not present in the cache load the model
+          this.loader
+            .load(scene, component.model3D, component.name, false)
+            .then((loaded) => {
+              this.cache.set(component.id, loaded);
+              console.log('getmesh loaded model', component.id);
+              resolve(loaded);
+            });
+        }
       }
-
-      this.cache.set(component.id, result);
-    }
-
-    return result;
+    });
   }
 }

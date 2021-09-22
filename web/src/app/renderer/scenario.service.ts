@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Scene,
-  Color3,
-  StandardMaterial,
-  MeshBuilder,
-} from '@babylonjs/core';
+import { Scene, Color3, StandardMaterial, MeshBuilder } from '@babylonjs/core';
 import { EditorService } from '../editor/editor.service';
 import { SceneElement } from '../persistence/persistence.model';
 import { RealmService } from '../realm/realm.service';
@@ -30,12 +25,27 @@ export class ScenarioService {
       const character = this.realm.getCurrentRealm().character;
       engineState.character = this.addCharacter(engineState.scene, character);
 
+      const createPromises = [];
       // add realm elements to the scene
-      this.realm.getCurrentRealm().elements.forEach(async (element) => {
-        console.log('create element', element.componentID, element.name, element.position);
-        await this.editor.create(element);
+      this.realm.getCurrentRealm().elements.forEach((element) => {
+        console.log(
+          'create element',
+          element.componentID,
+          element.name,
+          element.position
+        );
+        createPromises.push(this.editor.create(element));
       });
-      resolve();
+      
+      Promise.all(createPromises).then(
+        () => {
+          console.log('finish building realm');
+          resolve();
+        },
+        (error) => {
+          console.error('Error creating objects', error);
+        }
+      );
     });
   }
 

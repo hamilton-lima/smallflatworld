@@ -49,15 +49,18 @@ export class RendererComponent implements AfterViewInit {
       engineState.engine.resize();
     });
 
-    this.scenario.buildRealm(engineState).then(
+    const sequence = [];
+    sequence.push(this.character.load(engineState));
+    sequence.push(this.scenario.buildRealm(engineState));
+
+    Promise.all(sequence).then(
       () => {
         console.log('engineState after loading', engineState);
+
         engineState.camera = this.camera.setup(
           engineState.scene,
           engineState.character
         );
-
-        this.character.load(engineState);
 
         engineState.engine.runRenderLoop(() => {
           this.movement.move(engineState.character);
