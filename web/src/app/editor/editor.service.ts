@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { mesh2SceneElement } from '../renderer/builders';
 import { SceneElement } from '../persistence/persistence.model';
 import { ClientService } from '../multiplayer/client.service';
-import { LibraryComponent } from './editor-library.model';
+import { LibraryComponent, PRIMITIVE_COMPONENT } from './editor-library.model';
 import { MeshLoaderService } from '../mesh/mesh-loader.service';
 import { CharacterService } from '../mesh/character.service';
 
@@ -26,8 +26,7 @@ const POINTERDOWN = 'pointerdown';
   providedIn: 'root',
 })
 export class EditorService {
-  // TODO: set default
-  private current: LibraryComponent;
+  private current: LibraryComponent = PRIMITIVE_COMPONENT;
   private currentMesh: AbstractMesh;
   private scene: Scene;
 
@@ -39,6 +38,8 @@ export class EditorService {
   ) {}
 
   setup(scene: Scene): Scene {
+    this.currentMesh = this.mesh.getBox(scene);
+
     scene.onPointerObservable.add(async (pointerInfo) => {
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
@@ -57,9 +58,10 @@ export class EditorService {
               uuidv4()
             );
 
-          } else {
-            createdMesh = this.mesh.addTallbox(scene, position, uuidv4());
-          }
+          } 
+          // else {
+          //   createdMesh = this.mesh.addTallbox(scene, position, uuidv4());
+          // }
 
           console.log('created mesh', createdMesh);
           const element = mesh2SceneElement(createdMesh);

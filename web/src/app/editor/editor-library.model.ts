@@ -4,6 +4,12 @@ export class LibraryComponent {
   model3D: string;
 }
 
+export const PRIMITIVE_COMPONENT = <LibraryComponent>{
+  name: 'primitive',
+  icon: '',
+  model3D: '',
+};
+
 export class Library {
   name: string;
   icon: string;

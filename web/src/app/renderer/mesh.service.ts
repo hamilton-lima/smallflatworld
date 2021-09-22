@@ -15,7 +15,6 @@ import { MeshLoaderService } from '../mesh/mesh-loader.service';
   providedIn: 'root',
 })
 export class MeshService {
-
   private _addbox(
     scene: Scene,
     width: number,
@@ -40,6 +39,29 @@ export class MeshService {
     box.rotation = rotation;
     box.isVisible = true;
     return box;
+  }
+
+  private _getBox(
+    scene: Scene,
+    width: number,
+    height: number,
+    color: string,
+    name: string
+  ): Mesh {
+    const box = MeshBuilder.CreateBox(
+      name,
+      { width: width, height: height },
+      scene
+    );
+    const material = new StandardMaterial('material', scene);
+    material.diffuseColor = Color3.FromHexString(color);
+    box.material = material;
+    box.isVisible = true;
+    return box;
+  }
+
+  public getBox(scene: Scene) {
+    return this._getBox(scene, 1, 1, '#FF00FF', 'primitive-box');
   }
 
   addbox(scene: Scene): Mesh {
@@ -85,10 +107,9 @@ export class MeshService {
     rotation: Vector3,
     name: string
   ): Mesh {
-
     const shiftedPosition = position;
-    shiftedPosition.y += mesh.getBoundingInfo().boundingBox.center.y;
- 
+    shiftedPosition.y += mesh.getBoundingInfo().boundingBox.maximum.y;
+
     const result = <Mesh>mesh.clone(name, null);
     result.name = name;
     result.position = shiftedPosition;
