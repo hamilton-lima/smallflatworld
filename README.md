@@ -13,7 +13,7 @@ Web 3D programable sandbox
 
 editor
 ok - fix load of objects with submeshes
-- fix stack objects, second instance is not stacking
+ok - fix stack objects, second instance is not stacking
 - save sceneElement information of the mesh used
 - reload scene with the correct meshes 
 - add edit mode to 3D

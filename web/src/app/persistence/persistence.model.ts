@@ -2,6 +2,7 @@ import { Vector3 } from '@babylonjs/core';
 
 export class SceneElement {
   name: string;
+  type: string;
   position: Vector3;
   rotation: Vector3;
 }
