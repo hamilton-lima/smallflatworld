@@ -6,10 +6,9 @@ import { CameraService } from './camera.service';
 import { EditorService } from '../editor/editor.service';
 import { ScenarioService } from './scenario.service';
 import { InputService } from '../input.service';
-import { MeshLoaderService } from '../mesh/mesh-loader.service';
 import { CharacterService } from '../mesh/character.service';
 import { ClientService } from '../multiplayer/client.service';
-import { SceneElement } from '../persistence/persistence.model';
+import { SceneElement } from './renderer.model';
 
 @Component({
   selector: 'app-renderer',
