@@ -18,9 +18,10 @@ export class ScenarioService {
   ) {}
 
   buildRealm(engineState: EngineState): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const total = this.realm.getCurrentRealm().elements.length;
       console.info('Loading ' + total + ' elements');
+      console.info('Scene BEFORE ', engineState.scene.meshes);
 
       const character = this.realm.getCurrentRealm().character;
       engineState.character = this.addCharacter(engineState.scene, character);
@@ -34,16 +35,18 @@ export class ScenarioService {
           element.name,
           element.position
         );
-        createPromises.push(this.editor.create(element));
+        createPromises.push(this.editor.create(engineState.scene, element));
       });
-      
+
       Promise.all(createPromises).then(
         () => {
-          console.log('finish building realm');
+          console.log('Finish building realm');
+          console.info('Scene AFTER ', engineState.scene.meshes);
           resolve();
         },
         (error) => {
           console.error('Error creating objects', error);
+          reject();
         }
       );
     });

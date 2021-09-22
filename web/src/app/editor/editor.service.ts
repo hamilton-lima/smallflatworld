@@ -1,24 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  Scene,
-  Mesh,
-  Color3,
-  StandardMaterial,
-  MeshBuilder,
-  FollowCamera,
-  Camera,
-  Vector3,
-  AbstractMesh,
-} from '@babylonjs/core';
+import { Scene, Vector3 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
-import { mesh2SceneElement } from '../renderer/builders';
 import { SceneElement } from '../persistence/persistence.model';
 import { ClientService } from '../multiplayer/client.service';
 import { LibraryComponent, PRIMITIVE_COMPONENT } from './editor-library.model';
-import { MeshLoaderService } from '../mesh/mesh-loader.service';
-import { CharacterService } from '../mesh/character.service';
 import { EditorLibraryService } from './editor-library.service';
 
 const POINTERDOWN = 'pointerdown';
@@ -28,7 +15,6 @@ const POINTERDOWN = 'pointerdown';
 })
 export class EditorService {
   private current: LibraryComponent = PRIMITIVE_COMPONENT;
-  private scene: Scene;
 
   constructor(
     private mesh: MeshService,
@@ -57,7 +43,7 @@ export class EditorService {
             rotation: Vector3.Zero(),
           };
 
-          await this.create(element);
+          await this.create(scene, element);
 
           // update local realm and send client event
           this.realm.add(element);
@@ -66,7 +52,6 @@ export class EditorService {
       }
     });
 
-    this.scene = scene;
     return scene;
   }
 
@@ -75,13 +60,10 @@ export class EditorService {
     console.log('current', component);
   }
 
-  async create(element: SceneElement) {
+  async create(scene: Scene, element: SceneElement) {
     console.log('create', element.name, element.position);
 
-    const templateMesh = await this.library.getMesh(
-      this.scene,
-      element.componentID
-    );
+    const templateMesh = await this.library.getMesh(scene, element.componentID);
 
     console.log(
       'templateMesh',
@@ -90,7 +72,7 @@ export class EditorService {
     );
 
     const mesh = this.mesh.cloneMesh(
-      this.scene,
+      scene,
       templateMesh,
       element.position,
       element.rotation,
@@ -101,16 +83,15 @@ export class EditorService {
     element.position = mesh.position;
   }
 
-  async add(element: SceneElement) {
-    console.log('--- add', element.name, element.position);
-    await this.create(element);
-    console.log('--- add(2)', element.name, element.position);
+  async add(scene: Scene, element: SceneElement) {
+    await this.create(scene, element);
+    console.log('add', element.name, element.position);
     this.realm.add(element);
   }
 
-  update(element: SceneElement) {
+  update(scene: Scene, element: SceneElement) {
     console.log('update', element.name, element.position);
-    const mesh = this.scene.getMeshByName(element.name);
+    const mesh = scene.getMeshByName(element.name);
     if (mesh) {
       // TODO: Apply smooth update or transition
       mesh.position = element.position;

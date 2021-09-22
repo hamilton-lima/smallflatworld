@@ -1,20 +1,10 @@
 import { ElementRef, Injectable } from '@angular/core';
 import {
   Engine,
-  FreeCamera,
   Scene,
-  Light,
-  Mesh,
-  Color3,
   Color4,
   Vector3,
   HemisphericLight,
-  StandardMaterial,
-  Texture,
-  DynamicTexture,
-  Space,
-  Camera,
-  AbstractMesh,
 } from '@babylonjs/core';
 import { Subject } from 'rxjs';
 import { SceneElement } from '../persistence/persistence.model';
@@ -52,10 +42,10 @@ export class RendererService {
       console.log('update event', element.name, 'found == null', found == null);
 
       if (found) {
-        this.editor.update(element);
+        this.editor.update(state.scene, element);
       } else {
         // TODO: handle promises
-        this.editor.add(element);
+        this.editor.add(state.scene, element);
       }
     });
   }

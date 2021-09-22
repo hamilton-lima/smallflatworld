@@ -114,12 +114,11 @@ export class MeshService {
     result.rotation = rotation;
     result.isVisible = true;
     result.getChildMeshes().forEach((mesh) => {
-      console.log('set meshes visible', mesh);
       mesh.isVisible = true;
     });
 
     scene.addMesh(result);
-    console.log('clone and add', mesh, result);
+    console.log('clone and add', result);
     return result;
   }
 
