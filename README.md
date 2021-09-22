@@ -12,16 +12,9 @@ Web 3D programable sandbox
 ## next steps 
 
 editor
-BROKEN - reload scene with the correct meshes 
-ok - fix load of objects with submeshes
-ok - fix stack objects, second instance is not stacking
-ok - save sceneElement information of the mesh used
-
 - add edit mode to 3D
-- add library of 3D elements to the UI (bottom)
-    - add sceneelement type to identify the asset used
-    - add all kenney resources as libraries, write script?
-- change edit mode to stack elements, maybe highlight target of the creation?
+- add option to choose current library
+- add all kenney resources as libraries, update existing script to load from several folders
 
 multiplayer
 - wait for the full state of the realm after joining and update current realm
@@ -56,3 +49,13 @@ Plugins, to create programable parts of the engine
     - add command line similar to visual studio command pallete
 
 How to integrate with other 3D formats and tools
+
+## Done 
+
+editor
+ok - reload scene with the correct meshes 
+ok - fix load of objects with submeshes
+ok - fix stack objects, second instance is not stacking
+ok - save sceneElement information of the mesh used
+ok - change edit mode to stack elements, maybe highlight target of the creation?
+ok - add sceneelement type to identify the asset used
