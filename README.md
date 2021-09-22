@@ -12,10 +12,11 @@ Web 3D programable sandbox
 ## next steps 
 
 editor
+BROKEN - reload scene with the correct meshes 
 ok - fix load of objects with submeshes
 ok - fix stack objects, second instance is not stacking
-- save sceneElement information of the mesh used
-- reload scene with the correct meshes 
+ok - save sceneElement information of the mesh used
+
 - add edit mode to 3D
 - add library of 3D elements to the UI (bottom)
     - add sceneelement type to identify the asset used
