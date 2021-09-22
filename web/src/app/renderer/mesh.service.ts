@@ -34,11 +34,8 @@ export class MeshService {
     material.diffuseColor = Color3.FromHexString(color);
     box.material = material;
 
-    const shiftedPosition = position.add(
-      box.getBoundingInfo().boundingBox.maximum
-    );
-    shiftedPosition.y += box.getBoundingInfo().boundingBox.maximum.y;
-    box.position = shiftedPosition;
+    position.y += box.getBoundingInfo().boundingBox.maximum.y;
+    box.position = position;
 
     box.rotation = rotation;
     box.isVisible = true;
@@ -90,9 +87,6 @@ export class MeshService {
   ): Mesh {
 
     const shiftedPosition = position;
-    // .add(
-    //   mesh.getBoundingInfo().boundingBox.center
-    // );
     shiftedPosition.y += mesh.getBoundingInfo().boundingBox.center.y;
  
     const result = <Mesh>mesh.clone(name, null);
