@@ -19,6 +19,7 @@ import { ClientService } from '../multiplayer/client.service';
 import { LibraryComponent, PRIMITIVE_COMPONENT } from './editor-library.model';
 import { MeshLoaderService } from '../mesh/mesh-loader.service';
 import { CharacterService } from '../mesh/character.service';
+import { EditorLibraryService } from './editor-library.service';
 
 const POINTERDOWN = 'pointerdown';
 
@@ -27,41 +28,49 @@ const POINTERDOWN = 'pointerdown';
 })
 export class EditorService {
   private current: LibraryComponent = PRIMITIVE_COMPONENT;
-  private currentMesh: AbstractMesh;
   private scene: Scene;
 
   constructor(
     private mesh: MeshService,
     private realm: RealmService,
     private client: ClientService,
-    private loader: MeshLoaderService,
+    private library: EditorLibraryService
   ) {}
 
   setup(scene: Scene): Scene {
-    this.currentMesh = this.mesh.getBox(scene);
-
     scene.onPointerObservable.add(async (pointerInfo) => {
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
           const position = pointerInfo.pickInfo.pickedPoint;
           // allow to stack elements
-          position.y = pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox.maximumWorld.y;
+          position.y =
+            pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox.maximumWorld.y;
 
           let createdMesh: Mesh = null;
           console.log('pointer position', position);
-          if (this.currentMesh) {
-            createdMesh = await this.mesh.cloneAndAdd(
-              scene,
-              this.currentMesh,
-              position,
-              Vector3.Zero(),
-              uuidv4()
-            );
 
-          } 
- 
-          console.log('created mesh', createdMesh);
-          const element = mesh2SceneElement(createdMesh);
+          const element = <SceneElement>{
+            name: uuidv4(),
+            componentID: this.current.id,
+            position: position,
+            rotation: Vector3.Zero(),
+          };
+
+          this.add(element);
+
+          // if (this.currentMesh) {
+          //   createdMesh = await this.mesh.cloneAndAdd(
+          //     scene,
+          //     this.currentMesh,
+          //     position,
+          //     Vector3.Zero(),
+          //     uuidv4()
+          //   );
+          // }
+
+          // console.log('created mesh', createdMesh);
+          // const element = mesh2SceneElement(createdMesh);
+          // element.componentID = this.current.id;
 
           // update local realm and send client event
           this.realm.add(element);
@@ -77,25 +86,33 @@ export class EditorService {
   async setCurrent(component: LibraryComponent) {
     this.current = component;
     console.log('current', component);
-
-    this.currentMesh = await this.loader.load(
-      this.scene,
-      component.model3D,
-      component.name,
-      false
-    );
-    console.log('mesh', this.currentMesh);
   }
 
-  // TODO: use different mesh based on the sceneElement Type
-  add(element: SceneElement) {
-    console.log('add', element.name, element.position);
-    const mesh = this.mesh.addRotatedTallbox(
+  async create(element: SceneElement) {
+    console.log('create', element.name, element.position);
+
+    const templateMesh = await this.library.getMesh(
       this.scene,
+      element.componentID
+    );
+
+    console.log('templateMesh', element.componentID, templateMesh.getBoundingInfo().boundingBox.maximum.y);
+
+    const mesh = await this.mesh.cloneAndAdd(
+      this.scene,
+      templateMesh,
       element.position,
       element.rotation,
       element.name
     );
+
+    // updates position with the calculated position by the cloner
+    element.position = mesh.position;
+  }
+
+  async add(element: SceneElement) {
+    console.log('add', element.name, element.position);
+    await this.create(element);
     this.realm.add(element);
   }
 

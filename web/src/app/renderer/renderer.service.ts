@@ -54,6 +54,7 @@ export class RendererService {
       if (found) {
         this.editor.update(element);
       } else {
+        // TODO: handle promises
         this.editor.add(element);
       }
     });

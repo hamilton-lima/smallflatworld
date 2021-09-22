@@ -5,6 +5,7 @@ import {
   StandardMaterial,
   MeshBuilder,
 } from '@babylonjs/core';
+import { EditorService } from '../editor/editor.service';
 import { SceneElement } from '../persistence/persistence.model';
 import { RealmService } from '../realm/realm.service';
 import { buildVector3 } from './builders';
@@ -18,6 +19,7 @@ export class ScenarioService {
   constructor(
     private mesh: MeshService,
     private realm: RealmService,
+    private editor: EditorService
   ) {}
 
   buildRealm(engineState: EngineState): Promise<void> {
@@ -28,16 +30,10 @@ export class ScenarioService {
       const character = this.realm.getCurrentRealm().character;
       engineState.character = this.addCharacter(engineState.scene, character);
 
-      this.realm.getCurrentRealm().elements.forEach((element) => {
-        const position = buildVector3(element.position);
-        const rotation = buildVector3(element.rotation);
-
-        const mesh = this.mesh.addRotatedTallbox(
-          engineState.scene,
-          position,
-          rotation,
-          element.name
-        );
+      // add realm elements to the scene
+      this.realm.getCurrentRealm().elements.forEach(async (element) => {
+        console.log('create element', element.componentID, element.name);
+        await this.editor.create(element);
       });
       resolve();
     });

@@ -56,7 +56,7 @@ export class MeshService {
     const material = new StandardMaterial('material', scene);
     material.diffuseColor = Color3.FromHexString(color);
     box.material = material;
-    box.isVisible = true;
+    box.isVisible = false;
     return box;
   }
 
@@ -115,6 +115,9 @@ export class MeshService {
     result.position = shiftedPosition;
     result.rotation = rotation;
     result.isVisible = true;
+    result.getChildMeshes().forEach((mesh) => {
+      mesh.isVisible = true;
+    });
 
     scene.addMesh(result);
     console.log('clone and add', mesh, result);
