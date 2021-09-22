@@ -44,7 +44,7 @@ export class Vector3Memento {
 
 export class SceneElementMemento {
   name: string;
-  type: string;
+  componentID: string;
   position: Vector3Memento;
   rotation: Vector3Memento;
 }

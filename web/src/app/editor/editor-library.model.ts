@@ -1,11 +1,13 @@
 export class LibraryComponent {
+  id: string;
   name: string;
   icon: string;
   model3D: string;
 }
 
 export const PRIMITIVE_COMPONENT = <LibraryComponent>{
-  name: 'primitive',
+  id: "primitive://box",
+  name: 'box',
   icon: '',
   model3D: '',
 };

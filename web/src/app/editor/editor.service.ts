@@ -59,10 +59,7 @@ export class EditorService {
             );
 
           } 
-          // else {
-          //   createdMesh = this.mesh.addTallbox(scene, position, uuidv4());
-          // }
-
+ 
           console.log('created mesh', createdMesh);
           const element = mesh2SceneElement(createdMesh);
 
