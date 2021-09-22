@@ -12,7 +12,7 @@ Web 3D programable sandbox
 ## next steps 
 
 editor
-- fix load of objects with submeshes
+ok - fix load of objects with submeshes
 - fix stack objects, second instance is not stacking
 - save sceneElement information of the mesh used
 - reload scene with the correct meshes 

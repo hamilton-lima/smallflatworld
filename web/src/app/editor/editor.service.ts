@@ -44,10 +44,10 @@ export class EditorService {
         if (pointerInfo.event.type == POINTERDOWN) {
           const position = pointerInfo.pickInfo.pickedPoint;
           // allow to stack elements
-          position.y = pointerInfo.pickInfo.pickedMesh.getBoundingInfo().maximum.y;
+          position.y = pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox.maximumWorld.y;
 
           let createdMesh: Mesh = null;
-          console.log('position', position);
+          console.log('pointer position', position);
           if (this.currentMesh) {
             createdMesh = await this.mesh.cloneAndAdd(
               scene,

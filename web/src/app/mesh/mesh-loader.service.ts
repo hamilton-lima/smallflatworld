@@ -45,6 +45,7 @@ export class MeshLoaderService {
           if (result) {
             meshes.forEach((mesh) => {
               if (mesh.name !== '__root__') {
+                mesh.isPickable = true;
                 result.addChild(mesh);
               }
             });
@@ -55,6 +56,7 @@ export class MeshLoaderService {
         if (!result) {
           result = new Mesh('root');
           meshes.forEach((mesh) => {
+            mesh.isPickable = true;
             result.addChild(mesh);
           });
         }
