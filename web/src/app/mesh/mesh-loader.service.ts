@@ -3,6 +3,7 @@ import {
   AbstractMesh,
   AnimationGroup,
   IParticleSystem,
+  Mesh,
   Scene,
   SceneLoader,
   Skeleton,
@@ -29,36 +30,43 @@ export class MeshLoaderService {
   ) {
     const self = this;
     return new Promise<AbstractMesh>((resolve, reject) => {
-      this.loadAllMeshes(scene, fileName, visible).then(
-        (meshes: AbstractMesh[]) => {
-          let result: AbstractMesh;
-          
-          meshes.forEach((mesh) => {
-            if (mesh.name === meshName) {
-              result = mesh;
-            }
+      this.loadAllMeshes(scene, fileName, visible).then((meshes: Mesh[]) => {
+        // look for the named mesh
+        let result: AbstractMesh = meshes.find((mesh) => {
+          return mesh.name === meshName;
+        });
+
+        // if not found try to use mesh named __root__
+        if (!result) {
+          result = meshes.find((mesh) => {
+            return mesh.name === '__root__';
           });
 
-          if(!result){
-            // try to skip "__root__" and get first mesh
-            // TODO: combine all meshes
-            const filtered = meshes.filter( mesh => {
-              return mesh.name !== "__root__";
-            });
-            if( filtered.length > 0){
-              result = filtered[0];
-            }
-          }
-
           if (result) {
-            result.isVisible = visible;
-            result.isPickable = true;
-            resolve(result);
-          } else {
-            reject('Mesh not found: ' + meshName);
+            meshes.forEach((mesh) => {
+              if (mesh.name !== '__root__') {
+                result.addChild(mesh);
+              }
+            });
           }
         }
-      );
+
+        // if not found create an empty mesh and add all as child
+        if (!result) {
+          result = new Mesh('root');
+          meshes.forEach((mesh) => {
+            result.addChild(mesh);
+          });
+        }
+
+        if (result) {
+          result.isVisible = visible;
+          result.isPickable = true;
+          resolve(result);
+        } else {
+          reject('Mesh not found: ' + meshName);
+        }
+      });
     });
   }
 
@@ -78,9 +86,9 @@ export class MeshLoaderService {
             animationGroups: AnimationGroup[];
           }) => {
             console.log('loaded', value);
-            value.meshes.forEach((mesh) => {
-              mesh.isVisible = visible;
-            });
+            // value.meshes.forEach((mesh) => {
+            //   mesh.isVisible = visible;
+            // });
             resolve(value.meshes);
           }
         );
