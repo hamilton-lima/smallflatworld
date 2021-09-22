@@ -48,7 +48,6 @@ export class EditorService {
             pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox;
           position.y = boundingBox.maximumWorld.y;
 
-          let createdMesh: Mesh = null;
           console.log('pointer position', position);
 
           const element = <SceneElement>{
@@ -58,21 +57,7 @@ export class EditorService {
             rotation: Vector3.Zero(),
           };
 
-          this.create(element);
-
-          // if (this.currentMesh) {
-          //   createdMesh = await this.mesh.cloneAndAdd(
-          //     scene,
-          //     this.currentMesh,
-          //     position,
-          //     Vector3.Zero(),
-          //     uuidv4()
-          //   );
-          // }
-
-          // console.log('created mesh', createdMesh);
-          // const element = mesh2SceneElement(createdMesh);
-          // element.componentID = this.current.id;
+          await this.create(element);
 
           // update local realm and send client event
           this.realm.add(element);
