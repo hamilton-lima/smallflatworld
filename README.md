@@ -23,7 +23,7 @@ multiplayer
 - add event when changing realm
 
 scenario
-- add skybox
+- prevent movement outside the box
 
 actions
 - replace red box with running boy model
@@ -53,9 +53,10 @@ How to integrate with other 3D formats and tools
 ## Done 
 
 editor
-ok - reload scene with the correct meshes 
-ok - fix load of objects with submeshes
-ok - fix stack objects, second instance is not stacking
-ok - save sceneElement information of the mesh used
-ok - change edit mode to stack elements, maybe highlight target of the creation?
-ok - add sceneelement type to identify the asset used
+- add skybox
+- reload scene with the correct meshes 
+- fix load of objects with submeshes
+- fix stack objects, second instance is not stacking
+- save sceneElement information of the mesh used
+- change edit mode to stack elements, maybe highlight target of the creation?
+- add sceneelement type to identify the asset used

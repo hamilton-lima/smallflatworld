@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Scene, Color3, StandardMaterial, MeshBuilder } from '@babylonjs/core';
+import {
+  Scene,
+  Color3,
+  StandardMaterial,
+  MeshBuilder,
+  CubeTexture,
+  Texture,
+} from '@babylonjs/core';
 import { EditorService } from '../editor/editor.service';
 import { RealmService } from '../realm/realm.service';
 import { buildVector3, memento2SceneElement } from './builders';
@@ -26,6 +33,9 @@ export class ScenarioService {
         this.realm.getCurrentRealm().character
       );
       engineState.character = this.addCharacter(engineState.scene, character);
+      
+      // add skybox
+      this.skybox(engineState.scene);
 
       const createPromises = [];
       // add realm elements to the scene
@@ -53,6 +63,21 @@ export class ScenarioService {
         }
       );
     });
+  }
+
+  skybox(scene: Scene) {
+    var skybox = MeshBuilder.CreateBox('skyBox', { size: 1000.0 }, scene);
+    var skyboxMaterial = new StandardMaterial('skyBox', scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.reflectionTexture = new CubeTexture(
+      'assets/skyboxes/blue-sky/skybox',
+      scene
+    );
+
+    skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+    skyboxMaterial.diffuseColor = new Color3(0, 0, 0);
+    skyboxMaterial.specularColor = new Color3(0, 0, 0);
+    skybox.material = skyboxMaterial;
   }
 
   addCharacter(scene: Scene, character: SceneElement) {
