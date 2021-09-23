@@ -20,6 +20,7 @@ editor
 - increase size
 - rotate
 - add camera control
+- snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
 
 multiplayer
 - wait for the full state of the realm after joining and update current realm
@@ -29,6 +30,8 @@ multiplayer
 
 scenario
 - prevent movement outside the box
+- add procedural skybox with https://www.kenney.nl/assets/background-elements
+- adding moving sun light
 
 actions
 - replace red box with running boy model

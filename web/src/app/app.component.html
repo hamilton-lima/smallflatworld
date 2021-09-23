@@ -11,7 +11,7 @@
         Current Realm: <b>{{ name }}</b>
       </p>
 
-      <mat-expansion-panel class="panel" hideToggle>
+      <mat-expansion-panel class="panel">
         <mat-expansion-panel-header>
           <mat-panel-title
             ><mat-icon class="panel-icon">download</mat-icon>Download / Upload
@@ -20,14 +20,22 @@
         <app-file></app-file>
       </mat-expansion-panel>
 
-      <mat-expansion-panel class="panel" hideToggle>
+      <mat-expansion-panel class="panel">
         <mat-expansion-panel-header>
           <mat-panel-title
-            ><mat-icon class="panel-icon">cloud</mat-icon>Multiplayer (UNDER
-            Construction)
+            ><mat-icon class="panel-icon">cloud</mat-icon>Multiplayer
           </mat-panel-title>
         </mat-expansion-panel-header>
         <app-connect></app-connect>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="panel" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><mat-icon class="panel-icon">mode_edit</mat-icon>Editor
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-editor-toolbar></app-editor-toolbar>
       </mat-expansion-panel>
     </div>
   </mat-sidenav>
@@ -37,5 +45,3 @@
     <app-renderer *ngIf="ready"></app-renderer>
   </section>
 </mat-drawer-container>
-
-<app-editor-toolbar class="editor-toolbar"></app-editor-toolbar>
