@@ -15,6 +15,11 @@ editor
 - add edit mode to 3D
 - add option to choose current library
 - add all kenney resources as libraries, update existing script to load from several folders
+- select scene element 
+- delete element
+- increase size
+- rotate
+- add camera control
 
 multiplayer
 - wait for the full state of the realm after joining and update current realm
