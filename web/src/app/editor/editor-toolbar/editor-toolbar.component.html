@@ -1,7 +1,7 @@
 <div>
   <mat-form-field appearance="fill">
     <mat-label>Choose a Library</mat-label>
-    <mat-select (selectionChange)="selectedLibrary($event)" [selected]="selected">
+    <mat-select (selectionChange)="selectedLibrary($event)">
       <mat-option
         *ngFor="let library of libraries"
         [value]="library.components"
