@@ -14,6 +14,5 @@ export const PRIMITIVE_COMPONENT = <LibraryComponent>{
 
 export class Library {
   name: string;
-  icon: string;
   components: LibraryComponent[];
 }

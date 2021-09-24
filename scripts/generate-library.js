@@ -1,24 +1,82 @@
-const testFolder = '../web/src/assets/library/kenney/survival-kit-1.0/Isometric/';
+const iconFolder = "/Isometric/";
+const modelFolder = "/Models/GLTF format/";
+const testFolder = '../web/src/assets/library/kenney/';
 const modelExtension = ".glb";
 const iconExtension = "_E.png";
+const iconExtension2 = "_NE.png";
 const fs = require('fs');
-modelPath = "library/kenney/survival-kit-1.0/Models/GLTF format/";
-iconPath = "assets/library/kenney/survival-kit-1.0/Isometric/";
+const libraryNamePreffix = "kenney/";
 
-libraryName = "survival-kit-1.0";
+modelPath = "library/kenney/";
+iconPath = "assets/library/kenney/";
 
-result =[];
-fs.readdirSync(testFolder).forEach(file => {
-  const name = file.replace(iconExtension, "");
+resultLibraries = [];
+result = "import { Library } from './editor-library.model'; \n\n";
+
+const libraries = fs.readdirSync(testFolder);
+const getVarName = function (input) {
+  let result = input;
+  while (result.indexOf("-") > 0) {
+    result = result.replace("-", "");
+  }
+  while (result.indexOf(".") > 0) {
+    result = result.replace(".", "");
+  }
+  return result;
+};
+
+libraries.forEach((libraryName) => {
+  const components = [];
+
+  const folder = testFolder + libraryName + iconFolder;
+  // read icons
+  const icons = fs.readdirSync(folder);
+  icons.forEach((icon) => {
+    if (icon.endsWith(iconExtension)) {
+      const name = icon.replace(iconExtension, "");
+
+      const component = {
+        id: libraryName + "://" + name,
+        name: name,
+        icon: iconPath + libraryName + iconFolder + name + iconExtension,
+        model3D: modelPath + libraryName + modelFolder + name + modelExtension,
+      }
+      components.push(component);
+    }
+  });
+
+  // try with another suffix
+  if( components.length == 0){
+    const folder = testFolder + libraryName + iconFolder;
+    // read icons
+    const icons = fs.readdirSync(folder);
+    icons.forEach((icon) => {
+      if (icon.endsWith(iconExtension2)) {
+        const name = icon.replace(iconExtension2, "");
   
-  const component = { 
-      id: libraryName + "://" + name,
-      name: name,
-      icon: iconPath + name + iconExtension,
-      model3D: modelPath + name + modelExtension,
+        const component = {
+          id: libraryName + "://" + name,
+          name: name,
+          icon: iconPath + libraryName + iconFolder + name + iconExtension2,
+          model3D: modelPath + libraryName + modelFolder + name + modelExtension,
+        }
+        components.push(component);
+      }
+    });
+  
   }
 
-  result.push(component);
+  variableName = getVarName(libraryName);
+  result += "const " + variableName + "Components = " + JSON.stringify(components) + "; \n";
 });
 
-console.log(JSON.stringify(result));
+result += "\n\n export const kenneyLibrary: Library[] = [";
+
+libraries.forEach((libraryName) => {
+  variableName = getVarName(libraryName);
+  result += "{ name: 'kenney/" + libraryName + "', components: " + variableName + "Components},";
+});
+
+result += "]; ";
+
+console.log(result);

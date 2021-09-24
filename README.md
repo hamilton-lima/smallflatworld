@@ -14,6 +14,7 @@ Web 3D programable sandbox
 editor
 - add edit mode to 3D
 - add all kenney resources as libraries, update existing script to load from several folders
+    - fix manually piratekit-1.1\Models\glTF format
 - select scene element 
 - delete element
 - increase size

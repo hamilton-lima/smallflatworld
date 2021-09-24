@@ -1,7 +1,7 @@
 <div>
   <mat-form-field appearance="fill">
     <mat-label>Choose a Library</mat-label>
-    <mat-select (selectionChange)="selectedLibrary($event)">
+    <mat-select (selectionChange)="selectedLibrary($event)" [selected]="selected">
       <mat-option
         *ngFor="let library of libraries"
         [value]="library.components"
@@ -9,13 +9,15 @@
       >
     </mat-select>
   </mat-form-field>
+</div>
 
+<div>
   <button
     mat-raised-button
     *ngFor="let component of selected"
     aria-label="{{ component.name }}"
     (click)="use(component)"
   >
-    <img width="36" height="36" [src]="component.icon" />
+    <img width="50" height="50" [src]="component.icon" />
   </button>
 </div>
