@@ -13,7 +13,6 @@ Web 3D programable sandbox
 
 editor
 - add edit mode to 3D
-- add option to choose current library
 - add all kenney resources as libraries, update existing script to load from several folders
 - select scene element 
 - delete element
@@ -68,3 +67,4 @@ editor
 - save sceneElement information of the mesh used
 - change edit mode to stack elements, maybe highlight target of the creation?
 - add sceneelement type to identify the asset used
+- add option to choose current library
