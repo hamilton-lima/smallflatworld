@@ -32,7 +32,7 @@ multiplayer
 - add event when changing realm
 
 scenario
-
+- add more light to the environment, everything seems a little bit shady ;)
 - prevent movement outside the box
 - add procedural skybox with https://www.kenney.nl/assets/background-elements
 - adding moving sun light
