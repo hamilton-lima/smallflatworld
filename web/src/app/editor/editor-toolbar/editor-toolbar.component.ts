@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CubeMapToSphericalPolynomialTools } from '@babylonjs/core';
 import { Library, LibraryComponent } from '../editor-library.model';
 import { EditorLibraryService } from '../editor-library.service';
 import { EditorService } from '../editor.service';
@@ -10,6 +11,8 @@ import { EditorService } from '../editor.service';
 })
 export class EditorToolbarComponent implements OnInit {
   libraries: Library[];
+  selected: LibraryComponent[];
+
   constructor(
     private service: EditorLibraryService,
     private editor: EditorService
@@ -17,10 +20,16 @@ export class EditorToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.libraries = this.service.getLibraries();
+    this.selected = this.libraries[0].components;
   }
 
   // REPLACE with Library component
   use(component: LibraryComponent) {
     this.editor.setCurrent(component);
+  }
+
+  selectedLibrary(selection){
+    console.log('selected', selection);
+    this.selected = selection.value;
   }
 }

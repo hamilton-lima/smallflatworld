@@ -215,10 +215,30 @@ const survivalKit1 = [
   },
 ];
 
+const survivalKitTrees = [
+  {
+    id: 'survival-kit-1.0://treeFall',
+    name: 'treeFall',
+    icon: 'assets/library/kenney/survival-kit-1.0/Isometric/treeFall_E.png',
+    model3D: 'library/kenney/survival-kit-1.0/Models/GLTF format/treeFall.glb',
+  },
+  {
+    id: 'survival-kit-1.0://tree',
+    name: 'tree',
+    icon: 'assets/library/kenney/survival-kit-1.0/Isometric/tree_E.png',
+    model3D: 'library/kenney/survival-kit-1.0/Models/GLTF format/tree.glb',
+  },
+];
+
 export const kenneyLibrary: Library[] = [
   {
     name: 'kenney/survival-kit-1.0',
     icon: 'assets/library/kenney/survival-kit-1.0/Isometric/rockA_E.png',
     components: survivalKit1,
+  },
+  {
+    name: 'kenney/survival-kit-1.0-trees',
+    icon: 'assets/library/kenney/survival-kit-1.0/Isometric/rockA_E.png',
+    components: survivalKitTrees,
   },
 ];
