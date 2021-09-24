@@ -5391,64 +5391,6 @@ const natureKit21Components = [
       'library/kenney/natureKit-2.1/Models/GLTF format/tree_thin_fall.glb',
   },
 ];
-const piratekit11Components = [
-  {
-    id: 'piratekit-1.1://boat_large',
-    name: 'boat_large',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/boat_large_E.png',
-    model3D: 'library/kenney/piratekit-1.1/Models/GLTF format/boat_large.glb',
-  },
-  {
-    id: 'piratekit-1.1://boat_small',
-    name: 'boat_small',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/boat_small_E.png',
-    model3D: 'library/kenney/piratekit-1.1/Models/GLTF format/boat_small.glb',
-  },
-  {
-    id: 'piratekit-1.1://cannonMobile',
-    name: 'cannonMobile',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/cannonMobile_E.png',
-    model3D: 'library/kenney/piratekit-1.1/Models/GLTF format/cannonMobile.glb',
-  },
-  {
-    id: 'piratekit-1.1://pirate_captain',
-    name: 'pirate_captain',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/pirate_captain_E.png',
-    model3D:
-      'library/kenney/piratekit-1.1/Models/GLTF format/pirate_captain.glb',
-  },
-  {
-    id: 'piratekit-1.1://pirate_crew',
-    name: 'pirate_crew',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/pirate_crew_E.png',
-    model3D: 'library/kenney/piratekit-1.1/Models/GLTF format/pirate_crew.glb',
-  },
-  {
-    id: 'piratekit-1.1://pirate_officer',
-    name: 'pirate_officer',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/pirate_officer_E.png',
-    model3D:
-      'library/kenney/piratekit-1.1/Models/GLTF format/pirate_officer.glb',
-  },
-  {
-    id: 'piratekit-1.1://ship_dark',
-    name: 'ship_dark',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/ship_dark_E.png',
-    model3D: 'library/kenney/piratekit-1.1/Models/GLTF format/ship_dark.glb',
-  },
-  {
-    id: 'piratekit-1.1://ship_light',
-    name: 'ship_light',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/ship_light_E.png',
-    model3D: 'library/kenney/piratekit-1.1/Models/GLTF format/ship_light.glb',
-  },
-  {
-    id: 'piratekit-1.1://ship_wreck',
-    name: 'ship_wreck',
-    icon: 'assets/library/kenney/piratekit-1.1/Isometric/ship_wreck_E.png',
-    model3D: 'library/kenney/piratekit-1.1/Models/GLTF format/ship_wreck.glb',
-  },
-];
 const platformerkit2Components = [
   {
     id: 'platformerkit-2://arrow',
@@ -8094,7 +8036,6 @@ export const kenneyLibrary: Library[] = [
   { name: 'kenney/holidaykit-2', components: holidaykit2Components },
   { name: 'kenney/minigolf-kit-2.0', components: minigolfkit20Components },
   { name: 'kenney/natureKit-2.1', components: natureKit21Components },
-  { name: 'kenney/piratekit-1.1', components: piratekit11Components },
   { name: 'kenney/platformerkit-2', components: platformerkit2Components },
   { name: 'kenney/racingkit2', components: racingkit2Components },
   { name: 'kenney/retroUrbanKit', components: retroUrbanKitComponents },

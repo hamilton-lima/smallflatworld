@@ -13,8 +13,7 @@ Web 3D programable sandbox
 
 ## next steps
 
-editor 
-- fix manually library piratekit-1.1\Models\glTF format 
+editor
 - add predefined scale for each library
 - add edit mode to 3D
 - select scene element
@@ -23,6 +22,7 @@ editor
 - rotate
 - add camera control
 - snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
+- add portal component
 
 multiplayer
 
@@ -32,6 +32,7 @@ multiplayer
 - add event when changing realm
 
 scenario
+
 - add more light to the environment, everything seems a little bit shady ;)
 - prevent movement outside the box
 - add procedural skybox with https://www.kenney.nl/assets/background-elements
@@ -69,7 +70,11 @@ How to integrate with other 3D formats and tools
 ## Done
 
 editor
+- improve performance of scene loading
+  - measure current time
+  - check cache
 
+- fix manually library piratekit-1.1\Models\glTF format
 - add option to choose current library
 - add all kenney resources as libraries, update existing script to load from several folders
 - add skybox

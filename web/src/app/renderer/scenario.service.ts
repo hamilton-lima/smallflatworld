@@ -24,7 +24,7 @@ export class ScenarioService {
   ) {}
 
   buildRealm(engineState: EngineState): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       const total = this.realm.getCurrentRealm().elements.length;
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
@@ -33,13 +33,15 @@ export class ScenarioService {
         this.realm.getCurrentRealm().character
       );
       engineState.character = this.addCharacter(engineState.scene, character);
-      
+
       // add skybox
       this.skybox(engineState.scene);
 
+      const start = new Date().getTime();
       const createPromises = [];
+
       // add realm elements to the scene
-      this.realm.getCurrentRealm().elements.forEach((memento) => {
+      for(const memento of this.realm.getCurrentRealm().elements) {
         const element = memento2SceneElement(memento);
 
         console.log(
@@ -49,19 +51,12 @@ export class ScenarioService {
           element.position
         );
 
-        createPromises.push(this.editor.create(engineState.scene, element));
-      });
+        await this.editor.create(engineState.scene, element);
+      }
 
-      Promise.all(createPromises).then(
-        () => {
-          console.log('Finish building realm');
-          resolve();
-        },
-        (error) => {
-          console.error('Error creating objects', error);
-          reject();
-        }
-      );
+      const elapsed = new Date().getTime() - start;
+      console.log('Finish building realm, elapsed', elapsed);
+      resolve();
     });
   }
 

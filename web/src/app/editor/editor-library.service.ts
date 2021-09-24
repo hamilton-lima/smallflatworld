@@ -13,7 +13,9 @@ import { kenneyLibrary } from './kenney.library';
   providedIn: 'root',
 })
 export class EditorLibraryService {
-  private cache: Map<string, AbstractMesh> = new Map();
+  private static cache = [];
+  // private cache: Map<string, AbstractMesh> = new Map();
+  
   private components: Map<string, LibraryComponent> = new Map();
 
   constructor(private loader: MeshLoaderService, private mesh: MeshService) {
@@ -44,15 +46,38 @@ export class EditorLibraryService {
     }
   }
 
+  isCached(componentID: string){
+    const result = EditorLibraryService.cache[componentID];
+    console.log('inner: is cached', componentID, result);
+    return result;
+  }
+
+  add2Cache(componentID: string, mesh:AbstractMesh){
+    console.log('inner: set cache', componentID);
+    EditorLibraryService.cache[componentID] = mesh;
+  }
+
+  getFromCache(componentID: string): AbstractMesh{
+    const result = EditorLibraryService.cache[componentID];
+    console.log('inner:get from cache', componentID, result);
+    return result;
+  }
+
+  cacheSize(){
+    return EditorLibraryService.cache.entries.length;
+  }
+
   // get Mesh based on componentID
   getMesh(scene: Scene, componentID: string): Promise<AbstractMesh> {
+    console.log('getMesh', componentID, this.cacheSize());
+
     return new Promise<AbstractMesh>((resolve, reject) => {
       const component = this.getComponent(componentID);
+      console.log('component', component);
 
-      let result = null;
-      if (this.cache.has(component.id)) {
-        const cached = this.cache.get(component.id);
-        console.log('getmesh cached', component.id);
+      if (this.isCached(component.id)) {
+        const cached = this.getFromCache(component.id);
+        console.log('getmesh cached', component.id, cached);
         resolve(cached);
       } else {
         // if primitive dont load, create the primitive box
@@ -65,7 +90,7 @@ export class EditorLibraryService {
           this.loader
             .load(scene, component.model3D, component.name, false)
             .then((loaded) => {
-              this.cache.set(component.id, loaded);
+              this.add2Cache(component.id, loaded);
               console.log('getmesh loaded model', component.id);
               resolve(loaded);
             });
