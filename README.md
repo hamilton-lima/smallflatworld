@@ -14,32 +14,32 @@ Web 3D programable sandbox
 ## next steps
 
 editor
-- add predefined scale for each library
 - add edit mode to 3D
 - select scene element
 - delete element
 - increase size
 - rotate
+
+- add predefined scale for each library
 - add camera control
 - snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
+  - use this idea + PickInfo to define the boundingbox picked 
+  https://www.babylonjs-playground.com/#35HAW1#1
+  
 - add portal component
 
 multiplayer
-
 - wait for the full state of the realm after joining and update current realm
 - send player position updates, at realmService.updateCharacter send events to multiplayer
 - when sharing, disable join button
 - add event when changing realm
 
 scenario
-
-- add more light to the environment, everything seems a little bit shady ;)
 - prevent movement outside the box
 - add procedural skybox with https://www.kenney.nl/assets/background-elements
 - adding moving sun light
 
 actions
-
 - replace red box with running boy model
 - add jump
 
@@ -68,6 +68,8 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+scenario
+- add more light to the environment, everything seems a little bit shady ;)
 
 editor
 - improve performance of scene loading

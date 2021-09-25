@@ -28,12 +28,6 @@ export class RendererService {
     result.scene.useRightHandedSystem = true;
     result.scene.clearColor = new Color4(0, 0, 0, 0);
 
-    // result.mainLight = new HemisphericLight(
-    //   'light1',
-    //   new Vector3(0, 1, 0),
-    //   result.scene
-    // );
-
     const ambient = new HemisphericLight(
       'ambient',
       new Vector3(0, 1, 0),

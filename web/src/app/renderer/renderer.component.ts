@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RendererService } from './renderer.service';
-import { MeshService } from './mesh.service';
 import { MovementService } from './movement.service';
 import { CameraService } from './camera.service';
 import { EditorService } from '../editor/editor.service';
