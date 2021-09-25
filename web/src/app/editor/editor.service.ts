@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { PointerInfo, PointerInfoPre, Scene, Vector3 } from '@babylonjs/core';
+import {
+  AbstractMesh,
+  PointerInfo,
+  PointerInfoPre,
+  Scene,
+  Vector3,
+} from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,6 +24,7 @@ const POINTERDOWN = 'pointerdown';
 })
 export class EditorService {
   private current: LibraryComponent = PRIMITIVE_COMPONENT;
+  private selected: AbstractMesh;
 
   constructor(
     private mesh: MeshService,
@@ -51,13 +58,22 @@ export class EditorService {
           }
 
           if (this.editorMode.mode == EditorMode.EDIT) {
-            console.log('Magic will happen to edit the selected element');
+            this.select(scene, pointerInfo);
           }
         }
       }
     });
 
     return scene;
+  }
+
+  select(scene: Scene, pointerInfo: PointerInfo) {
+    if (this.selected) {
+      this.selected.showBoundingBox = false;
+    }
+
+    this.selected = pointerInfo.pickInfo.pickedMesh;
+    this.selected.showBoundingBox = true;
   }
 
   async addToPosition(scene: Scene, pointerInfo: PointerInfo) {

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   AbstractMesh,
   AnimationGroup,
+  BoundingInfo,
   IParticleSystem,
   Mesh,
   Scene,
   SceneLoader,
   Skeleton,
+  Vector3,
 } from '@babylonjs/core';
 import { GLTFFileLoader } from '@babylonjs/loaders';
 
@@ -22,7 +24,67 @@ export class MeshLoaderService {
     return this.load(scene, fileName, meshName, true);
   }
 
+  // create parent with boundingbox around all meshes
+  public createParent(
+    scene: Scene,
+    name: string,
+    visible: boolean,
+    meshes: Mesh[]
+  ): Mesh {
+    // create parent mesh
+    const parent = new Mesh(name, scene);
+    parent.isPickable = true;
+
+    // add all loaded meshes as visible children
+    meshes.forEach((mesh) => {
+      mesh.setParent(parent);
+      mesh.isPickable = false;
+      mesh.isVisible = visible;
+    });
+
+    // calculate bounding box
+    let min = meshes[0].getBoundingInfo().boundingBox.minimumWorld;
+    let max = meshes[0].getBoundingInfo().boundingBox.maximumWorld;
+
+    // verify each mesh min / max
+    for (let i = 1; i < meshes.length; i++) {
+      let meshMin = meshes[i].getBoundingInfo().boundingBox.minimumWorld;
+      let meshMax = meshes[i].getBoundingInfo().boundingBox.maximumWorld;
+
+      min = Vector3.Minimize(min, meshMin);
+      max = Vector3.Maximize(max, meshMax);
+    }
+
+    // set parent bounding box
+    parent.setBoundingInfo(new BoundingInfo(min, max));
+    return parent;
+  }
+
   public load(
+    scene: Scene,
+    fileName: string,
+    meshName: string,
+    visible = false
+  ) {
+    const self = this;
+    return new Promise<AbstractMesh>((resolve, reject) => {
+      this.loadAllMeshes(scene, fileName, visible).then((meshes: Mesh[]) => {
+        let result: AbstractMesh = meshes.find((mesh) => {
+          return mesh.name === meshName;
+        });
+
+        if (!result) {
+          result = this.createParent(scene, meshName, visible, meshes);
+        }
+
+        result.isPickable = true;
+        result.isVisible = visible;
+        resolve(result);
+      });
+    });
+  }
+
+  public loadLegacy(
     scene: Scene,
     fileName: string,
     meshName: string,
