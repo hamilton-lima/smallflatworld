@@ -13,6 +13,7 @@ import { ShareComponent } from './multiplayer/share/share.component';
 import { JoinComponent } from './multiplayer/join/join.component';
 import { FileComponent } from './file/file/file.component';
 import { EditorToolbarComponent } from './editor/editor-toolbar/editor-toolbar.component';
+import { EditorModePickerComponent } from './editor/editor-mode-picker/editor-mode-picker.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { EditorToolbarComponent } from './editor/editor-toolbar/editor-toolbar.c
     JoinComponent,
     FileComponent,
     EditorToolbarComponent,
+    EditorModePickerComponent,
   ],
   imports: [
     BrowserModule,

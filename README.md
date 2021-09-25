@@ -14,7 +14,6 @@ Web 3D programable sandbox
 ## next steps
 
 editor
-- add edit mode to 3D
 - select scene element
 - delete element
 - increase size
@@ -26,6 +25,7 @@ editor
   https://www.babylonjs-playground.com/#35HAW1#1
   
 - add portal component
+- move mesh cache to realm database 
 
 multiplayer
 - wait for the full state of the realm after joining and update current realm
@@ -67,8 +67,8 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+- add edit mode to 3D
 - add camera control
-
 scenario
 - add more light to the environment, everything seems a little bit shady ;)
 

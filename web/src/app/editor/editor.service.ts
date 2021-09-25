@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PointerInfoPre, Scene, Vector3 } from '@babylonjs/core';
+import { PointerInfo, PointerInfoPre, Scene, Vector3 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,6 +9,7 @@ import { EditorLibraryService } from './editor-library.service';
 import { sceneElement2Memento } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
 import { CameraService } from '../renderer/camera.service';
+import { EditorMode, EditorModeService } from './editor-mode.service';
 
 const POINTERDOWN = 'pointerdown';
 
@@ -23,51 +24,63 @@ export class EditorService {
     private realm: RealmService,
     private client: ClientService,
     private library: EditorLibraryService,
-    private camera: CameraService
+    private camera: CameraService,
+    private editorMode: EditorModeService
   ) {}
 
   setup(scene: Scene): Scene {
     // handles mouse wheel
-    scene.onPrePointerObservable.add((pointerInfo: PointerInfoPre, eventState)=>{
-      const wheelDelta = pointerInfo.event['wheelDelta'];
-      if( wheelDelta > 0){
-        this.camera.zoomIn();
+    scene.onPrePointerObservable.add(
+      (pointerInfo: PointerInfoPre, eventState) => {
+        const wheelDelta = pointerInfo.event['wheelDelta'];
+        if (wheelDelta > 0) {
+          this.camera.zoomIn();
+        }
+        if (wheelDelta < 0) {
+          this.camera.zoomOut();
+        }
       }
-      if( wheelDelta < 0){
-        this.camera.zoomOut();
-      }
-    });
+    );
 
     scene.onPointerObservable.add(async (pointerInfo) => {
       if (pointerInfo.pickInfo.pickedPoint) {
-
         if (pointerInfo.event.type == POINTERDOWN) {
           console.log('pickInfo', pointerInfo);
-          const position = pointerInfo.pickInfo.pickedPoint;
+          if (this.editorMode.mode == EditorMode.ADD) {
+            await this.addToPosition(scene, pointerInfo);
+          }
 
-          // allow to stack elements
-          const boundingBox =
-            pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox;
-          position.y = boundingBox.maximumWorld.y;
-
-          const element = <SceneElement>{
-            name: uuidv4(),
-            componentID: this.current.id,
-            position: position,
-            rotation: Vector3.Zero(),
-          };
-
-          await this.create(scene, element);
-
-          // update local realm and send client event
-          const memento = sceneElement2Memento(element);
-          await this.realm.add(memento);
-          this.client.update(memento);
+          if (this.editorMode.mode == EditorMode.EDIT) {
+            console.log('Magic will happen to edit the selected element');
+          }
         }
       }
     });
 
     return scene;
+  }
+
+  async addToPosition(scene: Scene, pointerInfo: PointerInfo) {
+    const position = pointerInfo.pickInfo.pickedPoint;
+
+    // allow to stack elements
+    const boundingBox =
+      pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox;
+    position.y = boundingBox.maximumWorld.y;
+
+    const element = <SceneElement>{
+      name: uuidv4(),
+      componentID: this.current.id,
+      position: position,
+      rotation: Vector3.Zero(),
+    };
+
+    await this.create(scene, element);
+
+    // update local realm and send client event
+    const memento = sceneElement2Memento(element);
+    await this.realm.add(memento);
+    this.client.update(memento);
   }
 
   async setCurrent(component: LibraryComponent) {
