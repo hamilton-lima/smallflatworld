@@ -7,7 +7,6 @@ import {
   StandardMaterial,
   MeshBuilder,
   AbstractMesh,
-  AssetsManager,
 } from '@babylonjs/core';
 import { MeshLoaderService } from '../mesh/mesh-loader.service';
 

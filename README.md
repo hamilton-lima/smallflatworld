@@ -21,7 +21,6 @@ editor
 - rotate
 
 - add predefined scale for each library
-- add camera control
 - snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
   - use this idea + PickInfo to define the boundingbox picked 
   https://www.babylonjs-playground.com/#35HAW1#1
@@ -68,6 +67,8 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+- add camera control
+
 scenario
 - add more light to the environment, everything seems a little bit shady ;)
 

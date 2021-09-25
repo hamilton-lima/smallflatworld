@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Scene, Vector3 } from '@babylonjs/core';
+import { PointerInfoPre, Scene, Vector3 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,6 +8,7 @@ import { LibraryComponent, PRIMITIVE_COMPONENT } from './editor-library.model';
 import { EditorLibraryService } from './editor-library.service';
 import { sceneElement2Memento } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
+import { CameraService } from '../renderer/camera.service';
 
 const POINTERDOWN = 'pointerdown';
 
@@ -21,21 +22,33 @@ export class EditorService {
     private mesh: MeshService,
     private realm: RealmService,
     private client: ClientService,
-    private library: EditorLibraryService
+    private library: EditorLibraryService,
+    private camera: CameraService
   ) {}
 
   setup(scene: Scene): Scene {
+    // handles mouse wheel
+    scene.onPrePointerObservable.add((pointerInfo: PointerInfoPre, eventState)=>{
+      const wheelDelta = pointerInfo.event['wheelDelta'];
+      if( wheelDelta > 0){
+        this.camera.zoomIn();
+      }
+      if( wheelDelta < 0){
+        this.camera.zoomOut();
+      }
+    });
+
     scene.onPointerObservable.add(async (pointerInfo) => {
       if (pointerInfo.pickInfo.pickedPoint) {
+
         if (pointerInfo.event.type == POINTERDOWN) {
+          console.log('pickInfo', pointerInfo);
           const position = pointerInfo.pickInfo.pickedPoint;
 
           // allow to stack elements
           const boundingBox =
             pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox;
           position.y = boundingBox.maximumWorld.y;
-
-          console.log('pointer position', position);
 
           const element = <SceneElement>{
             name: uuidv4(),
