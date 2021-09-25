@@ -15,9 +15,8 @@ Web 3D programable sandbox
 
 editor
 - select scene element
+- plus / minus with options : rotate, scale, height
 - delete element
-- increase size
-- rotate
 
 - add predefined scale for each library
 - snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
