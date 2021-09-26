@@ -3,7 +3,11 @@ import { Realm } from '../persistence/persistence.model';
 import { PersistenceService } from '../persistence/persistence.service';
 import { ConfigurationService } from '../configuration.service';
 import { ClientService } from '../multiplayer/client.service';
-import { SceneElementMemento, Vector3Memento, Vector3MementoZero } from '../../../../server/src/events.model';
+import {
+  SceneElementMemento,
+  Vector3Memento,
+  Vector3MementoZero,
+} from '../../../../server/src/events.model';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +49,7 @@ export class RealmService {
   defaultCharacter(): SceneElementMemento {
     const position = <Vector3Memento>{
       x: 0,
-      y: 1,
+      y: 0,
       z: 0,
     };
 
@@ -67,6 +71,28 @@ export class RealmService {
   // add new scene elements
   async add(element: SceneElementMemento) {
     this.currentRealm.elements.push(element);
+    return this._updateRealm();
+  }
+
+  // update scene elements
+  async get(name: string) {
+    const found = this.currentRealm.elements.findIndex(
+      (element) => element.name == name
+    );
+    if (found) {
+      return this.currentRealm.elements[found];
+    }
+    return null;
+  }
+
+  // update scene elements
+  async update(input: SceneElementMemento) {
+    const found = this.currentRealm.elements.findIndex(
+      (element) => element.name == input.name
+    );
+    if (found) {
+      this.currentRealm.elements[found] = input;
+    }
     return this._updateRealm();
   }
 

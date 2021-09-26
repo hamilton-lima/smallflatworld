@@ -88,7 +88,7 @@ export class EditorLibraryService {
         } else {
           // not present in the cache load the model
           this.loader
-            .load(scene, component.model3D, component.name, false)
+            .loadWithClickable(scene, component.model3D, component.name, false)
             .then((loaded) => {
               this.add2Cache(component.id, loaded);
               console.log('getmesh loaded model', component.id);

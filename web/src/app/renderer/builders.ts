@@ -54,7 +54,16 @@ export function memento2SceneElement(
   return result;
 }
 
-// convert exported vector3 data object in real Vector3 instance
+// convert Vecto3Memento to BabylonVector3
 export function buildVector3(vector3: Vector3Memento) {
   return new Vector3(vector3.x, vector3.y, vector3.z);
+}
+
+// convert exported vector3 data object in real Vector3 instance
+export function vector3ToMemento(vector3: Vector3) {
+  return <Vector3Memento>{
+    x: vector3.x,
+    y: vector3.y,
+    z: vector3.z,
+  };
 }

@@ -95,6 +95,23 @@ export class MeshLoaderService {
     return parent;
   }
 
+  loadWithClickable(
+    scene: Scene,
+    fileName: string,
+    meshName: string,
+    visible = false
+  ) {
+    const self = this;
+    return new Promise<AbstractMesh>((resolve, reject) => {
+      this.loadAllMeshes(scene, fileName, visible).then((meshes: Mesh[]) => {
+        const result = this.createParent(scene, meshName, visible, meshes);
+        result.isPickable = true;
+        result.isVisible = visible;
+        resolve(result);
+      });
+    });
+  }
+
   public load(
     scene: Scene,
     fileName: string,

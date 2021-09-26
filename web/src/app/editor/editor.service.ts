@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ClientService } from '../multiplayer/client.service';
 import { LibraryComponent, PRIMITIVE_COMPONENT } from './editor-library.model';
 import { EditorLibraryService } from './editor-library.service';
-import { sceneElement2Memento } from '../renderer/builders';
+import { sceneElement2Memento, vector3ToMemento } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
 import { CameraService } from '../renderer/camera.service';
 import {
@@ -48,10 +48,24 @@ export class EditorService {
     return -1;
   }
 
-  rotate(positive: boolean) {
+  async rotate(positive: boolean) {
     if (this.selected) {
-      const parent: Mesh = <Mesh>this.selected.parent;
+      
+      // rotate the mesh
+      let parent: Mesh = <Mesh>this.selected.parent;
+      // Meshes loaded with no parent
+      if (!parent) {
+        parent = this.selected;
+      }
       parent.rotation.y += 0.2 * this.signal(positive);
+
+      // get current realm element
+      const element = await this.realm.get(this.selected.parent.name);
+      element.rotation = vector3ToMemento(parent.rotation);
+
+      // propagate the update to realm and multiplayer
+      await this.realm.update(element);
+      this.client.update(element);
     }
   }
 
@@ -68,7 +82,7 @@ export class EditorService {
   }
 
   private current: LibraryComponent = PRIMITIVE_COMPONENT;
-  private selected: AbstractMesh;
+  private selected: Mesh;
 
   constructor(
     private mesh: MeshService,
@@ -116,7 +130,7 @@ export class EditorService {
       this.selected.showBoundingBox = false;
     }
 
-    this.selected = pointerInfo.pickInfo.pickedMesh;
+    this.selected = <Mesh>pointerInfo.pickInfo.pickedMesh;
     this.selected.showBoundingBox = true;
   }
 
