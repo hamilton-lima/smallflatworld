@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   AbstractMesh,
   Mesh,
+  PickingInfo,
   PointerInfo,
   PointerInfoPre,
   Scene,
@@ -55,7 +56,7 @@ export class EditorService {
     if (action == EditorAction.MOVEY) {
       this.moveY(positive);
     }
-    
+
     if (action == EditorAction.MOVEZ) {
       this.moveZ(positive);
     }
@@ -138,7 +139,7 @@ export class EditorService {
       this.propagateUpdate(element);
     }
   }
-  
+
   editPlus() {
     if (this.editorMode.mode.value == EditorMode.EDIT) {
       this.executeEditAction(this.editorMode.editAction.value, true);
@@ -178,6 +179,7 @@ export class EditorService {
     );
 
     scene.onPointerObservable.add(async (pointerInfo) => {
+      this.onMouse(scene, pointerInfo);
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
           console.log('pickInfo', pointerInfo);
@@ -193,6 +195,15 @@ export class EditorService {
     });
 
     return scene;
+  }
+
+  onMouse(scene, pointerInfo: PointerInfo) {
+    const picked:PickingInfo = scene.pick(scene.pointerX, scene.pointerY);
+    // console.log('touched mesh (1)',picked);
+
+    if (picked.pickedMesh) {
+      console.log('touched mesh', picked.faceId);
+    }
   }
 
   select(scene: Scene, pointerInfo: PointerInfo) {

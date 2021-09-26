@@ -19,8 +19,13 @@ editor
 
 - add predefined scale for each library
 - snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
+  - face detection example 
+  https://playground.babylonjs.com/#D1Z1VL#3
+  
   - use this idea + PickInfo to define the boundingbox picked 
   https://www.babylonjs-playground.com/#35HAW1#1
+  - other idea to apply the correct rotation
+  https://playground.babylonjs.com/#TZTHV1#1
   
 - add portal component
 - move mesh cache to realm database 
