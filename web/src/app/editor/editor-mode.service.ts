@@ -11,6 +11,7 @@ export enum EditorAction {
   SCALE = 'scale',
   MOVEX = 'moveX',
   MOVEY = 'moveY',
+  MOVEZ = 'moveZ',
 }
 
 @Injectable({

@@ -14,7 +14,6 @@ Web 3D programable sandbox
 ## next steps
 
 editor
-- update realm with scale
 - delete element
 - add keybinds for edit actions
 
@@ -66,6 +65,9 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+- add up editor function
+- update realm with scale
+
 - select scene element
 - plus / minus with options : rotate, scale, height
 

@@ -5,17 +5,20 @@
 <div *ngIf="mode == 'edit'">
   <div>
     <mat-button-toggle-group value="rotate">
-      <mat-button-toggle (click)="rotate()" value="add"
+      <mat-button-toggle (click)="rotate()" value="rotate"
         >ROTATE</mat-button-toggle
       >
-      <mat-button-toggle (click)="scale()" value="edit"
+      <mat-button-toggle (click)="scale()" value="scale"
         >SCALE</mat-button-toggle
       >
-      <mat-button-toggle (click)="moveX()" value="edit"
-        >MOVE X</mat-button-toggle
+      <mat-button-toggle (click)="moveX()" value="moveX"
+        >LEFT</mat-button-toggle
       >
-      <mat-button-toggle (click)="moveY()" value="edit"
-        >MOVE Y</mat-button-toggle
+      <mat-button-toggle (click)="moveY()" value="moveY"
+        >FAR</mat-button-toggle
+      >
+      <mat-button-toggle (click)="moveZ()" value="moveZ"
+        >UP</mat-button-toggle
       >
     </mat-button-toggle-group>
   </div>

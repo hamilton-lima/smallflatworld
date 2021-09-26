@@ -55,6 +55,10 @@ export class EditorService {
     if (action == EditorAction.MOVEY) {
       this.moveY(positive);
     }
+    
+    if (action == EditorAction.MOVEZ) {
+      this.moveZ(positive);
+    }
   }
 
   signal(positive: boolean) {
@@ -123,6 +127,18 @@ export class EditorService {
     }
   }
 
+  async moveZ(positive: boolean) {
+    if (this.selected) {
+      // rotate the mesh
+      let parent: Mesh = <Mesh>this.selected.parent;
+      parent.position.y += MOVE_STEP * this.signal(positive);
+
+      const element = await this.realm.get(this.selected.parent.name);
+      element.position = vector3ToMemento(parent.position);
+      this.propagateUpdate(element);
+    }
+  }
+  
   editPlus() {
     if (this.editorMode.mode.value == EditorMode.EDIT) {
       this.executeEditAction(this.editorMode.editAction.value, true);

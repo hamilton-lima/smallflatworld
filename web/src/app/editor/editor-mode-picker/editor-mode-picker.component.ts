@@ -54,6 +54,11 @@ export class EditorModePickerComponent implements OnInit {
     this.service.editAction.next(EditorAction.MOVEY);
   }
 
+  moveZ() {
+    this.input.focus();
+    this.service.editAction.next(EditorAction.MOVEZ);
+  }
+
   editPlus() {
     this.input.focus();
     this.editor.editPlus();
