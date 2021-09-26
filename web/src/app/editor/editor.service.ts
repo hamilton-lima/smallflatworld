@@ -16,7 +16,11 @@ import { EditorLibraryService } from './editor-library.service';
 import { sceneElement2Memento } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
 import { CameraService } from '../renderer/camera.service';
-import { EditorMode, EditorModeService } from './editor-mode.service';
+import {
+  EditorAction,
+  EditorMode,
+  EditorModeService,
+} from './editor-mode.service';
 
 const POINTERDOWN = 'pointerdown';
 
@@ -24,14 +28,45 @@ const POINTERDOWN = 'pointerdown';
   providedIn: 'root',
 })
 export class EditorService {
+  executeEditAction(action: EditorAction, positive: boolean) {
+    console.log(
+      'Execute action',
+      this.editorMode.mode.value,
+      this.editorMode.editAction.value,
+      positive
+    );
+
+    if (action == EditorAction.ROTATE) {
+      this.rotate(positive);
+    }
+  }
+
+  signal(positive: boolean) {
+    if (positive) {
+      return 1;
+    }
+    return -1;
+  }
+
+  rotate(positive: boolean) {
+    if (this.selected) {
+      const parent: Mesh = <Mesh>this.selected.parent;
+      parent.rotation.y += 0.2 * this.signal(positive);
+    }
+  }
+
   editPlus() {
-    console.log('PLUS', this.editorMode.mode.value, this.editorMode.editAction.value);
+    if (this.editorMode.mode.value == EditorMode.EDIT) {
+      this.executeEditAction(this.editorMode.editAction.value, true);
+    }
   }
 
   editMinus() {
-    console.log('MINUS', this.editorMode.mode.value, this.editorMode.editAction.value);
+    if (this.editorMode.mode.value == EditorMode.EDIT) {
+      this.executeEditAction(this.editorMode.editAction.value, false);
+    }
   }
-  
+
   private current: LibraryComponent = PRIMITIVE_COMPONENT;
   private selected: AbstractMesh;
 
@@ -61,7 +96,6 @@ export class EditorService {
     scene.onPointerObservable.add(async (pointerInfo) => {
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
-          
           console.log('pickInfo', pointerInfo);
           if (this.editorMode.mode.value == EditorMode.ADD) {
             await this.addToPosition(scene, pointerInfo);
