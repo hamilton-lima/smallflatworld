@@ -13,22 +13,20 @@ Web 3D programable sandbox
 
 ## next steps
 
+coding
+- add on click event handler to 3D element - introduce code ui with blocks
+- add function to display message
+- add shared state of the realm available to the coding with blocks
+
 editor
 - delete element
 - add keybinds for edit actions
+- center rotation point at the center of the bounding box
 
 - add predefined scale for each library
-- snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
-  - face detection example 
-  https://playground.babylonjs.com/#D1Z1VL#3
-  
-  - use this idea + PickInfo to define the boundingbox picked 
-  https://www.babylonjs-playground.com/#35HAW1#1
-  - other idea to apply the correct rotation
-  https://playground.babylonjs.com/#TZTHV1#1
-  
 - add portal component
 - move mesh cache to realm database 
+- add option to snap city road elements only by the sides
 
 multiplayer
 - wait for the full state of the realm after joining and update current realm
@@ -45,14 +43,7 @@ actions
 - replace red box with running boy model
 - add jump
 
-coding
-
-- add on click event handler to 3D element - introduce code ui with blocks
-- add function to display message
-- add shared state of the realm available to the coding with blocks
-
 realm management
-
 - create new
 
 ## To be investigated
@@ -70,6 +61,16 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+- snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
+  - face detection example 
+  https://playground.babylonjs.com/#D1Z1VL#3
+  
+  - use this idea + PickInfo to define the boundingbox picked 
+  https://www.babylonjs-playground.com/#35HAW1#1
+  - other idea to apply the correct rotation
+  https://playground.babylonjs.com/#TZTHV1#1
+  
+
 - add up editor function
 - update realm with scale
 

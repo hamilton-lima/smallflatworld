@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   AbstractMesh,
   Mesh,
+  MeshBuilder,
   PickingInfo,
   PointerInfo,
   PointerInfoPre,
@@ -28,6 +29,7 @@ const POINTERDOWN = 'pointerdown';
 const ROTATION_STEP = 0.2;
 const SCALE_STEP = 0.2;
 const MOVE_STEP = 0.2;
+const VECTOR3_TWO = new Vector3(2.0, 2.0, 2.0);
 
 @Injectable({
   providedIn: 'root',
@@ -179,7 +181,6 @@ export class EditorService {
     );
 
     scene.onPointerObservable.add(async (pointerInfo) => {
-      this.onMouse(scene, pointerInfo);
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
           console.log('pickInfo', pointerInfo);
@@ -197,12 +198,59 @@ export class EditorService {
     return scene;
   }
 
-  onMouse(scene, pointerInfo: PointerInfo) {
-    const picked:PickingInfo = scene.pick(scene.pointerX, scene.pointerY);
-    // console.log('touched mesh (1)',picked);
+  // facet is turned into a number between 0-10
+  // 0 is positive Z
+  // 2 is negative Z
+  // 4 is positive X
+  // 6 is negative X
+  // 8 is positive Y
+  // 10 is negative Y
 
-    if (picked.pickedMesh) {
-      console.log('touched mesh', picked.faceId);
+  calcSnapPositionCenterOfCubeFace(
+    faceId: number,
+    mesh: Mesh,
+    size2Snap: Vector3
+  ): Vector3 {
+    if (!mesh) {
+      return null;
+    }
+
+    const size = mesh.getBoundingInfo().boundingBox.extendSize;
+    //size.divideInPlace(VECTOR3_TWO);
+    const snap = size2Snap.multiply(VECTOR3_TWO);
+
+    var facet = faceId / 2;
+    var fase = Math.floor(facet);
+    const position = mesh.position.clone();
+
+    if (fase == 0) {
+      position.z += size.z + snap.z;
+      return position;
+    }
+
+    if (fase == 1) {
+      position.z -= size.z + snap.z;
+      return position;
+    }
+
+    if (fase == 2) {
+      position.x += size.x + snap.x;
+      return position;
+    }
+
+    if (fase == 3) {
+      position.x -= size.x + snap.x;
+      return position;
+    }
+
+    if (fase == 4) {
+      position.y += size.y + snap.y;
+      return position;
+    }
+
+    if (fase == 5) {
+      position.y -= size.y + snap.y;
+      return position;
     }
   }
 
@@ -216,12 +264,33 @@ export class EditorService {
   }
 
   async addToPosition(scene: Scene, pointerInfo: PointerInfo) {
-    const position = pointerInfo.pickInfo.pickedPoint;
+    const faceId = pointerInfo.pickInfo.faceId;
+    let picked = <Mesh>pointerInfo.pickInfo.pickedMesh;
+    const templateMesh = await this.library.getMesh(scene, this.current.id);
+    const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
+    let position: Vector3;
 
-    // allow to stack elements
-    const boundingBox =
-      pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox;
-    position.y = boundingBox.maximumWorld.y;
+    // if picking ground add to the clicking position
+    if (picked.name == 'ground') {
+      position = pointerInfo.pickInfo.pickedPoint;
+    } else {
+      if (picked.parent) {
+        picked = <Mesh>picked.parent;
+      }
+
+      console.log('picked', picked);
+
+      position = this.calcSnapPositionCenterOfCubeFace(
+        faceId,
+        picked,
+        dimensions
+      );
+    }
+
+    // // allow to stack elements
+    // const boundingBox =
+    //   pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox;
+    // position.y = boundingBox.maximumWorld.y;
 
     const element = <SceneElement>{
       name: uuidv4(),
