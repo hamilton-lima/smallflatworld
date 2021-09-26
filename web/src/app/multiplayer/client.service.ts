@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Vector3 } from '@babylonjs/core';
 import { Subject, Subscription } from 'rxjs';
 import {
   JoinResponse,
@@ -74,7 +73,7 @@ export class ClientService {
         name: element.name,
         position: buildVector3(element.position),
         rotation: buildVector3(element.rotation),
-        scale: buildVector3(element.scale),
+        scaling: buildVector3(element.scaling),
       };
       result.push(converted);
     });

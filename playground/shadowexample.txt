@@ -1,0 +1,25 @@
+
+from
+https://github.com/nimadez/voxel-builder/blob/e5584c7dd72da7ea39f1ce3d7d555bd1456cf4bd/index.html#L316
+
+ const shadowGen = new BABYLON.ShadowGenerator(512, light); // shadows updated manually on SPS.mesh changes,
+        shadowGen.getShadowMap().refreshRate = BABYLON.RenderTargetTexture.REFRESHRATE_RENDER_ONCE; // to save performance
+        shadowGen.filteringQuality = BABYLON.ShadowGenerator.QUALITY_LOW;
+        shadowGen.useExponentialShadowMap = false;
+        shadowGen.usePercentageCloserFiltering = true;
+        shadowGen.setDarkness(0.6);
+
+        ....
+        const shadowcatcher = BABYLON.MeshBuilder.CreateGround("shadowcatcher", {width: 100, height: 100}, scene);
+        shadowcatcher.material = new BABYLON.ShadowOnlyMaterial('shadowcatcher', scene);
+        shadowcatcher.material.shadowColor = new BABYLON.Color3.FromHexString('#161a20');
+        shadowcatcher.material.activeLight = light;
+        shadowcatcher.material.backFaceCulling = true;
+        shadowcatcher.material.alpha = 0.3;
+        shadowcatcher.position.y = -0.5;
+        shadowcatcher.receiveShadows = true;
+        shadowcatcher.isPickable = false;
+        shadowcatcher.doNotSyncBoundingInfo = true;
+        shadowcatcher.convertToUnIndexedMesh();
+        shadowcatcher.freezeWorldMatrix();
+        shadowcatcher.freezeNormals();        
