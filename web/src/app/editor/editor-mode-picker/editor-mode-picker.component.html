@@ -1,4 +1,26 @@
-<mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="add">
+<mat-button-toggle-group value="add">
   <mat-button-toggle (click)="add()" value="add">ADD</mat-button-toggle>
   <mat-button-toggle (click)="edit()" value="edit">EDIT</mat-button-toggle>
 </mat-button-toggle-group>
+<div *ngIf="mode == 'edit'">
+  <div>
+    <mat-button-toggle-group value="rotate">
+      <mat-button-toggle (click)="rotate()" value="add"
+        >ROTATE</mat-button-toggle
+      >
+      <mat-button-toggle (click)="scale()" value="edit"
+        >SCALE</mat-button-toggle
+      >
+      <mat-button-toggle (click)="moveX()" value="edit"
+        >MOVE X</mat-button-toggle
+      >
+      <mat-button-toggle (click)="moveY()" value="edit"
+        >MOVE Y</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+  </div>
+  <div>
+    <button mat-raised-button (click)="editPlus()">+</button>
+    <button mat-raised-button (click)="editMinus()">-</button>
+  </div>
+</div>

@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+
 export enum EditorMode {
   ADD = 'add',
   EDIT = 'edit',
+}
+
+export enum EditorAction {
+  ROTATE = 'rotate',
+  SCALE = 'scale',
+  MOVEX = 'moveX',
+  MOVEY = 'moveY',
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class EditorModeService {
-  mode: EditorMode = EditorMode.ADD;
-
-  add() {
-    this.mode = EditorMode.ADD;
-  }
-
-  edit() {
-    this.mode = EditorMode.EDIT;
-  }
-
+  mode: BehaviorSubject<EditorMode> = new BehaviorSubject(EditorMode.ADD);
+  editAction: BehaviorSubject<EditorAction> = new BehaviorSubject(
+    EditorAction.ROTATE
+  );
 }

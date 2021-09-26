@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   AbstractMesh,
+  Mesh,
   PointerInfo,
   PointerInfoPre,
   Scene,
@@ -23,6 +24,14 @@ const POINTERDOWN = 'pointerdown';
   providedIn: 'root',
 })
 export class EditorService {
+  editPlus() {
+    console.log('PLUS', this.editorMode.mode.value, this.editorMode.editAction.value);
+  }
+
+  editMinus() {
+    console.log('MINUS', this.editorMode.mode.value, this.editorMode.editAction.value);
+  }
+  
   private current: LibraryComponent = PRIMITIVE_COMPONENT;
   private selected: AbstractMesh;
 
@@ -52,12 +61,13 @@ export class EditorService {
     scene.onPointerObservable.add(async (pointerInfo) => {
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
+          
           console.log('pickInfo', pointerInfo);
-          if (this.editorMode.mode == EditorMode.ADD) {
+          if (this.editorMode.mode.value == EditorMode.ADD) {
             await this.addToPosition(scene, pointerInfo);
           }
 
-          if (this.editorMode.mode == EditorMode.EDIT) {
+          if (this.editorMode.mode.value == EditorMode.EDIT) {
             this.select(scene, pointerInfo);
           }
         }
