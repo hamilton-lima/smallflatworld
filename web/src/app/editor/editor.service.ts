@@ -21,8 +21,12 @@ import {
   EditorMode,
   EditorModeService,
 } from './editor-mode.service';
+import { SceneElementMemento } from '../../../../server/src/events.model';
 
 const POINTERDOWN = 'pointerdown';
+const ROTATION_STEP = 0.2;
+const SCALE_STEP = 0.2;
+const MOVE_STEP = 0.2;
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +43,18 @@ export class EditorService {
     if (action == EditorAction.ROTATE) {
       this.rotate(positive);
     }
+
+    if (action == EditorAction.SCALE) {
+      this.scale(positive);
+    }
+
+    if (action == EditorAction.MOVEX) {
+      this.moveX(positive);
+    }
+
+    if (action == EditorAction.MOVEY) {
+      this.moveY(positive);
+    }
   }
 
   signal(positive: boolean) {
@@ -48,24 +64,63 @@ export class EditorService {
     return -1;
   }
 
+  // propagate the update to realm and multiplayer
+  async propagateUpdate(element: SceneElementMemento) {
+    await this.realm.update(element);
+    this.client.update(element);
+  }
+
   async rotate(positive: boolean) {
     if (this.selected) {
-      
       // rotate the mesh
       let parent: Mesh = <Mesh>this.selected.parent;
-      // Meshes loaded with no parent
-      if (!parent) {
-        parent = this.selected;
-      }
-      parent.rotation.y += 0.2 * this.signal(positive);
+      parent.rotation.y += ROTATION_STEP * this.signal(positive);
 
-      // get current realm element
       const element = await this.realm.get(this.selected.parent.name);
       element.rotation = vector3ToMemento(parent.rotation);
+      this.propagateUpdate(element);
+    }
+  }
 
-      // propagate the update to realm and multiplayer
-      await this.realm.update(element);
-      this.client.update(element);
+  async scale(positive: boolean) {
+    if (this.selected) {
+      // rotate the mesh
+      let parent: Mesh = <Mesh>this.selected.parent;
+      const scale = new Vector3(
+        SCALE_STEP * this.signal(positive),
+        SCALE_STEP * this.signal(positive),
+        SCALE_STEP * this.signal(positive)
+      );
+      parent.scaling.addInPlace(scale);
+
+      // TODO: ADD scaling to scene element
+      // const element = await this.realm.get(this.selected.parent.name);
+      // element.scaling = vector3ToMemento(parent.scaling);
+      // this.propagateUpdate(element);
+    }
+  }
+
+  async moveX(positive: boolean) {
+    if (this.selected) {
+      // rotate the mesh
+      let parent: Mesh = <Mesh>this.selected.parent;
+      parent.position.x += MOVE_STEP * this.signal(positive);
+
+      const element = await this.realm.get(this.selected.parent.name);
+      element.position = vector3ToMemento(parent.position);
+      this.propagateUpdate(element);
+    }
+  }
+
+  async moveY(positive: boolean) {
+    if (this.selected) {
+      // rotate the mesh
+      let parent: Mesh = <Mesh>this.selected.parent;
+      parent.position.z += MOVE_STEP * this.signal(positive);
+
+      const element = await this.realm.get(this.selected.parent.name);
+      element.position = vector3ToMemento(parent.position);
+      this.propagateUpdate(element);
     }
   }
 
