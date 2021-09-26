@@ -6,6 +6,7 @@ import { ClientService } from '../multiplayer/client.service';
 import {
   SceneElementMemento,
   Vector3Memento,
+  Vector3MementoOne,
   Vector3MementoZero,
 } from '../../../../server/src/events.model';
 
@@ -47,16 +48,11 @@ export class RealmService {
   }
 
   defaultCharacter(): SceneElementMemento {
-    const position = <Vector3Memento>{
-      x: 0,
-      y: 0,
-      z: 0,
-    };
-
     return <SceneElementMemento>{
       name: 'character',
-      position: position,
+      position: Vector3MementoZero,
       rotation: Vector3MementoZero,
+      scaling: Vector3MementoOne,
     };
   }
 

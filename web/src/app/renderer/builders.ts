@@ -8,16 +8,9 @@ import { SceneElement } from './renderer.model';
 export function mesh2SceneElement(mesh: Mesh): SceneElement {
   const result = <SceneElement>{
     name: mesh.name,
-    position: <Vector3>{
-      x: mesh.position.x,
-      y: mesh.position.y,
-      z: mesh.position.z,
-    },
-    rotation: <Vector3>{
-      x: mesh.rotation.x,
-      y: mesh.rotation.y,
-      z: mesh.rotation.z,
-    },
+    position: buildVector3(mesh.position),
+    rotation: buildVector3(mesh.rotation),
+    scaling: buildVector3(mesh.scaling),
   };
   return result;
 }
@@ -28,16 +21,9 @@ export function sceneElement2Memento(
   const result = <SceneElementMemento>{
     name: element.name,
     componentID: element.componentID,
-    position: <Vector3Memento>{
-      x: element.position.x,
-      y: element.position.y,
-      z: element.position.z,
-    },
-    rotation: <Vector3Memento>{
-      x: element.rotation.x,
-      y: element.rotation.y,
-      z: element.rotation.z,
-    },
+    position: vector3ToMemento(element.position),
+    rotation: vector3ToMemento(element.rotation),
+    scaling: vector3ToMemento(element.scaling),
   };
   return result;
 }
@@ -50,6 +36,7 @@ export function memento2SceneElement(
     componentID: element.componentID,
     position: buildVector3(element.position),
     rotation: buildVector3(element.rotation),
+    scaling: buildVector3(element.scaling),
   };
   return result;
 }

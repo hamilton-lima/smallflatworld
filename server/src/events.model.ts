@@ -48,11 +48,18 @@ export const Vector3MementoZero = <Vector3Memento>{
   z: 0,
 };
 
+export const Vector3MementoOne = <Vector3Memento>{
+  x: 1,
+  y: 1,
+  z: 1,
+};
+
 export class SceneElementMemento {
   name: string;
   componentID: string;
   position: Vector3Memento;
   rotation: Vector3Memento;
+  scaling: Vector3Memento;
 }
 
 export class StateUpdate implements ClientData, ClientResponseData {

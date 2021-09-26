@@ -13,4 +13,5 @@ export class SceneElement {
   componentID: string;
   position: Vector3;
   rotation: Vector3;
+  scaling: Vector3;
 }

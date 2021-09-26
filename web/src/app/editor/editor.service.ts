@@ -93,10 +93,9 @@ export class EditorService {
       );
       parent.scaling.addInPlace(scale);
 
-      // TODO: ADD scaling to scene element
-      // const element = await this.realm.get(this.selected.parent.name);
-      // element.scaling = vector3ToMemento(parent.scaling);
-      // this.propagateUpdate(element);
+      const element = await this.realm.get(this.selected.parent.name);
+      element.scaling = vector3ToMemento(parent.scaling);
+      this.propagateUpdate(element);
     }
   }
 
@@ -202,6 +201,7 @@ export class EditorService {
       componentID: this.current.id,
       position: position,
       rotation: Vector3.Zero(),
+      scaling: Vector3.One(),
     };
 
     await this.create(scene, element);
@@ -226,6 +226,7 @@ export class EditorService {
       templateMesh,
       element.position,
       element.rotation,
+      element.scaling,
       element.name
     );
 
@@ -247,6 +248,7 @@ export class EditorService {
       // TODO: Apply smooth update or transition
       mesh.position = element.position;
       mesh.rotation = element.rotation;
+      mesh.scaling = element.scaling;
     }
   }
 }

@@ -104,6 +104,7 @@ export class MeshService {
     mesh: AbstractMesh,
     position: Vector3,
     rotation: Vector3,
+    scaling: Vector3,
     name: string
   ): Mesh {
 
@@ -111,6 +112,7 @@ export class MeshService {
     result.name = name;
     result.position = position;
     result.rotation = rotation;
+    result.scaling = scaling;
     result.isVisible = true;
     result.getChildMeshes().forEach((mesh) => {
       mesh.isVisible = true;
