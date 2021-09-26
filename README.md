@@ -11,22 +11,35 @@ Web 3D programable sandbox
 - Allow users to code behavior of scenario elements
 - Allow creation of stories
 
-## next steps
-
-coding
-- add on click event handler to 3D element - introduce code ui with blocks
-- add function to display message
-- add shared state of the realm available to the coding with blocks
+## Roadmap
 
 editor
 - delete element
+- drag elements
+
+actions
+- replace red box with running boy model
+
+coding
+- add on click event handler to 3D element 
+  - introduce code ui with blocks
+- add function to display message
+- add shared state of the realm available to the coding with blocks
+
+actions
+- add jump
+  - add physics to the objects 
+
+realm management
+- create new
+
+editor
 - add keybinds for edit actions
 - center rotation point at the center of the bounding box
-
 - add predefined scale for each library
+- add option to snap city road elements only by the sides
 - add portal component
 - move mesh cache to realm database 
-- add option to snap city road elements only by the sides
 
 multiplayer
 - wait for the full state of the realm after joining and update current realm
@@ -38,13 +51,6 @@ scenario
 - prevent movement outside the box
 - add procedural skybox with https://www.kenney.nl/assets/background-elements
 - adding moving sun light
-
-actions
-- replace red box with running boy model
-- add jump
-
-realm management
-- create new
 
 ## To be investigated
 
