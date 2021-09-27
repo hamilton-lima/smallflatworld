@@ -15,7 +15,6 @@ Web 3D programable sandbox
 
 editor
 - delete element
-- drag elements
 
 actions
 - replace red box with running boy model
@@ -67,6 +66,8 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+- drag elements
+
 - snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
   - face detection example 
   https://playground.babylonjs.com/#D1Z1VL#3

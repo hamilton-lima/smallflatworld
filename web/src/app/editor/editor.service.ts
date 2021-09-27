@@ -26,6 +26,9 @@ import {
 import { SceneElementMemento } from '../../../../server/src/events.model';
 
 const POINTERDOWN = 'pointerdown';
+const POINTERUP = 'pointerup';
+const POINTERMOVE = 'pointermove';
+
 const ROTATION_STEP = 0.2;
 const SCALE_STEP = 0.2;
 const MOVE_STEP = 0.2;
@@ -35,6 +38,8 @@ const VECTOR3_TWO = new Vector3(2.0, 2.0, 2.0);
   providedIn: 'root',
 })
 export class EditorService {
+  dragging = false;
+
   executeEditAction(action: EditorAction, positive: boolean) {
     console.log(
       'Execute action',
@@ -106,15 +111,22 @@ export class EditorService {
     }
   }
 
+  async move(parent: Mesh) {
+    if( parent ){
+      const element = await this.realm.get(parent.name);
+      element.position = vector3ToMemento(parent.position);
+      this.propagateUpdate(element);
+    } else {
+      console.warn('called move without parent');
+    }
+  }
+
   async moveX(positive: boolean) {
     if (this.selected) {
       // rotate the mesh
       let parent: Mesh = <Mesh>this.selected.parent;
       parent.position.x += MOVE_STEP * this.signal(positive);
-
-      const element = await this.realm.get(this.selected.parent.name);
-      element.position = vector3ToMemento(parent.position);
-      this.propagateUpdate(element);
+      this.move(parent);
     }
   }
 
@@ -123,10 +135,7 @@ export class EditorService {
       // rotate the mesh
       let parent: Mesh = <Mesh>this.selected.parent;
       parent.position.z += MOVE_STEP * this.signal(positive);
-
-      const element = await this.realm.get(this.selected.parent.name);
-      element.position = vector3ToMemento(parent.position);
-      this.propagateUpdate(element);
+      this.move(parent);
     }
   }
 
@@ -135,10 +144,7 @@ export class EditorService {
       // rotate the mesh
       let parent: Mesh = <Mesh>this.selected.parent;
       parent.position.y += MOVE_STEP * this.signal(positive);
-
-      const element = await this.realm.get(this.selected.parent.name);
-      element.position = vector3ToMemento(parent.position);
-      this.propagateUpdate(element);
+      this.move(parent);
     }
   }
 
@@ -156,6 +162,7 @@ export class EditorService {
 
   private current: LibraryComponent = PRIMITIVE_COMPONENT;
   private selected: Mesh;
+  private dragPosition: Vector3;
 
   constructor(
     private mesh: MeshService,
@@ -166,7 +173,24 @@ export class EditorService {
     private editorMode: EditorModeService
   ) {}
 
+  getPointerPosition(scene: Scene): Vector3 {
+    const pickinfo: PickingInfo = scene.pick(
+      scene.pointerX,
+      scene.pointerY,
+      (mesh) => {
+        return mesh.name == 'ground';
+      }
+    );
+    return pickinfo.pickedPoint;
+  }
+
   setup(scene: Scene): Scene {
+
+    // when the mode changes reset selection and dragging state
+    this.editorMode.mode.subscribe((mode)=>{
+      this.dragging = false;
+    })
+
     // handles mouse wheel
     scene.onPrePointerObservable.add(
       (pointerInfo: PointerInfoPre, eventState) => {
@@ -181,8 +205,34 @@ export class EditorService {
     );
 
     scene.onPointerObservable.add(async (pointerInfo) => {
+
+      // drag and drop 
+      if (this.editorMode.mode.value == EditorMode.EDIT) {
+        if (pointerInfo.event.type == POINTERUP) {
+          this.dragging = false;
+          const parent: Mesh = <Mesh>this.selected.parent;
+          this.move(parent);
+        }
+
+        if (pointerInfo.event.type == POINTERMOVE) {
+          if (this.dragging) {
+            const current = this.getPointerPosition(scene);
+            const diff = current.subtract(this.dragPosition);
+            const parent: Mesh = <Mesh>this.selected.parent;
+
+            // drag should not affect Y coord
+            diff.y = 0;
+            parent.position.addInPlace(diff);
+            this.dragPosition = current;
+          }
+        }
+      }
+
       if (pointerInfo.pickInfo.pickedPoint) {
         if (pointerInfo.event.type == POINTERDOWN) {
+          this.dragging = true;
+          this.dragPosition = this.getPointerPosition(scene);
+
           console.log('pickInfo', pointerInfo);
           if (this.editorMode.mode.value == EditorMode.ADD) {
             await this.addToPosition(scene, pointerInfo);
