@@ -5,6 +5,7 @@ import {
   ClientData,
   ClientMessage,
   ClientResponse,
+  DeleteRequest,
   JoinRequest,
   JoinResponse,
   SceneElementMemento,
@@ -25,6 +26,7 @@ export class ServerService {
 
   public readonly onShare: Subject<ShareResponse> = new Subject();
   public readonly onStateUpdate: Subject<StateUpdate> = new Subject();
+  public readonly onDelete: Subject<DeleteRequest> = new Subject();
   public readonly onJoin: Subject<JoinResponse> = new Subject();
 
   constructor(fps: FPSService) {
@@ -37,6 +39,11 @@ export class ServerService {
       try {
         if (message.action == Actions.Update) {
           this.onStateUpdate.next(<StateUpdate>message.data);
+          return;
+        }
+
+        if (message.action == Actions.Delete) {
+          this.onDelete.next(<DeleteRequest>message.data);
           return;
         }
 
@@ -123,5 +130,12 @@ export class ServerService {
       data: elements,
     };
     this.send(Actions.Update, request);
+  }
+
+  delete(name: string) {
+    const request = <DeleteRequest>{
+      name: name,
+    };
+    this.send(Actions.Delete, request);
   }
 }

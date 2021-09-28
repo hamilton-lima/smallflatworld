@@ -92,6 +92,16 @@ export class RealmService {
     return this._updateRealm();
   }
 
+  delete(name: string) {
+    const found = this.currentRealm.elements.findIndex(
+      (element) => element.name == name
+    );
+    if (found) {
+      this.currentRealm.elements.splice(found, 1);
+    }
+    return this._updateRealm();
+  }
+
   // update character state
   async updateCharacter(character: SceneElementMemento) {
     this.currentRealm.character = character;

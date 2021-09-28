@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import {
+  DeleteRequest,
   JoinResponse,
   SceneElementMemento,
   ShareResponse,
@@ -17,6 +18,7 @@ export class ClientService {
   realmUUID: string;
   subscriptions: Subscription[] = [];
   onUpdate: Subject<SceneElement[]> = new Subject();
+  onDelete: Subject<string> = new Subject();
 
   constructor(private server: ServerService) {}
 
@@ -57,11 +59,21 @@ export class ClientService {
     this.server.update([sceneElement]);
   }
 
+  delete(name: string) {
+    this.server.delete(name);
+  }
+
   listen2Updates() {
     this.subscriptions.push(
-      this.server.onStateUpdate.subscribe((response: StateUpdate) => {
-        const data = this.memento2Vector3(response.data);
+      this.server.onStateUpdate.subscribe((request: StateUpdate) => {
+        const data = this.memento2Vector3(request.data);
         this.onUpdate.next(data);
+      })
+    );
+
+    this.subscriptions.push(
+      this.server.onDelete.subscribe((request: DeleteRequest) => {
+        this.onDelete.next(request.name);
       })
     );
   }

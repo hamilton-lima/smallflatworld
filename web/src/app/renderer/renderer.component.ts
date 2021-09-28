@@ -71,6 +71,10 @@ export class RendererComponent implements AfterViewInit {
         this.client.onUpdate.subscribe((elements: SceneElement[]) => {
           this.service.update(engineState, elements);
         });
+        
+        this.client.onDelete.subscribe((name:string) => {
+          this.service.delete(engineState, name);
+        });
       },
       (error) => {
         console.error('Error when building scenario', error);

@@ -41,6 +41,7 @@ editor
 - move mesh cache to realm database 
 
 multiplayer
+- when propagating events skip the sender
 - wait for the full state of the realm after joining and update current realm
 - send player position updates, at realmService.updateCharacter send events to multiplayer
 - when sharing, disable join button

@@ -73,6 +73,11 @@ export class MemoryStorage {
     state.map.set(element.name, element);
   }
 
+  delete(uuid: string, name: string) {
+    const state = this.getStorage(uuid).states;
+    state.map.delete(name);
+  }
+
   addParticipant(realmID: string, clientID: string, participant: EventsHandler) {
     const storage = this.getStorage(realmID);
     storage.participants.map.set(clientID, participant);

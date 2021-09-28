@@ -68,4 +68,9 @@ export class EditorModePickerComponent implements OnInit {
     this.input.focus();
     this.editor.editMinus();
   }
+
+  delete() {
+    this.input.focus();
+    this.editor.deleteSelected();
+  }
 }

@@ -8,6 +8,9 @@ export enum Actions {
   // send udpate to a connected realm
   Update = "update",
 
+  // removes element from realm
+  Delete = "delete",
+
   // ping
   Ping = "ping",
 }
@@ -70,6 +73,14 @@ export class ShareRequest implements ClientData {}
 
 export class ShareResponse implements ClientResponseData {
   uuid: string;
+}
+
+export class DeleteRequest implements ClientData {
+  name: string;
+}
+
+export class DeleteResponse implements ClientResponseData {
+  deleted: boolean;
 }
 
 export class PingRequest implements ClientData {}

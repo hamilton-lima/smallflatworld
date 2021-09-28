@@ -13,6 +13,7 @@ import {
 import { PingHandler } from "./ping.handler";
 import { MemoryStorage } from "./memory.storage";
 import { v4 as uuidv4 } from "uuid";
+import { DeleteHandler } from "./delete.handler";
 
 export class EventsHandler {
   private client: WebSocket;
@@ -24,6 +25,7 @@ export class EventsHandler {
     share: new ShareHandler(MemoryStorage.getInstance()),
     join: new JoinHandler(MemoryStorage.getInstance()),
     update: new UpdateHandler(MemoryStorage.getInstance()),
+    delete: new DeleteHandler(MemoryStorage.getInstance()),
     ping: new PingHandler(),
   };
 

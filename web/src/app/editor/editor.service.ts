@@ -112,7 +112,7 @@ export class EditorService {
   }
 
   async move(parent: Mesh) {
-    if( parent ){
+    if (parent) {
       const element = await this.realm.get(parent.name);
       element.position = vector3ToMemento(parent.position);
       this.propagateUpdate(element);
@@ -160,6 +160,23 @@ export class EditorService {
     }
   }
 
+  async delete(found: AbstractMesh) {
+    if (this.selected && this.selected.name == found.name) {
+      this.selected = null;
+    }
+    found.dispose();
+
+    await this.realm.delete(found.name);
+  }
+
+  async deleteSelected() {
+    if (this.selected) {
+      let parent: Mesh = <Mesh>this.selected.parent;
+      this.delete(parent);
+      this.client.delete(parent.name);
+    }
+  }
+
   private current: LibraryComponent = PRIMITIVE_COMPONENT;
   private selected: Mesh;
   private dragPosition: Vector3;
@@ -185,11 +202,10 @@ export class EditorService {
   }
 
   setup(scene: Scene): Scene {
-
     // when the mode changes reset selection and dragging state
-    this.editorMode.mode.subscribe((mode)=>{
+    this.editorMode.mode.subscribe((mode) => {
       this.dragging = false;
-    })
+    });
 
     // handles mouse wheel
     scene.onPrePointerObservable.add(
@@ -205,8 +221,7 @@ export class EditorService {
     );
 
     scene.onPointerObservable.add(async (pointerInfo) => {
-
-      // drag and drop 
+      // drag and drop
       if (this.editorMode.mode.value == EditorMode.EDIT) {
         if (pointerInfo.event.type == POINTERUP) {
           this.dragging = false;

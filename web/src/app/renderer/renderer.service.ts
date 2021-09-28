@@ -74,4 +74,13 @@ export class RendererService {
       }
     });
   }
+
+  delete(state: EngineState, name: string) {
+    const found = state.scene.getMeshByName(name);
+    console.log('delete event', name, 'found == null', found == null);
+
+    if (found) {
+      this.editor.delete(found);
+    }
+  }
 }
