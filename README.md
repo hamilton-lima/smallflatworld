@@ -13,17 +13,22 @@ Web 3D programable sandbox
 
 ## Roadmap
 
-editor
-- delete element
-
 actions
 - replace red box with running boy model
+
+editor
+- remove add pink box
+- pick default library
+- when selecting library change mode to ADD
 
 coding
 - add on click event handler to 3D element 
   - introduce code ui with blocks
 - add function to display message
 - add shared state of the realm available to the coding with blocks
+
+deployment
+- create docker image and deployment automation
 
 actions
 - add jump
@@ -41,6 +46,7 @@ editor
 - move mesh cache to realm database 
 
 multiplayer
+- when receiving update/add fix use the correct mesh template
 - when propagating events skip the sender
 - wait for the full state of the realm after joining and update current realm
 - send player position updates, at realmService.updateCharacter send events to multiplayer
@@ -67,6 +73,10 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+
+editor
+- delete element
+
 - drag elements
 
 - snap to the center of the selected surface, decide if the snap is on the side, top or bottom based on position
