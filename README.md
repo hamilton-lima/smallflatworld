@@ -13,8 +13,7 @@ Web 3D programable sandbox
 
 ## Roadmap
 
-actions
-- replace red box with running boy model
+- fix saving location of the character
 
 editor
 - remove add pink box
@@ -74,6 +73,9 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+
+actions
+- replace red box with running boy model
 
 editor
 - delete element

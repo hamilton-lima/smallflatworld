@@ -3,8 +3,8 @@ import { Mesh, Vector3 } from '@babylonjs/core';
 import { RealmService } from '../realm/realm.service';
 import { mesh2SceneElement } from './builders';
 
-const ROTATION_SPEED = 0.03;
-const MOVEMENT_SPEED = 1.5;
+const ROTATION_SPEED = 0.04;
+const MOVEMENT_SPEED = 3.5;
 
 class KeyState {
   ArrowLeft: boolean;
@@ -54,11 +54,11 @@ export class MovementService {
       const z = Math.cos(character.rotation.y) / MOVEMENT_SPEED;
       const forward = new Vector3(x, 0, z);
       if (this.keyState.ArrowUp) {
-        character.moveWithCollisions(forward.negate());
+        character.moveWithCollisions(forward);
         moved = true;
       }
       if (this.keyState.ArrowDown) {
-        character.moveWithCollisions(forward);
+        character.moveWithCollisions(forward.negate());
         moved = true;
       }
     }

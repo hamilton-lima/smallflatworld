@@ -48,7 +48,6 @@ export class RendererComponent implements AfterViewInit {
     });
 
     const sequence = [];
-    sequence.push(this.character.load(engineState));
     sequence.push(this.scenario.buildRealm(engineState));
 
     Promise.all(sequence).then(

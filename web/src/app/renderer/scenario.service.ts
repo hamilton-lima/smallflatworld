@@ -8,6 +8,7 @@ import {
   Texture,
 } from '@babylonjs/core';
 import { EditorService } from '../editor/editor.service';
+import { CharacterService } from '../mesh/character.service';
 import { RealmService } from '../realm/realm.service';
 import { buildVector3, memento2SceneElement } from './builders';
 import { MeshService } from './mesh.service';
@@ -20,14 +21,15 @@ export class ScenarioService {
   constructor(
     private mesh: MeshService,
     private realm: RealmService,
-    private editor: EditorService
+    private editor: EditorService,
+    private character: CharacterService
   ) {}
 
-  addCharacter(scene: Scene, character: SceneElement) {
+  addCharacter(engineState:EngineState, character: SceneElement) {
     const position = buildVector3(character.position);
     const rotation = buildVector3(character.rotation);
-
-    return this.mesh.addRotatedBox(scene, position, rotation, character.name);
+    engineState.character.position = position;
+    engineState.character.rotation = rotation;
   }
 
   buildRealm(engineState: EngineState): Promise<void> {
@@ -36,10 +38,12 @@ export class ScenarioService {
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
 
+      engineState.character = await this.character.load(engineState);
+
       const character = memento2SceneElement(
         this.realm.getCurrentRealm().character
       );
-      engineState.character = this.addCharacter(engineState.scene, character);
+      this.addCharacter(engineState, character);
 
       const start = new Date().getTime();
       const createPromises = [];

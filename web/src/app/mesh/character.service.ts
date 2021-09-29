@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   AbstractMesh,
+  Angle,
   AnimationGroup,
   IParticleSystem,
   Mesh,
@@ -8,6 +9,7 @@ import {
   Skeleton,
   StandardMaterial,
   Texture,
+  Vector3,
 } from '@babylonjs/core';
 import { EngineState } from '../renderer/renderer.model';
 import { MeshLoaderService } from './mesh-loader.service';
@@ -18,49 +20,59 @@ import { MeshLoaderService } from './mesh-loader.service';
 export class CharacterService {
   constructor(private loader: MeshLoaderService) {}
 
-  async load(engineState: EngineState) {
-    const loaded = await SceneLoader.ImportMeshAsync(
-      '',
-      'assets/',
-      'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian.gltf',
-      engineState.scene
-    );
+  async load(engineState: EngineState): Promise<Mesh> {
 
-    const animations = await this.loader.loadAllAnimations(
+    const mesh = await this.loader.load(
       engineState.scene,
-      'library/kaykit/kayyit-dungeon-pack-1/animations/Jump.glb',
+      'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian.gltf',
+      'character_barbarian',
       true
     );
 
-    const cheer = animations[0];
-    console.log('animations', animations, cheer);
-    console.log('loaded', loaded);
+    return <Mesh>mesh;
 
-    if (cheer) {
-      console.log('clone animation');
-      // oldTarget represents the name of the bone in the imported animation group
-      // clone will use the provided function to search for the bone in the target mesh skeleton
-      // and target the cloned animationGroup to the new bones.
-      // the function will be called for each animation
-      const newRun = cheer.clone('new-animation', (oldTarget) => {
-        let target;
-        console.log('search oldTarget', oldTarget.id);
-        // search for all nodes in the tranform nodes
-        for (let node of loaded.transformNodes) {
-          console.log('node', node.id);
-          if (node.id.toLowerCase().includes(oldTarget.id.toLowerCase())) {
-            console.log('found', node.id);
-            target = node;
-            break;
-          }
-        }
+    // const loaded = await SceneLoader.ImportMeshAsync(
+    //   '',
+    //   'assets/',
+    //   'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian.gltf',
+    //   engineState.scene
+    // );
 
-        return target;
-      });
+    // const animations = await this.loader.loadAllAnimations(
+    //   engineState.scene,
+    //   'library/kaykit/kayyit-dungeon-pack-1/animations/Jump.glb',
+    //   true
+    // );
 
-      console.log('cloned animation', newRun);
-      // FIX THIS: NOT WORKING
-      // newRun.start(true);
+    // const cheer = animations[0];
+    // console.log('(1) animations', cheer.targetedAnimations);
+    // console.log('(1) loaded', loaded.transformNodes);
+
+    // if (cheer) {
+    //   console.log('clone animation');
+    //   // oldTarget represents the name of the bone in the imported animation group
+    //   // clone will use the provided function to search for the bone in the target mesh skeleton
+    //   // and target the cloned animationGroup to the new bones.
+    //   // the function will be called for each animation
+    //   const newRun = cheer.clone('new-animation', (oldTarget) => {
+    //     let target = oldTarget;
+    //     console.log('search oldTarget', oldTarget.id, oldTarget);
+    //     // search for all nodes in the tranform nodes
+    //     for (let node of loaded.transformNodes) {
+    //       console.log('node', node.id);
+    //       if (node.id.toLowerCase().includes(oldTarget.id.toLowerCase())) {
+    //         console.log('found', node.id);
+    //         target = node;
+    //         break;
+    //       }
+    //     }
+
+    //     return target;
+    //   });
+
+    //   console.log('cloned animation', newRun);
+    //   // FIX THIS: NOT WORKING
+    //   newRun.start(true);
     }
 
     // const material = new StandardMaterial(
@@ -75,7 +87,7 @@ export class CharacterService {
 
     // material.diffuseTexture = texture;
     // mesh.material = material;
-  }
+  // }
 
   async loadOld(engineState: EngineState) {
     const mesh = await this.loader.load(

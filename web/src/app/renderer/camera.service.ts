@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Scene, Mesh, FollowCamera, Camera, Vector3 } from '@babylonjs/core';
-const DEFAULT_DISTANCE = 12;
-const DEFAULT_HEIGHT = 8;
+const DEFAULT_DISTANCE = -25;
+const DEFAULT_HEIGHT = 25;
 const STEP = 2;
 
-const MIN = 5;
-const MAX = 40;
+const MIN = 6;
+const MAX = 60;
 
 @Injectable({
   providedIn: 'root',
@@ -29,15 +29,15 @@ export class CameraService {
   }
 
   zoomOut() {
-    if (this.camera.radius < MAX) {
-      this.camera.radius += STEP;
+    if (Math.abs(this.camera.radius) < MAX) {
+      this.camera.radius -= STEP;
       this.camera.heightOffset +=STEP;
     }
   }
 
   zoomIn() {
-    if (this.camera.radius > MIN) {
-      this.camera.radius -= STEP;
+    if (Math.abs(this.camera.radius) > MIN) {
+      this.camera.radius += STEP;
       this.camera.heightOffset -=STEP;
     }
     console.log('camera.radius', this.camera.radius);
