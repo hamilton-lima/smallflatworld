@@ -8,24 +8,30 @@ import {
   PRIMITIVE_COMPONENT,
 } from './editor-library.model';
 import { kenneyLibrary } from './kenney.library';
+import { kaykitLibrary } from './kaykit.library';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EditorLibraryService {
   private static cache = [];
-  // private cache: Map<string, AbstractMesh> = new Map();
-  
+
   private components: Map<string, LibraryComponent> = new Map();
+  private libraries: Library[];
 
   constructor(private loader: MeshLoaderService, private mesh: MeshService) {
+    this.mergeLibraries();
     this.setComponentNames();
+  }
+
+  mergeLibraries() {
+    this.libraries = kenneyLibrary.concat(kaykitLibrary);
   }
 
   setComponentNames() {
     this.components.set(PRIMITIVE_COMPONENT.id, PRIMITIVE_COMPONENT);
 
-    kenneyLibrary.forEach((library) => {
+    this.libraries.forEach((library) => {
       library.components.forEach((component) => {
         this.components.set(component.id, component);
       });
@@ -33,7 +39,7 @@ export class EditorLibraryService {
   }
 
   getLibraries(): Library[] {
-    return kenneyLibrary;
+    return this.libraries;
   }
 
   getComponent(componentID: string) {
@@ -46,24 +52,24 @@ export class EditorLibraryService {
     }
   }
 
-  isCached(componentID: string){
+  isCached(componentID: string) {
     const result = EditorLibraryService.cache[componentID];
     console.log('inner: is cached', componentID, result);
     return result;
   }
 
-  add2Cache(componentID: string, mesh:AbstractMesh){
+  add2Cache(componentID: string, mesh: AbstractMesh) {
     console.log('inner: set cache', componentID);
     EditorLibraryService.cache[componentID] = mesh;
   }
 
-  getFromCache(componentID: string): AbstractMesh{
+  getFromCache(componentID: string): AbstractMesh {
     const result = EditorLibraryService.cache[componentID];
     console.log('inner:get from cache', componentID, result);
     return result;
   }
 
-  cacheSize(){
+  cacheSize() {
     return EditorLibraryService.cache.entries.length;
   }
 
