@@ -23,6 +23,13 @@ export class ScenarioService {
     private editor: EditorService
   ) {}
 
+  addCharacter(scene: Scene, character: SceneElement) {
+    const position = buildVector3(character.position);
+    const rotation = buildVector3(character.rotation);
+
+    return this.mesh.addRotatedBox(scene, position, rotation, character.name);
+  }
+
   buildRealm(engineState: EngineState): Promise<void> {
     return new Promise(async (resolve, reject) => {
       const total = this.realm.getCurrentRealm().elements.length;
@@ -34,14 +41,11 @@ export class ScenarioService {
       );
       engineState.character = this.addCharacter(engineState.scene, character);
 
-      // add skybox
-      this.skybox(engineState.scene);
-
       const start = new Date().getTime();
       const createPromises = [];
 
       // add realm elements to the scene
-      for(const memento of this.realm.getCurrentRealm().elements) {
+      for (const memento of this.realm.getCurrentRealm().elements) {
         const element = memento2SceneElement(memento);
 
         console.log(
@@ -75,14 +79,7 @@ export class ScenarioService {
     skybox.material = skyboxMaterial;
   }
 
-  addCharacter(scene: Scene, character: SceneElement) {
-    const position = buildVector3(character.position);
-    const rotation = buildVector3(character.rotation);
-
-    return this.mesh.addRotatedBox(scene, position, rotation, character.name);
-  }
-
-  setup(scene: Scene) {
+  ground(scene: Scene) {
     const ground = MeshBuilder.CreateGround(
       'ground',
       { width: 1000, height: 1000 },
@@ -92,7 +89,10 @@ export class ScenarioService {
 
     material.diffuseColor = Color3.FromHexString('#7C6650');
     ground.material = material;
+  }
 
-    return ground;
+  setup(scene: Scene) {
+    this.ground(scene);
+    this.skybox(scene);
   }
 }
