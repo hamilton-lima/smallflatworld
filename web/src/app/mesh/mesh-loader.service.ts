@@ -14,6 +14,7 @@ import {
   Vector3,
 } from '@babylonjs/core';
 import { GLTFFileLoader } from '@babylonjs/loaders';
+import { mesh2SceneElement } from '../renderer/builders';
 
 @Injectable({
   providedIn: 'root',
@@ -203,7 +204,7 @@ export class MeshLoaderService {
             skeletons: Skeleton[];
             animationGroups: AnimationGroup[];
           }) => {
-            console.log('loaded', value);
+            console.log('loaded', fileName, value);
             resolve(value.meshes);
           }
         );
@@ -229,6 +230,11 @@ export class MeshLoaderService {
             skeletons: Skeleton[];
             animationGroups: AnimationGroup[];
           }) => {
+            // dispose loaded meshes. only animations are needed
+            value.meshes.forEach( (mesh)=>{
+              mesh.dispose();
+            });
+
             console.log('animation loaded', value);
             resolve(value.animationGroups);
           }

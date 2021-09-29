@@ -54,6 +54,7 @@ multiplayer
 - add event when changing realm
 
 scenario
+- enable VR experience 
 - prevent movement outside the box
 - add procedural skybox with https://www.kenney.nl/assets/background-elements
 - adding moving sun light
