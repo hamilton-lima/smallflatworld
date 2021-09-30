@@ -11,7 +11,8 @@ import { EditorService } from '../editor.service';
 })
 export class EditorToolbarComponent implements OnInit {
   libraries: Library[];
-  selected: LibraryComponent[];
+  library: Library;
+  readonly DEFAULT_LIBRARY = 'kenney/platformerkit-2';
 
   constructor(
     private service: EditorLibraryService,
@@ -20,16 +21,32 @@ export class EditorToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.libraries = this.service.getLibraries();
-    this.selected = this.libraries[0].components;
+    this.selectLibrary(this.DEFAULT_LIBRARY);
   }
 
-  // REPLACE with Library component
   use(component: LibraryComponent) {
     this.editor.setCurrent(component);
   }
 
-  selectedLibrary(selection){
-    console.log('selected', selection);
-    this.selected = selection.value;
+  getLibraryByName(name: string) {
+    for (let library of this.libraries) {
+      if (library.name == name) {
+        return library;
+      }
+    }
+    return null;
+  }
+
+  selectLibrary(selection: string) {
+    this.library = this.getLibraryByName(selection);
+  }
+
+  getComponentSelectionColor(component) {
+    const current = this.editor.getCurrent();
+    if (current && current.name == component) {
+      return "primary";
+    } else {
+      return "";
+    }
   }
 }

@@ -388,6 +388,10 @@ export class EditorService {
     console.log('current', component);
   }
 
+  getCurrent(){
+    return this.current;
+  }
+
   async create(scene: Scene, element: SceneElement) {
     console.log('create', element.name, element.position);
     const templateMesh = await this.library.getMesh(scene, element.componentID);
