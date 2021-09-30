@@ -3,7 +3,6 @@ import {
   AbstractMesh,
   AnimationGroup,
   BoundingInfo,
-  Color3,
   IParticleSystem,
   Mesh,
   MeshBuilder,
@@ -14,7 +13,6 @@ import {
   Vector3,
 } from '@babylonjs/core';
 import { GLTFFileLoader } from '@babylonjs/loaders';
-import { mesh2SceneElement } from '../renderer/builders';
 
 @Injectable({
   providedIn: 'root',

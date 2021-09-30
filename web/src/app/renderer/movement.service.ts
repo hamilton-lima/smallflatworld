@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Mesh, Vector3 } from '@babylonjs/core';
 import { RealmService } from '../realm/realm.service';
-import { mesh2SceneElement } from './builders';
+import { mesh2Memento } from './builders';
 
 const ROTATION_SPEED = 0.04;
 const MOVEMENT_SPEED = 3.5;
@@ -64,7 +64,7 @@ export class MovementService {
     }
 
     if (moved || rotated) {
-      this.realm.updateCharacter(mesh2SceneElement(character));
+      this.realm.updateCharacter(mesh2Memento(character));
     }
   }
 }

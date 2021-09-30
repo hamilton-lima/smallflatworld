@@ -5,12 +5,12 @@ import {
 } from '../../../../server/src/events.model';
 import { SceneElement } from './renderer.model';
 
-export function mesh2SceneElement(mesh: Mesh): SceneElement {
-  const result = <SceneElement>{
+export function mesh2Memento(mesh: Mesh): SceneElementMemento {
+  const result = <SceneElementMemento>{
     name: mesh.name,
-    position: buildVector3(mesh.position),
-    rotation: buildVector3(mesh.rotation),
-    scaling: buildVector3(mesh.scaling),
+    position: vector3ToMemento(mesh.position),
+    rotation: vector3ToMemento(mesh.rotation),
+    scaling: vector3ToMemento(mesh.scaling),
   };
   return result;
 }
