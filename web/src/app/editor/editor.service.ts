@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   AbstractMesh,
   Mesh,
-  MeshBuilder,
   PickingInfo,
   PointerInfo,
   PointerInfoPre,
@@ -13,7 +12,7 @@ import { MeshService } from '../renderer/mesh.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
 import { ClientService } from '../multiplayer/client.service';
-import { LibraryComponent, PRIMITIVE_COMPONENT } from './editor-library.model';
+import { LibraryComponent } from './editor-library.model';
 import { EditorLibraryService } from './editor-library.service';
 import { sceneElement2Memento, vector3ToMemento } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
@@ -161,7 +160,7 @@ export class EditorService {
   }
 
   async delete(found: AbstractMesh) {
-    if (this.selected && this.selected.name == found.name) {
+    if (this.selected && this.selected.name) {
       this.selected = null;
     }
     found.dispose();
@@ -172,12 +171,17 @@ export class EditorService {
   async deleteSelected() {
     if (this.selected) {
       let parent: Mesh = <Mesh>this.selected.parent;
-      this.delete(parent);
-      this.client.delete(parent.name);
+      if (parent) {
+        this.client.delete(parent.name);
+        this.delete(parent);
+      } else {
+        this.client.delete(this.selected.name);
+        this.delete(this.selected);
+      }
     }
   }
 
-  private current: LibraryComponent = PRIMITIVE_COMPONENT;
+  private current: LibraryComponent = null;
   private selected: Mesh;
   private dragPosition: Vector3;
 
@@ -236,7 +240,7 @@ export class EditorService {
             if (parent) {
               const current = this.getPointerPosition(scene);
               const diff = current.subtract(this.dragPosition);
-                // drag should not affect Y coord
+              // drag should not affect Y coord
               diff.y = 0;
               parent.position.addInPlace(diff);
               this.dragPosition = current;
@@ -331,6 +335,11 @@ export class EditorService {
   }
 
   async addToPosition(scene: Scene, pointerInfo: PointerInfo) {
+    if (!this.current) {
+      console.warn('add to position without selection');
+      return;
+    }
+
     const faceId = pointerInfo.pickInfo.faceId;
     let picked = <Mesh>pointerInfo.pickInfo.pickedMesh;
     const templateMesh = await this.library.getMesh(scene, this.current.id);
@@ -353,11 +362,6 @@ export class EditorService {
         dimensions
       );
     }
-
-    // // allow to stack elements
-    // const boundingBox =
-    //   pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox;
-    // position.y = boundingBox.maximumWorld.y;
 
     const element = <SceneElement>{
       name: uuidv4(),

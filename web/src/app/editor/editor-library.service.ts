@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { AbstractMesh, Scene } from '@babylonjs/core';
 import { MeshLoaderService } from '../mesh/mesh-loader.service';
 import { MeshService } from '../renderer/mesh.service';
-import {
-  Library,
-  LibraryComponent,
-  PRIMITIVE_COMPONENT,
-} from './editor-library.model';
+import { Library, LibraryComponent } from './editor-library.model';
 import { kenneyLibrary } from './kenney.library';
 import { kaykitLibrary } from './kaykit.library';
 
@@ -29,8 +25,6 @@ export class EditorLibraryService {
   }
 
   setComponentNames() {
-    this.components.set(PRIMITIVE_COMPONENT.id, PRIMITIVE_COMPONENT);
-
     this.libraries.forEach((library) => {
       library.components.forEach((component) => {
         this.components.set(component.id, component);
@@ -47,8 +41,7 @@ export class EditorLibraryService {
       return this.components.get(componentID);
     } else {
       console.warn('componentID not found', componentID);
-      // unknow componentID
-      return PRIMITIVE_COMPONENT;
+      return null;
     }
   }
 
@@ -80,27 +73,24 @@ export class EditorLibraryService {
     return new Promise<AbstractMesh>((resolve, reject) => {
       const component = this.getComponent(componentID);
       console.log('component', component);
+      // only if component exists
+      if (!component) {
+        resolve(this.mesh.getBox(scene));
+      }
 
       if (this.isCached(component.id)) {
         const cached = this.getFromCache(component.id);
         console.log('getmesh cached', component.id, cached);
         resolve(cached);
       } else {
-        // if primitive dont load, create the primitive box
-        if (component.id == PRIMITIVE_COMPONENT.id) {
-          const box = this.mesh.getBox(scene);
-          console.log('getmesh created primitive', component.id);
-          resolve(box);
-        } else {
-          // not present in the cache load the model
-          this.loader
-            .loadWithClickable(scene, component.model3D, component.name, false)
-            .then((loaded) => {
-              this.add2Cache(component.id, loaded);
-              console.log('getmesh loaded model', component.id);
-              resolve(loaded);
-            });
-        }
+        // not present in the cache load the model
+        this.loader
+          .loadWithClickable(scene, component.model3D, component.name, false)
+          .then((loaded) => {
+            this.add2Cache(component.id, loaded);
+            console.log('getmesh loaded model', component.id);
+            resolve(loaded);
+          });
       }
     });
   }

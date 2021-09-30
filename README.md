@@ -13,8 +13,6 @@ Web 3D programable sandbox
 
 ## Roadmap
 
-- fix saving location of the character
-
 editor
 - remove add pink box
 - pick default library
@@ -73,6 +71,8 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+
+- fix saving location of the character
 
 actions
 - replace red box with running boy model
