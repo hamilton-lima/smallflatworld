@@ -23,6 +23,7 @@ import {
   EditorModeService,
 } from './editor-mode.service';
 import { SceneElementMemento } from '../../../../server/src/events.model';
+import { InputService } from '../input.service';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
@@ -191,7 +192,8 @@ export class EditorService {
     private client: ClientService,
     private library: EditorLibraryService,
     private camera: CameraService,
-    private editorMode: EditorModeService
+    private editorMode: EditorModeService,
+    private input: InputService
   ) {}
 
   getPointerPosition(scene: Scene): Vector3 {
@@ -381,6 +383,8 @@ export class EditorService {
 
   async setCurrent(component: LibraryComponent) {
     this.current = component;
+    this.editorMode.mode.next(EditorMode.ADD);
+    this.input.focus();
     console.log('current', component);
   }
 

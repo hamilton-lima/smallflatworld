@@ -14,9 +14,7 @@ Web 3D programable sandbox
 ## Roadmap
 
 editor
-- remove add pink box
 - pick default library
-- when selecting library change mode to ADD
 
 coding
 - add on click event handler to 3D element 
@@ -72,6 +70,8 @@ How to integrate with other 3D formats and tools
 
 ## Done
 
+- remove add pink box
+- when selecting library change mode to ADD
 - fix saving location of the character
 
 actions
