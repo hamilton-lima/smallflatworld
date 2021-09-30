@@ -13,9 +13,6 @@ Web 3D programable sandbox
 
 ## Roadmap
 
-editor
-- pick default library
-
 coding
 - add on click event handler to 3D element 
   - introduce code ui with blocks
@@ -69,6 +66,9 @@ Plugins, to create programable parts of the engine
 How to integrate with other 3D formats and tools
 
 ## Done
+
+editor
+- pick default library
 
 - remove add pink box
 - when selecting library change mode to ADD

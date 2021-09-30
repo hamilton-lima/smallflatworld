@@ -44,6 +44,18 @@
     <button mat-raised-button class="toogle" (click)="toggle()">TOGGLE</button>
     <app-renderer *ngIf="ready"></app-renderer>
   </section>
+
+  <mat-sidenav
+    #drawerRight
+    mode="side"
+    opened="true"
+    position="right"
+    class="drawer-right"
+  >
+  <div>
+    <h1>right side</h1>
+  </div>
+  </mat-sidenav>
 </mat-drawer-container>
 
 <div class="mode-toolbar">
