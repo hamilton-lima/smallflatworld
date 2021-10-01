@@ -5,6 +5,7 @@ import { InputService } from './input.service';
 import { RealmUploadService } from './realm/realm-upload.service';
 import { ServerService } from '../app/multiplayer/server.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { CodeEditorEvent } from './coding/code-blockly/code-blockly.component';
 
 @Component({
   selector: 'app-root',
@@ -34,5 +35,9 @@ export class AppComponent implements OnInit {
   toggle() {
     this.drawer.toggle();
     this.input.focus();
+  }
+
+  changed(event: CodeEditorEvent){
+    console.log('code', event);
   }
 }

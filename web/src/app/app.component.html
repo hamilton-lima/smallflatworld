@@ -54,7 +54,7 @@
   >
   <div>
     <h1>right side</h1>
-    <app-code-editor></app-code-editor>
+    <app-code-blockly (codeChanged)="changed($event)"></app-code-blockly>
   </div>
   </mat-sidenav>
 </mat-drawer-container>

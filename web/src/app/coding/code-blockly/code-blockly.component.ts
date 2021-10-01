@@ -11,7 +11,11 @@ import {
 } from "@angular/core";
 import { timer } from "rxjs";
 import { BlocklyConfig, BlocklyService } from "./code-blockly.service";
-import { CodeEditorEvent } from "../code-editor/code-editor.component";
+
+export interface CodeEditorEvent {
+  code: string;
+  blocklyDefinition?: string;
+}
 
 @Component({
   selector: "app-code-blockly",

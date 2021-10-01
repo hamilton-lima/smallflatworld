@@ -15,7 +15,6 @@ import { FileComponent } from './file/file/file.component';
 import { EditorToolbarComponent } from './editor/editor-toolbar/editor-toolbar.component';
 import { EditorModePickerComponent } from './editor/editor-mode-picker/editor-mode-picker.component';
 import { CodeBlocklyComponent} from './coding/code-blockly/code-blockly.component';
-import { CodeEditorComponent } from './coding/code-editor/code-editor.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import { CodeEditorComponent } from './coding/code-editor/code-editor.component'
     EditorToolbarComponent,
     EditorModePickerComponent,
     CodeBlocklyComponent,
-    CodeEditorComponent
   ],
   imports: [
     BrowserModule,
