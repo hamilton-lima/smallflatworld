@@ -6,6 +6,7 @@ import { RealmUploadService } from './realm/realm-upload.service';
 import { ServerService } from '../app/multiplayer/server.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { CodeEditorEvent } from './coding/code-blockly/code-blockly.component';
+import { CodingService } from './coding/coding.service';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +18,13 @@ export class AppComponent implements OnInit {
   name = '';
 
   @ViewChild('drawer') drawer: MatDrawer;
+  @ViewChild('drawerRight') drawerRight: MatDrawer;
 
-  constructor(private realm: RealmService, private input: InputService) {}
+  constructor(
+    private realm: RealmService,
+    private input: InputService,
+    private coding: CodingService
+  ) {}
 
   ngOnInit(): void {
     this.realm.ready().then(
@@ -30,14 +36,16 @@ export class AppComponent implements OnInit {
         console.error('Something happened when initializing the system', error);
       }
     );
+
+    this.coding.onEdit.subscribe(() => this.toggleRight());
+  }
+
+  toggleRight(): void {
+    this.drawerRight.open();
   }
 
   toggle() {
     this.drawer.toggle();
     this.input.focus();
-  }
-
-  changed(event: CodeEditorEvent){
-    console.log('code', event);
   }
 }

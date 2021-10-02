@@ -48,13 +48,12 @@
   <mat-sidenav
     #drawerRight
     mode="side"
-    opened="true"
+    opened="false"
     position="right"
     class="drawer-right"
   >
   <div>
-    <h1>right side</h1>
-    <app-code-blockly (codeChanged)="changed($event)"></app-code-blockly>
+    <app-code-panel></app-code-panel>
   </div>
   </mat-sidenav>
 </mat-drawer-container>

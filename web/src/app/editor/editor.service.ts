@@ -24,6 +24,7 @@ import {
 } from './editor-mode.service';
 import { SceneElementMemento } from '../../../../server/src/events.model';
 import { InputService } from '../input.service';
+import { CodingService } from '../coding/coding.service';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
@@ -114,8 +115,12 @@ export class EditorService {
   async move(parent: Mesh) {
     if (parent) {
       const element = await this.realm.get(parent.name);
-      element.position = vector3ToMemento(parent.position);
-      this.propagateUpdate(element);
+      if (element) {
+        element.position = vector3ToMemento(parent.position);
+        this.propagateUpdate(element);
+      } else {
+        console.warn('moving non existing element?');
+      }
     } else {
       console.warn('called move without parent');
     }
@@ -182,6 +187,17 @@ export class EditorService {
     }
   }
 
+  editCode() {
+    if (this.selected) {
+      let parent: Mesh = <Mesh>this.selected.parent;
+      if (parent) {
+        this.coding.edit(parent.name);
+      } else {
+        this.coding.edit(this.selected.name);
+      }
+    }
+  }
+
   private current: LibraryComponent = null;
   private selected: Mesh;
   private dragPosition: Vector3;
@@ -193,7 +209,8 @@ export class EditorService {
     private library: EditorLibraryService,
     private camera: CameraService,
     private editorMode: EditorModeService,
-    private input: InputService
+    private input: InputService,
+    private coding: CodingService
   ) {}
 
   getPointerPosition(scene: Scene): Vector3 {
@@ -388,7 +405,7 @@ export class EditorService {
     console.log('current', component);
   }
 
-  getCurrent(){
+  getCurrent() {
     return this.current;
   }
 

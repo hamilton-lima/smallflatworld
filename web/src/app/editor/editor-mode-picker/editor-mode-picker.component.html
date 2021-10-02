@@ -4,6 +4,9 @@
 </mat-button-toggle-group>
 <div *ngIf="mode == 'edit'">
   <div>
+    <button mat-raised-button (click)="code()">CODE</button>
+  </div>
+  <div>
     <mat-button-toggle-group value="rotate">
       <mat-button-toggle (click)="rotate()" value="rotate"
         >ROTATE</mat-button-toggle
