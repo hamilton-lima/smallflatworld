@@ -1,10 +1,12 @@
 # todo 
+ 
 - add webhook
 https://github.com/adnanh/webhook/blob/master/docs/Hook-Examples.md#a-simple-webhook-with-a-secret-key-in-get-query
 
 - setup supervisor 
 https://willbrowning.me/setting-up-automatic-deployment-and-builds-using-webhooks/
 
+- setup lets encrypt certificate
 
 # setup docker 
 
