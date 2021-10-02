@@ -1,12 +1,6 @@
 # todo 
- 
-- add webhook
-https://github.com/adnanh/webhook/blob/master/docs/Hook-Examples.md#a-simple-webhook-with-a-secret-key-in-get-query
-
-- setup supervisor 
-https://willbrowning.me/setting-up-automatic-deployment-and-builds-using-webhooks/
-
 - setup lets encrypt certificate
+https://medium.com/rahasak/setup-lets-encrypt-certificate-with-nginx-certbot-and-docker-b13010a12994
 
 # setup docker 
 
@@ -48,7 +42,7 @@ version: "2.2"
 services:
   web:
     container_name: web
-    image: ghcr.io/hamilton-lima/smallflatworld/smallflatworld
+    image: ghcr.io/hamilton-lima/smallflatworld/smallflatworld:latest
     restart: always
     ports:
       - "80:80"
@@ -65,3 +59,74 @@ services:
 docker pull ghcr.io/hamilton-lima/smallflatworld/smallflatworld
 docker-compose up -d
 ```
+
+## install webhook
+
+```
+sudo apt-get install webhook
+```
+
+Create `/opt/smallflatworld/restart.sh` 
+and add execution permission `chmod +x /opt/smallflatworld/restart.sh`
+
+```
+#!/bin/bash
+docker-compose pull
+docker-compose restart
+```
+
+Generate a secret, e.g. `uuigen` 
+
+Update service definition to make it verbose 
+```
+nano /lib/systemd/system/webhook.service
+...
+ExecStart=/usr/bin/webhook -nopanic -hooks /etc/webhook.conf -verbose
+```
+
+
+Generate `/etc/webhook.conf` file
+```
+[
+  {
+    "id": "restart",
+    "execute-command": "/opt/smallflatworld/restart.sh",
+    "command-working-directory": "/opt/smallflatworld",
+    "response-message": "restarting smallflatworld server",
+    "trigger-rule":
+    {
+      "match":
+      {
+        "type": "value",
+        "value": "<secret goes here>",
+        "parameter":
+        {
+          "source": "url",
+          "name": "token"
+        }
+      }
+    }
+  }
+]
+```
+
+Start webhook service
+```
+systemctl start webhook
+```
+
+Follow the service logs 
+```
+journalctl -f -u webhook.service
+```
+
+Call the service to test
+```
+curl smallflatworld.com:9000/hooks/restart?token=<secret also goes here>
+```
+
+
+
+# CLI Depot 
+
+docker exec -it web /bin/ash -c "cat /etc/nginx/nginx.conf"
