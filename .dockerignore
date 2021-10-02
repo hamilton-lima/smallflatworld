@@ -1,0 +1,10 @@
+.git
+.github
+playground
+scripts
+web/node_modules
+web/dist
+web/coverage
+server/node_modules
+server/.nyc_output
+server/dist

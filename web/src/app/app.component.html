@@ -37,6 +37,8 @@
         </mat-expansion-panel-header>
         <app-editor-toolbar></app-editor-toolbar>
       </mat-expansion-panel>
+
+      <div class="panel">version: {{ version }}</div>
     </div>
   </mat-sidenav>
 
@@ -52,9 +54,9 @@
     position="right"
     class="drawer-right"
   >
-  <div>
-    <app-code-panel></app-code-panel>
-  </div>
+    <div>
+      <app-code-panel></app-code-panel>
+    </div>
   </mat-sidenav>
 </mat-drawer-container>
 

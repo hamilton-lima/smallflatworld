@@ -3,6 +3,7 @@ import { RealmService } from './realm/realm.service';
 import { InputService } from './input.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { CodingService } from './coding/coding.service';
+import { VERSION } from "src/app/version";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { CodingService } from './coding/coding.service';
 export class AppComponent implements OnInit {
   ready = false;
   name = '';
+  version = VERSION;
 
   @ViewChild('drawer') drawer: MatDrawer;
   @ViewChild('drawerRight') drawerRight: MatDrawer;
