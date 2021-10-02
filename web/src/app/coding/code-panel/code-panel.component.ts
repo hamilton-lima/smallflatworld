@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CodeEditorEvent } from '../code-blockly/code-blockly.component';
+import { EditorService } from 'src/app/editor/editor.service';
+import { CodeDefinition } from '../../../../../server/src/events.model';
 import { CodingService } from '../coding.service';
 
 @Component({
@@ -9,15 +10,24 @@ import { CodingService } from '../coding.service';
 })
 export class CodePanelComponent implements OnInit {
   selected: string;
-  constructor(private coding: CodingService) {}
+  codeDefinition: CodeDefinition;
+  updatedCodeDefinition: CodeDefinition;
+  constructor(private service: CodingService,private editor: EditorService) {}
 
   ngOnInit(): void {
-    this.coding.onEdit.subscribe((selected)=>{
+    this.service.onEdit.subscribe(async (selected) => {
+      console.log('on edit', selected);
       this.selected = selected;
-    })
+      this.codeDefinition = await this.service.getCode(selected);
+      this.updatedCodeDefinition = this.codeDefinition;
+    });
   }
 
-  changed(event: CodeEditorEvent) {
-    console.log('code', event);
+  changed(event: CodeDefinition) {
+    this.updatedCodeDefinition = event;
+  }
+
+  apply(){
+    this.editor.saveCode(this.selected, this.updatedCodeDefinition);
   }
 }

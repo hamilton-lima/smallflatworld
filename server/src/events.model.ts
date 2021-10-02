@@ -57,12 +57,18 @@ export const Vector3MementoOne = <Vector3Memento>{
   z: 1,
 };
 
+export class CodeDefinition {
+  code: string;
+  blocklyDefinition?: string;
+}
+
 export class SceneElementMemento {
   name: string;
   componentID: string;
   position: Vector3Memento;
   rotation: Vector3Memento;
   scaling: Vector3Memento;
+  code: CodeDefinition;
 }
 
 export class StateUpdate implements ClientData, ClientResponseData {

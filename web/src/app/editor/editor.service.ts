@@ -22,7 +22,10 @@ import {
   EditorMode,
   EditorModeService,
 } from './editor-mode.service';
-import { SceneElementMemento } from '../../../../server/src/events.model';
+import {
+  CodeDefinition,
+  SceneElementMemento,
+} from '../../../../server/src/events.model';
 import { InputService } from '../input.service';
 import { CodingService } from '../coding/coding.service';
 
@@ -194,6 +197,16 @@ export class EditorService {
         this.coding.edit(parent.name);
       } else {
         this.coding.edit(this.selected.name);
+      }
+    }
+  }
+
+  async saveCode(uuid: string, code: CodeDefinition) {
+    if (uuid) {
+      const element = await this.realm.get(uuid);
+      if (element) {
+        element.code = code;
+        this.propagateUpdate(element);
       }
     }
   }
@@ -388,6 +401,7 @@ export class EditorService {
       position: position,
       rotation: Vector3.Zero(),
       scaling: Vector3.One(),
+      code: new CodeDefinition(),
     };
 
     await this.create(scene, element);

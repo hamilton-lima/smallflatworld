@@ -194,7 +194,7 @@ export class BlocklyService {
   `;  
   
   readonly text = `
-  <category name="Text" colour="%{BKY_TEXT_HUE}">
+  <category name="Text" colour="%{BKY_TEXTS_HUE}">
     <block type="text"/>
     <block type="text_join"/>
     <block type="text_append"/>

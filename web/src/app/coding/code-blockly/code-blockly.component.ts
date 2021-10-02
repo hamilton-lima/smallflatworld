@@ -3,67 +3,62 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnDestroy,
-  OnInit,
   Output,
   SimpleChanges,
-  ViewChild,
-} from "@angular/core";
-import { timer } from "rxjs";
-import { BlocklyConfig, BlocklyService } from "./code-blockly.service";
-
-export interface CodeEditorEvent {
-  code: string;
-  blocklyDefinition?: string;
-}
+} from '@angular/core';
+import { timer } from 'rxjs';
+import { CodeDefinition } from '../../../../../server/src/events.model';
+import { BlocklyConfig, BlocklyService } from './code-blockly.service';
 
 @Component({
-  selector: "app-code-blockly",
-  templateUrl: "./code-blockly.component.html",
-  styleUrls: ["./code-blockly.component.scss"],
+  selector: 'app-code-blockly',
+  templateUrl: './code-blockly.component.html',
+  styleUrls: ['./code-blockly.component.scss'],
 })
 export class CodeBlocklyComponent implements OnChanges {
   workspace: any;
-  code: string;
 
   // generate unique ID for each component
   static nextId = 0;
-  id:string;
+  id: string;
 
-  @Input() blocklyDefinition: string;
+  @Input() definition: CodeDefinition;
   @Input() config: BlocklyConfig;
-  @Output() codeChanged = new EventEmitter<CodeEditorEvent>();
+  @Output() codeChanged = new EventEmitter<CodeDefinition>();
 
   constructor(private service: BlocklyService) {
     this.id = `blockly-${CodeBlocklyComponent.nextId++}`;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('ng onchanges', changes);
     this.init();
   }
 
-  init(){
-    timer(500).subscribe((done) => {
+  init() {
+    timer(1500).subscribe((done) => {
+      console.log('init code');
       this.workspace = this.service.inject(
         this.id,
         this.config,
         this.update.bind(this)
       );
-      this.service.setXML(this.blocklyDefinition, this.workspace);
+      this.service.setXML(this.definition.blocklyDefinition, this.workspace);
     });
   }
 
   ngAfterViewInit(): void {
+    console.log('after view init');
     this.init();
   }
 
   update(): void {
-    this.code = this.service.getCode(this.workspace);
+    const code = this.service.getCode(this.workspace);
     const blocklyDefinition = this.service.getXML(this.workspace);
 
     this.codeChanged.next({
-      code: this.code,
+      code: code,
       blocklyDefinition,
-    } as CodeEditorEvent);
+    } as CodeDefinition);
   }
 }

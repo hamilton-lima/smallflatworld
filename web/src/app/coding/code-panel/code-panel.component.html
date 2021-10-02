@@ -1,5 +1,7 @@
 <div class="container">
   <h1>Edit code</h1>
   selected: {{ selected }}
-  <app-code-blockly (codeChanged)="changed($event)"></app-code-blockly>
+  <button mat-raised-button (click)="apply()">APPLY</button>
+
 </div>
+<app-code-blockly [definition]="codeDefinition" (codeChanged)="changed($event)"></app-code-blockly>
