@@ -1,11 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FileService } from './file/file.service';
 import { RealmService } from './realm/realm.service';
 import { InputService } from './input.service';
-import { RealmUploadService } from './realm/realm-upload.service';
-import { ServerService } from '../app/multiplayer/server.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { CodeEditorEvent } from './coding/code-blockly/code-blockly.component';
 import { CodingService } from './coding/coding.service';
 
 @Component({
