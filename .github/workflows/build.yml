@@ -23,4 +23,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify webhook about the new version
-        run: curl --url smallflatworld.com:9000/hooks/restart?token=${{ secrets.WEBHOOK_TOKEN }}
+        run: curl --silent --fail --url smallflatworld.com:9000/hooks/restart?token=${{ secrets.WEBHOOK_TOKEN }}
