@@ -33,8 +33,8 @@
             ],
             "scripts": [
               "node_modules/blockly/blockly_compressed.js",
+              "node_modules/blockly/javascript_compressed.js",
               "node_modules/blockly/blocks_compressed.js",
-              "node_modules/blockly/lua_compressed.js",
               "node_modules/blockly/msg/en.js"
             ]
           },

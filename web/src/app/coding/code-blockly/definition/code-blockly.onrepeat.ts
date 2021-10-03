@@ -17,11 +17,11 @@ const block = {
   ],
   colour: 65,
   tooltip: "on repeat",
-  helpUrl: "https://www.robolucha.com/play/events/repeat",
+  helpUrl: "",
 };
 
-const luaGenerator = function (block) {
-  const field = Blockly.Lua.statementToCode(block, "ONREPEAT_CODE");
+const codeGenerator = function (block) {
+  const field = Blockly.JavaScript.statementToCode(block, "ONREPEAT_CODE");
   return `onRepeat = function()\n${field}end\n`;
 };
 
@@ -32,7 +32,7 @@ export class OnRepeatDefinition implements BlocklyDefinition {
   getBlockConfig() {
     return block;
   }
-  getLuaGenerator() {
-    return luaGenerator;
+  getCodeGenerator() {
+    return codeGenerator;
   }
 }

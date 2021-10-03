@@ -1,8 +1,5 @@
 import { Injectable, Renderer2, RendererFactory2 } from "@angular/core";
 import { OnFoundDefinition } from "./definition/code-blockly.onfound";
-import { OnGotDamageDefinition } from "./definition/code-blockly.ongotdamage";
-import { OnHitOtherDefinition } from "./definition/code-blockly.onhitother";
-import { OnHitWallDefinition } from "./definition/code-blockly.onhitwall";
 import { OnRepeatDefinition } from "./definition/code-blockly.onrepeat";
 
 declare var Blockly: any;
@@ -17,7 +14,7 @@ export enum BlocklyConfig {
 export interface BlocklyDefinition {
   getTypeName();
   getBlockConfig();
-  getLuaGenerator();
+  getCodeGenerator();
 }
 
 @Injectable({ providedIn: "root" })
@@ -89,7 +86,7 @@ export class BlocklyService {
   }
 
   getCode(workspace) {
-    const code = Blockly.Lua.workspaceToCode(workspace);
+    const code = Blockly.JavaScript.workspaceToCode(workspace);
     return code;
   }
 
@@ -252,15 +249,12 @@ export class BlocklyService {
   readonly definitions: Array<BlocklyDefinition> = [
     new OnFoundDefinition(),
     new OnRepeatDefinition(),
-    new OnHitWallDefinition(),
-    new OnHitOtherDefinition(),
-    new OnGotDamageDefinition(),
   ];
 
   setup() {
     this.definitions.forEach((definition) => {
       Blockly.defineBlocksWithJsonArray([definition.getBlockConfig()]);
-      Blockly.Lua[definition.getTypeName()] = definition.getLuaGenerator();
+      Blockly.JavaScript[definition.getTypeName()] = definition.getCodeGenerator();
     });
 
     // debug	message	string
@@ -430,95 +424,95 @@ export class BlocklyService {
       },
     ]);
 
-    Blockly.Lua["me_string"] = function (block) {
+    Blockly.JavaScript["me_string"] = function (block) {
       const field = block.getFieldValue("ME_STRING_FIELD");
       const result = `me${field}`;
-      return [result, Blockly.Lua.ORDER_ATOMIC];
+      return [result, Blockly.Javascript.ORDER_ATOMIC];
     };
 
-    Blockly.Lua["me_number"] = function (block) {
+    Blockly.JavaScript["me_number"] = function (block) {
       const field = block.getFieldValue("ME_NUMBER_FIELD");
       const result = `me${field}`;
-      return [result, Blockly.Lua.ORDER_ATOMIC];
+      return [result, Blockly.Javascript.ORDER_ATOMIC];
     };
 
-    Blockly.Lua["other_string"] = function (block) {
+    Blockly.JavaScript["other_string"] = function (block) {
       const field = block.getFieldValue("OTHER_STRING_FIELD");
       const result = `other${field}`;
-      return [result, Blockly.Lua.ORDER_ATOMIC];
+      return [result, Blockly.Javascript.ORDER_ATOMIC];
     };
 
-    Blockly.Lua["other_number"] = function (block) {
+    Blockly.JavaScript["other_number"] = function (block) {
       const field = block.getFieldValue("OTHER_NUMBER_FIELD");
       const result = `other${field}`;
-      return [result, Blockly.Lua.ORDER_ATOMIC];
+      return [result, Blockly.Javascript.ORDER_ATOMIC];
     };
 
-    Blockly.Lua["move"] = function (block) {
-      const value = Blockly.Lua.valueToCode(
+    Blockly.JavaScript["move"] = function (block) {
+      const value = Blockly.Javascript.valueToCode(
         block,
         "MOVE_VALUE",
-        Blockly.Lua.ORDER_ATOMIC
+        Blockly.Javascript.ORDER_ATOMIC
       );
       return `move(${value})\n`;
     };
 
-    Blockly.Lua["fire"] = function (block) {
-      const value = Blockly.Lua.valueToCode(
+    Blockly.JavaScript["fire"] = function (block) {
+      const value = Blockly.Javascript.valueToCode(
         block,
         "FIRE_VALUE",
-        Blockly.Lua.ORDER_ATOMIC
+        Blockly.Javascript.ORDER_ATOMIC
       );
       return `fire(${value})\n`;
     };
 
-    Blockly.Lua["turn"] = function (block) {
-      const value = Blockly.Lua.valueToCode(
+    Blockly.JavaScript["turn"] = function (block) {
+      const value = Blockly.Javascript.valueToCode(
         block,
         "TURN_VALUE",
-        Blockly.Lua.ORDER_ATOMIC
+        Blockly.Javascript.ORDER_ATOMIC
       );
       return `turn(${value})\n`;
     };
 
-    Blockly.Lua["turnGun"] = function (block) {
-      const value = Blockly.Lua.valueToCode(
+    Blockly.JavaScript["turnGun"] = function (block) {
+      const value = Blockly.Javascript.valueToCode(
         block,
         "TURNGUN_VALUE",
-        Blockly.Lua.ORDER_ATOMIC
+        Blockly.Javascript.ORDER_ATOMIC
       );
       return `turnGun(${value})\n`;
     };
 
-    Blockly.Lua["reset"] = function (block) {
+    Blockly.JavaScript["reset"] = function (block) {
       return `reset()\n`;
     };
 
-    Blockly.Lua["debug"] = function (block) {
-      const value = Blockly.Lua.valueToCode(
+    Blockly.JavaScript["debug"] = function (block) {
+      const value = Blockly.Javascript.valueToCode(
         block,
         "DEBUG_VALUE",
-        Blockly.Lua.ORDER_ATOMIC
+        Blockly.Javascript.ORDER_ATOMIC
       );
       return `debug(${value})\n`;
     };
 
-    Blockly.Lua["addDamage"] = function (block) {
-      const luchadorID = Blockly.Lua.valueToCode(
+    Blockly.JavaScript["addDamage"] = function (block) {
+      const luchadorID = Blockly.Javascript.valueToCode(
         block,
         "ADD_DAMAGE_LUCHADOR_VALUE",
-        Blockly.Lua.ORDER_ATOMIC
+        Blockly.Javascript.ORDER_ATOMIC
       );
-      const amount = Blockly.Lua.valueToCode(
+      const amount = Blockly.Javascript.valueToCode(
         block,
         "ADD_DAMAGE_AMOUNT_VALUE",
-        Blockly.Lua.ORDER_ATOMIC
+        Blockly.Javascript.ORDER_ATOMIC
       );
 
       return `addDamage(${luchadorID}, ${amount})\n`;
     };
 
-    Blockly.Lua["endGame"] = function (block) {
+    Blockly.JavaScript["endGame"] = function (block) {
       return `endGame()\n`;
     };
   }

@@ -27,11 +27,11 @@ const block = {
   ],
   colour: 65,
   tooltip: "on found",
-  helpUrl: "https://www.robolucha.com/play/events/onfound",
+  helpUrl: "",
 };
 
-const luaGenerator = function (block) {
-  const field = Blockly.Lua.statementToCode(block, "ONFOUND_CODE");
+const codeGenerator = function (block) {
+  const field = Blockly.JavaScript.statementToCode(block, "ONFOUND_CODE");
   return `onFound = function(other,chance)\n${field}end\n`;
 };
 
@@ -42,7 +42,7 @@ export class OnFoundDefinition implements BlocklyDefinition {
   getBlockConfig() {
     return block;
   }
-  getLuaGenerator() {
-    return luaGenerator;
+  getCodeGenerator() {
+    return codeGenerator;
   }
 }
