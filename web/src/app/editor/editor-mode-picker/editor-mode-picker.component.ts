@@ -24,6 +24,11 @@ export class EditorModePickerComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  walk() {
+    this.input.focus();
+    this.service.mode.next(EditorMode.WALK);
+  }
+
   add() {
     this.input.focus();
     this.service.mode.next(EditorMode.ADD);

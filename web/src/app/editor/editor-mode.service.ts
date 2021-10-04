@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 export enum EditorMode {
+  WALK = 'walk',
   ADD = 'add',
   EDIT = 'edit',
 }
@@ -18,7 +19,7 @@ export enum EditorAction {
   providedIn: 'root',
 })
 export class EditorModeService {
-  mode: BehaviorSubject<EditorMode> = new BehaviorSubject(EditorMode.ADD);
+  mode: BehaviorSubject<EditorMode> = new BehaviorSubject(EditorMode.WALK);
   editAction: BehaviorSubject<EditorAction> = new BehaviorSubject(
     EditorAction.ROTATE
   );
