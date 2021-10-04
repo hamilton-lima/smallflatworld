@@ -1,6 +1,6 @@
-import { Injectable, Renderer2, RendererFactory2 } from "@angular/core";
-import { OnFoundDefinition } from "./definition/code-blockly.onfound";
-import { OnRepeatDefinition } from "./definition/code-blockly.onrepeat";
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { OnRepeatDefinition } from './definition/code-blockly.onrepeat';
+import { OnClickDefinition } from './definition/code-blockly.onclick';
 
 declare var Blockly: any;
 
@@ -17,7 +17,7 @@ export interface BlocklyDefinition {
   getCodeGenerator();
 }
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class BlocklyService {
   private renderer: Renderer2;
 
@@ -27,7 +27,6 @@ export class BlocklyService {
     this.configResolution = new Map([
       [BlocklyConfig.Default, this.getToolboxDefault()],
       [BlocklyConfig.DefaultWithOther, this.getToolboxDefault()],
-      [BlocklyConfig.SceneComponent, this.getToolboxSceneComponent()],
     ]);
 
     // Renderer2 needs to be created manually as there is no provider by default
@@ -38,10 +37,10 @@ export class BlocklyService {
 
   // force first injection of blockly to prevent issues when loading for the first time
   forceEmptyInject() {
-    const cache = this.renderer.createElement("div");
-    const id = "blocklycache";
-    this.renderer.setProperty(cache, "id", id);
-    this.renderer.setStyle(cache, "display", "none");
+    const cache = this.renderer.createElement('div');
+    const id = 'blocklycache';
+    this.renderer.setProperty(cache, 'id', id);
+    this.renderer.setStyle(cache, 'display', 'none');
     this.renderer.appendChild(document.body, cache);
     this.inject(id);
   }
@@ -58,7 +57,7 @@ export class BlocklyService {
     const toolbox = this.configResolution.get(editorConfig);
 
     const blocklyDiv = document.getElementById(id);
-    blocklyDiv.innerHTML = "";
+    blocklyDiv.innerHTML = '';
     const workspace = Blockly.inject(blocklyDiv, { toolbox: toolbox });
 
     if (onChange) {
@@ -93,11 +92,7 @@ export class BlocklyService {
   readonly commands = `
   <category name="Commands" colour="%{BKY_PROCEDURES_HUE}">
       <block type="move" />
-      <block type="fire" />
       <block type="turn" />
-      <block type="turnGun" />
-      <block type="reset" />
-      <block type="debug" />
       <block type="math_number" />
       <block type="math_arithmetic" />
   </category>
@@ -105,27 +100,8 @@ export class BlocklyService {
 
   readonly events = `
   <category name="Events" colour="%{BKY_PROCEDURES_HUE}">
-    <block type="onfound" />
+    <block type="onclick" />
     <block type="onrepeat" />
-    <block type="onhitwall" />
-    <block type="ongotdamage" />
-    <block type="onhitother" />
-  </category>
-  `;  
-  
-  readonly eventsSceneComponent = `
-  <category name="Events" colour="%{BKY_PROCEDURES_HUE}">
-    <block type="onrepeat" />
-    <block type="onhitother" />
-  </category>
-  `;
-
-  readonly commandsSceneComponent = `
-  <category name="Commands" colour="%{BKY_PROCEDURES_HUE}">
-      <block type="endGame" />
-      <block type="addDamage" />
-      <block type="math_number" />
-      <block type="math_arithmetic" />
   </category>
   `;
 
@@ -133,22 +109,6 @@ export class BlocklyService {
   <category name="Luchador" colour="260">
     <block type="me_string" />
     <block type="me_number" />
-  </category>
-  `;
-
-  readonly luchadorWithOther = `
-  <category name="Luchador" colour="260">
-    <block type="me_string" />
-    <block type="me_number" />
-    <block type="other_string" />
-    <block type="other_number" />
-  </category>
-  `;
-
-  readonly sceneOther = `
-  <category name="Luchador" colour="260">
-    <block type="other_string" />
-    <block type="other_number" />
   </category>
   `;
 
@@ -188,8 +148,8 @@ export class BlocklyService {
     <block type="logic_boolean"/>
     <block type="logic_negate"/>
   </category>
-  `;  
-  
+  `;
+
   readonly text = `
   <category name="Text" colour="%{BKY_TEXTS_HUE}">
     <block type="text"/>
@@ -209,20 +169,6 @@ export class BlocklyService {
   readonly toolboxDefault = [
     this.commands,
     this.events,
-    this.luchadorWithOther,
-    this.separator,
-    this.variables,
-    this.math,
-    this.text,
-    this.control,
-    this.logic,
-    this.functions,
-  ];
-
-  readonly toolboxSceneComponent = [
-    this.commandsSceneComponent,
-    this.eventsSceneComponent,
-    this.sceneOther,
     this.separator,
     this.variables,
     this.math,
@@ -233,7 +179,7 @@ export class BlocklyService {
   ];
 
   getToolboxXML(data: string[]) {
-    const xml = data.join("\n");
+    const xml = data.join('\n');
     const result = `<xml id="toolbox" style="display: none">${xml}</xml>`;
     return result;
   }
@@ -242,278 +188,122 @@ export class BlocklyService {
     return this.getToolboxXML(this.toolboxDefault);
   }
 
-  getToolboxSceneComponent() {
-    return this.getToolboxXML(this.toolboxSceneComponent);
-  }
-
   readonly definitions: Array<BlocklyDefinition> = [
-    new OnFoundDefinition(),
+    new OnClickDefinition(),
     new OnRepeatDefinition(),
   ];
 
   setup() {
     this.definitions.forEach((definition) => {
       Blockly.defineBlocksWithJsonArray([definition.getBlockConfig()]);
-      Blockly.JavaScript[definition.getTypeName()] = definition.getCodeGenerator();
+      Blockly.JavaScript[definition.getTypeName()] =
+        definition.getCodeGenerator();
     });
 
     // debug	message	string
     Blockly.defineBlocksWithJsonArray([
       {
         // move	distance	number (greater than 0)
-        type: "move",
-        message0: "move %1",
-        args0: [{ type: "input_value", name: "MOVE_VALUE", check: "Number" }],
-        previousStatement: null,
-        nextStatement: null,
-        colour: 355,
-      },
-      {
-        // fire	strength	number (0 to 10)
-        type: "fire",
-        message0: "fire %1",
-        args0: [{ type: "input_value", name: "FIRE_VALUE", check: "Number" }],
+        type: 'move',
+        message0: 'move %1',
+        args0: [{ type: 'input_value', name: 'MOVE_VALUE', check: 'Number' }],
         previousStatement: null,
         nextStatement: null,
         colour: 355,
       },
       {
         // turn	degrees	number (-360 to 360)
-        type: "turn",
-        message0: "turn %1",
-        args0: [{ type: "input_value", name: "TURN_VALUE", check: "Number" }],
-        previousStatement: null,
-        nextStatement: null,
-        colour: 355,
-      },
-      {
-        //turnGun	degrees	number (-360 to 360)
-        type: "turnGun",
-        message0: "turn gun %1",
-        args0: [
-          { type: "input_value", name: "TURNGUN_VALUE", check: "Number" },
-        ],
-        previousStatement: null,
-        nextStatement: null,
-        colour: 355,
-      },
-      {
-        // reset
-        type: "reset",
-        message0: "reset",
+        type: 'turn',
+        message0: 'turn %1',
+        args0: [{ type: 'input_value', name: 'TURN_VALUE', check: 'Number' }],
         previousStatement: null,
         nextStatement: null,
         colour: 355,
       },
       {
         // debug	message	string
-        type: "debug",
-        message0: "debug %1",
-        args0: [{ type: "input_value", name: "DEBUG_VALUE" }],
+        type: 'debug',
+        message0: 'debug %1',
+        args0: [{ type: 'input_value', name: 'DEBUG_VALUE' }],
         previousStatement: null,
         nextStatement: null,
         colour: 355,
       },
       {
-        type: "addDamage",
-        message0: "add damage %1 %2",
-        args0: [
-          {
-            type: "input_value",
-            name: "ADD_DAMAGE_LUCHADOR_VALUE",
-            check: "Number",
-          },
-          {
-            type: "input_value",
-            name: "ADD_DAMAGE_AMOUNT_VALUE",
-            check: "Number",
-          },
-        ],
-        previousStatement: null,
-        nextStatement: null,
-        colour: 355,
-      },
-      {
-        type: "endGame",
-        message0: "endGame",
-        previousStatement: null,
-        nextStatement: null,
-        colour: 355,
-      },
-      {
-        type: "me_string",
-        message0: "me.%1",
-        output: "String",
+        type: 'me_string',
+        message0: 'me.%1',
+        output: 'String',
         colour: 290,
         args0: [
           {
-            type: "field_dropdown",
-            name: "ME_STRING_FIELD",
+            type: 'field_dropdown',
+            name: 'ME_STRING_FIELD',
             options: [
-              ["all", ""],
-              ["name", ".name"],
+              ['all', ''],
+              ['name', '.name'],
             ],
           },
         ],
       },
       {
-        type: "me_number",
-        message0: "me.%1",
-        output: "Number",
+        type: 'me_number',
+        message0: 'me.%1',
+        output: 'Number',
         colour: 260,
         args0: [
           {
-            type: "field_dropdown",
-            name: "ME_NUMBER_FIELD",
+            type: 'field_dropdown',
+            name: 'ME_NUMBER_FIELD',
             options: [
-              ["id", ".id"],
-              ["x", ".x"],
-              ["y", ".y"],
-              ["life", ".life"],
-              ["angle", ".angle"],
-              ["gunAngle", ".gunAngle"],
-              ["fireCooldown", ".fireCooldown"],
-              ["fireCooldown", ".fireCooldown"],
-              ["kills", ".k"],
-              ["deaths", ".d"],
-              ["score", ".score"],
-            ],
-          },
-        ],
-      },
-      {
-        type: "other_string",
-        message0: "other.%1",
-        output: "String",
-        colour: 290,
-        args0: [
-          {
-            type: "field_dropdown",
-            name: "OTHER_STRING_FIELD",
-            options: [
-              ["all", ""],
-              ["name", ".name"],
-            ],
-          },
-        ],
-      },
-      {
-        type: "other_number",
-        message0: "other.%1",
-        output: "Number",
-        colour: 260,
-        args0: [
-          {
-            type: "field_dropdown",
-            name: "OTHER_NUMBER_FIELD",
-            options: [
-              ["id", ".id"],
-              ["x", ".x"],
-              ["y", ".y"],
-              ["life", ".life"],
-              ["angle", ".angle"],
-              ["gunAngle", ".gunAngle"],
-              ["fireCooldown", ".fireCooldown"],
-              ["fireCooldown", ".fireCooldown"],
-              ["kills", ".k"],
-              ["deaths", ".d"],
-              ["score", ".score"],
+              ['id', '.id'],
+              ['x', '.x'],
+              ['y', '.y'],
+              ['z', '.z'],
+              ['life', '.life'],
+              ['angle', '.angle'],
             ],
           },
         ],
       },
     ]);
 
-    Blockly.JavaScript["me_string"] = function (block) {
-      const field = block.getFieldValue("ME_STRING_FIELD");
+    Blockly.JavaScript['me_string'] = function (block) {
+      const field = block.getFieldValue('ME_STRING_FIELD');
       const result = `me${field}`;
-      return [result, Blockly.Javascript.ORDER_ATOMIC];
+      return [result, Blockly.JavaScript.ORDER_ATOMIC];
     };
 
-    Blockly.JavaScript["me_number"] = function (block) {
-      const field = block.getFieldValue("ME_NUMBER_FIELD");
+    Blockly.JavaScript['me_number'] = function (block) {
+      const field = block.getFieldValue('ME_NUMBER_FIELD');
       const result = `me${field}`;
-      return [result, Blockly.Javascript.ORDER_ATOMIC];
+      return [result, Blockly.JavaScript.ORDER_ATOMIC];
     };
 
-    Blockly.JavaScript["other_string"] = function (block) {
-      const field = block.getFieldValue("OTHER_STRING_FIELD");
-      const result = `other${field}`;
-      return [result, Blockly.Javascript.ORDER_ATOMIC];
-    };
-
-    Blockly.JavaScript["other_number"] = function (block) {
-      const field = block.getFieldValue("OTHER_NUMBER_FIELD");
-      const result = `other${field}`;
-      return [result, Blockly.Javascript.ORDER_ATOMIC];
-    };
-
-    Blockly.JavaScript["move"] = function (block) {
-      const value = Blockly.Javascript.valueToCode(
+    Blockly.JavaScript['move'] = function (block) {
+      const value = Blockly.JavaScript.valueToCode(
         block,
-        "MOVE_VALUE",
-        Blockly.Javascript.ORDER_ATOMIC
+        'MOVE_VALUE',
+        Blockly.JavaScript.ORDER_ATOMIC
       );
       return `move(${value})\n`;
     };
 
-    Blockly.JavaScript["fire"] = function (block) {
-      const value = Blockly.Javascript.valueToCode(
+    Blockly.JavaScript['turn'] = function (block) {
+      const value = Blockly.JavaScript.valueToCode(
         block,
-        "FIRE_VALUE",
-        Blockly.Javascript.ORDER_ATOMIC
-      );
-      return `fire(${value})\n`;
-    };
-
-    Blockly.JavaScript["turn"] = function (block) {
-      const value = Blockly.Javascript.valueToCode(
-        block,
-        "TURN_VALUE",
-        Blockly.Javascript.ORDER_ATOMIC
+        'TURN_VALUE',
+        Blockly.JavaScript.ORDER_ATOMIC
       );
       return `turn(${value})\n`;
     };
 
-    Blockly.JavaScript["turnGun"] = function (block) {
-      const value = Blockly.Javascript.valueToCode(
+    Blockly.JavaScript['debug'] = function (block) {
+      const value = Blockly.JavaScript.valueToCode(
         block,
-        "TURNGUN_VALUE",
-        Blockly.Javascript.ORDER_ATOMIC
-      );
-      return `turnGun(${value})\n`;
-    };
-
-    Blockly.JavaScript["reset"] = function (block) {
-      return `reset()\n`;
-    };
-
-    Blockly.JavaScript["debug"] = function (block) {
-      const value = Blockly.Javascript.valueToCode(
-        block,
-        "DEBUG_VALUE",
-        Blockly.Javascript.ORDER_ATOMIC
+        'DEBUG_VALUE',
+        Blockly.JavaScript.ORDER_ATOMIC
       );
       return `debug(${value})\n`;
-    };
-
-    Blockly.JavaScript["addDamage"] = function (block) {
-      const luchadorID = Blockly.Javascript.valueToCode(
-        block,
-        "ADD_DAMAGE_LUCHADOR_VALUE",
-        Blockly.Javascript.ORDER_ATOMIC
-      );
-      const amount = Blockly.Javascript.valueToCode(
-        block,
-        "ADD_DAMAGE_AMOUNT_VALUE",
-        Blockly.Javascript.ORDER_ATOMIC
-      );
-
-      return `addDamage(${luchadorID}, ${amount})\n`;
-    };
-
-    Blockly.JavaScript["endGame"] = function (block) {
-      return `endGame()\n`;
     };
   }
 }
