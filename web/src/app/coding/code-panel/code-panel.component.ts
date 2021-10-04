@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EditorService } from 'src/app/editor/editor.service';
 import { CodeDefinition } from '../../../../../server/src/events.model';
 import { CodingService } from '../coding.service';
+import { RunnerService } from '../runner.service';
 
 @Component({
   selector: 'app-code-panel',
@@ -12,7 +13,11 @@ export class CodePanelComponent implements OnInit {
   selected: string;
   codeDefinition: CodeDefinition;
   updatedCodeDefinition: CodeDefinition;
-  constructor(private service: CodingService,private editor: EditorService) {}
+  constructor(
+    private service: CodingService,
+    private editor: EditorService,
+    private runner: RunnerService
+  ) {}
 
   ngOnInit(): void {
     this.service.onEdit.subscribe(async (selected) => {
@@ -27,7 +32,8 @@ export class CodePanelComponent implements OnInit {
     this.updatedCodeDefinition = event;
   }
 
-  apply(){
+  apply() {
     this.editor.saveCode(this.selected, this.updatedCodeDefinition);
+    this.runner.register(this.selected, this.updatedCodeDefinition.code);
   }
 }

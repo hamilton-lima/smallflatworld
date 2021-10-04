@@ -28,6 +28,7 @@ import {
 } from '../../../../server/src/events.model';
 import { InputService } from '../input.service';
 import { CodingService } from '../coding/coding.service';
+import { RunnerService } from '../coding/runner.service';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
@@ -223,7 +224,8 @@ export class EditorService {
     private camera: CameraService,
     private editorMode: EditorModeService,
     private input: InputService,
-    private coding: CodingService
+    private coding: CodingService,
+    private runner: RunnerService
   ) {}
 
   getPointerPosition(scene: Scene): Vector3 {
@@ -287,6 +289,11 @@ export class EditorService {
           this.dragPosition = this.getPointerPosition(scene);
 
           console.log('pickInfo', pointerInfo);
+
+          if (this.editorMode.mode.value == EditorMode.WALK) {
+            this.click(scene, pointerInfo);
+          }
+
           if (this.editorMode.mode.value == EditorMode.ADD) {
             await this.addToPosition(scene, pointerInfo);
           }
@@ -354,6 +361,22 @@ export class EditorService {
     if (fase == 5) {
       position.y -= size.y + snap.y;
       return position;
+    }
+  }
+
+  click(scene: Scene, pointerInfo: PointerInfo) {
+    if (this.selected) {
+      this.selected.showBoundingBox = false;
+    }
+
+    this.selected = <Mesh>pointerInfo.pickInfo.pickedMesh;
+    this.selected.showBoundingBox = true;
+
+    let parent: Mesh = <Mesh>this.selected.parent;
+    if (parent) {
+      this.runner.click(parent.name);
+    } else {
+      this.runner.click(this.selected.name);
     }
   }
 

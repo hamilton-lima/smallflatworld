@@ -5,3 +5,6 @@
 
 </div>
 <app-code-blockly [definition]="codeDefinition" (codeChanged)="changed($event)"></app-code-blockly>
+<div *ngIf="updatedCodeDefinition">
+  {{ updatedCodeDefinition.code }}
+</div>

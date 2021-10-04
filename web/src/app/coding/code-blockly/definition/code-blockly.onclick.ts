@@ -1,33 +1,31 @@
 import { BlocklyDefinition } from "../code-blockly.service";
 declare var Blockly: any;
 
-const type = "onrepeat";
+const type = "onclick";
 
 const block = {
   type: type,
-  message0: "Repeat %1 %2",
+  message0: "On Click %1 %2",
   args0: [
     {
       type: "input_dummy",
     },
     {
       type: "input_statement",
-      name: "ONREPEAT_CODE",
+      name: "ONCLICK_CODE",
     },
   ],
   colour: 65,
-  tooltip: "on repeat",
+  tooltip: "on click",
   helpUrl: "",
 };
 
 const codeGenerator = function (block) {
-  const field = Blockly.JavaScript.statementToCode(block, "ONREPEAT_CODE");
-  return `onRepeat.push(\nfunction(){\n${field}\n};\n);\n`;
-  
-  return `onRepeat = function()\n${field}end\n`;
+  const field = Blockly.JavaScript.statementToCode(block, "ONCLICK_CODE");
+  return `onClick.push(function(){\n${field}\n});\n`;
 };
 
-export class OnRepeatDefinition implements BlocklyDefinition {
+export class OnClickDefinition implements BlocklyDefinition {
   getTypeName() {
     return type;
   }

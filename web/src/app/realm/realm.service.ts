@@ -9,6 +9,7 @@ import {
   Vector3MementoOne,
   Vector3MementoZero,
 } from '../../../../server/src/events.model';
+import { RunnerService } from '../coding/runner.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class RealmService {
   constructor(
     private persistence: PersistenceService,
     private configuration: ConfigurationService,
-    private client: ClientService
+    private client: ClientService,
+    private runner: RunnerService
   ) {}
 
   async ready(): Promise<Realm> {
@@ -98,6 +100,7 @@ export class RealmService {
     );
     if (found) {
       this.currentRealm.elements.splice(found, 1);
+      this.runner.delete(name);
     }
     return this._updateRealm();
   }
