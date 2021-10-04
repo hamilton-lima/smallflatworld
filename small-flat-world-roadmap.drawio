@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2021-10-02T21:17:25.633Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="v8VebplSjoE_ymUd_6QH" version="13.9.9" type="device">
+<mxfile host="Electron" modified="2021-10-04T05:03:13.631Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="KoXZ7ST4VAAIxcF_nIDf" version="13.9.9" type="device">
   <diagram id="eQwurLcD6YKOo8-gMQfG" name="Page-1">
     <mxGraphModel dx="2591" dy="822" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -38,19 +38,19 @@
           <mxGeometry x="320" y="430" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-16" value="fix mesh template when receiving network update" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="720" y="220" width="120" height="60" as="geometry" />
+          <mxGeometry x="720" y="290" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-17" value="do not propagate events to the sender" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="720" y="360" width="120" height="60" as="geometry" />
+          <mxGeometry x="720" y="430" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-18" value="wait for the full state of the realm &lt;br&gt;after join" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
           <mxGeometry x="720" y="80" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-19" value="send player position updates" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="720" y="150" width="120" height="60" as="geometry" />
+          <mxGeometry x="720" y="220" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-20" value="when sharing disable join button" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="720" y="290" width="120" height="60" as="geometry" />
+          <mxGeometry x="720" y="360" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-21" value="Enable VR &lt;br&gt;experience" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="520" y="430" width="120" height="60" as="geometry" />
@@ -101,13 +101,13 @@
           <mxGeometry x="320" y="500" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-39" value="add user name to client updates" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="720" y="430" width="120" height="60" as="geometry" />
+          <mxGeometry x="720" y="500" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-40" value="auto generate user name" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="720" y="570" width="120" height="60" as="geometry" />
+          <mxGeometry x="720" y="640" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-41" value="if user name is duplicated add (1) and so on to the end" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="720" y="500" width="120" height="60" as="geometry" />
+          <mxGeometry x="720" y="570" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-42" value="Allow to change &lt;br&gt;the name&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="521" y="360" width="120" height="60" as="geometry" />
@@ -153,6 +153,9 @@
         </mxCell>
         <mxCell id="dsrpRAJwARRAVhw4RFIG-8" value="Function to wait for choosing a point&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
           <mxGeometry x="-80" y="450" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dsrpRAJwARRAVhw4RFIG-9" value="synchronize code updates" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="720" y="150" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

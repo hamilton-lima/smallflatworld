@@ -7,6 +7,7 @@ import {
   CubeTexture,
   Texture,
 } from '@babylonjs/core';
+import { RunnerService } from '../coding/runner.service';
 import { EditorService } from '../editor/editor.service';
 import { CharacterService } from '../mesh/character.service';
 import { RealmService } from '../realm/realm.service';
@@ -22,10 +23,11 @@ export class ScenarioService {
     private mesh: MeshService,
     private realm: RealmService,
     private editor: EditorService,
-    private character: CharacterService
+    private character: CharacterService,
+    private runner: RunnerService
   ) {}
 
-  addCharacter(engineState:EngineState, character: SceneElement) {
+  addCharacter(engineState: EngineState, character: SceneElement) {
     const position = buildVector3(character.position);
     const rotation = buildVector3(character.rotation);
     engineState.character.position = position;
@@ -60,6 +62,11 @@ export class ScenarioService {
         );
 
         await this.editor.create(engineState.scene, element);
+
+        // if there is code definition register with runner
+        if (memento.code) {
+          this.runner.register(memento.name, memento.code.code);
+        }
       }
 
       const elapsed = new Date().getTime() - start;
