@@ -22,7 +22,7 @@ const block = {
 
 const codeGenerator = function (block) {
   const field = Blockly.JavaScript.statementToCode(block, "ONCLICK_CODE");
-  return `onClick.push(\nfunction(){\n${field}\n};\n);\n`;
+  return `onClick.push(function(){\n${field}\n});\n`;
 };
 
 export class OnClickDefinition implements BlocklyDefinition {

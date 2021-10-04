@@ -91,6 +91,7 @@ export class BlocklyService {
 
   readonly commands = `
   <category name="Commands" colour="%{BKY_PROCEDURES_HUE}">
+      <block type="message" />
       <block type="move" />
       <block type="turn" />
       <block type="math_number" />
@@ -203,6 +204,15 @@ export class BlocklyService {
     // debug	message	string
     Blockly.defineBlocksWithJsonArray([
       {
+        // show message
+        type: 'message',
+        message0: 'message %1',
+        args0: [{ type: 'input_value', name: 'MESSAGE_VALUE', check: 'String' }],
+        previousStatement: null,
+        nextStatement: null,
+        colour: 355,
+      },
+      {
         // move	distance	number (greater than 0)
         type: 'move',
         message0: 'move %1',
@@ -285,7 +295,16 @@ export class BlocklyService {
         'MOVE_VALUE',
         Blockly.JavaScript.ORDER_ATOMIC
       );
-      return `move(${value})\n`;
+      return `move(${value});\n`;
+    };
+
+    Blockly.JavaScript['message'] = function (block) {
+      const value = Blockly.JavaScript.valueToCode(
+        block,
+        'MESSAGE_VALUE',
+        Blockly.JavaScript.ORDER_ATOMIC
+      );
+      return `message(${value});\n`;
     };
 
     Blockly.JavaScript['turn'] = function (block) {
@@ -294,7 +313,7 @@ export class BlocklyService {
         'TURN_VALUE',
         Blockly.JavaScript.ORDER_ATOMIC
       );
-      return `turn(${value})\n`;
+      return `turn(${value});\n`;
     };
 
     Blockly.JavaScript['debug'] = function (block) {
@@ -303,7 +322,7 @@ export class BlocklyService {
         'DEBUG_VALUE',
         Blockly.JavaScript.ORDER_ATOMIC
       );
-      return `debug(${value})\n`;
+      return `debug(${value});\n`;
     };
   }
 }
