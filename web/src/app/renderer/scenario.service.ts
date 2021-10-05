@@ -6,6 +6,7 @@ import {
   MeshBuilder,
   CubeTexture,
   Texture,
+  Vector3,
 } from '@babylonjs/core';
 import { RunnerService } from '../coding/runner.service';
 import { EditorService } from '../editor/editor.service';
@@ -32,6 +33,8 @@ export class ScenarioService {
     const rotation = buildVector3(character.rotation);
     engineState.character.position = position;
     engineState.character.rotation = rotation;
+    engineState.character.checkCollisions = true;
+    engineState.character.showBoundingBox = true;
   }
 
   buildRealm(engineState: EngineState): Promise<void> {
@@ -100,6 +103,7 @@ export class ScenarioService {
 
     material.diffuseColor = Color3.FromHexString('#7C6650');
     ground.material = material;
+    ground.checkCollisions = true;
   }
 
   setup(scene: Scene) {

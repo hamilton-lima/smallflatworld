@@ -48,7 +48,8 @@ export class MeshLoaderService {
     clickable.setParent(parent);
     clickable.isPickable = true;
     clickable.isVisible = true;
-
+    clickable.checkCollisions = true;
+    
     const transparent = new StandardMaterial('transparent', scene);
     transparent.alpha = 0.0;
     clickable.material = transparent;
