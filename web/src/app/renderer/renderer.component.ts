@@ -60,7 +60,7 @@ export class RendererComponent implements AfterViewInit {
         );
 
         engineState.engine.runRenderLoop(() => {
-          this.movement.move(engineState.character);
+          this.movement.move(engineState.scene, engineState.character);
           engineState.scene.render();
         });
 
