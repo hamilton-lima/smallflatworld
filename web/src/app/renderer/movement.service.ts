@@ -62,6 +62,8 @@ export class MovementService {
 
     let rotated = false;
     let moved = false;
+    let falling = false;
+    let movement = new Vector3();
 
     if (this.keyState.ArrowRight) {
       character.rotation.y -= ROTATION_SPEED;
@@ -72,17 +74,20 @@ export class MovementService {
       rotated = true;
     }
 
-    this.gravity = this.gravity.addInPlace(
-      Vector3.Up().scale(deltaTime * GRAVITY)
-    );
+    if (this.gravity.y > 0) {
+      this.gravity = this.gravity.addInPlace(
+        Vector3.Up().scale(deltaTime * GRAVITY)
+      );
+      falling = true;
+    }
 
     if (this.gravity.y < -JUMP_FORCE) {
-      this.gravity.y = -JUMP_FORCE;
+      this.gravity.y = 0;
     }
 
     if (this.keyState.Space) {
       console.log('jump');
-      if(this.isGrounded(scene, character)){
+      if (this.isGrounded(scene, character)) {
         this.gravity.y = JUMP_FORCE;
       } else {
         console.log('NOT grounded');
@@ -94,20 +99,24 @@ export class MovementService {
       const z = Math.cos(character.rotation.y) / MOVEMENT_SPEED;
       const forward = new Vector3(x, 0, z);
       if (this.keyState.ArrowUp) {
-        character.moveWithCollisions(forward);
+        movement.x = x;
+        movement.z = z;
         moved = true;
       }
       if (this.keyState.ArrowDown) {
-        character.moveWithCollisions(forward.negate());
+        movement.x = -x;
+        movement.z = -z;
         moved = true;
       }
-    } 
+    }
 
-    // apply gravity 
+    // apply gravity
     // console.log('gravity', gravity);
-    character.moveWithCollisions(this.gravity);
+    movement.addInPlace(this.gravity);
 
-    if (moved || rotated) {
+    if (moved || rotated || falling) {
+      console.log('movement', movement);
+      character.moveWithCollisions(movement);
       this.realm.updateCharacter(mesh2Memento(character));
     }
   }
