@@ -35,8 +35,8 @@ export class ScenarioService {
     engineState.character.rotation = rotation;
     engineState.character.checkCollisions = true;
     engineState.character.showBoundingBox = true;
-    engineState.character.ellipsoid = new Vector3(1, 1.5, 1);
-    engineState.character.ellipsoidOffset = new Vector3(0, 1.5, 0);
+    engineState.character.ellipsoid = new Vector3(1, 1, 1);
+    // engineState.character.ellipsoidOffset = new Vector3(0, 1.5, 0);
     console.log('character', position, rotation);
   }
 
@@ -46,7 +46,9 @@ export class ScenarioService {
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
 
-      engineState.character = await this.character.load(engineState);
+      // engineState.character = await this.character.load(engineState);
+      engineState.character = this.mesh.getBox(engineState.scene);
+      engineState.character.isVisible = true;
 
       const character = memento2SceneElement(
         this.realm.getCurrentRealm().character

@@ -60,7 +60,7 @@ export class MeshService {
   }
 
   public getBox(scene: Scene) {
-    return this._getBox(scene, 1, 1, '#FF00FF', 'primitive-box');
+    return this._getBox(scene, 1, 1, '#427BD2', 'primitive-box');
   }
 
   addbox(scene: Scene): Mesh {

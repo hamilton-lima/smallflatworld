@@ -5,8 +5,8 @@ import { mesh2Memento } from './builders';
 
 const ROTATION_SPEED = 0.04;
 const MOVEMENT_SPEED = 3.5;
-const GRAVITY = 9.81;
-const JUMP_FORCE = 5.8;
+const GRAVITY = 3.8;
+const JUMP_FORCE = 0.7;
 
 class KeyState {
   ArrowLeft: boolean;
@@ -108,10 +108,6 @@ export class MovementService {
     }
 
     const movement = new Vector3(x, this.jumpEnergy, z);
-
-    // apply gravity
-    // movement.addInPlace(this.jumpEnergy);
-    console.log('movement', movement, this.jumpEnergy);
     character.moveWithCollisions(movement);
 
     if (moved || rotated || falling) {
