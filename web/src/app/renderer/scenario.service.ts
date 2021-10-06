@@ -6,6 +6,7 @@ import {
   MeshBuilder,
   CubeTexture,
   Texture,
+  Vector3,
 } from '@babylonjs/core';
 import { RunnerService } from '../coding/runner.service';
 import { EditorService } from '../editor/editor.service';
@@ -32,6 +33,11 @@ export class ScenarioService {
     const rotation = buildVector3(character.rotation);
     engineState.character.position = position;
     engineState.character.rotation = rotation;
+    engineState.character.checkCollisions = true;
+    engineState.character.showBoundingBox = true;
+    engineState.character.ellipsoid = new Vector3(1, 1, 1);
+    // engineState.character.ellipsoidOffset = new Vector3(0, 1.5, 0);
+    console.log('character', position, rotation);
   }
 
   buildRealm(engineState: EngineState): Promise<void> {
@@ -40,7 +46,9 @@ export class ScenarioService {
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
 
-      engineState.character = await this.character.load(engineState);
+      // engineState.character = await this.character.load(engineState);
+      engineState.character = this.mesh.getBox(engineState.scene);
+      engineState.character.isVisible = true;
 
       const character = memento2SceneElement(
         this.realm.getCurrentRealm().character
@@ -100,6 +108,7 @@ export class ScenarioService {
 
     material.diffuseColor = Color3.FromHexString('#7C6650');
     ground.material = material;
+    ground.checkCollisions = true;
   }
 
   setup(scene: Scene) {
