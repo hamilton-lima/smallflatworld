@@ -5,8 +5,8 @@ import { mesh2Memento } from './builders';
 
 const ROTATION_SPEED = 0.04;
 const MOVEMENT_SPEED = 3.5;
-const GRAVITY = 3.8;
-const JUMP_FORCE = 0.7;
+const GRAVITY = 5.8;
+const JUMP_FORCE = 0.5;
 
 class KeyState {
   ArrowLeft: boolean;
