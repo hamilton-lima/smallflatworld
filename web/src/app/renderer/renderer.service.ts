@@ -28,7 +28,7 @@ export class RendererService {
     result.scene.useRightHandedSystem = true;
     result.scene.clearColor = new Color4(0, 0, 0, 0);
     result.scene.collisionsEnabled = true;
-    this.addGravityToScene(result.scene);
+    //this.addGravityToScene(result.scene);
 
     const ambient = new HemisphericLight(
       'ambient',
@@ -53,11 +53,11 @@ export class RendererService {
     return result;
   }
 
-  addGravityToScene(scene: Scene) {
-    const assumedFramesPerSecond = 60;
-    const earthGravity = -9.81;
-    scene.gravity = new Vector3(0, earthGravity / assumedFramesPerSecond, 0);
-  }
+  // addGravityToScene(scene: Scene) {
+  //   const assumedFramesPerSecond = 60;
+  //   const earthGravity = -9.81;
+  //   scene.gravity = new Vector3(0, earthGravity / assumedFramesPerSecond, 0);
+  // }
 
   // from https://github.com/nimadez/voxel-builder/blob/353ce8b56f1c57aaa6e132a6907f62d175936809/index.html#L1517
   setLightPositionByAngle(light, angle, distance, height) {

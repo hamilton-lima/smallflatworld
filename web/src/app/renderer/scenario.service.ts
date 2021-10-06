@@ -35,6 +35,9 @@ export class ScenarioService {
     engineState.character.rotation = rotation;
     engineState.character.checkCollisions = true;
     engineState.character.showBoundingBox = true;
+    engineState.character.ellipsoid = new Vector3(1, 1.5, 1);
+    engineState.character.ellipsoidOffset = new Vector3(0, 1.5, 0);
+    console.log('character', position, rotation);
   }
 
   buildRealm(engineState: EngineState): Promise<void> {

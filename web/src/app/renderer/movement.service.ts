@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Mesh, Ray, RayHelper, Scene, Vector3 } from '@babylonjs/core';
+import { Mesh, Ray, Scene, Vector3 } from '@babylonjs/core';
 import { RealmService } from '../realm/realm.service';
 import { mesh2Memento } from './builders';
 
 const ROTATION_SPEED = 0.04;
 const MOVEMENT_SPEED = 3.5;
-const GRAVITY = -2.8;
+const GRAVITY = 9.81;
 const JUMP_FORCE = 5.8;
 
 class KeyState {
@@ -22,9 +22,7 @@ class KeyState {
 export class MovementService {
   private keyState = new KeyState();
 
-  constructor(private realm: RealmService) {
-    this.gravity = new Vector3();
-  }
+  constructor(private realm: RealmService) {}
 
   down(event: KeyboardEvent) {
     const key = this.keyState[event.code];
@@ -42,7 +40,7 @@ export class MovementService {
     }
   }
 
-  gravity: Vector3;
+  jumpEnergy = 0.0;
 
   isGrounded(scene: Scene, character: Mesh) {
     const ray = new Ray(
@@ -58,12 +56,9 @@ export class MovementService {
   }
 
   move(scene: Scene, character: Mesh) {
-    const deltaTime = scene.getEngine().getDeltaTime() / 1000.0;
-
     let rotated = false;
     let moved = false;
     let falling = false;
-    let movement = new Vector3();
 
     if (this.keyState.ArrowRight) {
       character.rotation.y -= ROTATION_SPEED;
@@ -74,49 +69,52 @@ export class MovementService {
       rotated = true;
     }
 
-    if (this.gravity.y > 0) {
-      this.gravity = this.gravity.addInPlace(
-        Vector3.Up().scale(deltaTime * GRAVITY)
-      );
-      falling = true;
-    }
-
-    if (this.gravity.y < -JUMP_FORCE) {
-      this.gravity.y = 0;
-    }
-
     if (this.keyState.Space) {
       console.log('jump');
-      if (this.isGrounded(scene, character)) {
-        this.gravity.y = JUMP_FORCE;
-      } else {
-        console.log('NOT grounded');
-      }
+      // if (this.isGrounded(scene, character)) {
+        this.jumpEnergy = JUMP_FORCE;
+      // }
     }
 
+    let x = 0;
+    let z = 0;
+
     if (this.keyState.ArrowUp || this.keyState.ArrowDown) {
-      const x = Math.sin(character.rotation.y) / MOVEMENT_SPEED;
-      const z = Math.cos(character.rotation.y) / MOVEMENT_SPEED;
-      const forward = new Vector3(x, 0, z);
+      const _x = Math.sin(character.rotation.y) / MOVEMENT_SPEED;
+      const _z = Math.cos(character.rotation.y) / MOVEMENT_SPEED;
+
       if (this.keyState.ArrowUp) {
-        movement.x = x;
-        movement.z = z;
+        x = _x;
+        z = _z;
         moved = true;
       }
       if (this.keyState.ArrowDown) {
-        movement.x = -x;
-        movement.z = -z;
+        x = -_x;
+        z = -_z;
         moved = true;
       }
     }
 
+    // gradual reduction of jump energy
+    const delta = scene.getEngine().getDeltaTime() / 1000.0;
+    const gravity = GRAVITY * delta;
+    this.jumpEnergy = this.jumpEnergy - gravity;
+
+    // keep jumpEnergy to the gravity
+    if (this.jumpEnergy < -GRAVITY) {
+      this.jumpEnergy = -GRAVITY;
+    } else {
+      falling = true;
+    }
+
+    const movement = new Vector3(x, this.jumpEnergy, z);
+
     // apply gravity
-    // console.log('gravity', gravity);
-    movement.addInPlace(this.gravity);
+    // movement.addInPlace(this.jumpEnergy);
+    console.log('movement', movement, this.jumpEnergy);
+    character.moveWithCollisions(movement);
 
     if (moved || rotated || falling) {
-      console.log('movement', movement);
-      character.moveWithCollisions(movement);
       this.realm.updateCharacter(mesh2Memento(character));
     }
   }
