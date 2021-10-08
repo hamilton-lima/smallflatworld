@@ -132,3 +132,59 @@ curl smallflatworld.com:9000/hooks/restart?token=<secret also goes here>
 # CLI Depot 
 
 docker exec -it web /bin/ash -c "cat /etc/nginx/nginx.conf"
+
+# Setting up SSL
+
+Save lest encrypt best practices configuration files
+```
+mkdir -p "./data/certbot/conf/"
+
+curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > "./data/certbot/conf/options-ssl-nginx.conf"
+curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > "./data/certbot/conf/ssl-dhparams.pem"
+```
+
+Generate temporary dummy keys to be able to start nginx
+```
+mkdir -p "./data/certbot/conf/live/smallflatworld.com"
+docker-compose run --rm --entrypoint "\
+  openssl req -x509 -nodes -newkey rsa:4096 -days 1\
+    -keyout '/etc/letsencrypt/live/smallflatworld.com/privkey.pem' \
+    -out '/etc/letsencrypt/live/smallflatworld.com/fullchain.pem' \
+    -subj '/CN=localhost'" certbot
+```
+
+Copy nginx.conf to local mounted volume 
+```
+mkdir -p "./data/nginx"
+cp nginx.conf ./data/nginx/
+```
+
+Start web
+```
+docker-compose up --force-recreate -d 
+```
+
+Delete dummy certificates
+```
+docker-compose run --rm --entrypoint "\
+  rm -Rf /etc/letsencrypt/live/smallflatworld.com && \
+  rm -Rf /etc/letsencrypt/archive/smallflatworld.com && \
+  rm -Rf /etc/letsencrypt/renewal/smallflatworld.com.conf" certbot
+```
+
+Request the correct certificates
+```
+docker-compose run --rm --entrypoint "\
+  certbot certonly --webroot -w /var/www/certbot \
+    --email <your email here> \
+    -d smallflatworld.com \
+    --rsa-key-size 4096 \
+    --agree-tos \
+    --force-renewal" certbot
+```
+
+Restart nginx
+```
+docker-compose exec web nginx -s reload
+```
+
