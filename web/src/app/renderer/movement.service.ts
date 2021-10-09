@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Mesh, Ray, Scene, Vector3 } from '@babylonjs/core';
+import { Mesh, Ray, Scene, Vector2, Vector3 } from '@babylonjs/core';
 import { RealmService } from '../realm/realm.service';
 import { mesh2Memento } from './builders';
 
@@ -8,12 +8,21 @@ const MOVEMENT_SPEED = 3.5;
 const GRAVITY = 5.8;
 const JUMP_FORCE = 0.5;
 
+class RotationPair {
+  x: number;
+  z: number;
+}
+
 class KeyState {
   ArrowLeft: boolean;
   ArrowRight: boolean;
   ArrowUp: boolean;
   ArrowDown: boolean;
   Space: boolean;
+  KeyW: boolean;
+  KeyS: boolean;
+  KeyA: boolean;
+  KeyD: boolean;
 }
 
 @Injectable({
@@ -26,7 +35,7 @@ export class MovementService {
 
   down(event: KeyboardEvent) {
     const key = this.keyState[event.code];
-
+    console.log('key down', event.code);
     if (typeof key != undefined) {
       this.keyState[event.code] = true;
     }
@@ -55,16 +64,24 @@ export class MovementService {
     return false;
   }
 
+  calcRotation(rotation: number, speed: number): RotationPair {
+    const result = <RotationPair>{
+      x: Math.sin(rotation) / speed,
+      z: Math.cos(rotation) / speed,
+    };
+    return result;
+  }
+
   move(scene: Scene, character: Mesh) {
     let rotated = false;
     let moved = false;
     let falling = false;
 
-    if (this.keyState.ArrowRight) {
+    if (this.keyState.ArrowRight || this.keyState.KeyD) {
       character.rotation.y -= ROTATION_SPEED;
       rotated = true;
     }
-    if (this.keyState.ArrowLeft) {
+    if (this.keyState.ArrowLeft || this.keyState.KeyA) {
       character.rotation.y += ROTATION_SPEED;
       rotated = true;
     }
@@ -72,27 +89,25 @@ export class MovementService {
     if (this.keyState.Space) {
       console.log('jump');
       // if (this.isGrounded(scene, character)) {
-        this.jumpEnergy = JUMP_FORCE;
+      this.jumpEnergy = JUMP_FORCE;
       // }
     }
 
     let x = 0;
     let z = 0;
 
-    if (this.keyState.ArrowUp || this.keyState.ArrowDown) {
-      const _x = Math.sin(character.rotation.y) / MOVEMENT_SPEED;
-      const _z = Math.cos(character.rotation.y) / MOVEMENT_SPEED;
+    if (this.keyState.ArrowUp || this.keyState.KeyW) {
+      const rotation = this.calcRotation(character.rotation.y, MOVEMENT_SPEED);
+      x = rotation.x;
+      z = rotation.z;
+      moved = true;
+    }
 
-      if (this.keyState.ArrowUp) {
-        x = _x;
-        z = _z;
-        moved = true;
-      }
-      if (this.keyState.ArrowDown) {
-        x = -_x;
-        z = -_z;
-        moved = true;
-      }
+    if (this.keyState.ArrowDown || this.keyState.KeyS) {
+      const rotation = this.calcRotation(character.rotation.y, MOVEMENT_SPEED);
+      x = -rotation.x;
+      z = -rotation.z;
+      moved = true;
     }
 
     // gradual reduction of jump energy
