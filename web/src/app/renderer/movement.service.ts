@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Mesh, Ray, Scene, Vector2, Vector3 } from '@babylonjs/core';
+import { Mesh, Ray, Scene, Vector3 } from '@babylonjs/core';
 import { RealmService } from '../realm/realm.service';
 import { mesh2Memento } from './builders';
+import { KeyboardService } from './keyboard.service';
 
 const ROTATION_SPEED = 0.04;
 const MOVEMENT_SPEED = 3.5;
@@ -13,41 +14,11 @@ class RotationPair {
   z: number;
 }
 
-class KeyState {
-  ArrowLeft: boolean;
-  ArrowRight: boolean;
-  ArrowUp: boolean;
-  ArrowDown: boolean;
-  Space: boolean;
-  KeyW: boolean;
-  KeyS: boolean;
-  KeyA: boolean;
-  KeyD: boolean;
-}
-
 @Injectable({
   providedIn: 'root',
 })
 export class MovementService {
-  private keyState = new KeyState();
-
-  constructor(private realm: RealmService) {}
-
-  down(event: KeyboardEvent) {
-    const key = this.keyState[event.code];
-    console.log('key down', event.code);
-    if (typeof key != undefined) {
-      this.keyState[event.code] = true;
-    }
-  }
-
-  up(event: KeyboardEvent) {
-    const key = this.keyState[event.code];
-
-    if (typeof key != undefined) {
-      this.keyState[event.code] = false;
-    }
-  }
+  constructor(private realm: RealmService, private keyboard: KeyboardService) {}
 
   jumpEnergy = 0.0;
 
@@ -77,16 +48,16 @@ export class MovementService {
     let moved = false;
     let falling = false;
 
-    if (this.keyState.ArrowRight || this.keyState.KeyD) {
+    if (this.keyboard.keyState.ArrowRight || this.keyboard.keyState.KeyD) {
       character.rotation.y -= ROTATION_SPEED;
       rotated = true;
     }
-    if (this.keyState.ArrowLeft || this.keyState.KeyA) {
+    if (this.keyboard.keyState.ArrowLeft || this.keyboard.keyState.KeyA) {
       character.rotation.y += ROTATION_SPEED;
       rotated = true;
     }
 
-    if (this.keyState.Space) {
+    if (this.keyboard.keyState.Space) {
       console.log('jump');
       // if (this.isGrounded(scene, character)) {
       this.jumpEnergy = JUMP_FORCE;
@@ -96,14 +67,14 @@ export class MovementService {
     let x = 0;
     let z = 0;
 
-    if (this.keyState.ArrowUp || this.keyState.KeyW) {
+    if (this.keyboard.keyState.ArrowUp || this.keyboard.keyState.KeyW) {
       const rotation = this.calcRotation(character.rotation.y, MOVEMENT_SPEED);
       x = rotation.x;
       z = rotation.z;
       moved = true;
     }
 
-    if (this.keyState.ArrowDown || this.keyState.KeyS) {
+    if (this.keyboard.keyState.ArrowDown || this.keyboard.keyState.KeyS) {
       const rotation = this.calcRotation(character.rotation.y, MOVEMENT_SPEED);
       x = -rotation.x;
       z = -rotation.z;

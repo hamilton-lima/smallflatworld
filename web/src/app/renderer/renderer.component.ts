@@ -5,9 +5,9 @@ import { CameraService } from './camera.service';
 import { EditorService } from '../editor/editor.service';
 import { ScenarioService } from './scenario.service';
 import { InputService } from '../input.service';
-import { CharacterService } from '../mesh/character.service';
 import { ClientService } from '../multiplayer/client.service';
 import { SceneElement } from './renderer.model';
+import { KeyboardService } from './keyboard.service';
 
 @Component({
   selector: 'app-renderer',
@@ -24,8 +24,8 @@ export class RendererComponent implements AfterViewInit {
     private editor: EditorService,
     private scenario: ScenarioService,
     private input: InputService,
-    private character: CharacterService,
-    private client: ClientService
+    private client: ClientService,
+    private keyboard: KeyboardService
   ) {}
 
   ngAfterViewInit(): void {
@@ -70,8 +70,8 @@ export class RendererComponent implements AfterViewInit {
         this.client.onUpdate.subscribe((elements: SceneElement[]) => {
           this.service.update(engineState, elements);
         });
-        
-        this.client.onDelete.subscribe((name:string) => {
+
+        this.client.onDelete.subscribe((name: string) => {
           this.service.delete(engineState, name);
         });
       },
@@ -82,10 +82,10 @@ export class RendererComponent implements AfterViewInit {
   }
 
   keydown(event: KeyboardEvent): void {
-    this.movement.down(event);
+    this.keyboard.down(event);
   }
 
   keyup(event: KeyboardEvent): void {
-    this.movement.up(event);
+    this.keyboard.up(event);
   }
 }
