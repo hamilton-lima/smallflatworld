@@ -1,7 +1,10 @@
-<mat-button-toggle-group value="walk">
-  <mat-button-toggle (click)="walk()" value="walk">WALK</mat-button-toggle>
-  <mat-button-toggle (click)="add()" value="add">ADD</mat-button-toggle>
-  <mat-button-toggle (click)="edit()" value="edit">EDIT</mat-button-toggle>
+<mat-button-toggle-group #editMode value="walk" (change)="modeChanged($event.value)">
+  <mat-button-toggle #walk value="walk">WALK</mat-button-toggle>
+  <mat-button-toggle #add value="add">ADD</mat-button-toggle>
+  <mat-button-toggle #edit value="edit">EDIT</mat-button-toggle>
+  <!-- <mat-button-toggle (click)="walk()" #walkButton value="walk">WALK</mat-button-toggle>
+  <mat-button-toggle (click)="add()" #addButton value="add">ADD</mat-button-toggle>
+  <mat-button-toggle (click)="edit()" #editButton value="edit">EDIT</mat-button-toggle> -->
 </mat-button-toggle-group>
 <div *ngIf="mode == 'edit'">
   <div>
@@ -18,12 +21,8 @@
       <mat-button-toggle (click)="moveX()" value="moveX"
         >LEFT</mat-button-toggle
       >
-      <mat-button-toggle (click)="moveY()" value="moveY"
-        >FAR</mat-button-toggle
-      >
-      <mat-button-toggle (click)="moveZ()" value="moveZ"
-        >UP</mat-button-toggle
-      >
+      <mat-button-toggle (click)="moveY()" value="moveY">FAR</mat-button-toggle>
+      <mat-button-toggle (click)="moveZ()" value="moveZ">UP</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
   <div>

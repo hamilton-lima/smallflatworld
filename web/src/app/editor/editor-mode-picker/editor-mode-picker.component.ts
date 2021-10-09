@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  MatButtonToggle,
+  MatButtonToggleGroup,
+} from '@angular/material/button-toggle';
 import { InputService } from 'src/app/input.service';
+import { KeyboardService, KeyState } from 'src/app/renderer/keyboard.service';
 import {
   EditorAction,
   EditorMode,
@@ -12,17 +17,53 @@ import { EditorService } from '../editor.service';
   templateUrl: './editor-mode-picker.component.html',
   styleUrls: ['./editor-mode-picker.component.scss'],
 })
-export class EditorModePickerComponent implements OnInit {
+export class EditorModePickerComponent implements AfterViewInit {
   mode: EditorMode;
+  @ViewChild('editMode') editMode: MatButtonToggleGroup;
+  @ViewChild('walk') walkButton: MatButtonToggle;
+  @ViewChild('add') addButton: MatButtonToggle;
+  @ViewChild('edit') editButton: MatButtonToggle;
+
+  map = {};
+
+  values = ['walk', 'add', 'edit'];
+  position = 0;
   constructor(
     private input: InputService,
     private service: EditorModeService,
-    private editor: EditorService
+    private editor: EditorService,
+    private keyboard: KeyboardService
   ) {
     service.mode.subscribe((mode) => (this.mode = mode));
+    this.keyboard.onKeyPress.subscribe((keys: KeyState) => {
+      console.log('pressed', keys);
+      if (keys.KeyM) {
+        this.position++;
+        if (this.position > this.values.length - 1) {
+          this.position = 0;
+        }
+        const mode = this.values[this.position];
+        console.log('change edit mode to', mode);
+        this.modeChanged(mode);
+      }
+    });
   }
 
-  ngOnInit(): void {}
+  modeChanged(event) {
+    console.log('mode changed', event);
+    const handler = this.map[event];
+
+    handler.button.checked = true;
+    handler.event.apply(this);
+  }
+
+  ngAfterViewInit(): void {
+    this.map = {
+      walk: { button: this.walkButton, event: this.walk },
+      add: { button: this.addButton, event: this.add },
+      edit: { button: this.editButton, event: this.edit },
+    };
+  }
 
   walk() {
     this.input.focus();
@@ -35,6 +76,7 @@ export class EditorModePickerComponent implements OnInit {
   }
 
   edit() {
+    console.log('edit');
     this.input.focus();
     this.service.mode.next(EditorMode.EDIT);
   }
@@ -78,7 +120,7 @@ export class EditorModePickerComponent implements OnInit {
     this.input.focus();
     this.editor.deleteSelected();
   }
-  
+
   code() {
     this.input.focus();
     this.editor.editCode();

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export class KeyState {
   ArrowLeft: boolean;
@@ -10,6 +11,7 @@ export class KeyState {
   KeyS: boolean;
   KeyA: boolean;
   KeyD: boolean;
+  KeyM: boolean;
 }
 
 @Injectable({
@@ -17,6 +19,7 @@ export class KeyState {
 })
 export class KeyboardService {
   public readonly keyState = new KeyState();
+  public onKeyPress: Subject<KeyState> = new Subject();
   constructor() {}
 
   down(event: KeyboardEvent) {
@@ -24,7 +27,12 @@ export class KeyboardService {
 
     if (typeof key != undefined) {
       this.keyState[event.code] = true;
+      this.keyPressed();
     }
+  }
+
+  keyPressed() {
+    this.onKeyPress.next(this.keyState);
   }
 
   up(event: KeyboardEvent) {
