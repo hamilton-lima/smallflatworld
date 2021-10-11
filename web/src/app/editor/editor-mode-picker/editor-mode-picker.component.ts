@@ -25,7 +25,15 @@ export class EditorModePickerComponent implements AfterViewInit {
   @ViewChild('add') addButton: MatButtonToggle;
   @ViewChild('edit') editButton: MatButtonToggle;
 
+  @ViewChild('code') codeButton: MatButtonToggle;
+  @ViewChild('rotate') rotateButton: MatButtonToggle;
+  @ViewChild('scale') scaleButton: MatButtonToggle;
+  @ViewChild('moveX') moveXButton: MatButtonToggle;
+  @ViewChild('moveY') moveYButton: MatButtonToggle;
+  @ViewChild('moveZ') moveZButton: MatButtonToggle;
+
   editModeController = new ToggleGroupController();
+  modifyController = new ToggleGroupController();
 
   constructor(
     private input: InputService,
@@ -39,6 +47,42 @@ export class EditorModePickerComponent implements AfterViewInit {
       if (keys.KeyM) {
         this.editModeController.next(this);
       }
+
+      if (this.mode == EditorMode.EDIT) {
+        if (keys.KeyO) {
+          this.modifyController.select('code', this);
+        }
+
+        if (keys.KeyR) {
+          this.modifyController.select('rotate', this);
+        }
+
+        if (keys.KeyC) {
+          this.modifyController.select('scale', this);
+        }
+
+        if (keys.KeyL) {
+          this.modifyController.select('moveX', this);
+        }
+
+        if (keys.KeyF) {
+          this.modifyController.select('moveY', this);
+        }
+
+        if (keys.KeyU) {
+          this.modifyController.select('moveZ', this);
+        }
+
+        if (keys.NumpadAdd) {
+          this.editPlus();
+        }
+        if (keys.NumpadSubtract) {
+          this.editMinus();
+        }
+        if (keys.Delete) {
+          this.delete();
+        }
+      }
     });
   }
 
@@ -47,6 +91,13 @@ export class EditorModePickerComponent implements AfterViewInit {
     this.editModeController.addChildren('walk', this.walkButton, this.walk);
     this.editModeController.addChildren('add', this.addButton, this.add);
     this.editModeController.addChildren('edit', this.editButton, this.edit);
+
+    this.modifyController.addChildren('code', this.codeButton, this.code);
+    this.modifyController.addChildren('rotate', this.rotateButton, this.rotate);
+    this.modifyController.addChildren('scale', this.scaleButton, this.scale);
+    this.modifyController.addChildren('moveX', this.moveXButton, this.moveX);
+    this.modifyController.addChildren('moveY', this.moveYButton, this.moveY);
+    this.modifyController.addChildren('moveZ', this.moveZButton, this.moveZ);
   }
 
   modeChanged(mode: string) {
@@ -113,9 +164,5 @@ export class EditorModePickerComponent implements AfterViewInit {
   code() {
     this.input.focus();
     this.editor.editCode();
-  }
-
-  getBadge(action: string){
-    return "M";
   }
 }

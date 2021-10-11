@@ -12,6 +12,15 @@ export class KeyState {
   KeyA: boolean;
   KeyD: boolean;
   KeyM: boolean;
+  KeyO: boolean;
+  KeyR: boolean;
+  KeyC: boolean;
+  KeyL: boolean;
+  KeyF: boolean;
+  KeyU: boolean;
+  NumpadAdd: boolean;
+  NumpadSubtract: boolean;
+  Delete: boolean;
 }
 
 @Injectable({

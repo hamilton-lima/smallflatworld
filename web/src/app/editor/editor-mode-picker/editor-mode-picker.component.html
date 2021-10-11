@@ -3,44 +3,52 @@
   value="walk"
   (change)="modeChanged($event.value)"
 >
-  <mat-button-toggle [matBadge]="getBadge('edit')" #edit value="edit"
-    >EDIT</mat-button-toggle
-  >
-  <mat-button-toggle [matBadge]="getBadge('walk')" #walk value="walk"
-    >WALK</mat-button-toggle
-  >
-  <mat-button-toggle [matBadge]="getBadge('add')" #add value="add"
-    >ADD</mat-button-toggle
-  >
+  <mat-button-toggle matBadge="M" #edit value="edit">EDIT</mat-button-toggle>
+  <mat-button-toggle matBadge="M" #walk value="walk">WALK</mat-button-toggle>
+  <mat-button-toggle matBadge="M" #add value="add">ADD</mat-button-toggle>
 </mat-button-toggle-group>
-<div class="modify-container" *ngIf="mode == 'edit'">
+<div class="modify-container" [hidden]="mode != 'edit'">
   <div>
     <mat-button-toggle-group value="rotate">
-      <mat-button-toggle (click)="code()" value="code"
-        >C(O)DE</mat-button-toggle
+      <mat-button-toggle matBadge="O" #code (click)="code()" value="code"
+        >CODE</mat-button-toggle
       >
-      <mat-button-toggle (click)="rotate()" value="rotate"
-        >(R)OTATE</mat-button-toggle
+      <mat-button-toggle matBadge="R" #rotate (click)="rotate()" value="rotate"
+        >ROTATE</mat-button-toggle
       >
-      <mat-button-toggle (click)="scale()" value="scale"
-        >S(C)ALE</mat-button-toggle
+      <mat-button-toggle matBadge="C" #scale (click)="scale()" value="scale"
+        >SCALE</mat-button-toggle
       >
-      <mat-button-toggle (click)="moveX()" value="moveX"
-        >(L)EFT</mat-button-toggle
+      <mat-button-toggle matBadge="L" #moveX (click)="moveX()" value="moveX"
+        >LEFT</mat-button-toggle
       >
-      <mat-button-toggle (click)="moveY()" value="moveY"
-        >(F)AR</mat-button-toggle
+      <mat-button-toggle matBadge="F" #moveY (click)="moveY()" value="moveY"
+        >FAR</mat-button-toggle
       >
-      <mat-button-toggle (click)="moveZ()" value="moveZ"
-        >(U)P</mat-button-toggle
+      <mat-button-toggle matBadge="U" #moveZ (click)="moveZ()" value="moveZ"
+        >UP</mat-button-toggle
       >
     </mat-button-toggle-group>
   </div>
   <div class="up-down-container">
-    <button class="up-down-button" mat-raised-button (click)="editPlus()">+</button>
-    <button class="up-down-button" mat-raised-button (click)="editMinus()">-</button>
+    <button
+      matBadge="+"
+      class="up-down-button"
+      mat-raised-button
+      (click)="editPlus()"
+    >
+      +
+    </button>
+    <button
+      matBadge="-"
+      class="up-down-button"
+      mat-raised-button
+      (click)="editMinus()"
+    >
+      -
+    </button>
   </div>
   <div class="delete-container">
-    <button mat-raised-button (click)="delete()">(X) DELETE</button>
+    <button matBadge="X" mat-raised-button (click)="delete()">DELETE</button>
   </div>
 </div>
