@@ -11,6 +11,7 @@ import {
   EditorModeService,
 } from '../editor-mode.service';
 import { EditorService } from '../editor.service';
+import { ToggleGroupController } from './toogle-group-controller';
 
 @Component({
   selector: 'app-editor-mode-picker',
@@ -24,10 +25,8 @@ export class EditorModePickerComponent implements AfterViewInit {
   @ViewChild('add') addButton: MatButtonToggle;
   @ViewChild('edit') editButton: MatButtonToggle;
 
-  map = {};
+  editModeController = new ToggleGroupController();
 
-  values = ['walk', 'add', 'edit'];
-  position = 0;
   constructor(
     private input: InputService,
     private service: EditorModeService,
@@ -37,32 +36,18 @@ export class EditorModePickerComponent implements AfterViewInit {
     service.mode.subscribe((mode) => (this.mode = mode));
     this.keyboard.onKeyPress.subscribe((keys: KeyState) => {
       console.log('pressed', keys);
-      if (keys.KeyM) {
-        this.position++;
-        if (this.position > this.values.length - 1) {
-          this.position = 0;
-        }
-        const mode = this.values[this.position];
-        console.log('change edit mode to', mode);
-        this.modeChanged(mode);
-      }
+      this.editModeController.next(this);
     });
   }
 
-  modeChanged(event) {
-    console.log('mode changed', event);
-    const handler = this.map[event];
-
-    handler.button.checked = true;
-    handler.event.apply(this);
+  ngAfterViewInit(): void {
+    this.editModeController.addChildren('walk', this.walkButton, this.walk);
+    this.editModeController.addChildren('add', this.addButton, this.add);
+    this.editModeController.addChildren('edit', this.editButton, this.edit);
   }
 
-  ngAfterViewInit(): void {
-    this.map = {
-      walk: { button: this.walkButton, event: this.walk },
-      add: { button: this.addButton, event: this.add },
-      edit: { button: this.editButton, event: this.edit },
-    };
+  modeChanged(mode: string) {
+    this.editModeController.select(mode, this);
   }
 
   walk() {
