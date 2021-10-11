@@ -33,6 +33,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatBadgeModule } from '@angular/material/badge';
 
 // https://gist.github.com/pimatco/d5b1891feb90b60ca4681011b6513873
 @NgModule({
@@ -70,6 +71,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatBadgeModule,
   ],
   declarations: [],
   exports: [
@@ -103,6 +105,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatBadgeModule,
   ],
 })
 export class MaterialAllComponentsModule {}

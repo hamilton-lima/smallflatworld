@@ -114,4 +114,8 @@ export class EditorModePickerComponent implements AfterViewInit {
     this.input.focus();
     this.editor.editCode();
   }
+
+  getBadge(action: string){
+    return "M";
+  }
 }
