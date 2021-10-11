@@ -73,13 +73,19 @@ export class EditorModePickerComponent implements AfterViewInit {
           this.modifyController.select('moveZ', this);
         }
 
-        if (keys.NumpadAdd) {
+        if (
+          keys.NumpadAdd ||
+          (keys.ShiftLeft && keys.Equal) ||
+          (keys.ShiftRight && keys.Equal)
+        ) {
           this.editPlus();
         }
-        if (keys.NumpadSubtract) {
+
+        if (keys.NumpadSubtract || keys.Minus) {
           this.editMinus();
         }
-        if (keys.Delete) {
+
+        if (keys.Delete || keys.KeyX) {
           this.delete();
         }
       }
