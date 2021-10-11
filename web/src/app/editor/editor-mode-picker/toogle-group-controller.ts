@@ -24,6 +24,7 @@ export class ToggleGroupController {
   }
 
   addChildren(key: string, button: MatButtonToggle, event: Function) {
+    this.state.children[key] = new ToggleGroupChild();
     this.state.children[key].child = button;
     this.state.children[key].event = event;
 

@@ -36,17 +36,21 @@ export class EditorModePickerComponent implements AfterViewInit {
     service.mode.subscribe((mode) => (this.mode = mode));
     this.keyboard.onKeyPress.subscribe((keys: KeyState) => {
       console.log('pressed', keys);
-      this.editModeController.next(this);
+      if (keys.KeyM) {
+        this.editModeController.next(this);
+      }
     });
   }
 
   ngAfterViewInit(): void {
+    console.log('Add children');
     this.editModeController.addChildren('walk', this.walkButton, this.walk);
     this.editModeController.addChildren('add', this.addButton, this.add);
     this.editModeController.addChildren('edit', this.editButton, this.edit);
   }
 
   modeChanged(mode: string) {
+    console.log('modeChanged', mode);
     this.editModeController.select(mode, this);
   }
 
