@@ -29,6 +29,7 @@ import {
 import { InputService } from '../input.service';
 import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
+import { NotifyService } from './../notify.service';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
@@ -225,7 +226,8 @@ export class EditorService {
     private editorMode: EditorModeService,
     private input: InputService,
     private coding: CodingService,
-    private runner: RunnerService
+    private runner: RunnerService,
+    private notify: NotifyService
   ) {}
 
   getPointerPosition(scene: Scene): Vector3 {
@@ -391,7 +393,10 @@ export class EditorService {
 
   async addToPosition(scene: Scene, pointerInfo: PointerInfo) {
     if (!this.current) {
-      console.warn('add to position without selection');
+      this.notify.warn(
+        "Err... I don't know what to add to the scene... select from the " +
+          'Library on the left.'
+      );
       return;
     }
 
