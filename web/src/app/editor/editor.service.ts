@@ -428,7 +428,7 @@ export class EditorService {
       componentID: this.current.id,
       position: position,
       rotation: Vector3.Zero(),
-      scaling: Vector3.One(),
+      scaling: new Vector3(this.current.scale,this.current.scale,this.current.scale),
       code: new CodeDefinition(),
     };
 
