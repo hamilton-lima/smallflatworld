@@ -91,10 +91,6 @@ export class MeshLoaderService {
     // set parent bounding box
     const boundingBoxInfo = new BoundingInfo(min, max);
     parent.setBoundingInfo(boundingBoxInfo);
-    // sets the pivot point at the center bottom of the mesh
-    const bottomCenter = boundingBoxInfo.boundingBox.center;
-    bottomCenter.y = boundingBoxInfo.boundingBox.minimum.y;
-    parent.setPivotPoint(bottomCenter);
     this.createClickableDummy(scene, parent, boundingBoxInfo);
     return parent;
   }
