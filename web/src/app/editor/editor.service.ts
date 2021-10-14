@@ -366,13 +366,17 @@ export class EditorService {
     }
   }
 
+  showBoundingBox(show: boolean) {
+    this.selected.showBoundingBox = show;
+  }
+
   click(scene: Scene, pointerInfo: PointerInfo) {
     if (this.selected) {
-      this.selected.showBoundingBox = false;
+      this.showBoundingBox(false);
     }
 
     this.selected = <Mesh>pointerInfo.pickInfo.pickedMesh;
-    this.selected.showBoundingBox = true;
+    this.showBoundingBox(true);
 
     let parent: Mesh = <Mesh>this.selected.parent;
     if (parent) {
@@ -384,11 +388,11 @@ export class EditorService {
 
   select(scene: Scene, pointerInfo: PointerInfo) {
     if (this.selected) {
-      this.selected.showBoundingBox = false;
+      this.showBoundingBox(false);
     }
 
     this.selected = <Mesh>pointerInfo.pickInfo.pickedMesh;
-    this.selected.showBoundingBox = true;
+    this.showBoundingBox(true);
   }
 
   async addToPosition(scene: Scene, pointerInfo: PointerInfo) {
@@ -428,7 +432,11 @@ export class EditorService {
       componentID: this.current.id,
       position: position,
       rotation: Vector3.Zero(),
-      scaling: Vector3.One(),
+      scaling: new Vector3(
+        this.current.scale,
+        this.current.scale,
+        this.current.scale
+      ),
       code: new CodeDefinition(),
     };
 

@@ -25,10 +25,12 @@ const getVarName = function (input) {
   return result;
 };
 
+let scale = 1.0;
+
 libraries.forEach((libraryName) => {
   const components = [];
-
   const folder = testFolder + libraryName + iconFolder;
+  scale = scale + 0.12;
   // read icons
   const icons = fs.readdirSync(folder);
   icons.forEach((icon) => {
@@ -40,30 +42,32 @@ libraries.forEach((libraryName) => {
         name: name,
         icon: iconPath + libraryName + iconFolder + name + iconExtension,
         model3D: modelPath + libraryName + modelFolder + name + modelExtension,
+        scale: scale
       }
       components.push(component);
     }
   });
 
   // try with another suffix
-  if( components.length == 0){
+  if (components.length == 0) {
     const folder = testFolder + libraryName + iconFolder;
     // read icons
     const icons = fs.readdirSync(folder);
     icons.forEach((icon) => {
       if (icon.endsWith(iconExtension2)) {
         const name = icon.replace(iconExtension2, "");
-  
+
         const component = {
           id: libraryName + "://" + name,
           name: name,
           icon: iconPath + libraryName + iconFolder + name + iconExtension2,
           model3D: modelPath + libraryName + modelFolder + name + modelExtension,
+          scale: scale
         }
         components.push(component);
       }
     });
-  
+
   }
 
   variableName = getVarName(libraryName);

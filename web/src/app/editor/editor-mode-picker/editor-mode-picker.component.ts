@@ -1,8 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import {
-  MatButtonToggle,
-  MatButtonToggleGroup,
-} from '@angular/material/button-toggle';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatButtonToggle } from '@angular/material/button-toggle';
 import { InputService } from 'src/app/input.service';
 import { KeyboardService, KeyState } from 'src/app/renderer/keyboard.service';
 import {
@@ -20,7 +17,6 @@ import { ToggleGroupController } from './toogle-group-controller';
 })
 export class EditorModePickerComponent implements AfterViewInit {
   mode: EditorMode;
-  @ViewChild('editMode') editMode: MatButtonToggleGroup;
   @ViewChild('walk') walkButton: MatButtonToggle;
   @ViewChild('add') addButton: MatButtonToggle;
   @ViewChild('edit') editButton: MatButtonToggle;
@@ -41,7 +37,13 @@ export class EditorModePickerComponent implements AfterViewInit {
     private editor: EditorService,
     private keyboard: KeyboardService
   ) {
-    service.mode.subscribe((mode) => (this.mode = mode));
+    service.mode.subscribe((mode) => {
+      this.input.focus();
+      this.mode = mode;
+      this.editModeController.select(mode, this);
+      console.log('subscribe to service.mode', this, mode);
+    });
+
     this.keyboard.onKeyPress.subscribe((keys: KeyState) => {
       console.log('pressed', keys);
       if (keys.KeyM) {
@@ -50,27 +52,27 @@ export class EditorModePickerComponent implements AfterViewInit {
 
       if (this.mode == EditorMode.EDIT) {
         if (keys.KeyO) {
-          this.modifyController.select('code', this);
+          this.modifyController.selectAndClick('code', this);
         }
 
         if (keys.KeyR) {
-          this.modifyController.select('rotate', this);
+          this.modifyController.selectAndClick('rotate', this);
         }
 
         if (keys.KeyC) {
-          this.modifyController.select('scale', this);
+          this.modifyController.selectAndClick('scale', this);
         }
 
         if (keys.KeyL) {
-          this.modifyController.select('moveX', this);
+          this.modifyController.selectAndClick('moveX', this);
         }
 
         if (keys.KeyF) {
-          this.modifyController.select('moveY', this);
+          this.modifyController.selectAndClick('moveY', this);
         }
 
         if (keys.KeyU) {
-          this.modifyController.select('moveZ', this);
+          this.modifyController.selectAndClick('moveZ', this);
         }
 
         if (
@@ -93,7 +95,6 @@ export class EditorModePickerComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('Add children');
     this.editModeController.addChildren('walk', this.walkButton, this.walk);
     this.editModeController.addChildren('add', this.addButton, this.add);
     this.editModeController.addChildren('edit', this.editButton, this.edit);
@@ -108,22 +109,18 @@ export class EditorModePickerComponent implements AfterViewInit {
 
   modeChanged(mode: string) {
     console.log('modeChanged', mode);
-    this.editModeController.select(mode, this);
+    this.editModeController.selectAndClick(mode, this);
   }
 
   walk() {
-    this.input.focus();
     this.service.mode.next(EditorMode.WALK);
   }
 
   add() {
-    this.input.focus();
     this.service.mode.next(EditorMode.ADD);
   }
 
   edit() {
-    console.log('edit');
-    this.input.focus();
     this.service.mode.next(EditorMode.EDIT);
   }
 
@@ -170,5 +167,9 @@ export class EditorModePickerComponent implements AfterViewInit {
   code() {
     this.input.focus();
     this.editor.editCode();
+  }
+
+  isEdit() {
+    return this.mode != EditorMode.EDIT;
   }
 }
