@@ -21,7 +21,7 @@ export class EditorLibraryService {
   }
 
   mergeLibraries() {
-    this.libraries = kenneyLibrary.concat(kaykitLibrary);
+    this.libraries = kenneyLibrary; //.concat(kaykitLibrary);
   }
 
   setComponentNames() {

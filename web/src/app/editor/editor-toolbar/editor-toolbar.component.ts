@@ -12,7 +12,7 @@ import { EditorService } from '../editor.service';
 export class EditorToolbarComponent implements OnInit {
   libraries: Library[];
   library: Library;
-  readonly DEFAULT_LIBRARY = 'kenney/platformerkit-2';
+  readonly DEFAULT_LIBRARY = 'kenney/city-kit-urban-1';
 
   constructor(
     private service: EditorLibraryService,
