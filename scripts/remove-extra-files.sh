@@ -13,3 +13,4 @@
   find /home/ubuntu/source/smallflatworld/web/src/assets/library/kenney -name "*_S.png" -exec rm -rf {} \;
   find /home/ubuntu/source/smallflatworld/web/src/assets/library/kenney -name "*_W.png" -exec rm -rf {} \;
   
+find /home/ubuntu/source/smallflatworld/web/src/assets/library/kenney/hexagonkit-1/Isometric -name "*_E.png" -exec rm -rf {} \;
