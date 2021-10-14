@@ -3217,28 +3217,28 @@ const holidaykit2Components = [
     name: 'bench',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/bench_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/bench.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinCorner',
     name: 'cabinCorner',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinCorner_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinCorner.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinDoor',
     name: 'cabinDoor',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinDoor_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinDoor.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinFloor',
     name: 'cabinFloor',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinFloor_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinFloor.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinRoofCenter',
@@ -3246,7 +3246,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinRoofCenter_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/cabinRoofCenter.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinRoofChimney',
@@ -3254,7 +3254,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinRoofChimney_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/cabinRoofChimney.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinRoofCorner',
@@ -3262,21 +3262,21 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinRoofCorner_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/cabinRoofCorner.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinRoofFlat',
     name: 'cabinRoofFlat',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinRoofFlat_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinRoofFlat.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinRoof',
     name: 'cabinRoof',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinRoof_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinRoof.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinSideCenter',
@@ -3284,28 +3284,28 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinSideCenter_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/cabinSideCenter.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinSide',
     name: 'cabinSide',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinSide_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinSide.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinWallHalf',
     name: 'cabinWallHalf',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinWallHalf_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinWallHalf.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinWall',
     name: 'cabinWall',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinWall_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinWall.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinWindowHalf',
@@ -3313,7 +3313,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinWindowHalf_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/cabinWindowHalf.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinWindowLarge',
@@ -3321,35 +3321,35 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinWindowLarge_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/cabinWindowLarge.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://cabinWindow',
     name: 'cabinWindow',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/cabinWindow_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/cabinWindow.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://candyCaneMint',
     name: 'candyCaneMint',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/candyCaneMint_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/candyCaneMint.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://candyCane',
     name: 'candyCane',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/candyCane_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/candyCane.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://festivusPole',
     name: 'festivusPole',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/festivusPole_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/festivusPole.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://hanukkahDreidel',
@@ -3357,7 +3357,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/hanukkahDreidel_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/hanukkahDreidel.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://hanukkahMenorah',
@@ -3365,7 +3365,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/hanukkahMenorah_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/hanukkahMenorah.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://kwanzaaKikombe',
@@ -3373,7 +3373,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/kwanzaaKikombe_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/kwanzaaKikombe.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://kwanzaaKinaraAlternative',
@@ -3381,14 +3381,14 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/kwanzaaKinaraAlternative_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/kwanzaaKinaraAlternative.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://kwanzaaKinara',
     name: 'kwanzaaKinara',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/kwanzaaKinara_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/kwanzaaKinara.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://lightpostHanging',
@@ -3396,35 +3396,35 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/lightpostHanging_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/lightpostHanging.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://lightpost',
     name: 'lightpost',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/lightpost_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/lightpost.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://lightsGreen',
     name: 'lightsGreen',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/lightsGreen_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/lightsGreen.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://lightsMulti',
     name: 'lightsMulti',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/lightsMulti_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/lightsMulti.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://lightsRed',
     name: 'lightsRed',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/lightsRed_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/lightsRed.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://presentGreenLow',
@@ -3432,7 +3432,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/presentGreenLow_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/presentGreenLow.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://presentGreenRound',
@@ -3440,35 +3440,35 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/presentGreenRound_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/presentGreenRound.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://presentGreen',
     name: 'presentGreen',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/presentGreen_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/presentGreen.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://presentLow',
     name: 'presentLow',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/presentLow_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/presentLow.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://presentRound',
     name: 'presentRound',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/presentRound_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/presentRound.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://present',
     name: 'present',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/present_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/present.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://rockFormationLarge',
@@ -3476,7 +3476,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/rockFormationLarge_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/rockFormationLarge.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://rockFormationMedium',
@@ -3484,7 +3484,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/rockFormationMedium_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/rockFormationMedium.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://rockFormationSmall',
@@ -3492,42 +3492,42 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/rockFormationSmall_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/rockFormationSmall.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://sled',
     name: 'sled',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/sled_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/sled.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://snowFort',
     name: 'snowFort',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/snowFort_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/snowFort.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://snowPatch',
     name: 'snowPatch',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/snowPatch_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/snowPatch.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://snowmanFancy',
     name: 'snowmanFancy',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/snowmanFancy_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/snowmanFancy.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://snowman',
     name: 'snowman',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/snowman_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/snowman.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trackCornerLarge',
@@ -3535,7 +3535,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trackCornerLarge_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/trackCornerLarge.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trackCornerSmall',
@@ -3543,7 +3543,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trackCornerSmall_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/trackCornerSmall.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trackSimpleCornerLarge',
@@ -3551,7 +3551,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trackSimpleCornerLarge_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/trackSimpleCornerLarge.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trackSimpleCornerSmall',
@@ -3559,7 +3559,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trackSimpleCornerSmall_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/trackSimpleCornerSmall.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trackSimpleStraight',
@@ -3567,14 +3567,14 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trackSimpleStraight_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/trackSimpleStraight.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trackStraight',
     name: 'trackStraight',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trackStraight_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/trackStraight.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trainLocomotive',
@@ -3582,14 +3582,14 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trainLocomotive_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/trainLocomotive.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trainTender',
     name: 'trainTender',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trainTender_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/trainTender.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trainWagonFlat',
@@ -3597,7 +3597,7 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trainWagonFlat_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/trainWagonFlat.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trainWagonShort',
@@ -3605,21 +3605,21 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trainWagonShort_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/trainWagonShort.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://trainWagon',
     name: 'trainWagon',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/trainWagon_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/trainWagon.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://treeDecorated',
     name: 'treeDecorated',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/treeDecorated_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/treeDecorated.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://treePineSnowRound',
@@ -3627,14 +3627,14 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/treePineSnowRound_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/treePineSnowRound.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://treePineSnow',
     name: 'treePineSnow',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/treePineSnow_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/treePineSnow.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://treePineSnowed',
@@ -3642,21 +3642,21 @@ const holidaykit2Components = [
     icon: 'assets/library/kenney/holidaykit-2/Isometric/treePineSnowed_NE.png',
     model3D:
       'library/kenney/holidaykit-2/Models/GLTF format/treePineSnowed.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://treePine',
     name: 'treePine',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/treePine_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/treePine.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
   {
     id: 'holidaykit-2://wreath',
     name: 'wreath',
     icon: 'assets/library/kenney/holidaykit-2/Isometric/wreath_NE.png',
     model3D: 'library/kenney/holidaykit-2/Models/GLTF format/wreath.glb',
-    scale: 1.9600000000000009,
+    scale: 5.105,
   },
 ];
 const minigolfkit20Components = [
