@@ -454,14 +454,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/bridge_pillarWide_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/bridge_pillarWide.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://bridge_pillar',
     name: 'bridge_pillar',
     icon: 'assets/library/kenney/citykitroads/Isometric/bridge_pillar_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/bridge_pillar.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://construction_barrier',
@@ -469,7 +469,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/construction_barrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/construction_barrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://construction_light',
@@ -477,7 +477,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/construction_light_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/construction_light.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://construction_pylon',
@@ -485,7 +485,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/construction_pylon_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/construction_pylon.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://light_curvedCross',
@@ -493,7 +493,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/light_curvedCross_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/light_curvedCross.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://light_curvedDouble',
@@ -501,14 +501,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/light_curvedDouble_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/light_curvedDouble.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://light_curved',
     name: 'light_curved',
     icon: 'assets/library/kenney/citykitroads/Isometric/light_curved_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/light_curved.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://light_squareCross',
@@ -516,7 +516,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/light_squareCross_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/light_squareCross.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://light_squareDouble',
@@ -524,14 +524,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/light_squareDouble_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/light_squareDouble.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://light_square',
     name: 'light_square',
     icon: 'assets/library/kenney/citykitroads/Isometric/light_square_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/light_square.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_bendBarrier',
@@ -539,7 +539,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_bendBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_bendBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_bendSidewalk',
@@ -547,7 +547,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_bendSidewalk_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_bendSidewalk.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_bendSquareBarrier',
@@ -555,7 +555,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_bendSquareBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_bendSquareBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_bendSquare',
@@ -563,28 +563,28 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_bendSquare_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_bendSquare.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_bend',
     name: 'road_bend',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_bend_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_bend.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_bridge',
     name: 'road_bridge',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_bridge_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_bridge.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_crossing',
     name: 'road_crossing',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_crossing_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_crossing.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_crossroadBarrier',
@@ -592,7 +592,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_crossroadBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_crossroadBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_crossroadLine',
@@ -600,7 +600,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_crossroadLine_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_crossroadLine.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_crossroadPath',
@@ -608,7 +608,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_crossroadPath_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_crossroadPath.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_crossroad',
@@ -616,7 +616,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_crossroad_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_crossroad.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_curveBarrier',
@@ -624,7 +624,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_curveBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_curveBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_curveIntersectionBarrier',
@@ -632,7 +632,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_curveIntersectionBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_curveIntersectionBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_curveIntersection',
@@ -640,7 +640,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_curveIntersection_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_curveIntersection.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_curvePavement',
@@ -648,14 +648,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_curvePavement_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_curvePavement.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_curve',
     name: 'road_curve',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_curve_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_curve.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_drivewayDoubleBarrier',
@@ -663,7 +663,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_drivewayDoubleBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_drivewayDoubleBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_drivewayDouble',
@@ -671,7 +671,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_drivewayDouble_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_drivewayDouble.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_drivewaySingleBarrier',
@@ -679,7 +679,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_drivewaySingleBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_drivewaySingleBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_drivewaySingle',
@@ -687,7 +687,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_drivewaySingle_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_drivewaySingle.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_endBarrier',
@@ -695,14 +695,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_endBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_endBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_end',
     name: 'road_end',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_end_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_end.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_intersectionBarrier',
@@ -710,7 +710,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_intersectionBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_intersectionBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_intersectionLine',
@@ -718,7 +718,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_intersectionLine_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_intersectionLine.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_intersectionPath',
@@ -726,7 +726,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_intersectionPath_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_intersectionPath.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_intersection',
@@ -734,7 +734,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_intersection_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_intersection.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_roundaboutBarrier',
@@ -742,7 +742,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_roundaboutBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_roundaboutBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_roundabout',
@@ -750,7 +750,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_roundabout_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_roundabout.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_sideBarrier',
@@ -758,7 +758,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_sideBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_sideBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_sideEntryBarrier',
@@ -766,7 +766,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_sideEntryBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_sideEntryBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_sideEntry',
@@ -774,7 +774,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_sideEntry_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_sideEntry.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_sideExitBarrier',
@@ -782,21 +782,21 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_sideExitBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_sideExitBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_sideExit',
     name: 'road_sideExit',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_sideExit_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_sideExit.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_side',
     name: 'road_side',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_side_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_side.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slantBarrier',
@@ -804,7 +804,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slantBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slantCurveBarrier',
@@ -812,7 +812,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slantCurveBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantCurveBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slantCurve',
@@ -820,7 +820,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slantCurve_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantCurve.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slantFlatCurve',
@@ -828,7 +828,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slantFlatCurve_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantFlatCurve.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slantFlatHigh',
@@ -836,7 +836,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slantFlatHigh_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantFlatHigh.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slantFlat',
@@ -844,7 +844,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slantFlat_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantFlat.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slantHighBarrier',
@@ -852,7 +852,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slantHighBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantHighBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slantHigh',
@@ -860,14 +860,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slantHigh_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantHigh.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_slant',
     name: 'road_slant',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slant_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_slant.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_splitBarrier',
@@ -875,14 +875,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_splitBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_splitBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_split',
     name: 'road_split',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_split_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_split.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_squareBarrier',
@@ -890,14 +890,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_squareBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_squareBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_square',
     name: 'road_square',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_square_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_square.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_straightBarrierEnd',
@@ -905,7 +905,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_straightBarrierEnd_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_straightBarrierEnd.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_straightBarrier',
@@ -913,28 +913,28 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_straightBarrier_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_straightBarrier.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://road_straight',
     name: 'road_straight',
     icon: 'assets/library/kenney/citykitroads/Isometric/road_straight_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_straight.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://tile_high',
     name: 'tile_high',
     icon: 'assets/library/kenney/citykitroads/Isometric/tile_high_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/tile_high.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://tile_low',
     name: 'tile_low',
     icon: 'assets/library/kenney/citykitroads/Isometric/tile_low_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/tile_low.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://tile_slantHigh',
@@ -942,14 +942,14 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/tile_slantHigh_NE.png',
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/tile_slantHigh.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
   {
     id: 'citykitroads://tile_slant',
     name: 'tile_slant',
     icon: 'assets/library/kenney/citykitroads/Isometric/tile_slant_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/tile_slant.glb',
-    scale: 1.4800000000000004,
+    scale: 12.1,
   },
 ];
 const fantasytownkit10Components = [
@@ -959,7 +959,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/bannerGreen_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/bannerGreen.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://bannerRed',
@@ -967,14 +967,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/bannerRed_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/bannerRed.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://blade',
     name: 'blade',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/blade_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/blade.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://cartHigh',
@@ -982,14 +982,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/cartHigh_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/cartHigh.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://cart',
     name: 'cart',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/cart_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/cart.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://chimneyBase',
@@ -997,7 +997,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/chimneyBase_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/chimneyBase.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://chimneyTop',
@@ -1005,7 +1005,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/chimneyTop_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/chimneyTop.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://chimney',
@@ -1013,7 +1013,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/chimney_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/chimney.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fenceBroken',
@@ -1021,7 +1021,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fenceBroken_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fenceBroken.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fenceCurved',
@@ -1029,7 +1029,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fenceCurved_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fenceCurved.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fenceGate',
@@ -1037,14 +1037,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fenceGate_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fenceGate.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fence',
     name: 'fence',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fence_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fence.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainCenter',
@@ -1052,7 +1052,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainCenter_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainCenter.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainCornerInnerSquare',
@@ -1060,7 +1060,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainCornerInnerSquare_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainCornerInnerSquare.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainCornerInner',
@@ -1068,7 +1068,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainCornerInner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainCornerInner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainCorner',
@@ -1076,7 +1076,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainCorner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainCorner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainCurved',
@@ -1084,7 +1084,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainCurved_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainCurved.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainEdge',
@@ -1092,7 +1092,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainEdge_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainEdge.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainRoundDetail',
@@ -1100,7 +1100,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainRoundDetail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainRoundDetail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainRound',
@@ -1108,7 +1108,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainSquareDetail',
@@ -1116,7 +1116,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainSquareDetail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainSquareDetail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://fountainSquare',
@@ -1124,7 +1124,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/fountainSquare_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/fountainSquare.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://hedgeCurved',
@@ -1132,7 +1132,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/hedgeCurved_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/hedgeCurved.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://hedgeGate',
@@ -1140,14 +1140,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/hedgeGate_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/hedgeGate.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://hedge',
     name: 'hedge',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/hedge_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/hedge.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://lantern',
@@ -1155,7 +1155,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/lantern_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/lantern.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://overhang',
@@ -1163,7 +1163,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/overhang_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/overhang.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://pillarStone',
@@ -1171,7 +1171,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/pillarStone_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/pillarStone.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://pillarWood',
@@ -1179,7 +1179,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/pillarWood_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/pillarWood.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://planksHalf',
@@ -1187,7 +1187,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/planksHalf_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/planksHalf.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://planksOpening',
@@ -1195,7 +1195,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/planksOpening_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/planksOpening.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://planks',
@@ -1203,7 +1203,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/planks_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/planks.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://polesHorizontal',
@@ -1211,14 +1211,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/polesHorizontal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/polesHorizontal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://poles',
     name: 'poles',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/poles_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/poles.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roadBend',
@@ -1226,7 +1226,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roadBend_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roadBend.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roadCornerInner',
@@ -1234,7 +1234,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roadCornerInner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roadCornerInner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roadCorner',
@@ -1242,7 +1242,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roadCorner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roadCorner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roadCurb',
@@ -1250,7 +1250,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roadCurb_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roadCurb.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roadEdgeSlope',
@@ -1258,7 +1258,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roadEdgeSlope_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roadEdgeSlope.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roadEdge',
@@ -1266,7 +1266,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roadEdge_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roadEdge.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roadSlope',
@@ -1274,14 +1274,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roadSlope_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roadSlope.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://road',
     name: 'road',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/road_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/road.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://rockLarge',
@@ -1289,7 +1289,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/rockLarge_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/rockLarge.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://rockSmall',
@@ -1297,7 +1297,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/rockSmall_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/rockSmall.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://rockWide',
@@ -1305,7 +1305,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/rockWide_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/rockWide.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofCornerInner',
@@ -1313,7 +1313,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofCornerInner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofCornerInner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofCornerRound',
@@ -1321,7 +1321,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofCornerRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofCornerRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofCorner',
@@ -1329,7 +1329,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofCorner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofCorner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofFlat',
@@ -1337,7 +1337,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofFlat_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofFlat.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofGableDetail',
@@ -1345,7 +1345,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofGableDetail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofGableDetail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofGableEnd',
@@ -1353,7 +1353,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofGableEnd_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofGableEnd.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofGableTop',
@@ -1361,7 +1361,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofGableTop_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofGableTop.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofGable',
@@ -1369,7 +1369,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofGable_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofGable.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighCornerInner',
@@ -1377,7 +1377,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighCornerInner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighCornerInner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighCornerRound',
@@ -1385,7 +1385,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighCornerRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighCornerRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighCorner',
@@ -1393,7 +1393,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighCorner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighCorner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighFlat',
@@ -1401,7 +1401,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighFlat_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighFlat.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighGableDetail',
@@ -1409,7 +1409,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighGableDetail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighGableDetail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighGableEnd',
@@ -1417,7 +1417,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighGableEnd_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighGableEnd.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighGableTop',
@@ -1425,7 +1425,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighGableTop_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighGableTop.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighGable',
@@ -1433,7 +1433,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighGable_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighGable.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighLeft',
@@ -1441,7 +1441,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighLeft_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighLeft.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighPoint',
@@ -1449,7 +1449,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighPoint_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighPoint.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighRight',
@@ -1457,7 +1457,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighRight_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighRight.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHighWindow',
@@ -1465,7 +1465,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHighWindow_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHighWindow.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofHigh',
@@ -1473,7 +1473,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofHigh_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofHigh.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofLeft',
@@ -1481,7 +1481,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofLeft_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofLeft.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofPoint',
@@ -1489,7 +1489,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofPoint_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofPoint.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofRight',
@@ -1497,7 +1497,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofRight_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofRight.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roofWindow',
@@ -1505,14 +1505,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roofWindow_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roofWindow.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://roof',
     name: 'roof',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/roof_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/roof.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stairsStoneCorner',
@@ -1520,7 +1520,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stairsStoneCorner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stairsStoneCorner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stairsStoneHandrail',
@@ -1528,7 +1528,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stairsStoneHandrail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stairsStoneHandrail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stairsStoneRound',
@@ -1536,7 +1536,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stairsStoneRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stairsStoneRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stairsStone',
@@ -1544,7 +1544,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stairsStone_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stairsStone.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stairsWoodHandrail',
@@ -1552,7 +1552,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stairsWoodHandrail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stairsWoodHandrail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stairsWood',
@@ -1560,7 +1560,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stairsWood_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stairsWood.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stallBench',
@@ -1568,7 +1568,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stallBench_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stallBench.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stallGreen',
@@ -1576,7 +1576,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stallGreen_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stallGreen.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stallRed',
@@ -1584,7 +1584,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stallRed_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stallRed.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stallStool',
@@ -1592,14 +1592,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stallStool_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stallStool.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://stall',
     name: 'stall',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/stall_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/stall.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://treeCrooked',
@@ -1607,7 +1607,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/treeCrooked_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/treeCrooked.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://treeHighCrooked',
@@ -1615,7 +1615,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/treeHighCrooked_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/treeHighCrooked.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://treeHighRound',
@@ -1623,7 +1623,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/treeHighRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/treeHighRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://treeHigh',
@@ -1631,14 +1631,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/treeHigh_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/treeHigh.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://tree',
     name: 'tree',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/tree_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/tree.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallArchTopDetail',
@@ -1646,7 +1646,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallArchTopDetail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallArchTopDetail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallArchTop',
@@ -1654,7 +1654,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallArchTop_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallArchTop.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallArch',
@@ -1662,7 +1662,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallArch_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallArch.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallBlockHalf',
@@ -1670,7 +1670,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallBlockHalf_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallBlockHalf.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallBlock',
@@ -1678,7 +1678,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallBlock_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallBlock.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallBroken',
@@ -1686,7 +1686,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallBroken_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallBroken.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallCornerDetail',
@@ -1694,7 +1694,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallCornerDetail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallCornerDetail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallCornerDiagonalHalf',
@@ -1702,7 +1702,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallCornerDiagonalHalf_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallCornerDiagonalHalf.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallCornerDiagonal',
@@ -1710,7 +1710,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallCornerDiagonal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallCornerDiagonal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallCornerEdge',
@@ -1718,7 +1718,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallCornerEdge_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallCornerEdge.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallCorner',
@@ -1726,7 +1726,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallCorner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallCorner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallCurved',
@@ -1734,7 +1734,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallCurved_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallCurved.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDetailCross',
@@ -1742,7 +1742,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDetailCross_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDetailCross.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDetailDiagonal',
@@ -1750,7 +1750,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDetailDiagonal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDetailDiagonal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDetailHorizontal',
@@ -1758,7 +1758,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDetailHorizontal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDetailHorizontal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDiagonal',
@@ -1766,7 +1766,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDiagonal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDiagonal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDoor',
@@ -1774,7 +1774,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDoor_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDoor.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDoorwayBase',
@@ -1782,7 +1782,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDoorwayBase_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDoorwayBase.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDoorwayRound',
@@ -1790,7 +1790,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDoorwayRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDoorwayRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDoorwaySquareWideCurved',
@@ -1798,7 +1798,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDoorwaySquareWideCurved_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDoorwaySquareWideCurved.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDoorwaySquareWide',
@@ -1806,7 +1806,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDoorwaySquareWide_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDoorwaySquareWide.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallDoorwaySquare',
@@ -1814,7 +1814,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallDoorwaySquare_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallDoorwaySquare.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallHalf',
@@ -1822,7 +1822,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallHalf_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallHalf.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallRounded',
@@ -1830,7 +1830,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallRounded_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallRounded.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallSide',
@@ -1838,7 +1838,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallSide_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallSide.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallSlope',
@@ -1846,7 +1846,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallSlope_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallSlope.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWindowGlass',
@@ -1854,7 +1854,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWindowGlass_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWindowGlass.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWindowRound',
@@ -1862,7 +1862,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWindowRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWindowRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWindowShutters',
@@ -1870,7 +1870,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWindowShutters_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWindowShutters.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWindowSmall',
@@ -1878,7 +1878,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWindowSmall_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWindowSmall.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWindowStone',
@@ -1886,7 +1886,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWindowStone_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWindowStone.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodArchTopDetail',
@@ -1894,7 +1894,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodArchTopDetail_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodArchTopDetail.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodArchTop',
@@ -1902,7 +1902,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodArchTop_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodArchTop.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodArch',
@@ -1910,7 +1910,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodArch_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodArch.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodBlockHalf',
@@ -1918,7 +1918,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodBlockHalf_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodBlockHalf.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodBlock',
@@ -1926,7 +1926,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodBlock_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodBlock.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodBroken',
@@ -1934,7 +1934,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodBroken_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodBroken.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodCornerDiagonalHalf',
@@ -1942,7 +1942,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodCornerDiagonalHalf_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodCornerDiagonalHalf.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodCornerDiagonal',
@@ -1950,7 +1950,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodCornerDiagonal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodCornerDiagonal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodCornerEdge',
@@ -1958,7 +1958,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodCornerEdge_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodCornerEdge.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodCorner',
@@ -1966,7 +1966,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodCorner_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodCorner.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodCurved',
@@ -1974,7 +1974,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodCurved_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodCurved.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDetailCross',
@@ -1982,7 +1982,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDetailCross_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDetailCross.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDetailDiagonal',
@@ -1990,7 +1990,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDetailDiagonal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDetailDiagonal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDetailHorizontal',
@@ -1998,7 +1998,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDetailHorizontal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDetailHorizontal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDiagonal',
@@ -2006,7 +2006,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDiagonal_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDiagonal.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDoor',
@@ -2014,7 +2014,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDoor_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDoor.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDoorwayBase',
@@ -2022,7 +2022,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDoorwayBase_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDoorwayBase.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDoorwayRound',
@@ -2030,7 +2030,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDoorwayRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDoorwayRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDoorwaySquareWideCurved',
@@ -2038,7 +2038,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDoorwaySquareWideCurved_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDoorwaySquareWideCurved.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDoorwaySquareWide',
@@ -2046,7 +2046,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDoorwaySquareWide_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDoorwaySquareWide.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodDoorwaySquare',
@@ -2054,7 +2054,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodDoorwaySquare_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodDoorwaySquare.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodHalf',
@@ -2062,7 +2062,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodHalf_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodHalf.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodRounded',
@@ -2070,7 +2070,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodRounded_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodRounded.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodSide',
@@ -2078,7 +2078,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodSide_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodSide.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodSlope',
@@ -2086,7 +2086,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodSlope_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodSlope.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodWindowGlass',
@@ -2094,7 +2094,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodWindowGlass_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodWindowGlass.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodWindowRound',
@@ -2102,7 +2102,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodWindowRound_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodWindowRound.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodWindowShutters',
@@ -2110,7 +2110,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodWindowShutters_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodWindowShutters.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodWindowSmall',
@@ -2118,7 +2118,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodWindowSmall_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodWindowSmall.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWoodWindowStone',
@@ -2126,7 +2126,7 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWoodWindowStone_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWoodWindowStone.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wallWood',
@@ -2134,14 +2134,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wallWood_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wallWood.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wall',
     name: 'wall',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wall_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wall.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://watermill',
@@ -2149,14 +2149,14 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/watermill_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/watermill.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://wheel',
     name: 'wheel',
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/wheel_E.png',
     model3D: 'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/wheel.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
   {
     id: 'fantasy-town-kit-1.0://windmill',
@@ -2164,44 +2164,576 @@ const fantasytownkit10Components = [
     icon: 'assets/library/kenney/fantasy-town-kit-1.0/Isometric/windmill_E.png',
     model3D:
       'library/kenney/fantasy-town-kit-1.0/Models/GLTF format/windmill.glb',
-    scale: 1.6000000000000005,
+    scale: 8.101,
   },
 ];
 const graveyardkit3Components = [
   {
+    id: 'graveyardkit-3://altarStone',
+    name: 'altarStone',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/altarStone_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/altarStone.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://altarWood',
+    name: 'altarWood',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/altarWood_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/altarWood.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://benchDamaged',
+    name: 'benchDamaged',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/benchDamaged_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/benchDamaged.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://bench',
+    name: 'bench',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/bench_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/bench.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://borderPillar',
+    name: 'borderPillar',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/borderPillar_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/borderPillar.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://brickWallCurve',
+    name: 'brickWallCurve',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/brickWallCurve_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/brickWallCurve.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://brickWall',
+    name: 'brickWall',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/brickWall_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/brickWall.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://coffinOld',
+    name: 'coffinOld',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/coffinOld_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/coffinOld.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://coffin',
+    name: 'coffin',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/coffin_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/coffin.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://columnLarge',
+    name: 'columnLarge',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/columnLarge_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/columnLarge.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://crossColumn',
+    name: 'crossColumn',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/crossColumn_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/crossColumn.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://crossWood',
+    name: 'crossWood',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/crossWood_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/crossWood.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://cross',
+    name: 'cross',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/cross_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/cross.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://crypt',
+    name: 'crypt',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/crypt_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/crypt.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://debrisWood',
+    name: 'debrisWood',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/debrisWood_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/debrisWood.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://debris',
+    name: 'debris',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/debris_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/debris.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://detailBowl',
+    name: 'detailBowl',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/detailBowl_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/detailBowl.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://detailChalice',
+    name: 'detailChalice',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/detailChalice_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/detailChalice.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://detailPlate',
+    name: 'detailPlate',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/detailPlate_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/detailPlate.glb',
+    scale: 5.201,
+  },
+  {
     id: 'graveyardkit-3://digger',
     name: 'digger',
-    icon: 'assets/library/kenney/graveyardkit-3/Isometric/digger_E.png',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/digger_NE.png',
     model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/digger.glb',
-    scale: 1.7200000000000006,
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://fenceDamaged',
+    name: 'fenceDamaged',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/fenceDamaged_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/fenceDamaged.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://fenceGate',
+    name: 'fenceGate',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/fenceGate_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/fenceGate.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://fence',
+    name: 'fence',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/fence_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/fence.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://fireBasket',
+    name: 'fireBasket',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/fireBasket_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/fireBasket.glb',
+    scale: 5.201,
   },
   {
     id: 'graveyardkit-3://ghost',
     name: 'ghost',
-    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ghost_E.png',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ghost_NE.png',
     model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/ghost.glb',
-    scale: 1.7200000000000006,
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://graveBorder',
+    name: 'graveBorder',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/graveBorder_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/graveBorder.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://grave',
+    name: 'grave',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/grave_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/grave.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneBevel',
+    name: 'gravestoneBevel',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneBevel_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneBevel.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneBroken',
+    name: 'gravestoneBroken',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneBroken_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneBroken.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneCrossLarge',
+    name: 'gravestoneCrossLarge',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneCrossLarge_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneCrossLarge.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneCross',
+    name: 'gravestoneCross',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneCross_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneCross.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneDebris',
+    name: 'gravestoneDebris',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneDebris_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneDebris.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneDecorative',
+    name: 'gravestoneDecorative',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneDecorative_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneDecorative.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneFlatOpen',
+    name: 'gravestoneFlatOpen',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneFlatOpen_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneFlatOpen.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneFlat',
+    name: 'gravestoneFlat',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneFlat_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneFlat.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneRoof',
+    name: 'gravestoneRoof',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneRoof_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneRoof.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneRound',
+    name: 'gravestoneRound',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneRound_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneRound.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://gravestoneWide',
+    name: 'gravestoneWide',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/gravestoneWide_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/gravestoneWide.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://ironFenceBar',
+    name: 'ironFenceBar',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ironFenceBar_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/ironFenceBar.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://ironFenceBorderColumn',
+    name: 'ironFenceBorderColumn',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ironFenceBorderColumn_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/ironFenceBorderColumn.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://ironFenceBorderCurve',
+    name: 'ironFenceBorderCurve',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ironFenceBorderCurve_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/ironFenceBorderCurve.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://ironFenceBorderGate',
+    name: 'ironFenceBorderGate',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ironFenceBorderGate_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/ironFenceBorderGate.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://ironFenceBorder',
+    name: 'ironFenceBorder',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ironFenceBorder_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/ironFenceBorder.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://ironFenceCurve',
+    name: 'ironFenceCurve',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ironFenceCurve_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/ironFenceCurve.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://ironFenceDamaged',
+    name: 'ironFenceDamaged',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ironFenceDamaged_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/ironFenceDamaged.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://ironFence',
+    name: 'ironFence',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/ironFence_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/ironFence.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://lanternCandle',
+    name: 'lanternCandle',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/lanternCandle_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/lanternCandle.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://lanternGlass',
+    name: 'lanternGlass',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/lanternGlass_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/lanternGlass.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://lightpostAll',
+    name: 'lightpostAll',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/lightpostAll_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/lightpostAll.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://lightpostDouble',
+    name: 'lightpostDouble',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/lightpostDouble_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/lightpostDouble.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://lightpostSingle',
+    name: 'lightpostSingle',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/lightpostSingle_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/lightpostSingle.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pillarLarge',
+    name: 'pillarLarge',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pillarLarge_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/pillarLarge.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pillarObelisk',
+    name: 'pillarObelisk',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pillarObelisk_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/pillarObelisk.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pillarSmall',
+    name: 'pillarSmall',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pillarSmall_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/pillarSmall.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pillarSquare',
+    name: 'pillarSquare',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pillarSquare_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/pillarSquare.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pineCrooked',
+    name: 'pineCrooked',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pineCrooked_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/pineCrooked.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pine',
+    name: 'pine',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pine_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/pine.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pumpkinCarved',
+    name: 'pumpkinCarved',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pumpkinCarved_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/pumpkinCarved.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pumpkinTallCarved',
+    name: 'pumpkinTallCarved',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pumpkinTallCarved_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/pumpkinTallCarved.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pumpkinTall',
+    name: 'pumpkinTall',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pumpkinTall_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/pumpkinTall.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://pumpkin',
+    name: 'pumpkin',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/pumpkin_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/pumpkin.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://road',
+    name: 'road',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/road_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/road.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://rocksTall',
+    name: 'rocksTall',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/rocksTall_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/rocksTall.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://rocks',
+    name: 'rocks',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/rocks_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/rocks.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://shovelDirt',
+    name: 'shovelDirt',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/shovelDirt_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/shovelDirt.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://shovel',
+    name: 'shovel',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/shovel_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/shovel.glb',
+    scale: 5.201,
   },
   {
     id: 'graveyardkit-3://skeleton',
     name: 'skeleton',
-    icon: 'assets/library/kenney/graveyardkit-3/Isometric/skeleton_E.png',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/skeleton_NE.png',
     model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/skeleton.glb',
-    scale: 1.7200000000000006,
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://stoneWallColumn',
+    name: 'stoneWallColumn',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/stoneWallColumn_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/stoneWallColumn.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://stoneWallCurve',
+    name: 'stoneWallCurve',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/stoneWallCurve_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/stoneWallCurve.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://stoneWallDamaged',
+    name: 'stoneWallDamaged',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/stoneWallDamaged_NE.png',
+    model3D:
+      'library/kenney/graveyardkit-3/Models/GLTF format/stoneWallDamaged.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://stoneWall',
+    name: 'stoneWall',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/stoneWall_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/stoneWall.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://trunkLong',
+    name: 'trunkLong',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/trunkLong_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/trunkLong.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://trunk',
+    name: 'trunk',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/trunk_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/trunk.glb',
+    scale: 5.201,
+  },
+  {
+    id: 'graveyardkit-3://urn',
+    name: 'urn',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/urn_NE.png',
+    model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/urn.glb',
+    scale: 5.201,
   },
   {
     id: 'graveyardkit-3://vampire',
     name: 'vampire',
-    icon: 'assets/library/kenney/graveyardkit-3/Isometric/vampire_E.png',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/vampire_NE.png',
     model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/vampire.glb',
-    scale: 1.7200000000000006,
+    scale: 5.201,
   },
   {
     id: 'graveyardkit-3://zombie',
     name: 'zombie',
-    icon: 'assets/library/kenney/graveyardkit-3/Isometric/zombie_E.png',
+    icon: 'assets/library/kenney/graveyardkit-3/Isometric/zombie_NE.png',
     model3D: 'library/kenney/graveyardkit-3/Models/GLTF format/zombie.glb',
-    scale: 1.7200000000000006,
+    scale: 5.201,
   },
 ];
 const hexagonkit1Components = [
