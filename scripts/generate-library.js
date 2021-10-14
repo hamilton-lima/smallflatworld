@@ -25,10 +25,12 @@ const getVarName = function (input) {
   return result;
 };
 
+let scale = 1.0;
+
 libraries.forEach((libraryName) => {
   const components = [];
-
   const folder = testFolder + libraryName + iconFolder;
+  scale = scale + 0.12;
   // read icons
   const icons = fs.readdirSync(folder);
   icons.forEach((icon) => {
@@ -40,7 +42,7 @@ libraries.forEach((libraryName) => {
         name: name,
         icon: iconPath + libraryName + iconFolder + name + iconExtension,
         model3D: modelPath + libraryName + modelFolder + name + modelExtension,
-        scale: 1.0
+        scale: scale
       }
       components.push(component);
     }
@@ -60,7 +62,7 @@ libraries.forEach((libraryName) => {
           name: name,
           icon: iconPath + libraryName + iconFolder + name + iconExtension2,
           model3D: modelPath + libraryName + modelFolder + name + modelExtension,
-          scale: 1.0
+          scale: scale
         }
         components.push(component);
       }
