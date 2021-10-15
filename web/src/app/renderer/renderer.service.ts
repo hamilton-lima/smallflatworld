@@ -26,7 +26,10 @@ export class RendererService {
     result.scene = new Scene(result.engine);
 
     result.scene.useRightHandedSystem = true;
-    result.scene.clearColor = new Color4(0, 0, 0, 0);
+//    result.scene.clearColor = new Color4(0, 0, 0, 0);
+    result.scene.clearColor = new Color4(1, 1, 1, 1);
+    result.scene.ambientColor = new Color3(1, 1, 1);
+
     result.scene.collisionsEnabled = true;
     //this.addGravityToScene(result.scene);
 
@@ -35,17 +38,16 @@ export class RendererService {
       new Vector3(0, 1, 0),
       result.scene
     );
-    ambient.diffuse = new Color3(1, 1, 1);
-    ambient.specular = new Color3(0.4, 0.4, 0.4);
-    ambient.groundColor = new Color3(1, 1, 1);
-    ambient.intensity = 0.9;
+    ambient.diffuse = Color3.FromHexString( "#fff9bc" );
+    ambient.specular = new Color3(0, 0, 0);
+    ambient.intensity = 0.9 * 2;
 
     const light = new DirectionalLight(
       'light',
-      new Vector3(0, -1, 0),
+      new Vector3(0, 10, 0),
       result.scene
     );
-    this.setLightPositionByAngle(light, 120, 50, 100);
+    // this.setLightPositionByAngle(light, 120, 50, 100);
     light.autoUpdateExtends = true;
     light.diffuse = new Color3(1, 1, 1);
     light.intensity = 1;
