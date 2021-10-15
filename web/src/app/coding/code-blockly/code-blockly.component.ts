@@ -43,7 +43,9 @@ export class CodeBlocklyComponent implements OnChanges {
         this.config,
         this.update.bind(this)
       );
-      this.service.setXML(this.definition.blocklyDefinition, this.workspace);
+      if (this.definition && this.definition.blocklyDefinition) {
+        this.service.setXML(this.definition.blocklyDefinition, this.workspace);
+      }
     });
   }
 

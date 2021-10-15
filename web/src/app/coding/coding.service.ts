@@ -24,7 +24,7 @@ export class CodingService {
       }
     } else {
       console.warn('element does not exist', uuid);
-      return element.code;
+      return new CodeDefinition();
     }
   }
 }
