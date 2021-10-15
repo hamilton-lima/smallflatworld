@@ -3,7 +3,7 @@ import { RealmService } from './realm/realm.service';
 import { InputService } from './input.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { CodingService } from './coding/coding.service';
-import { VERSION } from "src/app/version";
+import { VERSION } from 'src/app/version';
 
 @Component({
   selector: 'app-root',
@@ -35,11 +35,17 @@ export class AppComponent implements OnInit {
       }
     );
 
-    this.coding.onEdit.subscribe(() => this.toggleRight());
+    this.coding.onEdit.subscribe((selection) => this.toggleRight(selection));
   }
 
-  toggleRight(): void {
-    this.drawerRight.open();
+  lastSelection: string;
+  toggleRight(selection: string): void {
+    if (selection == this.lastSelection) {
+      this.drawerRight.toggle();
+    } else {
+      this.drawerRight.open();
+    }
+    this.lastSelection = selection;
   }
 
   toggle() {
