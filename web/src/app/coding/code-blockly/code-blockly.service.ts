@@ -217,7 +217,7 @@ export class BlocklyService {
         // show bottom message
         type: 'bottom_message',
         message0: 'bottom message %1',
-        args0: [{ type: 'input_value', name: 'MESSAGE_VALUE', check: 'String' }],
+        args0: [{ type: 'input_value', name: 'BOTTOM_MESSAGE_VALUE', check: 'String' }],
         previousStatement: null,
         nextStatement: null,
         colour: 355,
@@ -320,7 +320,7 @@ export class BlocklyService {
     Blockly.JavaScript['bottom_message'] = function (block) {
       const value = Blockly.JavaScript.valueToCode(
         block,
-        'MESSAGE_VALUE',
+        'BOTTOM_MESSAGE_VALUE',
         Blockly.JavaScript.ORDER_ATOMIC
       );
       return `bottomMessage(${value});\n`;
