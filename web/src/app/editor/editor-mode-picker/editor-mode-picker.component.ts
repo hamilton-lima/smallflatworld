@@ -112,7 +112,7 @@ export class EditorModePickerComponent implements AfterViewInit {
     this.editModeController.selectAndClick(mode, this);
   }
 
-  onClick(action:string){
+  onClick(action: string) {
     console.log('action', action);
     this.modifyController.select(action, this);
   }
@@ -173,12 +173,8 @@ export class EditorModePickerComponent implements AfterViewInit {
     this.input.focus();
     this.editor.editCode();
   }
-<<<<<<< HEAD
-  
-=======
 
   isEdit() {
     return this.mode != EditorMode.EDIT;
   }
->>>>>>> ed91f0ee87581747f323828df2753510372ceada
 }
