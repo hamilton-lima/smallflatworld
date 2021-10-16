@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Subject } from 'rxjs';
-
 
 function showMessage(message: string) {
   console.log('showmessage', message);
@@ -10,10 +10,19 @@ function showMessage(message: string) {
   });
 }
 
+function showBottomMessage(message: string) {
+  console.log('showBottomMessage', message);
+  sharedContext.snackBar.open(message, 'BOTTOM', {
+    duration: 5000,
+  });
+}
+
 class Context {
   snackBar: MatSnackBar;
+  bottomSheet: MatBottomSheet;
 }
-let sharedContext: Context; 
+
+let sharedContext: Context;
 
 class CodeRunner {
   onClickHandlers = [];
@@ -22,6 +31,7 @@ class CodeRunner {
     try {
       // variables exposed to eval()
       const message = showMessage;
+      const bottomMessage = showBottomMessage;
       const onClick = this.onClickHandlers;
 
       eval(code);
@@ -47,10 +57,14 @@ export class RunnerService {
   public onClick: Subject<string> = new Subject();
   registry = {};
 
-  constructor(public snackBar: MatSnackBar) {
+  constructor(
+    public snackBar: MatSnackBar,
+    private bottomSheet: MatBottomSheet
+  ) {
     // make injected services available to scripts
     sharedContext = <Context>{
       snackBar: this.snackBar,
+      bottomSheet: this.bottomSheet
     };
 
     this.onClick.subscribe((uuid) => {
