@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-<mxfile host="Electron" modified="2021-10-16T04:05:54.795Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="LMQbrIOkPjAOu4cUozuG" version="13.9.9" type="device">
-=======
-<mxfile host="Electron" modified="2021-10-16T04:12:35.521Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="DCv4ohUGW9yDeB9dNY37" version="13.9.9" type="device">
->>>>>>> Stashed changes
-=======
-<mxfile host="Electron" modified="2021-10-14T01:17:34.233Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="erpruWPiQwa1b3CXiOE_" version="13.9.9" type="device">
->>>>>>> ed91f0ee87581747f323828df2753510372ceada
+<mxfile host="Electron" modified="2021-10-16T04:16:22.699Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="_rqNEn7jrSaTt8mFlp-W" version="13.9.9" type="device">
   <diagram id="eQwurLcD6YKOo8-gMQfG" name="Page-1">
     <mxGraphModel dx="2255" dy="806" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -31,7 +23,7 @@
           <mxGeometry x="320" y="80" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-11" value="Center rotation point at center of bounding box" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="320" y="220" width="120" height="60" as="geometry" />
+          <mxGeometry x="320" y="830" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-12" value="Add predefined scale for each library component" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="320" y="150" width="120" height="60" as="geometry" />
@@ -178,7 +170,7 @@
           <mxGeometry x="630.0000000000002" y="140" width="26.25" height="30" as="geometry" />
         </mxCell>
         <mxCell id="fmJ3L91N9C36IfXdmLS--3" value="Adjust camera to see front of character" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="520" y="520" width="120" height="60" as="geometry" />
+          <mxGeometry x="520" y="900" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UtXDGszNjiBcBZFne_oH-1" value="" style="endArrow=none;dashed=1;html=1;fontFamily=Roboto;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -222,22 +214,11 @@
         <mxCell id="HFP9QEuvm40HWfnLFC2A-2" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" parent="1" vertex="1">
           <mxGeometry x="430.0000000000002" y="70" width="26.25" height="30" as="geometry" />
         </mxCell>
-<<<<<<< HEAD
         <mxCell id="FXLMCaTqT9eMvVKmeyeQ-1" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="434.0000000000002" y="150" width="26.25" height="30" as="geometry" />
         </mxCell>
         <mxCell id="FXLMCaTqT9eMvVKmeyeQ-2" value="Add function to display big message" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
           <mxGeometry x="-80" y="290" width="120" height="60" as="geometry" />
-=======
-        <mxCell id="E9pjGVWPzeQoe8P3AgBZ-1" value="Add character customization" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="520" y="590" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="fESohnqyQYvsQtQMOYPc-1" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="430.0000000000002" y="210" width="26.25" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="fESohnqyQYvsQtQMOYPc-2" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="430.0000000000002" y="150" width="26.25" height="30" as="geometry" />
->>>>>>> ed91f0ee87581747f323828df2753510372ceada
         </mxCell>
       </root>
     </mxGraphModel>
