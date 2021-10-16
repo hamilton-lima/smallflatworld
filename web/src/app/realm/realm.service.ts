@@ -120,6 +120,7 @@ export class RealmService {
 
   async createRealm() {
     const realm = this.persistence.buildRealm();
+    realm.character = this.defaultCharacter();
     console.log('create realm', realm);
     await this.updateRealm(realm);
   }
