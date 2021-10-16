@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { InputService } from 'src/app/input.service';
 import { RealmUploadService } from 'src/app/realm/realm-upload.service';
+import { RealmService } from 'src/app/realm/realm.service';
 import { FileService } from '../file.service';
+import { ConfirmOptions, ConfirmService} from 'src/app/shared/confirm.service';
 
 @Component({
   selector: 'app-file',
@@ -12,7 +14,9 @@ export class FileComponent implements OnInit {
   constructor(
     private file: FileService,
     private input: InputService,
-    private uploadService: RealmUploadService
+    private uploadService: RealmUploadService,
+    private realm: RealmService,
+    private confirm: ConfirmService
   ) {}
 
   ngOnInit(): void {}
@@ -25,5 +29,15 @@ export class FileComponent implements OnInit {
   upload() {
     this.uploadService.show();
     this.input.focus();
+  }
+
+  async create() {
+    const response = await this.confirm.confirm('Are you sure?');
+    if( response == ConfirmOptions.YES){
+      this.realm.createRealm();
+      this.input.focus();
+    } else {
+      console.log('nooooooooooooooooooooo');
+    }
   }
 }
