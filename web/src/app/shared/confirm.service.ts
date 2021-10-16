@@ -15,10 +15,10 @@ export enum ConfirmOptions {
 export class ConfirmService {
   constructor(public dialog: MatDialog) {}
 
-  async confirm(message: string): Promise<ConfirmOptions> {
+  async confirm(messages: string[]): Promise<ConfirmOptions> {
     return new Promise<ConfirmOptions>((resolve, reject) => {
       const data = <ConfirmDialogData>{
-        message: message,
+        messages: messages,
       };
       const config = <MatDialogConfig>{
         data: data,

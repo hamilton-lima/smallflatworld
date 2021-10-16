@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export class ConfirmDialogData {
-  message: string;
+  messages: string[];
 }
 
 @Component({
@@ -11,10 +11,10 @@ export class ConfirmDialogData {
   styleUrls: ['./confim-dialog.component.scss'],
 })
 export class ConfimDialogComponent implements OnInit {
-  message: string;
+  messages: string[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData) {}
 
   ngOnInit(): void {
-    this.message = this.data.message;
+    this.messages = this.data.messages;
   }
 }
