@@ -25,7 +25,7 @@ export class CameraService {
     camera.radius = this.distance;
     camera.heightOffset = this.height;
     console.log('camera.cameraAcceleration', camera.cameraAcceleration);
-    camera.cameraAcceleration = camera.cameraAcceleration /8;
+    camera.cameraAcceleration = camera.cameraAcceleration /2;
 
     this.camera = camera;
     return camera;
