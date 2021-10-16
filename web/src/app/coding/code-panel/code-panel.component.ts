@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { EditorService } from 'src/app/editor/editor.service';
-import { NotifyService } from 'src/app/notify.service';
+import { NotifyService } from 'src/app/shared/notify.service';
 import { CodeDefinition } from '../../../../../server/src/events.model';
 import { CodingService } from '../coding.service';
 import { RunnerService } from '../runner.service';

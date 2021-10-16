@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { RealmService } from './realm/realm.service';
-import { InputService } from './input.service';
+import { InputService } from './shared/input.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { CodingService } from './coding/coding.service';
 import { VERSION } from 'src/app/version';
+import { EditorModeService } from './editor/editor-mode.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   ready = false;
   name = '';
   version = VERSION;
@@ -21,8 +22,17 @@ export class AppComponent implements OnInit {
   constructor(
     private realm: RealmService,
     private input: InputService,
-    private coding: CodingService
+    private coding: CodingService,
+    private editorMode: EditorModeService
   ) {}
+
+  ngAfterViewInit(): void {
+    // mode changed, close the code editor
+    this.editorMode.mode.subscribe((mode) => {
+      console.log('mode changed', mode);
+      this.drawerRight.close();
+    });
+  }
 
   ngOnInit(): void {
     this.realm.ready().then(

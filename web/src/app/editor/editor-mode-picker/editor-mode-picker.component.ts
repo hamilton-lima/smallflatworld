@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatButtonToggle } from '@angular/material/button-toggle';
-import { InputService } from 'src/app/input.service';
+import { InputService } from 'src/app/shared/input.service';
 import { KeyboardService, KeyState } from 'src/app/renderer/keyboard.service';
 import {
   EditorAction,
@@ -113,18 +113,21 @@ export class EditorModePickerComponent implements AfterViewInit {
 
   onClick(action: string) {
     console.log('action', action);
-    this.modifyController.select(action, this);
+    this.modifyController.selectAndClick(action, this);
   }
 
   walk() {
+    this.input.focus();
     this.service.mode.next(EditorMode.WALK);
   }
 
   add() {
+    this.input.focus();
     this.service.mode.next(EditorMode.ADD);
   }
 
   edit() {
+    this.input.focus();
     this.service.mode.next(EditorMode.EDIT);
   }
 

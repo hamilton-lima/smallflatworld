@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Realm } from '../persistence/persistence.model';
 import { PersistenceService } from '../persistence/persistence.service';
-import { ConfigurationService } from '../configuration.service';
 import { ClientService } from '../multiplayer/client.service';
 import {
   SceneElementMemento,
-  Vector3Memento,
   Vector3MementoOne,
   Vector3MementoZero,
 } from '../../../../server/src/events.model';
 import { RunnerService } from '../coding/runner.service';
+import { ConfigurationService } from '../shared/configuration.service';
 
 @Injectable({
   providedIn: 'root',

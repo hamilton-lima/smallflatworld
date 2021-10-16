@@ -34,6 +34,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 // https://gist.github.com/pimatco/d5b1891feb90b60ca4681011b6513873
 @NgModule({
@@ -42,6 +43,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatCheckboxModule,
+    MatBottomSheetModule,
     MatButtonModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -77,6 +79,7 @@ import { MatBadgeModule } from '@angular/material/badge';
   exports: [
     MatCheckboxModule,
     MatButtonModule,
+    MatBottomSheetModule,
     MatInputModule,
     MatAutocompleteModule,
     MatDatepickerModule,

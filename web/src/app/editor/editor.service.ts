@@ -26,10 +26,10 @@ import {
   CodeDefinition,
   SceneElementMemento,
 } from '../../../../server/src/events.model';
-import { InputService } from '../input.service';
+import { InputService } from '../shared/input.service';
 import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
-import { NotifyService } from './../notify.service';
+import { NotifyService } from '../shared/notify.service';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';

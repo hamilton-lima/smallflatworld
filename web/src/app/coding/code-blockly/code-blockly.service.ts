@@ -91,11 +91,12 @@ export class BlocklyService {
 
   readonly commands = `
   <category name="Commands" colour="%{BKY_PROCEDURES_HUE}">
-      <block type="message" />
-      <block type="move" />
-      <block type="turn" />
-      <block type="math_number" />
-      <block type="math_arithmetic" />
+    <block type="message" />
+    <block type="bottom_message" />
+    <block type="move" />
+    <block type="turn" />
+    <block type="math_number" />
+    <block type="math_arithmetic" />
   </category>
   `;
 
@@ -213,6 +214,15 @@ export class BlocklyService {
         colour: 355,
       },
       {
+        // show bottom message
+        type: 'bottom_message',
+        message0: 'bottom message %1',
+        args0: [{ type: 'input_value', name: 'BOTTOM_MESSAGE_VALUE', check: 'String' }],
+        previousStatement: null,
+        nextStatement: null,
+        colour: 355,
+      },
+      {
         // move	distance	number (greater than 0)
         type: 'move',
         message0: 'move %1',
@@ -305,6 +315,15 @@ export class BlocklyService {
         Blockly.JavaScript.ORDER_ATOMIC
       );
       return `message(${value});\n`;
+    };
+
+    Blockly.JavaScript['bottom_message'] = function (block) {
+      const value = Blockly.JavaScript.valueToCode(
+        block,
+        'BOTTOM_MESSAGE_VALUE',
+        Blockly.JavaScript.ORDER_ATOMIC
+      );
+      return `bottomMessage(${value});\n`;
     };
 
     Blockly.JavaScript['turn'] = function (block) {
