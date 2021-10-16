@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { InputService } from '../input.service';
+import { InputService } from '../shared/input.service';
 import { RealmUploadComponent } from './realm-upload/realm-upload.component';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatButtonToggle } from '@angular/material/button-toggle';
-import { InputService } from 'src/app/input.service';
+import { InputService } from 'src/app/shared/input.service';
 import { KeyboardService, KeyState } from 'src/app/renderer/keyboard.service';
 import {
   EditorAction,

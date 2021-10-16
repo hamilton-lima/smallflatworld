@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InputService } from 'src/app/input.service';
+import { InputService } from 'src/app/shared/input.service';
 import { RealmUploadService } from 'src/app/realm/realm-upload.service';
 import { RealmService } from 'src/app/realm/realm.service';
 import { FileService } from '../file.service';

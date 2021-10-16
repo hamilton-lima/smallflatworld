@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  AbstractMesh,
-  Angle,
-  AnimationGroup,
-  IParticleSystem,
   Mesh,
   SceneLoader,
-  Skeleton,
   StandardMaterial,
   Texture,
-  Vector3,
 } from '@babylonjs/core';
 import { EngineState } from '../renderer/renderer.model';
 import { MeshLoaderService } from './mesh-loader.service';

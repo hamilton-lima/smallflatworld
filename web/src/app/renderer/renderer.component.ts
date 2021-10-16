@@ -4,7 +4,7 @@ import { MovementService } from './movement.service';
 import { CameraService } from './camera.service';
 import { EditorService } from '../editor/editor.service';
 import { ScenarioService } from './scenario.service';
-import { InputService } from '../input.service';
+import { InputService } from '../shared/input.service';
 import { ClientService } from '../multiplayer/client.service';
 import { EngineState, SceneElement } from './renderer.model';
 import { KeyboardService } from './keyboard.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RealmService } from './realm/realm.service';
-import { InputService } from './input.service';
+import { InputService } from './shared/input.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { CodingService } from './coding/coding.service';
 import { VERSION } from 'src/app/version';
