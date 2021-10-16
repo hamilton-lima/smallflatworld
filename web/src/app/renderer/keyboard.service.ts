@@ -22,6 +22,10 @@ export class KeyState {
   Minus: boolean;
   ShiftRight: boolean;
   ShiftLeft: boolean;
+  AltRight: boolean;
+  AltLeft: boolean;
+  ControlRight: boolean;
+  ControlLeft: boolean;
   NumpadAdd: boolean;
   NumpadSubtract: boolean;
   Delete: boolean;
@@ -52,7 +56,6 @@ export class KeyboardService {
 
   up(event: KeyboardEvent) {
     const key = this.keyState[event.code];
-
     if (typeof key != undefined) {
       this.keyState[event.code] = false;
     }
