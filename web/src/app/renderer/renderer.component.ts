@@ -6,7 +6,7 @@ import { EditorService } from '../editor/editor.service';
 import { ScenarioService } from './scenario.service';
 import { InputService } from '../input.service';
 import { ClientService } from '../multiplayer/client.service';
-import { SceneElement } from './renderer.model';
+import { EngineState, SceneElement } from './renderer.model';
 import { KeyboardService } from './keyboard.service';
 
 @Component({
@@ -16,6 +16,7 @@ import { KeyboardService } from './keyboard.service';
 })
 export class RendererComponent implements AfterViewInit {
   @ViewChild('game') canvas: ElementRef<HTMLCanvasElement>;
+  private currentEngineState: EngineState;
 
   constructor(
     private service: RendererService,
@@ -37,7 +38,13 @@ export class RendererComponent implements AfterViewInit {
   }
 
   init(): void {
+    if( this.currentEngineState){
+      this.currentEngineState.scene.dispose();
+      this.currentEngineState.engine.dispose();
+    }
+
     const engineState = this.service.setup(this.canvas);
+    this.currentEngineState = engineState;
     engineState.engine.displayLoadingUI();
 
     this.editor.setup(engineState.scene);
