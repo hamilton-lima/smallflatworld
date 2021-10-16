@@ -1,0 +1,6 @@
+<div class="container">
+  <div *ngFor="let line of messages" mat-dialog-content>{{ line }}</div>
+</div>
+<div>
+  <button mat-button (click)="close()">OK</button>
+</div>

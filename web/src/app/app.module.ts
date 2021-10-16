@@ -17,6 +17,7 @@ import { CodeBlocklyComponent } from './coding/code-blockly/code-blockly.compone
 import { CodePanelComponent } from './coding/code-panel/code-panel.component';
 import { ConfimDialogComponent } from './shared/confim-dialog/confim-dialog.component';
 import { RealmToolbarComponent } from './realm/realm-toolbar/realm-toolbar.component';
+import { BottomMessageComponent } from './coding/bottom-message/bottom-message.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RealmToolbarComponent } from './realm/realm-toolbar/realm-toolbar.compo
     CodePanelComponent,
     ConfimDialogComponent,
     RealmToolbarComponent,
+    BottomMessageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheet,
+  MatBottomSheetConfig,
+} from '@angular/material/bottom-sheet';
 import { Subject } from 'rxjs';
+import {
+  BottomMessageComponent,
+  BottomMessageData,
+} from './bottom-message/bottom-message.component';
 
 function showMessage(message: string) {
   console.log('showmessage', message);
@@ -12,9 +19,15 @@ function showMessage(message: string) {
 
 function showBottomMessage(message: string) {
   console.log('showBottomMessage', message);
-  sharedContext.snackBar.open(message, 'BOTTOM', {
-    duration: 5000,
-  });
+  
+  // TODO: accept multiple lines in blockly
+  const data = <BottomMessageData>{
+    messages: [message],
+  };
+  const config = <MatBottomSheetConfig>{
+    data: data,
+  };
+  sharedContext.bottomSheet.open(BottomMessageComponent, config);
 }
 
 class Context {
@@ -64,7 +77,7 @@ export class RunnerService {
     // make injected services available to scripts
     sharedContext = <Context>{
       snackBar: this.snackBar,
-      bottomSheet: this.bottomSheet
+      bottomSheet: this.bottomSheet,
     };
 
     this.onClick.subscribe((uuid) => {
