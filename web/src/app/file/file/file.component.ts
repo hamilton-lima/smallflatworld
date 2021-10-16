@@ -4,6 +4,7 @@ import { RealmUploadService } from 'src/app/realm/realm-upload.service';
 import { RealmService } from 'src/app/realm/realm.service';
 import { FileService } from '../file.service';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
+import { RendererService } from 'src/app/renderer/renderer.service';
 
 @Component({
   selector: 'app-file',
@@ -16,7 +17,8 @@ export class FileComponent implements OnInit {
     private input: InputService,
     private uploadService: RealmUploadService,
     private realm: RealmService,
-    private confirm: ConfirmService
+    private confirm: ConfirmService,
+    private renderer: RendererService
   ) {}
 
   ngOnInit(): void {}
@@ -40,8 +42,10 @@ export class FileComponent implements OnInit {
     ]);
 
     if (response == ConfirmOptions.YES) {
-      this.realm.createRealm();
-      this.input.focus();
+      this.realm.createRealm().then(() => {
+        this.renderer.reload.next();
+        this.input.focus();
+      });
     }
   }
 }
