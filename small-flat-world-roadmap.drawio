@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2021-10-11T19:47:31.417Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="5VDZIlUtfWFvHYuLGHse" version="13.9.9" type="device">
+<mxfile host="Electron" modified="2021-10-16T04:05:54.795Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="LMQbrIOkPjAOu4cUozuG" version="13.9.9" type="device">
   <diagram id="eQwurLcD6YKOo8-gMQfG" name="Page-1">
-    <mxGraphModel dx="2354" dy="685" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="2255" dy="806" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -110,13 +110,13 @@
           <mxGeometry x="720" y="830" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-42" value="Allow to change &lt;br&gt;the name&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="522" y="450" width="120" height="60" as="geometry" />
+          <mxGeometry x="520" y="520" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-43" value="user experience" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Roboto;" parent="1" vertex="1">
           <mxGeometry x="521" y="40" width="121" height="20" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-44" value="show other users names above the character" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="520" y="380" width="120" height="60" as="geometry" />
+          <mxGeometry x="522" y="450" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="hhvbmtpyPsZvsXLc2sTJ-47" value="Add inventory concept" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
           <mxGeometry x="-80" y="760" width="120" height="60" as="geometry" />
@@ -143,7 +143,7 @@
           <mxGeometry x="1030.0000000000002" y="70" width="26.25" height="30" as="geometry" />
         </mxCell>
         <mxCell id="dsrpRAJwARRAVhw4RFIG-5" value="add mixpanel.com&lt;br&gt;tracking" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-          <mxGeometry x="920" y="220" width="120" height="60" as="geometry" />
+          <mxGeometry x="920" y="384" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="dsrpRAJwARRAVhw4RFIG-6" value="loop code to update element state, e.g. move" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
           <mxGeometry x="-80" y="450" width="120" height="60" as="geometry" />
@@ -203,16 +203,22 @@
           <mxGeometry x="-270" y="710" width="150" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UtXDGszNjiBcBZFne_oH-10" value="Show quick guide when start" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="460" y="290" width="120" height="60" as="geometry" />
+          <mxGeometry x="522" y="590" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UtXDGszNjiBcBZFne_oH-11" value="Add logo and &lt;br&gt;loading screen" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="590" y="290" width="120" height="60" as="geometry" />
+          <mxGeometry x="522" y="380" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="HFP9QEuvm40HWfnLFC2A-1" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" vertex="1" parent="1">
+        <mxCell id="HFP9QEuvm40HWfnLFC2A-1" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" parent="1" vertex="1">
           <mxGeometry x="1030.0000000000002" y="150" width="26.25" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HFP9QEuvm40HWfnLFC2A-2" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" vertex="1" parent="1">
+        <mxCell id="HFP9QEuvm40HWfnLFC2A-2" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" parent="1" vertex="1">
           <mxGeometry x="430.0000000000002" y="70" width="26.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FXLMCaTqT9eMvVKmeyeQ-1" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.tick;fontFamily=Roboto;fillColor=#008a00;strokeColor=#005700;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="434.0000000000002" y="150" width="26.25" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FXLMCaTqT9eMvVKmeyeQ-2" value="Add function to display big message" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="-80" y="290" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
