@@ -10,22 +10,46 @@
 <div class="modify-container" [hidden]="isEdit()">
   <div>
     <mat-button-toggle-group value="rotate">
-      <mat-button-toggle matBadge="O" #code (click)="code()" value="code"
+      <mat-button-toggle
+        matBadge="O"
+        #code
+        (click)="onClick('code')"
+        value="code"
         >CODE</mat-button-toggle
       >
-      <mat-button-toggle matBadge="R" #rotate (click)="rotate()" value="rotate"
+      <mat-button-toggle
+        matBadge="R"
+        #rotate
+        (click)="onClick('rotate')"
+        value="rotate"
         >ROTATE</mat-button-toggle
       >
-      <mat-button-toggle matBadge="C" #scale (click)="scale()" value="scale"
+      <mat-button-toggle
+        matBadge="C"
+        #scale
+        (click)="onClick('scale')"
+        value="scale"
         >SCALE</mat-button-toggle
       >
-      <mat-button-toggle matBadge="L" #moveX (click)="moveX()" value="moveX"
+      <mat-button-toggle
+        matBadge="L"
+        #moveX
+        (click)="onClick('moveX')"
+        value="moveX"
         >LEFT</mat-button-toggle
       >
-      <mat-button-toggle matBadge="F" #moveY (click)="moveY()" value="moveY"
+      <mat-button-toggle
+        matBadge="F"
+        #moveY
+        (click)="onClick('moveY')"
+        value="moveY"
         >FAR</mat-button-toggle
       >
-      <mat-button-toggle matBadge="U" #moveZ (click)="moveZ()" value="moveZ"
+      <mat-button-toggle
+        matBadge="U"
+        #moveZ
+        (click)="onClick('moveZ')"
+        value="moveZ"
         >UP</mat-button-toggle
       >
     </mat-button-toggle-group>

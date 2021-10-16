@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { timer } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { CodeDefinition } from '../../../../../server/src/events.model';
 import { BlocklyConfig, BlocklyService } from './code-blockly.service';
 
@@ -24,6 +24,7 @@ export class CodeBlocklyComponent implements OnChanges {
 
   @Input() definition: CodeDefinition;
   @Input() config: BlocklyConfig;
+  @Input() onReady: Subject<void>;
   @Output() codeChanged = new EventEmitter<CodeDefinition>();
 
   constructor(private service: BlocklyService) {
@@ -43,7 +44,10 @@ export class CodeBlocklyComponent implements OnChanges {
         this.config,
         this.update.bind(this)
       );
-      this.service.setXML(this.definition.blocklyDefinition, this.workspace);
+      if (this.definition && this.definition.blocklyDefinition) {
+        this.service.setXML(this.definition.blocklyDefinition, this.workspace);
+      }
+      this.onReady.next();
     });
   }
 

@@ -105,7 +105,7 @@ export class ScenarioService {
     );
     const material = new StandardMaterial('ground-material', scene);
 
-    material.diffuseColor = Color3.FromHexString('#7C6650');
+    material.diffuseColor = Color3.FromHexString('#564738');
     ground.material = material;
     ground.checkCollisions = true;
   }

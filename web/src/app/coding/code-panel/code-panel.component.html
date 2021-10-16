@@ -1,10 +1,16 @@
 <div class="container">
-  <h1>Edit code</h1>
-  selected: {{ selected }}
-  <button mat-raised-button (click)="apply()">APPLY</button>
+  <div class="top">
+    <h1>Edit code</h1>
+    <button mat-raised-button [disabled]="!dirty" (click)="apply()">APPLY</button>
+  </div>
+  <div *ngIf="loading" class="loading">
+    <h2>Loading code</h2>
+    <mat-progress-bar class="progress" mode="indeterminate"></mat-progress-bar>
+  </div>
 
-</div>
-<app-code-blockly [definition]="codeDefinition" (codeChanged)="changed($event)"></app-code-blockly>
-<div *ngIf="updatedCodeDefinition">
-  {{ updatedCodeDefinition.code }}
+  <app-code-blockly 
+    [definition]="codeDefinition"
+    (codeChanged)="changed($event)"
+    [onReady]="onReady"
+  ></app-code-blockly>
 </div>
