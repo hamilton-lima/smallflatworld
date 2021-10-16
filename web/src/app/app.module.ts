@@ -16,6 +16,7 @@ import { EditorToolbarComponent } from './editor/editor-toolbar/editor-toolbar.c
 import { EditorModePickerComponent } from './editor/editor-mode-picker/editor-mode-picker.component';
 import { CodeBlocklyComponent} from './coding/code-blockly/code-blockly.component';
 import { CodePanelComponent } from './coding/code-panel/code-panel.component';
+import { ConfimDialogComponent } from './shared/confim-dialog/confim-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CodePanelComponent } from './coding/code-panel/code-panel.component';
     EditorModePickerComponent,
     CodeBlocklyComponent,
     CodePanelComponent,
+    ConfimDialogComponent,
   ],
   imports: [
     BrowserModule,
