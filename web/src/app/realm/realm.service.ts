@@ -117,4 +117,11 @@ export class RealmService {
     await this._updateRealm();
     await this.configuration.setCurrentRealm(realm.id);
   }
+
+  async createRealm() {
+    const realm = this.persistence.buildRealm();
+    realm.character = this.defaultCharacter();
+    console.log('create realm', realm);
+    await this.updateRealm(realm);
+  }
 }

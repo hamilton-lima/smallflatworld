@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Confirm</h1>
+<div *ngFor="let line of messages" mat-dialog-content>{{line}}</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="'yes'">YES</button>
+    <button mat-button [mat-dialog-close]="'no'">NO</button>
+</div>

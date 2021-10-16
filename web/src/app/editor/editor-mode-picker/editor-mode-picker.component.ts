@@ -45,7 +45,6 @@ export class EditorModePickerComponent implements AfterViewInit {
     });
 
     this.keyboard.onKeyPress.subscribe((keys: KeyState) => {
-      console.log('pressed', keys);
       if (keys.KeyM) {
         this.editModeController.next(this);
       }

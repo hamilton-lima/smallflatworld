@@ -43,7 +43,6 @@ export class CameraService {
       this.camera.radius += STEP;
       this.camera.heightOffset -=STEP;
     }
-    console.log('camera.radius', this.camera.radius);
   }
 
   constructor() {}
