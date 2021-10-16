@@ -9,7 +9,7 @@ class ToggleGroupState {
   children: { [key: string]: ToggleGroupChild };
   position: number;
 
-  constructor(){
+  constructor() {
     this.position = 0;
     this.children = {};
   }
@@ -39,17 +39,48 @@ export class ToggleGroupController {
     }
   }
 
+  // set the position to the key
+  resetPosition(key: string) {
+    for (let position in this.keys) {
+      if (this.keys[position] == key) {
+        this.state.position = Number.parseInt(position);
+        break;
+      }
+    }
+  }
+
   next(context: any) {
     this.increasePosition();
     const key = this.keys[this.state.position];
-    this.select(key, context);
+    this.selectAndClick(key, context);
+  }
+
+  selectAndClick(key: string, context: any) {
+    const handler = this.state.children[key];
+    if (handler) {
+      handler.child.checked = true;
+      handler.event.apply(context);
+      this.resetPosition(key);
+    } else {
+      console.warn('Unhandled toogle group key', key);
+    }
   }
 
   select(key: string, context: any) {
     const handler = this.state.children[key];
     if (handler) {
       handler.child.checked = true;
+      this.resetPosition(key);
+    } else {
+      console.warn('Unhandled toogle group key', key);
+    }
+  }
+
+  click(key: string, context: any) {
+    const handler = this.state.children[key];
+    if (handler) {
       handler.event.apply(context);
+      this.resetPosition(key);
     } else {
       console.warn('Unhandled toogle group key', key);
     }

@@ -3,6 +3,7 @@ export class LibraryComponent {
   name: string;
   icon: string;
   model3D: string;
+  scale: number;
 }
 
 export class Library {

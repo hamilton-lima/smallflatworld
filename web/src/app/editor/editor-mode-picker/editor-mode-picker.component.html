@@ -7,7 +7,7 @@
   <mat-button-toggle matBadge="M" #walk value="walk">WALK</mat-button-toggle>
   <mat-button-toggle matBadge="M" #add value="add">ADD</mat-button-toggle>
 </mat-button-toggle-group>
-<div class="modify-container" [hidden]="mode != 'edit'">
+<div class="modify-container" [hidden]="isEdit()">
   <div>
     <mat-button-toggle-group value="rotate">
       <mat-button-toggle

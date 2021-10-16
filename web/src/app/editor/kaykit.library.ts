@@ -7,6 +7,7 @@ const dungeon = [
     icon: 'assets/library/kaykit/',
     model3D:
       'library/kaykit/kayyit-dungeon-pack-1/scenario/scaffold_small_medium.gltf.glb',
+      scale: 1.0
   },
 ];
 
