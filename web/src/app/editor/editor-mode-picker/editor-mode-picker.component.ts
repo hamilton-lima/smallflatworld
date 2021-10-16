@@ -113,18 +113,21 @@ export class EditorModePickerComponent implements AfterViewInit {
 
   onClick(action: string) {
     console.log('action', action);
-    this.modifyController.select(action, this);
+    this.modifyController.selectAndClick(action, this);
   }
 
   walk() {
+    this.input.focus();
     this.service.mode.next(EditorMode.WALK);
   }
 
   add() {
+    this.input.focus();
     this.service.mode.next(EditorMode.ADD);
   }
 
   edit() {
+    this.input.focus();
     this.service.mode.next(EditorMode.EDIT);
   }
 
