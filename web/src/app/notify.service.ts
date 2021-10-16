@@ -7,6 +7,8 @@ const MESSAGE_DURATION = 4000;
   providedIn: 'root',
 })
 export class NotifyService {
+  constructor(private snack: MatSnackBar) {}
+
   warn(message: string) {
     console.warn(message);
     this.snack.open(message, 'DISMISS', {
@@ -14,5 +16,10 @@ export class NotifyService {
     });
   }
 
-  constructor(private snack: MatSnackBar) {}
+  info(message: string) {
+    console.log(message);
+    this.snack.open(message, 'DISMISS', {
+      duration: MESSAGE_DURATION,
+    });
+  }
 }
