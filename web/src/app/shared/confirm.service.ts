@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ConfimDialogComponent } from './confim-dialog/confim-dialog.component';
+import {
+  ConfimDialogComponent,
+  ConfirmDialogData,
+} from './confim-dialog/confim-dialog.component';
 export enum ConfirmOptions {
   YES = 'yes',
   NO = 'no',
@@ -14,10 +17,13 @@ export class ConfirmService {
 
   async confirm(message: string): Promise<ConfirmOptions> {
     return new Promise<ConfirmOptions>((resolve, reject) => {
-      const config = <MatDialogConfig>{
-        data: { message: message },
+      const data = <ConfirmDialogData>{
+        message: message,
       };
-   
+      const config = <MatDialogConfig>{
+        data: data,
+      };
+
       const dialogRef = this.dialog.open(ConfimDialogComponent, config);
       dialogRef.afterClosed().subscribe(
         (result) => resolve(result),
