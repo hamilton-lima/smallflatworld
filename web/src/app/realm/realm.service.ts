@@ -5,7 +5,6 @@ import { ConfigurationService } from '../configuration.service';
 import { ClientService } from '../multiplayer/client.service';
 import {
   SceneElementMemento,
-  Vector3Memento,
   Vector3MementoOne,
   Vector3MementoZero,
 } from '../../../../server/src/events.model';

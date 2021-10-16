@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileComponent } from './file.component';
+import { RealmToolbarComponent } from './realm-toolbar.component';
 
-describe('FileComponent', () => {
-  let component: FileComponent;
-  let fixture: ComponentFixture<FileComponent>;
+describe('RealmToolbarComponent', () => {
+  let component: RealmToolbarComponent;
+  let fixture: ComponentFixture<RealmToolbarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileComponent ]
+      declarations: [ RealmToolbarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileComponent);
+    fixture = TestBed.createComponent(RealmToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,11 +7,11 @@ import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { RendererService } from 'src/app/renderer/renderer.service';
 
 @Component({
-  selector: 'app-file',
-  templateUrl: './file.component.html',
-  styleUrls: ['./file.component.scss'],
+  selector: 'app-realm-toolbar',
+  templateUrl: './realm-toolbar.component.html',
+  styleUrls: ['./realm-toolbar.component.scss']
 })
-export class FileComponent implements OnInit {
+export class RealmToolbarComponent  implements OnInit {
   constructor(
     private file: FileService,
     private input: InputService,
