@@ -40,7 +40,7 @@ export class RendererService {
     );
     ambient.diffuse = Color3.FromHexString( "#fff9bc" );
     ambient.specular = new Color3(0, 0, 0);
-    ambient.intensity = 0.9 * 2;
+    ambient.intensity = 0.75 * 3;
 
     const light = new DirectionalLight(
       'light',
