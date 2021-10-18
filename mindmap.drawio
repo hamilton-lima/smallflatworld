@@ -1,0 +1,231 @@
+<mxfile host="Electron" modified="2021-10-18T23:40:44.104Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.9.9 Chrome/85.0.4183.121 Electron/10.1.5 Safari/537.36" etag="x4y_ubyR9g1x9qx3TJ3L" version="13.9.9" type="device">
+  <diagram id="lLSlUuUzTVyvglyC9-Me" name="Page-1">
+    <mxGraphModel dx="2591" dy="822" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6zbXf_scFVYfyahA7sAL-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-1" target="6zbXf_scFVYfyahA7sAL-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-1" value="ramps" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="270" y="230" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-3" target="6zbXf_scFVYfyahA7sAL-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-3" value="customize existing 3D ramps" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="120" y="200" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-5" value="Define on babylonjs file format?" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-7" target="6zbXf_scFVYfyahA7sAL-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-7" value="basic forms" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="270" y="310" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-8" target="6zbXf_scFVYfyahA7sAL-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-8" value="add cubes" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="110" y="310" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-10" target="6zbXf_scFVYfyahA7sAL-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-10" value="roads drawer" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="270" y="400" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-11" target="6zbXf_scFVYfyahA7sAL-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-11" value="remove colision from roads" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="110" y="400" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-13" value="or use physics to move over roads" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="-50" y="400" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-15" target="6zbXf_scFVYfyahA7sAL-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-15" target="6zbXf_scFVYfyahA7sAL-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-15" value="items" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="500" y="200" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-16" target="6zbXf_scFVYfyahA7sAL-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-16" value="Inventory" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="500" y="50" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-18" value="save on server?" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="630" y="50" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-20" target="6zbXf_scFVYfyahA7sAL-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-20" value="definition of the item on realm" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="590" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-22" target="6zbXf_scFVYfyahA7sAL-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-22" target="6zbXf_scFVYfyahA7sAL-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-22" target="6zbXf_scFVYfyahA7sAL-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-22" target="6zbXf_scFVYfyahA7sAL-32">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="740" y="265" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-22" value="what type of items exist?" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="700" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-24" value="Tools" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="860" y="90" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-27" value="Ingredient" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="860" y="160" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-67" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-29" target="6zbXf_scFVYfyahA7sAL-66">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-29" value="Add physics configuration to items" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="270" y="490" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-30" value="minecraft textures" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="-50" y="310" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-32" value="craftable" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="860" y="240" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-36" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-34" target="6zbXf_scFVYfyahA7sAL-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-34" value="water terrain" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="775" y="320" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-70" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-35" target="6zbXf_scFVYfyahA7sAL-69">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-35" value="fishes" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="935" y="320" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-39" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-37" target="6zbXf_scFVYfyahA7sAL-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-51" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-37" target="6zbXf_scFVYfyahA7sAL-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-75" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-37" target="6zbXf_scFVYfyahA7sAL-74">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-37" value="change camera to follow without turn" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="775" y="400" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-38" value="robolucha &lt;br&gt;has an &lt;br&gt;example?" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="370" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-40" value="add stars to the sky" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="760" y="520" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-41" value="talk balloons with icons" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="610" y="625" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-42" value="when buildiing show wireframe on drawing position" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="220" y="560" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-43" target="6zbXf_scFVYfyahA7sAL-44">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="765" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-43" value="save screenshots" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="500" y="625" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-44" value="in game cameras" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="400" y="740" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-50" value="add shadows to environment" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="875" y="490" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-52" value="what are the features in server @colyseus" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="345" y="595" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-53" value="enable life and focus bar on realm" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="375" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-58" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-54" target="6zbXf_scFVYfyahA7sAL-53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-59" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-54" target="6zbXf_scFVYfyahA7sAL-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-60" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-54" target="6zbXf_scFVYfyahA7sAL-57">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="425" y="125" />
+              <mxPoint x="370" y="125" />
+              <mxPoint x="370" y="45" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-54" value="how to make realm no editable?&amp;nbsp;" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="375" y="170" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-56" value="server based ?" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="240" y="110" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-57" value="send locked and require unlock?" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="240" y="10" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-64" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-61" target="6zbXf_scFVYfyahA7sAL-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-65" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-61" target="6zbXf_scFVYfyahA7sAL-63">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-61" value="add special controls" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="740" y="610" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-62" value="add start position" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="880" y="610" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-63" value="add region" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="820" y="690" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-66" value="Things will fly :)" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="20" y="550" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-72" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-69" target="6zbXf_scFVYfyahA7sAL-71">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-69" value="model with movement will do it" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="240" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-71" value="Import models" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="140" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-73" value="paper craft of character" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="595" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-76" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=open;fontFamily=Roboto;" edge="1" parent="1" source="6zbXf_scFVYfyahA7sAL-74" target="6zbXf_scFVYfyahA7sAL-73">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6zbXf_scFVYfyahA7sAL-74" value="add feet and arms to char" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Roboto;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="510" width="80" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
