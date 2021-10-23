@@ -13,4 +13,4 @@ Web 3D programable sandbox
 
 ## Roadmap
 
-![RoadMap](small-flat-world-roadmap.png)
+[Alpha 2 release plan](docs/alpha2-plan)
