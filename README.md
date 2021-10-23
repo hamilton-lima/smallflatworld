@@ -13,4 +13,4 @@ Web 3D programable sandbox
 
 ## Roadmap
 
-[Alpha 2 release plan](docs/alpha2-plan)
+[Alpha 2 release plan](docs/alpha2-plan.md)
