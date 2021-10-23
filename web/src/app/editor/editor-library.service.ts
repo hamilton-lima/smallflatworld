@@ -5,6 +5,7 @@ import { MeshService } from '../renderer/mesh.service';
 import { Library, LibraryComponent } from './editor-library.model';
 import { kenneyLibrary } from './kenney.library';
 import { kaykitLibrary } from './kaykit.library';
+import { basicShapesLibrary } from './basic-shapes.library';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class EditorLibraryService {
   }
 
   mergeLibraries() {
-    this.libraries = kenneyLibrary; //.concat(kaykitLibrary);
+    this.libraries = basicShapesLibrary.concat(kenneyLibrary); //.concat(kaykitLibrary);
   }
 
   setComponentNames() {
