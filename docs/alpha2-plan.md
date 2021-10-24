@@ -9,6 +9,11 @@
 Technical notes
 - Add basic shapes library with cube 
 - Add library of images 
+  - use as reference https://aka.ms/resourcepacktemplate
+  https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
+  https://www.minecraft.net/en-us/article/try-new-minecraft-textures
+  
+
 - When choosing image for the cube, add option to upload to the library
 - Add code function to play audio
 - Add audio library to the realm - explore using strings to define the sound or OGG files
