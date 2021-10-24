@@ -8,13 +8,22 @@
 
 Technical notes
 - Add basic shapes library with cube 
-- Add library of images 
-  - use as reference https://aka.ms/resourcepacktemplate
-  https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
-  https://www.minecraft.net/en-us/article/try-new-minecraft-textures
   
+- Add library of images 
+  - upload image + save in the realm
+  - sync realm update of image library
+
+- Add properties input WHEN creating basic shapes
+- Add properties to basic shapes to change image 
+  - example on how wrap 6 faces on the cube https://playground.babylonjs.com/#ICLXQ8
+  
+  - add some images from minescraft as out of the box images
+    - https://aka.ms/resourcepacktemplate
+    - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
+    - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
 
 - When choosing image for the cube, add option to upload to the library
+
 - Add code function to play audio
 - Add audio library to the realm - explore using strings to define the sound or OGG files
 - Add function to create scenario elements
