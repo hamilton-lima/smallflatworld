@@ -19,6 +19,7 @@ import { ConfimDialogComponent } from './shared/confim-dialog/confim-dialog.comp
 import { RealmToolbarComponent } from './realm/realm-toolbar/realm-toolbar.component';
 import { BottomMessageComponent } from './coding/bottom-message/bottom-message.component';
 import { ImagesLibraryComponent } from './library/images-library/images-library.component';
+import { ImageUploadComponent } from './library/image-upload/image-upload.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ImagesLibraryComponent } from './library/images-library/images-library.
     RealmToolbarComponent,
     BottomMessageComponent,
     ImagesLibraryComponent,
+    ImageUploadComponent,
   ],
   imports: [
     BrowserModule,

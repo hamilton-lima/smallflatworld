@@ -12,4 +12,8 @@ export class ImagesLibraryComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  newImage(file:File){
+    console.log('new image', file);
+  }
+
 }
