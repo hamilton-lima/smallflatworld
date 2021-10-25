@@ -7,13 +7,15 @@ import {
   StandardMaterial,
   MeshBuilder,
   AbstractMesh,
+  BoundingInfo,
 } from '@babylonjs/core';
-import { MeshLoaderService } from '../mesh/mesh-loader.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeshService {
+  constructor() {}
+
   private _addbox(
     scene: Scene,
     width: number,
@@ -107,7 +109,6 @@ export class MeshService {
     scaling: Vector3,
     name: string
   ): Mesh {
-
     const result = <Mesh>mesh.clone(name, null);
     result.name = name;
     result.position = position;
@@ -123,5 +124,72 @@ export class MeshService {
     return result;
   }
 
-  constructor(private loader: MeshLoaderService) {}
+  // create a clickable transparent box based on boundingbox information
+  public createClickableDummy(
+    scene: Scene,
+    parent: Mesh,
+    boundingBoxInfo: BoundingInfo
+  ) {
+    const bb = boundingBoxInfo.boundingBox;
+    const width = bb.maximum.x - bb.minimum.x;
+    const height = bb.maximum.y - bb.minimum.y;
+    const depth = bb.maximum.z - bb.minimum.z;
+
+    const clickable = MeshBuilder.CreateBox(
+      'clickable',
+      { width: width, height: height, depth: depth },
+      scene
+    );
+
+    clickable.position = bb.center;
+
+    clickable.setParent(parent);
+    clickable.isPickable = true;
+    clickable.isVisible = true;
+    clickable.checkCollisions = true;
+
+    const transparent = new StandardMaterial('transparent', scene);
+    transparent.alpha = 0.0;
+    clickable.material = transparent;
+
+    return clickable;
+  }
+
+  // create parent with boundingbox around all meshes
+  public createParent(
+    scene: Scene,
+    name: string,
+    visible: boolean,
+    meshes: Mesh[]
+  ): Mesh {
+    // create parent mesh
+    const parent = new Mesh(name, scene);
+    parent.isPickable = true;
+
+    // add all loaded meshes as visible children
+    meshes.forEach((mesh) => {
+      mesh.setParent(parent);
+      mesh.isPickable = false;
+      mesh.isVisible = visible;
+    });
+
+    // calculate bounding box
+    let min = meshes[0].getBoundingInfo().boundingBox.minimumWorld;
+    let max = meshes[0].getBoundingInfo().boundingBox.maximumWorld;
+
+    // verify each mesh min / max
+    for (let i = 1; i < meshes.length; i++) {
+      let meshMin = meshes[i].getBoundingInfo().boundingBox.minimumWorld;
+      let meshMax = meshes[i].getBoundingInfo().boundingBox.maximumWorld;
+
+      min = Vector3.Minimize(min, meshMin);
+      max = Vector3.Maximize(max, meshMax);
+    }
+
+    // set parent bounding box
+    const boundingBoxInfo = new BoundingInfo(min, max);
+    parent.setBoundingInfo(boundingBoxInfo);
+    this.createClickableDummy(scene, parent, boundingBoxInfo);
+    return parent;
+  }
 }
