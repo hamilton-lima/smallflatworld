@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImagesService {
-
   // REMOVE THIS
   last: string;
-  constructor() { }
+  constructor() {
+    // REMOVE THIS
+    this.last = localStorage.getItem('lastImage');
+  }
 
   fileInputToBase64(file): Subject<string> {
     const result = new Subject<string>();
@@ -20,7 +22,12 @@ export class ImagesService {
 
     reader.readAsDataURL(file);
     // REMOVE this
-    result.subscribe(base64 => this.last = base64);
+    result.subscribe((base64) => {
+      this.last = base64;
+      // REMOVE THIS
+      localStorage.setItem('lastImage', base64);
+      console.log('image', base64);
+    });
     return result;
   }
 }

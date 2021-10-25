@@ -8,13 +8,36 @@ import {
   MeshBuilder,
   AbstractMesh,
   BoundingInfo,
+  Vector4,
 } from '@babylonjs/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeshService {
+  faceUV: Array<Vector4>;
   constructor() {}
+
+  // Create faceUV to match 6 sides texture to sides of the cube
+  // see https://playground.babylonjs.com/#ICLXQ8
+  private getFaceUV() {
+    if (this.faceUV) {
+      return this.faceUV;
+    }
+
+    const faceUV = new Array(6);
+
+    //set all faces
+    faceUV[0] = new Vector4(0, 0.5, 1 / 3, 1);
+    faceUV[1] = new Vector4(1 / 3, 0, 2 / 3, 0.5);
+    faceUV[2] = new Vector4(2 / 3, 0, 1, 0.5);
+    faceUV[3] = new Vector4(0, 0, 1 / 3, 0.5);
+    faceUV[4] = new Vector4(1 / 3, 0.5, 2 / 3, 1);
+    faceUV[5] = new Vector4(2 / 3, 0.5, 1, 1);
+
+    this.faceUV = faceUV;
+    return faceUV;
+  }
 
   private _addbox(
     scene: Scene,
@@ -27,7 +50,8 @@ export class MeshService {
   ): Mesh {
     const box = MeshBuilder.CreateBox(
       name,
-      { width: width, height: height },
+      { width: width, height: height, faceUV: this.getFaceUV(), wrap: true },
+      // { width: width, height: height },
       scene
     );
     const material = new StandardMaterial('material', scene);
@@ -51,7 +75,8 @@ export class MeshService {
   ): Mesh {
     const box = MeshBuilder.CreateBox(
       name,
-      { width: width, height: height },
+      { width: width, height: height, faceUV: this.getFaceUV(), wrap: true },
+      // { width: width, height: height  },
       scene
     );
     const material = new StandardMaterial('material', scene);
