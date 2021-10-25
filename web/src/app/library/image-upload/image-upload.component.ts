@@ -25,6 +25,8 @@ export class ImageUploadComponent {
   file: File | null = null;
   @Output() onUpload: EventEmitter<File> = new EventEmitter();
 
+  isDraggingOver = false;
+
   @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
     const file = event && event.item(0);
     this.onUpload.emit(file);
@@ -36,16 +38,19 @@ export class ImageUploadComponent {
   @HostListener('dragover', ['$event']) public onDragOver(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
+    this.isDraggingOver = true;
   }
 
   @HostListener('dragleave', ['$event']) public onDragLeave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
+    this.isDraggingOver = false;
   }
 
   @HostListener('drop', ['$event']) public onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
+    this.isDraggingOver = false;
 
     if (event.dataTransfer.files.length > 0) {
       const file = event.dataTransfer.files[0];
