@@ -6,6 +6,9 @@ import { Library, LibraryComponent } from './editor-library.model';
 import { kenneyLibrary } from './kenney.library';
 import { kaykitLibrary } from './kaykit.library';
 import { basicShapesLibrary } from './basic-shapes.library';
+import { InternalLibraryFactoryService } from './internal-library-factory.service';
+
+const INTERNAL = 'internal/';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +19,11 @@ export class EditorLibraryService {
   private components: Map<string, LibraryComponent> = new Map();
   private libraries: Library[];
 
-  constructor(private loader: MeshLoaderService, private mesh: MeshService) {
+  constructor(
+    private loader: MeshLoaderService,
+    private mesh: MeshService,
+    private internalFactory: InternalLibraryFactoryService
+  ) {
     this.mergeLibraries();
     this.setComponentNames();
   }
@@ -84,14 +91,26 @@ export class EditorLibraryService {
         console.log('getmesh cached', component.id, cached);
         resolve(cached);
       } else {
-        // not present in the cache load the model
-        this.loader
-          .loadWithClickable(scene, component.model3D, component.name, false)
-          .then((loaded) => {
-            this.add2Cache(component.id, loaded);
-            console.log('getmesh loaded model', component.id);
-            resolve(loaded);
-          });
+        if (component.id.startsWith(INTERNAL)) {
+          // Uses internal factory to build the 3D model
+          const model = this.internalFactory.build(
+            scene,
+            component.id,
+            component.name
+          );
+          this.add2Cache(component.id, model);
+          console.log('getmesh build from the factory model', component.id);
+          resolve(model);
+        } else {
+          // not present in the cache load the model
+          this.loader
+            .loadWithClickable(scene, component.model3D, component.name, false)
+            .then((loaded) => {
+              this.add2Cache(component.id, loaded);
+              console.log('getmesh loaded model', component.id);
+              resolve(loaded);
+            });
+        }
       }
     });
   }

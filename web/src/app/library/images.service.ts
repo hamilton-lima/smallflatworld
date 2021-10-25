@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 })
 export class ImagesService {
 
+  // REMOVE THIS
+  last: string;
   constructor() { }
 
   fileInputToBase64(file): Subject<string> {
@@ -17,6 +19,8 @@ export class ImagesService {
     };
 
     reader.readAsDataURL(file);
+    // REMOVE this
+    result.subscribe(base64 => this.last = base64);
     return result;
   }
 }
