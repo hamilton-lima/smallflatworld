@@ -69,7 +69,7 @@ export class SceneElementMemento {
   rotation: Vector3Memento;
   scaling: Vector3Memento;
   code: CodeDefinition;
-  image: SceneImage;
+  imageName: string;
 }
 
 export class SceneImage {

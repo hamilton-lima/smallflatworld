@@ -24,6 +24,8 @@ export function sceneElement2Memento(
     position: vector3ToMemento(element.position),
     rotation: vector3ToMemento(element.rotation),
     scaling: vector3ToMemento(element.scaling),
+    imageName: element.imageName,
+    code: element.code
   };
   return result;
 }
@@ -37,6 +39,8 @@ export function memento2SceneElement(
     position: buildVector3(element.position),
     rotation: buildVector3(element.rotation),
     scaling: buildVector3(element.scaling),
+    imageName: element.imageName,
+    code: element.code
   };
   return result;
 }

@@ -75,7 +75,7 @@ export class EditorLibraryService {
   }
 
   // get Mesh based on componentID
-  getMesh(scene: Scene, componentID: string): Promise<AbstractMesh> {
+  getMesh(scene: Scene, componentID: string, imageName: string): Promise<AbstractMesh> {
     console.log('getMesh', componentID, this.cacheSize());
 
     return new Promise<AbstractMesh>((resolve, reject) => {
@@ -86,9 +86,10 @@ export class EditorLibraryService {
         resolve(this.mesh.getBox(scene));
       }
 
-      if (this.isCached(component.id)) {
-        const cached = this.getFromCache(component.id);
-        console.log('getmesh cached', component.id, cached);
+      const cacheKey = component.id + imageName;
+      if (this.isCached(cacheKey)) {
+        const cached = this.getFromCache(cacheKey);
+        console.log('getmesh cached', component.id, imageName, cached);
         resolve(cached);
       } else {
         if (component.id.startsWith(INTERNAL)) {
@@ -96,17 +97,18 @@ export class EditorLibraryService {
           const model = this.internalFactory.build(
             scene,
             component.id,
-            component.name
+            component.name,
+            imageName
           );
-          this.add2Cache(component.id, model);
-          console.log('getmesh build from the factory model', component.id);
+          this.add2Cache(cacheKey, model);
+          console.log('getmesh build from the factory model', component.id, imageName);
           resolve(model);
         } else {
           // not present in the cache load the model
           this.loader
             .loadWithClickable(scene, component.model3D, component.name, false)
             .then((loaded) => {
-              this.add2Cache(component.id, loaded);
+              this.add2Cache(cacheKey, loaded);
               console.log('getmesh loaded model', component.id);
               resolve(loaded);
             });

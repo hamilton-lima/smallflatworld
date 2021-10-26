@@ -9,7 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
   providedIn: 'root',
 })
 export class ImagesService {
-
   onUpdate: BehaviorSubject<SceneImage[]>;
   selected: SceneImage;
 
@@ -26,6 +25,21 @@ export class ImagesService {
 
   getCurrent() {
     return this.selected;
+  }
+
+  getCurrentImageName() {
+    if (this.selected) {
+      return this.selected.name;
+    }
+    return '';
+  }
+
+  findByName(imageName: string) {
+    const found = this.onUpdate.value.find(
+      (image) => image.name == imageName
+    );
+
+    return found;
   }
 
   add(image: SceneImage) {

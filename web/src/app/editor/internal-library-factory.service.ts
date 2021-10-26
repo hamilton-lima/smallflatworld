@@ -19,18 +19,17 @@ export class InternalLibraryFactoryService {
     private notify: NotifyService
   ) {}
 
-  build(scene: Scene, id: string, name: string): AbstractMesh {
+  build(scene: Scene, id: string, name: string, imageName: string): AbstractMesh {
     const cube = this.mesh.getBox(scene);
 
-    const current = this.images.getCurrent();
+    const current = this.images.findByName(imageName);
     if (current) {
+      // TODO: cache material by image name
       var mat = new StandardMaterial('mat', scene);
       var texture = new Texture(current.base64, scene);
       mat.diffuseTexture = texture;
       cube.material = mat;
-    } else {
-      this.notify.warn('If you select an image it will be used when adding elements.');
-    }
+    } 
 
     const result = this.mesh.createParent(scene, name, true, [cube]);
 
