@@ -20,7 +20,16 @@ export class ImagesLibraryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.service.onUpdate.subscribe((images) => (this.images = images));
+    this.service.onUpdate.subscribe((images) => {
+      this.images = images;
+      this.preSelectImage();
+    });
+  }
+
+  preSelectImage() {
+    if( this.images && this.images.length > 0){
+      this.select(this.images[0]);
+    }
   }
 
   select(image: SceneImage) {
