@@ -3,12 +3,25 @@
 </div>
 
 <div class="image-list">
-  <button
-    mat-raised-button
+  <div
     *ngFor="let image of images"
-    aria-label="{{ image.name }}"
-    (click)="delete(image.name)"
+    (mouseover)="mouseOver(image.name)"
   >
-    <img width="70" height="70" [src]="image.base64" />
-  </button>
+    <button
+      mat-raised-button
+      aria-label="{{ image.name }}"
+      (click)="select(image)"
+      [color]="getComponentSelectionColor(image.name)"
+    >
+      <img width="70" height="70" [src]="image.base64" />
+    </button>
+    <button
+      class="floating-delete"
+      mat-icon-button 
+      (click)="delete(image.name)"
+      *ngIf="image.name == mouseOverImage"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
 </div>

@@ -9,13 +9,23 @@ import { v4 as uuidv4 } from 'uuid';
   providedIn: 'root',
 })
 export class ImagesService {
+
   onUpdate: BehaviorSubject<SceneImage[]>;
+  selected: SceneImage;
 
   constructor(private client: ClientService, private realm: RealmService) {
     this.onUpdate = new BehaviorSubject([]);
     this.realm.onNew.subscribe((newRealm) => {
       this.onUpdate.next(newRealm.images);
     });
+  }
+
+  select(image: SceneImage) {
+    this.selected = image;
+  }
+
+  getCurrent() {
+    return this.selected;
   }
 
   add(image: SceneImage) {

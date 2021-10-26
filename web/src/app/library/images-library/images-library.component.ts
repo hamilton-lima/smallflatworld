@@ -9,6 +9,9 @@ import { ImagesService } from '../images.service';
   styleUrls: ['./images-library.component.scss'],
 })
 export class ImagesLibraryComponent implements OnInit {
+  current: SceneImage;
+  mouseOverImage: string;
+
   preview: string;
   images: SceneImage[];
   constructor(
@@ -20,8 +23,26 @@ export class ImagesLibraryComponent implements OnInit {
     this.service.onUpdate.subscribe((images) => (this.images = images));
   }
 
+  select(image: SceneImage) {
+    this.service.select(image);
+    console.log('select', image);
+  }
+
+  mouseOver(name: string) {
+    console.log('mouseover', name);
+    this.mouseOverImage = name;
+  }
+
+  getComponentSelectionColor(name:string) {
+    const current = this.service.getCurrent();
+    if (current && name == current.name) {
+      return "primary";
+    } else {
+      return "";
+    }
+  }
+
   newImage(file: File) {
-    console.log('new image', file);
     this.service.fileInputToBase64(file).subscribe((base64) => {
       this.preview = base64;
     });
