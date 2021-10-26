@@ -124,6 +124,7 @@ export class PersistenceService {
       id: uuidv4(),
       name: uniqueNamesGenerator(uniqueNameConfig),
       elements: [],
+      images: []
     };
 
     return result;

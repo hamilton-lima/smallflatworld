@@ -12,10 +12,10 @@ export class InternalLibraryFactoryService {
   build(scene: Scene, id: string, name: string): AbstractMesh {
     const cube = this.mesh.getBox(scene);
 
-    var mat = new StandardMaterial("mat", scene);
-    var texture = new Texture(this.images.last, scene);
-    mat.diffuseTexture = texture;
-    cube.material = mat;
+    // var mat = new StandardMaterial("mat", scene);
+    // var texture = new Texture(this.images.last, scene);
+    // mat.diffuseTexture = texture;
+    // cube.material = mat;
 
     const result = this.mesh.createParent(scene, name, true, [cube]);
 

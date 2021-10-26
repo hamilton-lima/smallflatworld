@@ -1,8 +1,13 @@
-<p>Images library</p>
 <div class="upload-wrapper">
-    <app-image-upload (onUpload)="newImage($event)"></app-image-upload>
+  <app-image-upload (onUpload)="newImage($event)"></app-image-upload>
 </div>
 
-<div *ngIf="preview">
-    <img class="image-preview" [src]="preview">
+<div class="image-list">
+  <button
+    mat-raised-button
+    *ngFor="let image of images"
+    aria-label="{{ image.name }}"
+  >
+    <img width="70" height="70" [src]="image.base64" />
+  </button>
 </div>

@@ -9,6 +9,7 @@ import {
   JoinRequest,
   JoinResponse,
   SceneElementMemento,
+  SceneImage,
   ShareRequest,
   ShareResponse,
   StateUpdate,
@@ -128,6 +129,13 @@ export class ServerService {
   update(elements: SceneElementMemento[]) {
     const request = <StateUpdate>{
       data: elements,
+    };
+    this.send(Actions.Update, request);
+  }
+
+  updateImages(images: SceneImage[]) {
+    const request = <StateUpdate>{
+      images: images,
     };
     this.send(Actions.Update, request);
   }

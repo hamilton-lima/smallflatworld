@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SceneImage } from '../../../../../server/src/events.model';
 import { ImagesService } from '../images.service';
 
 @Component({
@@ -8,9 +9,12 @@ import { ImagesService } from '../images.service';
 })
 export class ImagesLibraryComponent implements OnInit {
   preview: string;
+  images: SceneImage[];
   constructor(private service: ImagesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.service.onUpdate.subscribe((images) => (this.images = images));
+  }
 
   newImage(file: File) {
     console.log('new image', file);
