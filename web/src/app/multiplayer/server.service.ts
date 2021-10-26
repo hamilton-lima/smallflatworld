@@ -146,4 +146,9 @@ export class ServerService {
     };
     this.send(Actions.Delete, request);
   }
+
+  deleteImage(name: string) {
+    console.error('DELETE IMAGE AT SERVER is not implemented.');
+  }
+
 }

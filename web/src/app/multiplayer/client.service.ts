@@ -69,6 +69,10 @@ export class ClientService {
     this.server.delete(name);
   }
 
+  deleteImage(name: string) {
+    this.server.deleteImage(name);
+  }
+
   listen2Updates() {
     this.subscriptions.push(
       this.server.onStateUpdate.subscribe((request: StateUpdate) => {

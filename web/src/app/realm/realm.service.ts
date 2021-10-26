@@ -161,6 +161,7 @@ export class RealmService {
     const found = this.currentRealm.images.findIndex(
       (image) => image.name == name
     );
+    console.log('found', name);
     if (found) {
       this.currentRealm.images.splice(found, 1);
     }

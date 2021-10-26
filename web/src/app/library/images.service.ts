@@ -20,8 +20,16 @@ export class ImagesService {
 
   add(image: SceneImage) {
     this.client.updateImage(image);
-    this.realm.addImage(image);
-    this.onUpdate.next(this.realm.getCurrentRealm().images);
+    this.realm.addImage(image).then((_) => {
+      this.onUpdate.next(this.realm.getCurrentRealm().images);
+    });
+  }
+
+  remove(name: string) {
+    this.client.deleteImage(name);
+    this.realm.deleteImage(name).then((_) => {
+      this.onUpdate.next(this.realm.getCurrentRealm().images);
+    });
   }
 
   fileInputToBase64(file): Subject<string> {

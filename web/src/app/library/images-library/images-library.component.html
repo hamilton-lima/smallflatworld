@@ -7,6 +7,7 @@
     mat-raised-button
     *ngFor="let image of images"
     aria-label="{{ image.name }}"
+    (click)="delete(image.name)"
   >
     <img width="70" height="70" [src]="image.base64" />
   </button>
