@@ -18,7 +18,9 @@ export class KeyState {
   KeyL: boolean;
   KeyF: boolean;
   KeyU: boolean;
+  KeyV: boolean;
   KeyX: boolean;
+  KeyZ: boolean;
   Minus: boolean;
   ShiftRight: boolean;
   ShiftLeft: boolean;
@@ -48,6 +50,15 @@ export class KeyboardService {
       this.keyState[event.code] = true;
       this.keyPressed();
     }
+  }
+
+  resetCtrl(){
+    this.keyState.ControlLeft = false;
+    this.keyState.ControlRight = false;
+  }
+
+  Ctrl(){
+    return this.keyState.ControlLeft || this.keyState.ControlRight;
   }
 
   keyPressed() {

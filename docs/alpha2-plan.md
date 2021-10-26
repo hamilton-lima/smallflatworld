@@ -1,12 +1,14 @@
 # Roadmap
 
-#### Release Alfa2 0.5.0
+## Release Alfa2 0.5.0
 - Custom images on scenario
 - Play sound effects
 - Create scenario using code
 - Code together
 
-Technical notes
+## Action plan
+
+### Custom images
 - Add basic shapes library with cube 
 - Add library of images 
   - upload image + save in the realm
@@ -15,8 +17,6 @@ Technical notes
 - Add properties to basic shapes to change image 
   - example on how wrap 6 faces on the cube https://playground.babylonjs.com/#ICLXQ8
 
-- InternalLibraryFactoryService respond with the used image
-
   - add some images from minescraft as out of the box images
     - https://aka.ms/resourcepacktemplate
     - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
@@ -24,8 +24,10 @@ Technical notes
 
 - Add Copy and Paste
 
+### Audio
 - Add code function to play audio
 - Add audio library to the realm - explore using strings to define the sound or OGG files
+
 - Add function to create scenario elements
 - Display mouse position and character position - to be used as reference 
 for the create scenario code

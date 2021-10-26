@@ -8,6 +8,7 @@ import { InputService } from '../shared/input.service';
 import { ClientService } from '../multiplayer/client.service';
 import { EngineState, SceneElement } from './renderer.model';
 import { KeyboardService } from './keyboard.service';
+import { LocalClipboardService} from './local-clipboard.service';
 
 @Component({
   selector: 'app-renderer',
@@ -26,7 +27,8 @@ export class RendererComponent implements AfterViewInit {
     private scenario: ScenarioService,
     private input: InputService,
     private client: ClientService,
-    private keyboard: KeyboardService
+    private keyboard: KeyboardService,
+    private clipboard: LocalClipboardService
   ) {}
 
   ngAfterViewInit(): void {
@@ -68,6 +70,7 @@ export class RendererComponent implements AfterViewInit {
 
         engineState.engine.runRenderLoop(() => {
           this.movement.move(engineState.scene, engineState.character);
+          this.clipboard.render();
           engineState.scene.render();
         });
 
