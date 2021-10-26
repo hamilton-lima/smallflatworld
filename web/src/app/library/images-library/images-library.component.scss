@@ -7,12 +7,22 @@
 }
 
 .image-list {
+  position: relative;
   margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 3;
 }
 
-.floating-delete{
-  display: inline-block;
+.one-image {
   position: relative;
-  top: -30px;
-  right: 20px;
+  flex: 1;
+  max-width: 102px;
+}
+
+.floating-delete {
+  position: absolute;
+  z-index: 100;
+  top: -15px;
+  right: -20px;
 }
