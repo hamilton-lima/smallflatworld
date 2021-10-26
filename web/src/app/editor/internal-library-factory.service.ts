@@ -31,7 +31,7 @@ export class InternalLibraryFactoryService {
       cube.material = mat;
     } 
 
-    const result = this.mesh.createParent(scene, name, true, [cube]);
+    const result = this.mesh.createParent(scene, name, false, [cube]);
 
     return result;
   }
