@@ -22,19 +22,19 @@
     - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
     - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
 
-- Add Copy and Paste
-
 ### Audio
 - Add code function to play audio
 - Add audio library to the realm - explore using strings to define the sound or OGG files
 
+### Create scene elements with code
 - Add function to create scenario elements
 - Display mouse position and character position - to be used as reference 
 for the create scenario code
+
 - Add legs to the character or wheels :)
 - Add mixpanel.com tracking (timeboxed)
 
-Multiplayer notes
+### play together
 - Auto generate user name
 - Allow to update names
 - Send player position updates and user name
