@@ -30,6 +30,7 @@ import { InputService } from '../shared/input.service';
 import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
 import { NotifyService } from '../shared/notify.service';
+import { ImagesService } from '../library/images.service';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
@@ -227,7 +228,8 @@ export class EditorService {
     private input: InputService,
     private coding: CodingService,
     private runner: RunnerService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private image: ImagesService
   ) {}
 
   getPointerPosition(scene: Scene): Vector3 {
@@ -406,7 +408,9 @@ export class EditorService {
 
     const faceId = pointerInfo.pickInfo.faceId;
     let picked = <Mesh>pointerInfo.pickInfo.pickedMesh;
-    const templateMesh = await this.library.getMesh(scene, this.current.id);
+    const imageName = this.image.getCurrentImageName();
+
+    const templateMesh = await this.library.getMesh(scene, this.current.id, imageName);
     const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
     let position: Vector3;
 
@@ -438,6 +442,7 @@ export class EditorService {
         this.current.scale
       ),
       code: new CodeDefinition(),
+      imageName: imageName
     };
 
     await this.create(scene, element);
@@ -461,7 +466,7 @@ export class EditorService {
 
   async create(scene: Scene, element: SceneElement) {
     console.log('create', element.name, element.position);
-    const templateMesh = await this.library.getMesh(scene, element.componentID);
+    const templateMesh = await this.library.getMesh(scene, element.componentID, element.imageName);
 
     const mesh = this.mesh.cloneMesh(
       scene,

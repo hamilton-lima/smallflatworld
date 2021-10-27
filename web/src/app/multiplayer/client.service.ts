@@ -4,6 +4,7 @@ import {
   DeleteRequest,
   JoinResponse,
   SceneElementMemento,
+  SceneImage,
   ShareResponse,
   StateUpdate,
 } from '../../../../server/src/events.model';
@@ -18,6 +19,7 @@ export class ClientService {
   realmUUID: string;
   subscriptions: Subscription[] = [];
   onUpdate: Subject<SceneElement[]> = new Subject();
+  onUpdateImages: Subject<SceneImage[]> = new Subject();
   onDelete: Subject<string> = new Subject();
 
   constructor(private server: ServerService) {}
@@ -59,8 +61,16 @@ export class ClientService {
     this.server.update([sceneElement]);
   }
 
+  updateImage(image: SceneImage) {
+    this.server.updateImages([image]);
+  }
+
   delete(name: string) {
     this.server.delete(name);
+  }
+
+  deleteImage(name: string) {
+    this.server.deleteImage(name);
   }
 
   listen2Updates() {
@@ -68,6 +78,7 @@ export class ClientService {
       this.server.onStateUpdate.subscribe((request: StateUpdate) => {
         const data = this.memento2Vector3(request.data);
         this.onUpdate.next(data);
+        this.onUpdateImages.next(request.images);
       })
     );
 
@@ -86,7 +97,8 @@ export class ClientService {
         position: buildVector3(element.position),
         rotation: buildVector3(element.rotation),
         scaling: buildVector3(element.scaling),
-        code: element.code
+        code: element.code,
+        imageName: element.imageName
       };
       result.push(converted);
     });

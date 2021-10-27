@@ -5,6 +5,10 @@ import { MeshService } from '../renderer/mesh.service';
 import { Library, LibraryComponent } from './editor-library.model';
 import { kenneyLibrary } from './kenney.library';
 import { kaykitLibrary } from './kaykit.library';
+import { basicShapesLibrary } from './basic-shapes.library';
+import { InternalLibraryFactoryService } from './internal-library-factory.service';
+
+const INTERNAL = 'internal/';
 
 @Injectable({
   providedIn: 'root',
@@ -15,13 +19,17 @@ export class EditorLibraryService {
   private components: Map<string, LibraryComponent> = new Map();
   private libraries: Library[];
 
-  constructor(private loader: MeshLoaderService, private mesh: MeshService) {
+  constructor(
+    private loader: MeshLoaderService,
+    private mesh: MeshService,
+    private internalFactory: InternalLibraryFactoryService
+  ) {
     this.mergeLibraries();
     this.setComponentNames();
   }
 
   mergeLibraries() {
-    this.libraries = kenneyLibrary; //.concat(kaykitLibrary);
+    this.libraries = basicShapesLibrary.concat(kenneyLibrary); //.concat(kaykitLibrary);
   }
 
   setComponentNames() {
@@ -67,7 +75,7 @@ export class EditorLibraryService {
   }
 
   // get Mesh based on componentID
-  getMesh(scene: Scene, componentID: string): Promise<AbstractMesh> {
+  getMesh(scene: Scene, componentID: string, imageName: string): Promise<AbstractMesh> {
     console.log('getMesh', componentID, this.cacheSize());
 
     return new Promise<AbstractMesh>((resolve, reject) => {
@@ -78,19 +86,33 @@ export class EditorLibraryService {
         resolve(this.mesh.getBox(scene));
       }
 
-      if (this.isCached(component.id)) {
-        const cached = this.getFromCache(component.id);
-        console.log('getmesh cached', component.id, cached);
+      const cacheKey = component.id + imageName;
+      if (this.isCached(cacheKey)) {
+        const cached = this.getFromCache(cacheKey);
+        console.log('getmesh cached', component.id, imageName, cached);
         resolve(cached);
       } else {
-        // not present in the cache load the model
-        this.loader
-          .loadWithClickable(scene, component.model3D, component.name, false)
-          .then((loaded) => {
-            this.add2Cache(component.id, loaded);
-            console.log('getmesh loaded model', component.id);
-            resolve(loaded);
-          });
+        if (component.id.startsWith(INTERNAL)) {
+          // Uses internal factory to build the 3D model
+          const model = this.internalFactory.build(
+            scene,
+            component.id,
+            component.name,
+            imageName
+          );
+          this.add2Cache(cacheKey, model);
+          console.log('getmesh build from the factory model', component.id, imageName);
+          resolve(model);
+        } else {
+          // not present in the cache load the model
+          this.loader
+            .loadWithClickable(scene, component.model3D, component.name, false)
+            .then((loaded) => {
+              this.add2Cache(cacheKey, loaded);
+              console.log('getmesh loaded model', component.id);
+              resolve(loaded);
+            });
+        }
       }
     });
   }

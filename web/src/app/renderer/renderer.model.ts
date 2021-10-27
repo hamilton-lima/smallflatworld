@@ -15,5 +15,6 @@ export class SceneElement {
   position: Vector3;
   rotation: Vector3;
   scaling: Vector3;
-  code: CodeDefinition
+  code: CodeDefinition;
+  imageName: string;
 }

@@ -39,7 +39,7 @@ export class RealmUploadComponent {
   }
 
   import() {
-    this.realmService.updateRealm(this.realm).then(() => {
+    this.realmService.addRealmAndSetCurrent(this.realm).then(() => {
       this.renderer.reload.next();
       this.dialogRef.close();
     });

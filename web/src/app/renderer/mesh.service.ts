@@ -7,13 +7,38 @@ import {
   StandardMaterial,
   MeshBuilder,
   AbstractMesh,
+  BoundingInfo,
+  Vector4,
 } from '@babylonjs/core';
-import { MeshLoaderService } from '../mesh/mesh-loader.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeshService {
+  faceUV: Array<Vector4>;
+  constructor() {}
+
+  // Create faceUV to match 6 sides texture to sides of the cube
+  // see https://playground.babylonjs.com/#ICLXQ8
+  private getFaceUV() {
+    if (this.faceUV) {
+      return this.faceUV;
+    }
+
+    const faceUV = new Array(6);
+
+    //set all faces
+    faceUV[0] = new Vector4(0, 0.5, 1 / 3, 1);
+    faceUV[1] = new Vector4(1 / 3, 0, 2 / 3, 0.5);
+    faceUV[2] = new Vector4(2 / 3, 0, 1, 0.5);
+    faceUV[3] = new Vector4(0, 0, 1 / 3, 0.5);
+    faceUV[4] = new Vector4(1 / 3, 0.5, 2 / 3, 1);
+    faceUV[5] = new Vector4(2 / 3, 0.5, 1, 1);
+
+    this.faceUV = faceUV;
+    return faceUV;
+  }
+
   private _addbox(
     scene: Scene,
     width: number,
@@ -25,7 +50,8 @@ export class MeshService {
   ): Mesh {
     const box = MeshBuilder.CreateBox(
       name,
-      { width: width, height: height },
+      { width: width, height: height, faceUV: this.getFaceUV(), wrap: true },
+      // { width: width, height: height },
       scene
     );
     const material = new StandardMaterial('material', scene);
@@ -49,7 +75,8 @@ export class MeshService {
   ): Mesh {
     const box = MeshBuilder.CreateBox(
       name,
-      { width: width, height: height },
+      { width: width, height: height, faceUV: this.getFaceUV(), wrap: true },
+      // { width: width, height: height  },
       scene
     );
     const material = new StandardMaterial('material', scene);
@@ -107,7 +134,6 @@ export class MeshService {
     scaling: Vector3,
     name: string
   ): Mesh {
-
     const result = <Mesh>mesh.clone(name, null);
     result.name = name;
     result.position = position;
@@ -123,5 +149,72 @@ export class MeshService {
     return result;
   }
 
-  constructor(private loader: MeshLoaderService) {}
+  // create a clickable transparent box based on boundingbox information
+  public createClickableDummy(
+    scene: Scene,
+    parent: Mesh,
+    boundingBoxInfo: BoundingInfo
+  ) {
+    const bb = boundingBoxInfo.boundingBox;
+    const width = bb.maximum.x - bb.minimum.x;
+    const height = bb.maximum.y - bb.minimum.y;
+    const depth = bb.maximum.z - bb.minimum.z;
+
+    const clickable = MeshBuilder.CreateBox(
+      'clickable',
+      { width: width, height: height, depth: depth },
+      scene
+    );
+
+    clickable.position = bb.center;
+
+    clickable.setParent(parent);
+    clickable.isPickable = true;
+    clickable.isVisible = true;
+    clickable.checkCollisions = true;
+
+    const transparent = new StandardMaterial('transparent', scene);
+    transparent.alpha = 0.0;
+    clickable.material = transparent;
+
+    return clickable;
+  }
+
+  // create parent with boundingbox around all meshes
+  public createParent(
+    scene: Scene,
+    name: string,
+    visible: boolean,
+    meshes: Mesh[]
+  ): Mesh {
+    // create parent mesh
+    const parent = new Mesh(name, scene);
+    parent.isPickable = true;
+
+    // add all loaded meshes as visible children
+    meshes.forEach((mesh) => {
+      mesh.setParent(parent);
+      mesh.isPickable = false;
+      mesh.isVisible = visible;
+    });
+
+    // calculate bounding box
+    let min = meshes[0].getBoundingInfo().boundingBox.minimumWorld;
+    let max = meshes[0].getBoundingInfo().boundingBox.maximumWorld;
+
+    // verify each mesh min / max
+    for (let i = 1; i < meshes.length; i++) {
+      let meshMin = meshes[i].getBoundingInfo().boundingBox.minimumWorld;
+      let meshMax = meshes[i].getBoundingInfo().boundingBox.maximumWorld;
+
+      min = Vector3.Minimize(min, meshMin);
+      max = Vector3.Maximize(max, meshMax);
+    }
+
+    // set parent bounding box
+    const boundingBoxInfo = new BoundingInfo(min, max);
+    parent.setBoundingInfo(boundingBoxInfo);
+    this.createClickableDummy(scene, parent, boundingBoxInfo);
+    return parent;
+  }
 }

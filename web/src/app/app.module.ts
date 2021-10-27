@@ -18,6 +18,8 @@ import { CodePanelComponent } from './coding/code-panel/code-panel.component';
 import { ConfimDialogComponent } from './shared/confim-dialog/confim-dialog.component';
 import { RealmToolbarComponent } from './realm/realm-toolbar/realm-toolbar.component';
 import { BottomMessageComponent } from './coding/bottom-message/bottom-message.component';
+import { ImagesLibraryComponent } from './library/images-library/images-library.component';
+import { ImageUploadComponent } from './library/image-upload/image-upload.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { BottomMessageComponent } from './coding/bottom-message/bottom-message.c
     ConfimDialogComponent,
     RealmToolbarComponent,
     BottomMessageComponent,
+    ImagesLibraryComponent,
+    ImageUploadComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import {
   JoinRequest,
   JoinResponse,
   SceneElementMemento,
+  SceneImage,
   ShareRequest,
   ShareResponse,
   StateUpdate,
@@ -132,10 +133,22 @@ export class ServerService {
     this.send(Actions.Update, request);
   }
 
+  updateImages(images: SceneImage[]) {
+    const request = <StateUpdate>{
+      images: images,
+    };
+    this.send(Actions.Update, request);
+  }
+
   delete(name: string) {
     const request = <DeleteRequest>{
       name: name,
     };
     this.send(Actions.Delete, request);
   }
+
+  deleteImage(name: string) {
+    console.error('DELETE IMAGE AT SERVER is not implemented.');
+  }
+
 }

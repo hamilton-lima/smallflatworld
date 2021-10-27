@@ -4,11 +4,13 @@ import { PersistenceService } from '../persistence/persistence.service';
 import { ClientService } from '../multiplayer/client.service';
 import {
   SceneElementMemento,
+  SceneImage,
   Vector3MementoOne,
   Vector3MementoZero,
 } from '../../../../server/src/events.model';
 import { RunnerService } from '../coding/runner.service';
 import { ConfigurationService } from '../shared/configuration.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +18,7 @@ import { ConfigurationService } from '../shared/configuration.service';
 export class RealmService {
   private currentRealm: Realm;
   acceptingUpdates = true;
+  onNew: Subject<Realm> = new Subject();
 
   constructor(
     private persistence: PersistenceService,
@@ -41,6 +44,8 @@ export class RealmService {
       }
 
       console.info('Realm setup is done', this.currentRealm);
+      this.onNew.next(this.currentRealm);
+
       return this.currentRealm;
     } catch (error) {
       console.error('Error on Realm setup', error);
@@ -111,16 +116,55 @@ export class RealmService {
   }
 
   // add new realm and set as current
-  async updateRealm(realm: Realm) {
+  async addRealmAndSetCurrent(realm: Realm) {
     this.currentRealm = realm;
     await this._updateRealm();
     await this.configuration.setCurrentRealm(realm.id);
+    this.onNew.next(realm);
   }
 
   async createRealm() {
     const realm = this.persistence.buildRealm();
     realm.character = this.defaultCharacter();
     console.log('create realm', realm);
-    await this.updateRealm(realm);
+    await this.addRealmAndSetCurrent(realm);
+  }
+
+  async addImage(image: SceneImage) {
+    this.currentRealm.images.push(image);
+    return this._updateRealm();
+  }
+
+  // update scene elements
+  async getImage(name: string) {
+    const found = this.currentRealm.images.findIndex(
+      (image) => image.name == name
+    );
+    if (found) {
+      return this.currentRealm.images[found];
+    }
+    return null;
+  }
+
+  // update scene elements
+  async updateImage(input: SceneImage) {
+    const found = this.currentRealm.elements.findIndex(
+      (image) => image.name == input.name
+    );
+    if (found) {
+      this.currentRealm.images[found] = input;
+    }
+    return this._updateRealm();
+  }
+
+  deleteImage(name: string) {
+    const found = this.currentRealm.images.findIndex(
+      (image) => image.name == name
+    );
+    console.log('found', name);
+    if (found) {
+      this.currentRealm.images.splice(found, 1);
+    }
+    return this._updateRealm();
   }
 }

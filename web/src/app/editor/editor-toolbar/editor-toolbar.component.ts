@@ -39,14 +39,26 @@ export class EditorToolbarComponent implements OnInit {
 
   selectLibrary(selection: string) {
     this.library = this.getLibraryByName(selection);
+    this.preSelectComponent();
+  }
+
+  // Pre select the first item
+  preSelectComponent() {
+    if (
+      this.library &&
+      this.library.components &&
+      this.library.components.length > 0
+    ) {
+      this.use(this.library.components[0]);
+    }
   }
 
   getComponentSelectionColor(component) {
     const current = this.editor.getCurrent();
     if (current && current.name == component) {
-      return "primary";
+      return 'primary';
     } else {
-      return "";
+      return '';
     }
   }
 }

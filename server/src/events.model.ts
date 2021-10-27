@@ -69,10 +69,17 @@ export class SceneElementMemento {
   rotation: Vector3Memento;
   scaling: Vector3Memento;
   code: CodeDefinition;
+  imageName: string;
+}
+
+export class SceneImage {
+  name: string;
+  base64: string;
 }
 
 export class StateUpdate implements ClientData, ClientResponseData {
   data: SceneElementMemento[];
+  images: SceneImage[];
 }
 
 export class ShareRequest implements ClientData {}
