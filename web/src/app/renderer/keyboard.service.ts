@@ -39,6 +39,11 @@ export class KeyState {
   providedIn: 'root',
 })
 export class KeyboardService {
+
+  resetKey(key: string) {
+    this.keyState[key] = false;
+  }
+
   public readonly keyState = new KeyState();
   public onKeyPress: Subject<KeyState> = new Subject();
   constructor() {}

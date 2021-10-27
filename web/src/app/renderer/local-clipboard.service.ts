@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EditorService } from '../editor/editor.service';
-import { KeyboardService } from './keyboard.service';
+import { KeyboardService, KeyState } from './keyboard.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +25,7 @@ export class LocalClipboardService {
     // TODO: Prevent this event to to mixed with browser Ctrl+D or movement
     if (this.keyboard.Ctrl() && this.keyboard.keyState.KeyD) {
       this.keyboard.resetCtrl();
+      this.keyboard.resetKey("KeyD");
       console.log('Ctrl+D');
     }
 
