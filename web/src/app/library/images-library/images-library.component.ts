@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
+import { NotifyService } from 'src/app/shared/notify.service';
 import { SceneImage } from '../../../../../server/src/events.model';
 import { ImagesService } from '../images.service';
 
@@ -16,7 +17,8 @@ export class ImagesLibraryComponent implements OnInit {
   images: SceneImage[];
   constructor(
     private service: ImagesService,
-    private confirm: ConfirmService
+    private confirm: ConfirmService,
+    private notify: NotifyService
   ) {}
 
   ngOnInit(): void {
@@ -58,13 +60,17 @@ export class ImagesLibraryComponent implements OnInit {
   }
 
   async delete(name: string) {
-    const response = await this.confirm.confirm([
-      'Do you want to remove this image?',
-      'There is no going back from here...',
-    ]);
-
-    if (response == ConfirmOptions.YES) {
-      this.service.remove(name);
+    if( this.service.canRemove(name)){
+      const response = await this.confirm.confirm([
+        'Do you want to remove this image?',
+        'There is no going back from here...',
+      ]);
+  
+      if (response == ConfirmOptions.YES) {
+        this.service.remove(name);
+      }
+    } else {
+      this.notify.info('Some block is USING this image, we can\'t delete it.');
     }
   }
 }

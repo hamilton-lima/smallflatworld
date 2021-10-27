@@ -35,9 +35,7 @@ export class ImagesService {
   }
 
   findByName(imageName: string) {
-    const found = this.onUpdate.value.find(
-      (image) => image.name == imageName
-    );
+    const found = this.onUpdate.value.find((image) => image.name == imageName);
 
     return found;
   }
@@ -54,6 +52,17 @@ export class ImagesService {
     this.realm.deleteImage(name).then((_) => {
       this.onUpdate.next(this.realm.getCurrentRealm().images);
     });
+  }
+
+  canRemove(name: string): boolean {
+    const found = this.realm.getCurrentRealm().elements.find((element) => {
+      return element.imageName == name;
+    });
+
+    if (found) {
+      return false;
+    }
+    return true;
   }
 
   fileInputToBase64(file): Subject<string> {
