@@ -93,9 +93,11 @@ export class RendererComponent implements AfterViewInit {
 
   keydown(event: KeyboardEvent): void {
     this.keyboard.down(event);
+    event.preventDefault();
   }
 
   keyup(event: KeyboardEvent): void {
     this.keyboard.up(event);
+    event.preventDefault();
   }
 }
