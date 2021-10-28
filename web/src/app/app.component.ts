@@ -5,7 +5,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { CodingService } from './coding/coding.service';
 import { VERSION } from 'src/app/version';
 import { EditorModeService } from './editor/editor-mode.service';
-import { SimpleABCAudioPlayerService } from './shared/simple-abcaudio-player.service';
+import { AudioPlayerService } from './shared/audio-player.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ready = false;
   name = '';
   version = VERSION;
-  audio = 'A4 D4 G#5';
+  audio = 'C4 D4 E4 F4 G4 A4:4n B4 C5';
 
   play() {
     this.player.play(this.audio);
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private input: InputService,
     private coding: CodingService,
     private editorMode: EditorModeService,
-    private player: SimpleABCAudioPlayerService,
+    private player: AudioPlayerService,
   ) {}
 
   ngAfterViewInit(): void {
