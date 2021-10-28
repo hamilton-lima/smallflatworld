@@ -28,6 +28,7 @@
     "dexie": "^3.0.3",
     "hbs-cli": "^1.4.0",
     "rxjs": "~6.5.5",
+    "tone": "^14.7.77",
     "tslib": "^2.0.0",
     "unique-names-generator": "^4.5.0",
     "uuid": "^8.3.2",

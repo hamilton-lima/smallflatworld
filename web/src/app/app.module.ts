@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialAllComponentsModule } from './material-all-components-module';
 import { RealmUploadComponent } from './realm/realm-upload/realm-upload.component';
 import { ConnectComponent } from './multiplayer/connect/connect.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './multiplayer/share/share.component';
 import { JoinComponent } from './multiplayer/join/join.component';
 import { EditorToolbarComponent } from './editor/editor-toolbar/editor-toolbar.component';
@@ -44,6 +44,7 @@ import { ImageUploadComponent } from './library/image-upload/image-upload.compon
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialAllComponentsModule,
+    FormsModule,
     ReactiveFormsModule,
   ],
   providers: [],
