@@ -11,17 +11,6 @@
         Current Realm: <b>{{ name }}</b>
       </p>
 
-      <div>
-        <form class="example-form">
-          <mat-form-field appearance="fill">
-            <mat-label>Enter audio to play</mat-label>
-            <input matInput placeholder="play string" [value]="audio" (change)="audio = $event.target.value"/>
-          </mat-form-field>
-
-          <button mat-raised-button (click)="play()">PLAY</button>
-        </form>
-      </div>
-
       <mat-expansion-panel class="panel">
         <mat-expansion-panel-header>
           <mat-panel-title
@@ -43,10 +32,19 @@
       <mat-expansion-panel class="panel" [expanded]="false">
         <mat-expansion-panel-header>
           <mat-panel-title
-            ><mat-icon class="panel-icon">perm_media</mat-icon>Images
+            ><mat-icon class="panel-icon">image</mat-icon>Images
           </mat-panel-title>
         </mat-expansion-panel-header>
         <app-images-library></app-images-library>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="panel" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><mat-icon class="panel-icon">music_note</mat-icon>Sounds
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-audio-library></app-audio-library>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="panel" [expanded]="true">

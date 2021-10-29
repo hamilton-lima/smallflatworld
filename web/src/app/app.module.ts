@@ -20,6 +20,7 @@ import { RealmToolbarComponent } from './realm/realm-toolbar/realm-toolbar.compo
 import { BottomMessageComponent } from './coding/bottom-message/bottom-message.component';
 import { ImagesLibraryComponent } from './library/images-library/images-library.component';
 import { ImageUploadComponent } from './library/image-upload/image-upload.component';
+import { AudioLibraryComponent } from './library/audio-library/audio-library.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ImageUploadComponent } from './library/image-upload/image-upload.compon
     BottomMessageComponent,
     ImagesLibraryComponent,
     ImageUploadComponent,
+    AudioLibraryComponent,
   ],
   imports: [
     BrowserModule,
