@@ -8,7 +8,7 @@
 
 ## Action plan
 
-### Custom images
+### Custom images - OK
 - Add basic shapes library with cube 
 - Add library of images 
   - upload image + save in the realm
@@ -22,9 +22,16 @@
     - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
     - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
 
-### Audio
+### Audio - In progress
 - Add code function to play audio
-- Add audio library to the realm - explore using strings to define the sound or OGG files
+- Add audio library to the realm - explore using strings to define the sound or MP3 files
+
+- player library ok
+- upload mp3 files ok
+- delete is not working
+- add code action to play mp3
+- add code action to play musical note
+- add code action to play a sequence 
 
 ### Create scene elements with code
 - Add function to create scenario elements
