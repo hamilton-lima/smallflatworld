@@ -1,1 +1,23 @@
-<p>audio-library works!</p>
+<div class="upload-wrapper">
+  <app-image-upload (onUpload)="newAudio($event)">
+    Choose a MP3 file to ADD or drop here.
+  </app-image-upload>
+</div>
+
+<div class="audio-list">
+  <div
+    class="one-audio"
+    *ngFor="let audio of audios"
+    (mouseover)="mouseOver(audio.name)"
+  >
+    {{ audio.name }}
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="delete(audio.name)"
+      *ngIf="audio.name == mouseOverAudio"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</div>

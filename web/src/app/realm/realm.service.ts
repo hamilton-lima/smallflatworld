@@ -3,6 +3,7 @@ import { Realm } from '../persistence/persistence.model';
 import { PersistenceService } from '../persistence/persistence.service';
 import { ClientService } from '../multiplayer/client.service';
 import {
+  SceneAudio,
   SceneElementMemento,
   SceneImage,
   Vector3MementoOne,
@@ -135,6 +136,11 @@ export class RealmService {
     return this._updateRealm();
   }
 
+  addAudio(audio: SceneAudio) {
+    this.currentRealm.audios.push(audio);
+    return this._updateRealm();
+  }
+
   // update scene elements
   async getImage(name: string) {
     const found = this.currentRealm.images.findIndex(
@@ -167,4 +173,16 @@ export class RealmService {
     }
     return this._updateRealm();
   }
+
+  deleteAudio(name: string) {
+    const found = this.currentRealm.audios.findIndex(
+      (audio) => audio.name == name
+    );
+    console.log('found', name);
+    if (found) {
+      this.currentRealm.audios.splice(found, 1);
+    }
+    return this._updateRealm();
+  }
+
 }

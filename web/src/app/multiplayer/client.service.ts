@@ -3,6 +3,7 @@ import { Subject, Subscription } from 'rxjs';
 import {
   DeleteRequest,
   JoinResponse,
+  SceneAudio,
   SceneElementMemento,
   SceneImage,
   ShareResponse,
@@ -65,12 +66,20 @@ export class ClientService {
     this.server.updateImages([image]);
   }
 
+  updateAudio(audio: SceneAudio) {
+    this.server.updateAudios([audio]);
+  }
+
   delete(name: string) {
     this.server.delete(name);
   }
 
   deleteImage(name: string) {
     this.server.deleteImage(name);
+  }
+
+  deleteAudio(name: string) {
+    this.server.deleteAudio(name);
   }
 
   listen2Updates() {
