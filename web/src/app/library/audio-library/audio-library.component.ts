@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AudioPlayerService } from 'src/app/shared/audio-player.service';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { NotifyService } from 'src/app/shared/notify.service';
 import { SceneAudio } from '../../../../../server/src/events.model';
@@ -13,11 +14,13 @@ export class AudioLibraryComponent implements OnInit {
   current: SceneAudio;
   mouseOverAudio: string;
   audios: SceneAudio[];
+  columns: string[] = ['play', 'name', 'delete'];
 
   constructor(
     private service: AudioService,
     private confirm: ConfirmService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private player: AudioPlayerService
   ) {}
 
   ngOnInit(): void {
@@ -50,5 +53,9 @@ export class AudioLibraryComponent implements OnInit {
     } else {
       this.notify.info('Some code is USING this sound, we can\'t delete it.');
     }
+  }
+
+  play(audio: SceneAudio){
+    this.player.playMP3(audio);
   }
 }

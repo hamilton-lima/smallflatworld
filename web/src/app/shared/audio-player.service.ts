@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Tone from 'tone';
+import { SceneAudio } from '../../../../server/src/events.model';
 
 class NoteDef {
   note: Tone.Unit.Frequency;
@@ -12,6 +13,13 @@ class NoteDef {
 })
 export class AudioPlayerService {
   synth: Tone.Synth<Tone.SynthOptions>;
+
+  playMP3(audio: SceneAudio){
+    const player = new Tone.Player(audio.base64).toDestination();
+    Tone.loaded().then(() => {
+	    player.start();
+    });
+  }
 
   /*
   Accepted format will be 
