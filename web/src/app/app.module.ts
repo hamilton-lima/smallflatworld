@@ -19,7 +19,7 @@ import { ConfimDialogComponent } from './shared/confim-dialog/confim-dialog.comp
 import { RealmToolbarComponent } from './realm/realm-toolbar/realm-toolbar.component';
 import { BottomMessageComponent } from './coding/bottom-message/bottom-message.component';
 import { ImagesLibraryComponent } from './library/images-library/images-library.component';
-import { ImageUploadComponent } from './library/image-upload/image-upload.component';
+import { FileUploadComponent } from './library/file-upload/file-upload.component';
 import { AudioLibraryComponent } from './library/audio-library/audio-library.component';
 
 @NgModule({
@@ -38,7 +38,7 @@ import { AudioLibraryComponent } from './library/audio-library/audio-library.com
     RealmToolbarComponent,
     BottomMessageComponent,
     ImagesLibraryComponent,
-    ImageUploadComponent,
+    FileUploadComponent,
     AudioLibraryComponent,
   ],
   imports: [
