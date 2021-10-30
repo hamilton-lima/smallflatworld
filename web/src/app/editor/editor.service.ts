@@ -409,7 +409,12 @@ export class EditorService {
     const faceId = pointerInfo.pickInfo.faceId;
     let picked = <Mesh>pointerInfo.pickInfo.pickedMesh;
     const imageName = this.image.getCurrentImageName();
-    const skipColision = this.current.skipColision;
+    
+    let skipColision = false;
+    if( this.current.skipColision ){
+      skipColision = true;
+    }
+
     console.log('skipColision editor', skipColision);
     const templateMesh = await this.library.getMesh(
       scene,
