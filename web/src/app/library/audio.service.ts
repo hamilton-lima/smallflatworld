@@ -48,7 +48,7 @@ export class AudioService {
 
   remove(name: string) {
     this.client.deleteAudio(name);
-    this.realm.deleteAudio(name).then((_) => {
+    return this.realm.deleteAudio(name).then((_) => {
       this.onUpdate.next(this.realm.getCurrentRealm().audios);
     });
   }

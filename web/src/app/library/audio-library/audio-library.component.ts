@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { AudioPlayerService } from 'src/app/shared/audio-player.service';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { NotifyService } from 'src/app/shared/notify.service';
@@ -13,7 +14,7 @@ import { AudioService } from '../audio.service';
 export class AudioLibraryComponent implements OnInit {
   current: SceneAudio;
   mouseOverAudio: string;
-  audios: SceneAudio[];
+  audios: BehaviorSubject<SceneAudio[]>;
   columns: string[] = ['play', 'name', 'delete'];
 
   constructor(
@@ -21,11 +22,13 @@ export class AudioLibraryComponent implements OnInit {
     private confirm: ConfirmService,
     private notify: NotifyService,
     private player: AudioPlayerService
-  ) {}
+  ) {
+    this.audios = new BehaviorSubject<SceneAudio[]>([]);
+  }
 
   ngOnInit(): void {
     this.service.onUpdate.subscribe((audios) => {
-      this.audios = audios;
+      this.audios.next(audios);
     });
   }
 
@@ -36,26 +39,26 @@ export class AudioLibraryComponent implements OnInit {
 
   newAudio(file: File) {
     this.service.fileInputToBase64(file).subscribe((audio) => {
-      console.log('new audio file created',audio);
+      console.log('new audio file created');
     });
   }
 
   async delete(name: string) {
-    if( this.service.canRemove(name)){
+    if (this.service.canRemove(name)) {
       const response = await this.confirm.confirm([
         'Do you want to remove this sound file?',
         'There is no going back from here...',
       ]);
-  
+
       if (response == ConfirmOptions.YES) {
-        this.service.remove(name);
+        await this.service.remove(name);
       }
     } else {
-      this.notify.info('Some code is USING this sound, we can\'t delete it.');
+      this.notify.info("Some code is USING this sound, we can't delete it.");
     }
   }
 
-  play(audio: SceneAudio){
+  play(audio: SceneAudio) {
     this.player.playMP3(audio);
   }
 }

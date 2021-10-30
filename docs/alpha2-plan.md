@@ -17,7 +17,7 @@
 - Add properties to basic shapes to change image 
   - example on how wrap 6 faces on the cube https://playground.babylonjs.com/#ICLXQ8
 
-  - add some images from minescraft as out of the box images
+  - add some images from minecraft as out of the box images
     - https://aka.ms/resourcepacktemplate
     - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
     - https://www.minecraft.net/en-us/article/try-new-minecraft-textures

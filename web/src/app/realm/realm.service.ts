@@ -168,7 +168,7 @@ export class RealmService {
       (image) => image.name == name
     );
     console.log('found', name);
-    if (found) {
+    if (found > -1) {
       this.currentRealm.images.splice(found, 1);
     }
     return this._updateRealm();
@@ -178,11 +178,11 @@ export class RealmService {
     const found = this.currentRealm.audios.findIndex(
       (audio) => audio.name == name
     );
-    console.log('found', name);
-    if (found) {
+    console.log('found', name, found);
+    if (found > -1) {
       this.currentRealm.audios.splice(found, 1);
     }
+
     return this._updateRealm();
   }
-
 }
