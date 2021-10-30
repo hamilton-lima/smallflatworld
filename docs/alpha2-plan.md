@@ -26,6 +26,10 @@
 - add code action to play mp3
 
 CURRENT
+- BUG, when starting is adding in Walk mode 
+- BUG, edit without a selection
+- Drag and drop from library - timeboxed
+
 - add code action to play musical note
 - add code action to play a sequence 
 
