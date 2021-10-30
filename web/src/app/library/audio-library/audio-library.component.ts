@@ -21,7 +21,6 @@ export class AudioLibraryComponent implements OnInit {
     private service: AudioService,
     private confirm: ConfirmService,
     private notify: NotifyService,
-    private player: AudioPlayerService
   ) {
     this.audios = new BehaviorSubject<SceneAudio[]>([]);
   }
@@ -59,6 +58,7 @@ export class AudioLibraryComponent implements OnInit {
   }
 
   play(audio: SceneAudio) {
-    this.player.playMP3(audio);
+    this.service.play(audio);
   }
+
 }

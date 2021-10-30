@@ -12,6 +12,7 @@ import {
 import { RunnerService } from '../coding/runner.service';
 import { ConfigurationService } from '../shared/configuration.service';
 import { Subject } from 'rxjs';
+import { EventsBrokerService } from '../shared/events-broker.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class RealmService {
     private persistence: PersistenceService,
     private configuration: ConfigurationService,
     private client: ClientService,
-    private runner: RunnerService
+    private broker: EventsBrokerService
   ) {}
 
   async ready(): Promise<Realm> {
@@ -103,9 +104,10 @@ export class RealmService {
     const found = this.currentRealm.elements.findIndex(
       (element) => element.name == name
     );
-    if (found) {
+    if (found > -1) {
+      const element =  this.currentRealm.elements[found];
       this.currentRealm.elements.splice(found, 1);
-      this.runner.delete(name);
+      this.broker.onDeleteSceneElement.next(element);
     }
     return this._updateRealm();
   }

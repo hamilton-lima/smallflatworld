@@ -1,6 +1,7 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { OnRepeatDefinition } from './definition/code-blockly.onrepeat';
 import { OnClickDefinition } from './definition/code-blockly.onclick';
+import { AudioService } from 'src/app/library/audio.service';
 
 declare var Blockly: any;
 
@@ -23,7 +24,10 @@ export class BlocklyService {
 
   private configResolution;
 
-  constructor(private factory: RendererFactory2) {
+  constructor(
+    private factory: RendererFactory2,
+    private audio: AudioService
+  ) {
     this.configResolution = new Map([
       [BlocklyConfig.Default, this.getToolboxDefault()],
       [BlocklyConfig.DefaultWithOther, this.getToolboxDefault()],
@@ -93,7 +97,7 @@ export class BlocklyService {
   <category name="Commands" colour="%{BKY_PROCEDURES_HUE}">
     <block type="message" />
     <block type="bottom_message" />
-    <block type="move" />
+    <block type="playMP3" />
     <block type="turn" />
     <block type="math_number" />
     <block type="math_arithmetic" />
@@ -202,13 +206,29 @@ export class BlocklyService {
         definition.getCodeGenerator();
     });
 
+    const self = this;
+    Blockly.Extensions.register('list_mp3_menu_extension', function () {
+      this.getInput('INPUT').appendField(
+        new Blockly.FieldDropdown(function () {
+          var options = self.audio.onUpdate.value.map( audio => [audio.name, audio.name]);
+          if( options.length == 0){
+            options = [['No audio available', 'N/A']];
+          }
+          return options;
+        }),
+        'PLAY_MP3_VALUE'
+      );
+    });
+
     // debug	message	string
     Blockly.defineBlocksWithJsonArray([
       {
         // show message
         type: 'message',
         message0: 'message %1',
-        args0: [{ type: 'input_value', name: 'MESSAGE_VALUE', check: 'String' }],
+        args0: [
+          { type: 'input_value', name: 'MESSAGE_VALUE', check: 'String' },
+        ],
         previousStatement: null,
         nextStatement: null,
         colour: 355,
@@ -217,19 +237,26 @@ export class BlocklyService {
         // show bottom message
         type: 'bottom_message',
         message0: 'bottom message %1',
-        args0: [{ type: 'input_value', name: 'BOTTOM_MESSAGE_VALUE', check: 'String' }],
+        args0: [
+          {
+            type: 'input_value',
+            name: 'BOTTOM_MESSAGE_VALUE',
+            check: 'String',
+          },
+        ],
         previousStatement: null,
         nextStatement: null,
         colour: 355,
       },
       {
-        // move	distance	number (greater than 0)
-        type: 'move',
-        message0: 'move %1',
-        args0: [{ type: 'input_value', name: 'MOVE_VALUE', check: 'Number' }],
+        // play mp3 file
+        type: 'playMP3',
+        message0: 'play MP3 %1',
+        args0: [{ type: 'input_dummy', name: 'INPUT' }],
         previousStatement: null,
         nextStatement: null,
         colour: 355,
+        extensions: ['list_mp3_menu_extension'],
       },
       {
         // turn	degrees	number (-360 to 360)
@@ -299,13 +326,10 @@ export class BlocklyService {
       return [result, Blockly.JavaScript.ORDER_ATOMIC];
     };
 
-    Blockly.JavaScript['move'] = function (block) {
-      const value = Blockly.JavaScript.valueToCode(
-        block,
-        'MOVE_VALUE',
-        Blockly.JavaScript.ORDER_ATOMIC
-      );
-      return `move(${value});\n`;
+    Blockly.JavaScript['playMP3'] = function (block) {
+      const value = block.getFieldValue('PLAY_MP3_VALUE');
+      console.log('building playmp3', value);
+      return `playMP3('${value}');\n`;
     };
 
     Blockly.JavaScript['message'] = function (block) {

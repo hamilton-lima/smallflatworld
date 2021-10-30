@@ -4,6 +4,7 @@ import { SceneAudio } from '../../../../server/src/events.model';
 import { ClientService } from '../multiplayer/client.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
+import { AudioPlayerService } from '../shared/audio-player.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,11 @@ export class AudioService {
   onUpdate: BehaviorSubject<SceneAudio[]>;
   selected: SceneAudio;
 
-  constructor(private client: ClientService, private realm: RealmService) {
+  constructor(
+    private client: ClientService,
+    private realm: RealmService,
+    private player: AudioPlayerService
+  ) {
     this.onUpdate = new BehaviorSubject([]);
     this.realm.onNew.subscribe((newRealm) => {
       this.onUpdate.next(newRealm.audios);
@@ -78,5 +83,18 @@ export class AudioService {
     });
 
     return result;
+  }
+
+  play(audio: SceneAudio) {
+    this.player.playMP3(audio);
+  }
+
+  playMP3ByName(name: string) {
+    const audio = this.onUpdate.value.find((audio) => audio.name == name);
+    if (audio) {
+      this.play(audio);
+    } else {
+      console.error('audio not found', name);
+    }
   }
 }

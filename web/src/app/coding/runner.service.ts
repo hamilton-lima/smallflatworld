@@ -9,6 +9,14 @@ import {
   BottomMessageComponent,
   BottomMessageData,
 } from './bottom-message/bottom-message.component';
+import { AudioPlayerService } from '../shared/audio-player.service';
+import { AudioService } from '../library/audio.service';
+import { EventsBrokerService } from '../shared/events-broker.service';
+
+function playMP3ByName(name: string) {
+  console.log('playMP3', name);
+  sharedContext.audio.playMP3ByName(name);
+}
 
 function showMessage(message: string) {
   console.log('showmessage', message);
@@ -19,7 +27,7 @@ function showMessage(message: string) {
 
 function showBottomMessage(message: string) {
   console.log('showBottomMessage', message);
-  
+
   // TODO: accept multiple lines in blockly
   const data = <BottomMessageData>{
     messages: [message],
@@ -33,6 +41,7 @@ function showBottomMessage(message: string) {
 class Context {
   snackBar: MatSnackBar;
   bottomSheet: MatBottomSheet;
+  audio: AudioService;
 }
 
 let sharedContext: Context;
@@ -45,6 +54,7 @@ class CodeRunner {
       // variables exposed to eval()
       const message = showMessage;
       const bottomMessage = showBottomMessage;
+      const playMP3 = playMP3ByName;
       const onClick = this.onClickHandlers;
 
       eval(code);
@@ -72,12 +82,17 @@ export class RunnerService {
 
   constructor(
     public snackBar: MatSnackBar,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private player: AudioPlayerService,
+    private audio: AudioService,
+    private broker: EventsBrokerService
   ) {
     // make injected services available to scripts
     sharedContext = <Context>{
       snackBar: this.snackBar,
       bottomSheet: this.bottomSheet,
+      player: this.player,
+      audio: this.audio,
     };
 
     this.onClick.subscribe((uuid) => {
@@ -90,6 +105,11 @@ export class RunnerService {
         handler.click();
       }
     });
+
+    // remove existing runner for a deleted element
+    broker.onDeleteSceneElement.subscribe((element) =>
+      this.delete(element.name)
+    );
   }
 
   register(uuid: string, code: string) {
