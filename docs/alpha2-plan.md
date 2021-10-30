@@ -8,27 +8,24 @@
 
 ## Action plan
 
-### Custom images - OK
+### Extras
+- Roads dont have colision to avoid small jumps when walking
+
+### Custom images
 - Add basic shapes library with cube 
 - Add library of images 
   - upload image + save in the realm
   - sync realm update of image library
 - Add properties input WHEN creating basic shapes
-- Add properties to basic shapes to change image 
-  - example on how wrap 6 faces on the cube https://playground.babylonjs.com/#ICLXQ8
-
-  - add some images from minecraft as out of the box images
-    - https://aka.ms/resourcepacktemplate
-    - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
-    - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
 
 ### Audio - In progress
 - Add code function to play audio
 - Add audio library to the realm - explore using strings to define the sound or MP3 files
+- player library 
+- upload mp3 files 
+- delete is not working 
 
-- player library ok
-- upload mp3 files ok
-- delete is not working
+CURRENT
 - add code action to play mp3
 - add code action to play musical note
 - add code action to play a sequence 
@@ -49,3 +46,15 @@ for the create scenario code
 - Show other user character name above the character
 - Wait for the full state of the scenario to load before sync
 - Synchronize code updates
+
+### Nice to have 
+
+- Document examples of the image format
+  - example on how wrap 6 faces on the cube https://playground.babylonjs.com/#ICLXQ8
+
+- Add default library of images, with some minecraft images
+    - https://aka.ms/resourcepacktemplate
+    - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
+    - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
+
+- Add defeault library of sound effects
