@@ -431,6 +431,12 @@ export class EditorService {
       );
     }
 
+    // only adds image to the model if the library component supports
+    let image = "";
+    if( this.current.supportImage){
+      image = imageName;
+    }
+
     const element = <SceneElement>{
       name: uuidv4(),
       componentID: this.current.id,
@@ -442,7 +448,7 @@ export class EditorService {
         this.current.scale
       ),
       code: new CodeDefinition(),
-      imageName: imageName
+      imageName: image
     };
 
     await this.create(scene, element);
