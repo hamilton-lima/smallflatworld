@@ -13,9 +13,9 @@ import { AudioPlayerService } from '../shared/audio-player.service';
 import { AudioService } from '../library/audio.service';
 import { EventsBrokerService } from '../shared/events-broker.service';
 
-function playMP3ByName(name: string) {
-  console.log('playMP3', name);
-  sharedContext.audio.playMP3ByName(name);
+function playSoundByName(name: string) {
+  console.log('playSound', name);
+  sharedContext.audio.playSoundByName(name);
 }
 
 function showMessage(message: string) {
@@ -54,9 +54,10 @@ class CodeRunner {
       // variables exposed to eval()
       const message = showMessage;
       const bottomMessage = showBottomMessage;
-      const playMP3 = playMP3ByName;
+      const playSound = playSoundByName;
       const onClick = this.onClickHandlers;
-
+      
+      // execute the code 
       eval(code);
     } catch (error) {
       console.warn('error parsing code', error, code);
@@ -66,7 +67,6 @@ class CodeRunner {
 
   click() {
     for (const handler of this.onClickHandlers) {
-      console.log('call handler function');
       // inject this context to the function
       handler.call(this);
     }
@@ -96,12 +96,8 @@ export class RunnerService {
     };
 
     this.onClick.subscribe((uuid) => {
-      console.log('click', uuid);
-
       const handler = this.registry[uuid];
-      console.log('handler', handler, this.registry);
       if (handler) {
-        console.log('handler onclick found');
         handler.click();
       }
     });
@@ -114,11 +110,9 @@ export class RunnerService {
 
   register(uuid: string, code: string) {
     this.registry[uuid] = new CodeRunner(uuid, code);
-    console.log('registry', this.registry);
   }
 
   click(uuid: string) {
-    console.log('click', uuid);
     this.onClick.next(uuid);
   }
 

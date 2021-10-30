@@ -86,10 +86,10 @@ export class AudioService {
   }
 
   play(audio: SceneAudio) {
-    this.player.playMP3(audio);
+    this.player.playSound(audio);
   }
 
-  playMP3ByName(name: string) {
+  playSoundByName(name: string) {
     const audio = this.onUpdate.value.find((audio) => audio.name == name);
     if (audio) {
       this.play(audio);

@@ -23,10 +23,9 @@
 - Add audio library to the realm - explore using strings to define the sound or MP3 files
 - player library 
 - upload mp3 files 
-- delete is not working 
+- add code action to play mp3
 
 CURRENT
-- add code action to play mp3
 - add code action to play musical note
 - add code action to play a sequence 
 

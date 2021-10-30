@@ -14,7 +14,7 @@ class NoteDef {
 export class AudioPlayerService {
   synth: Tone.Synth<Tone.SynthOptions>;
 
-  playMP3(audio: SceneAudio){
+  playSound(audio: SceneAudio){
     const player = new Tone.Player(audio.base64).toDestination();
     Tone.loaded().then(() => {
 	    player.start();
