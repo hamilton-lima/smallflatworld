@@ -409,8 +409,14 @@ export class EditorService {
     const faceId = pointerInfo.pickInfo.faceId;
     let picked = <Mesh>pointerInfo.pickInfo.pickedMesh;
     const imageName = this.image.getCurrentImageName();
-
-    const templateMesh = await this.library.getMesh(scene, this.current.id, imageName);
+    const skipColision = this.current.skipColision;
+    console.log('skipColision editor', skipColision);
+    const templateMesh = await this.library.getMesh(
+      scene,
+      this.current.id,
+      imageName,
+      skipColision
+    );
     const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
     let position: Vector3;
 
@@ -432,8 +438,8 @@ export class EditorService {
     }
 
     // only adds image to the model if the library component supports
-    let image = "";
-    if( this.current.supportImage){
+    let image = '';
+    if (this.current.supportImage) {
       image = imageName;
     }
 
@@ -448,7 +454,8 @@ export class EditorService {
         this.current.scale
       ),
       code: new CodeDefinition(),
-      imageName: image
+      imageName: image,
+      skipColision: skipColision,
     };
 
     await this.create(scene, element);
@@ -472,7 +479,12 @@ export class EditorService {
 
   async create(scene: Scene, element: SceneElement) {
     console.log('create', element.name, element.position);
-    const templateMesh = await this.library.getMesh(scene, element.componentID, element.imageName);
+    const templateMesh = await this.library.getMesh(
+      scene,
+      element.componentID,
+      element.imageName,
+      element.skipColision
+    );
 
     const mesh = this.mesh.cloneMesh(
       scene,

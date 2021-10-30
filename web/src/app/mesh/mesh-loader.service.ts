@@ -20,19 +20,20 @@ export class MeshLoaderService {
   }
 
   public loadVisible(scene: Scene, fileName: string, meshName: string) {
-    return this.load(scene, fileName, meshName, true);
+    return this.load(scene, fileName, meshName, true, false);
   }
 
   loadWithClickable(
     scene: Scene,
     fileName: string,
     meshName: string,
-    visible = false
+    visible = false,
+    skipColision: boolean
   ) {
     const self = this;
     return new Promise<AbstractMesh>((resolve, reject) => {
       this.loadAllMeshes(scene, fileName, visible).then((meshes: Mesh[]) => {
-        const result = this.mesh.createParent(scene, meshName, visible, meshes);
+        const result = this.mesh.createParent(scene, meshName, visible, meshes, skipColision);
         result.isPickable = true;
         result.isVisible = visible;
         resolve(result);
@@ -44,7 +45,8 @@ export class MeshLoaderService {
     scene: Scene,
     fileName: string,
     meshName: string,
-    visible = false
+    visible = false, 
+    skipColision: boolean
   ) {
     const self = this;
     return new Promise<AbstractMesh>((resolve, reject) => {
@@ -54,7 +56,7 @@ export class MeshLoaderService {
         });
 
         if (!result) {
-          result = this.mesh.createParent(scene, meshName, visible, meshes);
+          result = this.mesh.createParent(scene, meshName, visible, meshes, skipColision);
         }
 
         result.isPickable = true;

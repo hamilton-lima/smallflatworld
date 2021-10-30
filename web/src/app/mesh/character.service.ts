@@ -24,7 +24,8 @@ export class CharacterService {
       engineState.scene,
       'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian.gltf',
       'character_barbarian',
-      true
+      true,
+      false
     );
 
     return <Mesh>mesh;
@@ -82,7 +83,8 @@ export class CharacterService {
       engineState.scene,
       'character/model/characterMedium.glb',
       'characterMedium',
-      true
+      true,
+      false
     );
 
     const animations = await this.loader.loadAllAnimations(

@@ -19,7 +19,7 @@ export class InternalLibraryFactoryService {
     private notify: NotifyService
   ) {}
 
-  build(scene: Scene, id: string, name: string, imageName: string): AbstractMesh {
+  build(scene: Scene, id: string, name: string, imageName: string, skipColision: boolean): AbstractMesh {
     const cube = this.mesh.getBox(scene);
 
     const current = this.images.findByName(imageName);
@@ -31,8 +31,7 @@ export class InternalLibraryFactoryService {
       cube.material = mat;
     } 
 
-    const result = this.mesh.createParent(scene, name, false, [cube]);
-
+    const result = this.mesh.createParent(scene, name, false, [cube], skipColision);
     return result;
   }
 }

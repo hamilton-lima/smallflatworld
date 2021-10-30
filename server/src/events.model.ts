@@ -70,6 +70,7 @@ export class SceneElementMemento {
   scaling: Vector3Memento;
   code: CodeDefinition;
   imageName: string;
+  skipColision: boolean;
 }
 
 export class SceneImage {

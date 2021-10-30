@@ -107,7 +107,8 @@ export class ClientService {
         rotation: buildVector3(element.rotation),
         scaling: buildVector3(element.scaling),
         code: element.code,
-        imageName: element.imageName
+        imageName: element.imageName,
+        skipColision: element.skipColision
       };
       result.push(converted);
     });

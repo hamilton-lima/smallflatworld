@@ -153,7 +153,8 @@ export class MeshService {
   public createClickableDummy(
     scene: Scene,
     parent: Mesh,
-    boundingBoxInfo: BoundingInfo
+    boundingBoxInfo: BoundingInfo,
+    skipColision: boolean
   ) {
     const bb = boundingBoxInfo.boundingBox;
     const width = bb.maximum.x - bb.minimum.x;
@@ -171,7 +172,14 @@ export class MeshService {
     clickable.setParent(parent);
     clickable.isPickable = true;
     clickable.isVisible = true;
-    clickable.checkCollisions = true;
+
+    console.log('skipColision mesh service', skipColision);
+
+    if (skipColision) {
+      clickable.checkCollisions = false;
+    } else {
+      clickable.checkCollisions = true;
+    }
 
     const transparent = new StandardMaterial('transparent', scene);
     transparent.alpha = 0.0;
@@ -185,7 +193,8 @@ export class MeshService {
     scene: Scene,
     name: string,
     visible: boolean,
-    meshes: Mesh[]
+    meshes: Mesh[],
+    skipColision: boolean
   ): Mesh {
     // create parent mesh
     const parent = new Mesh(name, scene);
@@ -214,7 +223,7 @@ export class MeshService {
     // set parent bounding box
     const boundingBoxInfo = new BoundingInfo(min, max);
     parent.setBoundingInfo(boundingBoxInfo);
-    this.createClickableDummy(scene, parent, boundingBoxInfo);
+    this.createClickableDummy(scene, parent, boundingBoxInfo, skipColision);
     return parent;
   }
 }
