@@ -20,6 +20,7 @@ import { UpDownAction } from '../up-down/up-down.component';
 export class EditorModePickerComponent implements AfterViewInit {
   mode: EditorMode;
   editModeON: boolean;
+  disableEdit = true;
 
   @ViewChild('code') codeButton: MatButtonToggle;
   @ViewChild('rotate') rotateButton: MatButtonToggle;
@@ -40,6 +41,14 @@ export class EditorModePickerComponent implements AfterViewInit {
       this.input.focus();
       this.mode = mode;
       this.editModeON = this.mode == EditorMode.EDIT;
+    });
+
+    editor.onSelectMesh.subscribe((mesh) => {
+      if (mesh) {
+        this.disableEdit = false;
+      } else {
+        this.disableEdit = true;
+      }
     });
 
     this.keyboard.onKeyPress.subscribe((keys: KeyState) => {

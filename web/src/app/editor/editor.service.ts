@@ -48,8 +48,29 @@ const VECTOR3_TWO = new Vector3(2.0, 2.0, 2.0);
   providedIn: 'root',
 })
 export class EditorService {
+  private current: LibraryComponent = null;
+  private selected: Mesh;
+  private dragPosition: Vector3;
+
   dragging = false;
   onDropFromLibrary: Subject<Vector2>;
+  onSelectMesh = new Subject<Mesh>();
+
+  constructor(
+    private mesh: MeshService,
+    private realm: RealmService,
+    private client: ClientService,
+    private library: EditorLibraryService,
+    private camera: CameraService,
+    private editorMode: EditorModeService,
+    private input: InputService,
+    private coding: CodingService,
+    private runner: RunnerService,
+    private notify: NotifyService,
+    private image: ImagesService
+  ) {
+    this.onDropFromLibrary = new Subject();
+  }
 
   executeEditAction(action: EditorAction, positive: boolean) {
     console.log(
@@ -188,7 +209,7 @@ export class EditorService {
 
   async delete(found: AbstractMesh) {
     if (this.selected && this.selected.name) {
-      this.selected = null;
+      this.selectMesh(null);
     }
     found.dispose();
 
@@ -227,26 +248,6 @@ export class EditorService {
         this.propagateUpdate(element);
       }
     }
-  }
-
-  private current: LibraryComponent = null;
-  private selected: Mesh;
-  private dragPosition: Vector3;
-
-  constructor(
-    private mesh: MeshService,
-    private realm: RealmService,
-    private client: ClientService,
-    private library: EditorLibraryService,
-    private camera: CameraService,
-    private editorMode: EditorModeService,
-    private input: InputService,
-    private coding: CodingService,
-    private runner: RunnerService,
-    private notify: NotifyService,
-    private image: ImagesService
-  ) {
-    this.onDropFromLibrary = new Subject();
   }
 
   getPickInfo(scene: Scene): PickingInfo {
@@ -426,7 +427,14 @@ export class EditorService {
     }
 
     this.selected = mesh;
-    this.showBoundingBox(true);
+
+    if (this.isValidSelection()) {
+      this.onSelectMesh.next(mesh);
+      this.showBoundingBox(true);
+      
+    } else {
+      this.onSelectMesh.next(null);
+    }
   }
 
   async addToPosition(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {

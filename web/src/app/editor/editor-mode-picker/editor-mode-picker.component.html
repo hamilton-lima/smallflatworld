@@ -14,6 +14,7 @@
   <div>
     <mat-button-toggle-group value="rotate" vertical="true">
       <mat-button-toggle
+        [disabled]="disableEdit"
         matBadge="O"
         #code
         (click)="onClick('code')"
@@ -21,67 +22,80 @@
         >CODE</mat-button-toggle
       >
       <mat-button-toggle
+        [disabled]="disableEdit"
         matBadge="R"
         #rotate
         (click)="onClick('rotate')"
         value="rotate"
         >ROTATE
         <app-up-down
+          [disabled]="disableEdit"
           iconPlus="rotate_right"
           iconMinus="rotate_left"
           (onTrigger)="executeRotate($event)"
         ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
+        [disabled]="disableEdit"
         matBadge="C"
         #scale
         (click)="onClick('scale')"
         value="scale"
         >SCALE
-        <app-up-down (onTrigger)="executeScale($event)"></app-up-down>
+        <app-up-down
+          [disabled]="disableEdit"
+          (onTrigger)="executeScale($event)"
+        ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
+        [disabled]="disableEdit"
         matBadge="L"
         #moveX
         (click)="onClick('moveX')"
         value="moveX"
         >LEFT
         <app-up-down
+          [disabled]="disableEdit"
           iconPlus="west"
           iconMinus="east"
           (onTrigger)="executeMoveX($event)"
         ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
+        [disabled]="disableEdit"
         matBadge="F"
         #moveY
         (click)="onClick('moveY')"
         value="moveY"
         >FAR
         <app-up-down
+          [disabled]="disableEdit"
           iconPlus="north"
           iconMinus="south"
           (onTrigger)="executeMoveY($event)"
         ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
+        [disabled]="disableEdit"
         matBadge="U"
         #moveZ
         (click)="onClick('moveZ')"
         value="moveZ"
         >UP
         <app-up-down
+          [disabled]="disableEdit"
           iconPlus="vertical_align_top"
           iconMinus="vertical_align_bottom"
           (onTrigger)="executeMoveZ($event)"
         ></app-up-down>
       </mat-button-toggle>
-      <mat-button-toggle matBadge="X" (click)="delete()" value="delete"
+      <mat-button-toggle
+        [disabled]="disableEdit"
+        matBadge="X"
+        (click)="delete()"
+        value="delete"
         >DELETE</mat-button-toggle
       >
     </mat-button-toggle-group>
   </div>
-  <!-- <div class="delete-container">
-    <button matBadge="X" mat-raised-button (click)="delete()">DELETE</button>
-  </div> -->
 </div>

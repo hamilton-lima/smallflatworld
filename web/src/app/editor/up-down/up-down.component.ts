@@ -11,6 +11,7 @@ export enum UpDownAction {
   styleUrls: ['./up-down.component.scss'],
 })
 export class UpDownComponent {
+  @Input() disabled = false;
   @Input() iconPlus = 'add_circle_outline';
   @Input() iconMinus = 'remove_circle_outline';
   @Output() onTrigger = new EventEmitter<UpDownAction>();
