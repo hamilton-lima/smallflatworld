@@ -93,18 +93,21 @@ export class EditorService {
     this.client.update(element);
   }
 
+  isValidSelection() {
+    return this.selected && this.selected.name != 'ground';
+  }
+
   async rotate(positive: boolean) {
-    if (this.selected) {
+    if (this.isValidSelection()) {
       // rotate the mesh
       let parent: Mesh = <Mesh>this.selected.parent;
-      
+
       // make positive rotation clockwise
-      if(positive){
+      if (positive) {
         parent.rotation.y -= ROTATION_STEP;
       } else {
         parent.rotation.y += ROTATION_STEP;
       }
-      // parent.rotation.y += ROTATION_STEP * this.signal(positive);
 
       const element = await this.realm.get(this.selected.parent.name);
       element.rotation = vector3ToMemento(parent.rotation);
@@ -113,7 +116,7 @@ export class EditorService {
   }
 
   async scale(positive: boolean) {
-    if (this.selected) {
+    if (this.isValidSelection()) {
       // rotate the mesh
       let parent: Mesh = <Mesh>this.selected.parent;
       const scale = new Vector3(
@@ -144,17 +147,19 @@ export class EditorService {
   }
 
   async moveX(positive: boolean) {
-    if (this.selected) {
-      // rotate the mesh
+    if (this.isValidSelection()) {
       let parent: Mesh = <Mesh>this.selected.parent;
-      parent.position.x += MOVE_STEP * this.signal(positive);
+      if (positive) {
+        parent.position.x += MOVE_STEP;
+      } else {
+        parent.position.x -= MOVE_STEP;
+      }
       this.move(parent);
     }
   }
 
   async moveY(positive: boolean) {
-    if (this.selected) {
-      // rotate the mesh
+    if (this.isValidSelection()) {
       let parent: Mesh = <Mesh>this.selected.parent;
       parent.position.z += MOVE_STEP * this.signal(positive);
       this.move(parent);
@@ -162,8 +167,7 @@ export class EditorService {
   }
 
   async moveZ(positive: boolean) {
-    if (this.selected) {
-      // rotate the mesh
+    if (this.isValidSelection()) {
       let parent: Mesh = <Mesh>this.selected.parent;
       parent.position.y += MOVE_STEP * this.signal(positive);
       this.move(parent);
@@ -192,7 +196,7 @@ export class EditorService {
   }
 
   async deleteSelected() {
-    if (this.selected) {
+    if (this.isValidSelection()) {
       let parent: Mesh = <Mesh>this.selected.parent;
       if (parent) {
         this.client.delete(parent.name);
@@ -205,7 +209,7 @@ export class EditorService {
   }
 
   editCode() {
-    if (this.selected) {
+    if (this.isValidSelection()) {
       let parent: Mesh = <Mesh>this.selected.parent;
       if (parent) {
         this.coding.edit(parent.name);
@@ -286,15 +290,13 @@ export class EditorService {
       this.editorMode.edit();
 
       const clickable = this.mesh.getClickableFromMesh(mesh);
-      if( clickable){
+      if (clickable) {
         this.selectMesh(clickable);
       }
-
     });
 
     scene.onPointerObservable.add(async (pointerInfo) => {
-
-      if( pointerInfo.type == PointerEventTypes.POINTERDOUBLETAP ){
+      if (pointerInfo.type == PointerEventTypes.POINTERDOUBLETAP) {
         this.editorMode.toggleCurrentEditMode();
       }
 
@@ -418,7 +420,7 @@ export class EditorService {
     this.selected.showBoundingBox = show;
   }
 
-  selectMesh(mesh: Mesh){
+  selectMesh(mesh: Mesh) {
     if (this.selected) {
       this.showBoundingBox(false);
     }
@@ -552,5 +554,4 @@ export class EditorService {
       mesh.scaling = element.scaling;
     }
   }
-
 }

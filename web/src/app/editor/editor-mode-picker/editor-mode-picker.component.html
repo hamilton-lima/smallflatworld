@@ -29,7 +29,7 @@
         <app-up-down
           iconPlus="rotate_right"
           iconMinus="rotate_left"
-          (onTrigger)="executeEdit($event)"
+          (onTrigger)="executeRotate($event)"
         ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
@@ -38,7 +38,7 @@
         (click)="onClick('scale')"
         value="scale"
         >SCALE
-        <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+        <app-up-down (onTrigger)="executeScale($event)"></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
         matBadge="L"
@@ -49,7 +49,7 @@
         <app-up-down
           iconPlus="west"
           iconMinus="east"
-          (onTrigger)="executeEdit($event)"
+          (onTrigger)="executeMoveX($event)"
         ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
@@ -61,7 +61,7 @@
         <app-up-down
           iconPlus="north"
           iconMinus="south"
-          (onTrigger)="executeEdit($event)"
+          (onTrigger)="executeMoveY($event)"
         ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
@@ -73,7 +73,7 @@
         <app-up-down
           iconPlus="vertical_align_top"
           iconMinus="vertical_align_bottom"
-          (onTrigger)="executeEdit($event)"
+          (onTrigger)="executeMoveZ($event)"
         ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle matBadge="X" (click)="delete()" value="delete"

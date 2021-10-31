@@ -110,11 +110,6 @@ export class EditorModePickerComponent implements AfterViewInit {
     this.service.mode.next(EditorMode.WALK);
   }
 
-  add() {
-    this.input.focus();
-    this.service.mode.next(EditorMode.ADD);
-  }
-
   rotate() {
     this.input.focus();
     this.service.editAction.next(EditorAction.ROTATE);
@@ -166,5 +161,30 @@ export class EditorModePickerComponent implements AfterViewInit {
       this.editor.editMinus();
     }
     this.input.focus();
+  }
+
+  executeRotate(event: UpDownAction) {
+    this.rotate();
+    this.executeEdit(event);
+  }
+
+  executeScale(event: UpDownAction) {
+    this.scale();
+    this.executeEdit(event);
+  }
+
+  executeMoveX(event: UpDownAction) {
+    this.moveX();
+    this.executeEdit(event);
+  }
+
+  executeMoveY(event: UpDownAction) {
+    this.moveY();
+    this.executeEdit(event);
+  }
+
+  executeMoveZ(event: UpDownAction) {
+    this.moveZ();
+    this.executeEdit(event);
   }
 }
