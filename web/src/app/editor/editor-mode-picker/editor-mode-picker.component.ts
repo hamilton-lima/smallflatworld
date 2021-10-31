@@ -9,6 +9,7 @@ import {
 } from '../editor-mode.service';
 import { EditorService } from '../editor.service';
 import { ToggleGroupController } from './toogle-group-controller';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-editor-mode-picker',
@@ -17,9 +18,7 @@ import { ToggleGroupController } from './toogle-group-controller';
 })
 export class EditorModePickerComponent implements AfterViewInit {
   mode: EditorMode;
-  @ViewChild('walk') walkButton: MatButtonToggle;
-  @ViewChild('add') addButton: MatButtonToggle;
-  @ViewChild('edit') editButton: MatButtonToggle;
+  editModeON: boolean;
 
   @ViewChild('code') codeButton: MatButtonToggle;
   @ViewChild('rotate') rotateButton: MatButtonToggle;
@@ -28,7 +27,6 @@ export class EditorModePickerComponent implements AfterViewInit {
   @ViewChild('moveY') moveYButton: MatButtonToggle;
   @ViewChild('moveZ') moveZButton: MatButtonToggle;
 
-  editModeController = new ToggleGroupController();
   modifyController = new ToggleGroupController();
 
   constructor(
@@ -40,13 +38,12 @@ export class EditorModePickerComponent implements AfterViewInit {
     service.mode.subscribe((mode) => {
       this.input.focus();
       this.mode = mode;
-      this.editModeController.select(mode, this);
-      console.log('subscribe to service.mode', this, mode);
+      this.editModeON = this.mode == EditorMode.EDIT;
     });
 
     this.keyboard.onKeyPress.subscribe((keys: KeyState) => {
-      if (keys.KeyM) {
-        this.editModeController.next(this);
+      if (keys.KeyE) {
+        this.toggleEdit(!this.editModeON);
       }
 
       if (this.mode == EditorMode.EDIT) {
@@ -94,21 +91,12 @@ export class EditorModePickerComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.editModeController.addChildren('walk', this.walkButton, this.walk);
-    this.editModeController.addChildren('add', this.addButton, this.add);
-    this.editModeController.addChildren('edit', this.editButton, this.edit);
-
     this.modifyController.addChildren('code', this.codeButton, this.code);
     this.modifyController.addChildren('rotate', this.rotateButton, this.rotate);
     this.modifyController.addChildren('scale', this.scaleButton, this.scale);
     this.modifyController.addChildren('moveX', this.moveXButton, this.moveX);
     this.modifyController.addChildren('moveY', this.moveYButton, this.moveY);
     this.modifyController.addChildren('moveZ', this.moveZButton, this.moveZ);
-  }
-
-  modeChanged(mode: string) {
-    console.log('modeChanged', mode);
-    this.editModeController.selectAndClick(mode, this);
   }
 
   onClick(action: string) {
@@ -124,11 +112,6 @@ export class EditorModePickerComponent implements AfterViewInit {
   add() {
     this.input.focus();
     this.service.mode.next(EditorMode.ADD);
-  }
-
-  edit() {
-    this.input.focus();
-    this.service.mode.next(EditorMode.EDIT);
   }
 
   rotate() {
@@ -178,5 +161,18 @@ export class EditorModePickerComponent implements AfterViewInit {
 
   isEdit() {
     return this.mode != EditorMode.EDIT;
+  }
+
+  changeEdit(event: MatSlideToggleChange) {
+    this.toggleEdit(event.checked);
+  }
+
+  toggleEdit(edit: boolean) {
+    if (edit) {
+      this.service.edit();
+    } else {
+      this.service.walk();
+    }
+    this.input.focus();
   }
 }

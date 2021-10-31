@@ -1,12 +1,13 @@
-<mat-button-toggle-group
-  #editMode
-  value="walk"
-  (change)="modeChanged($event.value)"
+<mat-slide-toggle
+  matBadge="E"
+  (change)="changeEdit($event)"
+  class="example-margin"
+  [checked]="editModeON"
+  [color]="primary"
 >
-  <mat-button-toggle matBadge="M" #edit value="edit">EDIT</mat-button-toggle>
-  <mat-button-toggle matBadge="M" #walk value="walk">WALK</mat-button-toggle>
-  <mat-button-toggle matBadge="M" #add value="add">ADD</mat-button-toggle>
-</mat-button-toggle-group>
+  EDIT
+</mat-slide-toggle>
+
 <div class="modify-container" [hidden]="isEdit()">
   <div>
     <mat-button-toggle-group value="rotate">

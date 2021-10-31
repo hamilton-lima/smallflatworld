@@ -23,4 +23,12 @@ export class EditorModeService {
   editAction: BehaviorSubject<EditorAction> = new BehaviorSubject(
     EditorAction.ROTATE
   );
+
+  edit() {
+    this.mode.next(EditorMode.EDIT);
+  }
+
+  walk() {
+    this.mode.next(EditorMode.WALK);
+  }
 }
