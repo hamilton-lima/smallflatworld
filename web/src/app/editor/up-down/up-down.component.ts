@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export enum UpDownAction {
   plus = 'plus',
@@ -10,14 +10,16 @@ export enum UpDownAction {
   templateUrl: './up-down.component.html',
   styleUrls: ['./up-down.component.scss'],
 })
-export class UpDownComponent  {
+export class UpDownComponent {
+  @Input() iconPlus = 'add_circle_outline';
+  @Input() iconMinus = 'remove_circle_outline';
   @Output() onTrigger = new EventEmitter<UpDownAction>();
 
-  plus(){
+  plus() {
     this.onTrigger.next(UpDownAction.plus);
   }
 
-  minus(){
+  minus() {
     this.onTrigger.next(UpDownAction.minus);
   }
 }

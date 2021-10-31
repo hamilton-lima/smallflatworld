@@ -1,16 +1,8 @@
 <div class="up-down-container">
-  <button
-    class="up-down-button"
-    mat-raised-button
-    (click)="plus()"
-  >
-    +
+  <button class="up-down-button" mat-raised-button (click)="plus()">
+    <mat-icon>{{ iconPlus }}</mat-icon>
   </button>
-  <button
-    class="up-down-button"
-    mat-raised-button
-    (click)="minus()"
-  >
-    -
+  <button class="up-down-button" mat-raised-button (click)="minus()">
+    <mat-icon>{{ iconMinus }}</mat-icon>
   </button>
 </div>

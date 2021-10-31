@@ -26,7 +26,11 @@
         (click)="onClick('rotate')"
         value="rotate"
         >ROTATE
-        <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+        <app-up-down
+          iconPlus="rotate_right"
+          iconMinus="rotate_left"
+          (onTrigger)="executeEdit($event)"
+        ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
         matBadge="C"
@@ -41,27 +45,40 @@
         #moveX
         (click)="onClick('moveX')"
         value="moveX"
-        >LEFT <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+        >LEFT
+        <app-up-down
+          iconPlus="west"
+          iconMinus="east"
+          (onTrigger)="executeEdit($event)"
+        ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
         matBadge="F"
         #moveY
         (click)="onClick('moveY')"
         value="moveY"
-        >FAR <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+        >FAR
+        <app-up-down
+          iconPlus="north"
+          iconMinus="south"
+          (onTrigger)="executeEdit($event)"
+        ></app-up-down>
       </mat-button-toggle>
       <mat-button-toggle
         matBadge="U"
         #moveZ
         (click)="onClick('moveZ')"
         value="moveZ"
-        >UP <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+        >UP
+        <app-up-down
+          iconPlus="vertical_align_top"
+          iconMinus="vertical_align_bottom"
+          (onTrigger)="executeEdit($event)"
+        ></app-up-down>
       </mat-button-toggle>
-      <mat-button-toggle
-        matBadge="X"
-        (click)="delete()"
-        value="delete"
-        >DELETE</mat-button-toggle>
+      <mat-button-toggle matBadge="X" (click)="delete()" value="delete"
+        >DELETE</mat-button-toggle
+      >
     </mat-button-toggle-group>
   </div>
   <!-- <div class="delete-container">
