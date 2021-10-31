@@ -272,10 +272,17 @@ export class EditorService {
       }
     );
 
-    this.onDropFromLibrary.subscribe((point: Vector2) => {
+    this.onDropFromLibrary.subscribe(async (point: Vector2) => {
       // const pickInfo = scene.pick( scene.pointerX, scene.pointerY);
       const pickInfo = scene.pick(point.x, point.y);
-      this.addToPosition(scene, pickInfo);
+      const mesh = await this.addToPosition(scene, pickInfo);
+      this.editorMode.edit();
+
+      const clickable = this.mesh.getClickableFromMesh(mesh);
+      if( clickable){
+        this.selectMesh(clickable);
+      }
+
     });
 
     scene.onPointerObservable.add(async (pointerInfo) => {
@@ -385,17 +392,8 @@ export class EditorService {
     }
   }
 
-  showBoundingBox(show: boolean) {
-    this.selected.showBoundingBox = show;
-  }
-
   click(scene: Scene, pointerInfo: PointerInfo) {
-    if (this.selected) {
-      this.showBoundingBox(false);
-    }
-
-    this.selected = <Mesh>pointerInfo.pickInfo.pickedMesh;
-    this.showBoundingBox(true);
+    this.selectMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
 
     let parent: Mesh = <Mesh>this.selected.parent;
     if (parent) {
@@ -406,15 +404,23 @@ export class EditorService {
   }
 
   select(scene: Scene, pointerInfo: PointerInfo) {
+    this.selectMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
+  }
+
+  showBoundingBox(show: boolean) {
+    this.selected.showBoundingBox = show;
+  }
+
+  selectMesh(mesh: Mesh){
     if (this.selected) {
       this.showBoundingBox(false);
     }
 
-    this.selected = <Mesh>pointerInfo.pickInfo.pickedMesh;
+    this.selected = mesh;
     this.showBoundingBox(true);
   }
 
-  async addToPosition(scene: Scene, pickInfo: PickingInfo) {
+  async addToPosition(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {
     if (!this.current) {
       this.notify.warn(
         "Err... I don't know what to add to the scene... select from the " +
@@ -432,7 +438,6 @@ export class EditorService {
       skipColision = true;
     }
 
-    console.log('skipColision editor', skipColision);
     const templateMesh = await this.library.getMesh(
       scene,
       this.current.id,
@@ -480,12 +485,13 @@ export class EditorService {
       skipColision: skipColision,
     };
 
-    await this.create(scene, element);
+    const mesh = await this.create(scene, element);
 
     // update local realm and send client event
     const memento = sceneElement2Memento(element);
     await this.realm.add(memento);
     this.client.update(memento);
+    return mesh;
   }
 
   async setCurrent(component: LibraryComponent) {
@@ -499,7 +505,7 @@ export class EditorService {
     return this.current;
   }
 
-  async create(scene: Scene, element: SceneElement) {
+  async create(scene: Scene, element: SceneElement): Promise<Mesh> {
     console.log('create', element.name, element.position);
     const templateMesh = await this.library.getMesh(
       scene,
@@ -519,6 +525,7 @@ export class EditorService {
 
     // updates position with the calculated position by the cloner
     element.position = mesh.position;
+    return mesh;
   }
 
   async add(scene: Scene, element: SceneElement) {

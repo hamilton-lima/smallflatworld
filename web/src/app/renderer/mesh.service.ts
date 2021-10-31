@@ -244,4 +244,16 @@ export class MeshService {
     this.createClickableDummy(scene, parent, boundingBoxInfo, skipColision);
     return parent;
   }
+
+  getClickableFromMesh(mesh: Mesh): Mesh {
+    const found = mesh.getChildren().find((node) => {
+      return node.name.endsWith('.clickable');
+    });
+    if (found) {
+      return <Mesh>found;
+    } else {
+      console.log('no clickable found');
+    }
+    return null;
+  }
 }
