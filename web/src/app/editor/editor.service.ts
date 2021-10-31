@@ -97,7 +97,14 @@ export class EditorService {
     if (this.selected) {
       // rotate the mesh
       let parent: Mesh = <Mesh>this.selected.parent;
-      parent.rotation.y += ROTATION_STEP * this.signal(positive);
+      
+      // make positive rotation clockwise
+      if(positive){
+        parent.rotation.y -= ROTATION_STEP;
+      } else {
+        parent.rotation.y += ROTATION_STEP;
+      }
+      // parent.rotation.y += ROTATION_STEP * this.signal(positive);
 
       const element = await this.realm.get(this.selected.parent.name);
       element.rotation = vector3ToMemento(parent.rotation);
