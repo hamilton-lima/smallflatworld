@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CubeMapToSphericalPolynomialTools } from '@babylonjs/core';
 import { Library, LibraryComponent } from '../editor-library.model';
 import { EditorLibraryService } from '../editor-library.service';
 import { EditorService } from '../editor.service';

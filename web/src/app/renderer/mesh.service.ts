@@ -43,21 +43,13 @@ export class MeshService {
     scene: Scene,
     width: number,
     height: number,
+    depth: number,
     color: string,
     position: Vector3,
     rotation: Vector3,
     name: string
   ): Mesh {
-    const box = MeshBuilder.CreateBox(
-      name,
-      { width: width, height: height, faceUV: this.getFaceUV(), wrap: true },
-      // { width: width, height: height },
-      scene
-    );
-    const material = new StandardMaterial('material', scene);
-    material.diffuseColor = Color3.FromHexString(color);
-    box.material = material;
-
+    const box = this._getBox(scene, width, height, depth, color, name);
     position.y += box.getBoundingInfo().boundingBox.maximum.y;
     box.position = position;
 
@@ -70,13 +62,19 @@ export class MeshService {
     scene: Scene,
     width: number,
     height: number,
+    depth: number,
     color: string,
     name: string
   ): Mesh {
     const box = MeshBuilder.CreateBox(
       name,
-      { width: width, height: height, faceUV: this.getFaceUV(), wrap: true },
-      // { width: width, height: height  },
+      {
+        width: width,
+        height: height,
+        depth: depth,
+        faceUV: this.getFaceUV(),
+        wrap: true,
+      },
       scene
     );
     const material = new StandardMaterial('material', scene);
@@ -87,7 +85,17 @@ export class MeshService {
   }
 
   public getBox(scene: Scene) {
-    return this._getBox(scene, 1, 1, '#427BD2', 'primitive-box');
+    return this._getBox(scene, 1, 1, 1, '#427BD2', 'primitive-box');
+  }
+
+  public getBoxSizeColor(
+    scene: Scene,
+    width: number,
+    height: number,
+    depth: number,
+    color: string
+  ) {
+    return this._getBox(scene, width, height, depth, color, 'primitive-box');
   }
 
   addbox(scene: Scene): Mesh {
@@ -95,6 +103,7 @@ export class MeshService {
     position.y = 1;
     return this._addbox(
       scene,
+      1,
       1,
       1,
       '#FF0000',
@@ -110,11 +119,20 @@ export class MeshService {
     rotation: Vector3,
     name: string
   ) {
-    return this._addbox(scene, 1, 1, '#FF0000', position, rotation, name);
+    return this._addbox(scene, 1, 1, 1, '#FF0000', position, rotation, name);
   }
 
   addTallbox(scene: Scene, position: Vector3, name: string): Mesh {
-    return this._addbox(scene, 1, 3, '#00FF00', position, Vector3.Zero(), name);
+    return this._addbox(
+      scene,
+      1,
+      3,
+      1,
+      '#00FF00',
+      position,
+      Vector3.Zero(),
+      name
+    );
   }
 
   addRotatedTallbox(
@@ -123,7 +141,7 @@ export class MeshService {
     rotation: Vector3,
     name: string
   ) {
-    return this._addbox(scene, 1, 3, '#00FF00', position, rotation, name);
+    return this._addbox(scene, 1, 3, 1, '#00FF00', position, rotation, name);
   }
 
   cloneMesh(
