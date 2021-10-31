@@ -12,7 +12,9 @@ import { EditorService } from '../editor.service';
 export class EditorToolbarComponent implements OnInit {
   libraries: Library[];
   library: Library;
-  readonly DEFAULT_LIBRARY = 'kenney/city-kit-urban-1';
+
+  readonly PRE_SELECT_LIBRARY = 'internal/basic';
+  readonly PRE_SELECT_COMPONENT = 'cube';
 
   constructor(
     private service: EditorLibraryService,
@@ -21,7 +23,27 @@ export class EditorToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.libraries = this.service.getLibraries();
-    this.selectLibrary(this.DEFAULT_LIBRARY);
+    this.preSelectComponent(this.PRE_SELECT_LIBRARY, this.PRE_SELECT_COMPONENT);
+  }
+
+  preSelectComponent(libraryName: string, componentName: string) {
+    const library = this.getLibraryByName(libraryName);
+    if (library) {
+      const found = library.components.find(
+        (component) => component.name == componentName
+      );
+      if (found) {
+        this.use(found);
+      } else {
+        console.warn(
+          'Component not found when pre-selecting',
+          libraryName,
+          componentName
+        );
+      }
+    } else {
+      console.warn('Library not found when pre-selecting', libraryName);
+    }
   }
 
   use(component: LibraryComponent) {
@@ -35,22 +57,6 @@ export class EditorToolbarComponent implements OnInit {
       }
     }
     return null;
-  }
-
-  selectLibrary(selection: string) {
-    this.library = this.getLibraryByName(selection);
-    this.preSelectComponent();
-  }
-
-  // Pre select the first item
-  preSelectComponent() {
-    if (
-      this.library &&
-      this.library.components &&
-      this.library.components.length > 0
-    ) {
-      this.use(this.library.components[0]);
-    }
   }
 
   getSelectedClass(component) {
