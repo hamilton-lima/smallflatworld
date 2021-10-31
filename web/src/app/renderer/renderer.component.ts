@@ -124,6 +124,6 @@ export class RendererComponent implements AfterViewInit {
     console.log('on drop', event);
     const point = new Vector2(event.x, event.y);
     this.editor.onDropFromLibrary.next(point);
-
+    this.input.focus();
   }
 }
