@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { RendererService } from './renderer.service';
 import { MovementService } from './movement.service';
 import { CameraService } from './camera.service';
@@ -9,6 +9,7 @@ import { ClientService } from '../multiplayer/client.service';
 import { EngineState, SceneElement } from './renderer.model';
 import { KeyboardService } from './keyboard.service';
 import { LocalClipboardService} from './local-clipboard.service';
+import { Vector2 } from '@babylonjs/core';
 
 @Component({
   selector: 'app-renderer',
@@ -99,5 +100,30 @@ export class RendererComponent implements AfterViewInit {
   keyup(event: KeyboardEvent): void {
     this.keyboard.up(event);
     event.preventDefault();
+  }
+
+  isDraggingOver: boolean = false;
+
+  @HostListener('dragover', ['$event']) public onDragOver(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDraggingOver = true;
+  }
+
+  @HostListener('dragleave', ['$event']) public onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDraggingOver = false;
+  }
+
+  @HostListener('drop', ['$event']) public onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDraggingOver = false;
+
+    console.log('on drop', event);
+    const point = new Vector2(event.x, event.y);
+    this.editor.onDropFromLibrary.next(point);
+
   }
 }

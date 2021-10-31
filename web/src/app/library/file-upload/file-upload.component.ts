@@ -1,13 +1,11 @@
 import {
   Component,
   ElementRef,
-  HostBinding,
   HostListener,
-  Input,
   Output,
   EventEmitter,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-file-upload',

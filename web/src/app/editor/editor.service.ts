@@ -6,6 +6,7 @@ import {
   PointerInfo,
   PointerInfoPre,
   Scene,
+  Vector2,
   Vector3,
 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
@@ -31,6 +32,7 @@ import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
 import { NotifyService } from '../shared/notify.service';
 import { ImagesService } from '../library/images.service';
+import { Subject } from 'rxjs';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
@@ -46,6 +48,8 @@ const VECTOR3_TWO = new Vector3(2.0, 2.0, 2.0);
 })
 export class EditorService {
   dragging = false;
+  onDropFromLibrary: Subject<Vector2>;
+  lastPointerInfo: PointerInfo;
 
   executeEditAction(action: EditorAction, positive: boolean) {
     console.log(
@@ -230,9 +234,11 @@ export class EditorService {
     private runner: RunnerService,
     private notify: NotifyService,
     private image: ImagesService
-  ) {}
+  ) {
+    this.onDropFromLibrary = new Subject();
+  }
 
-  getPointerPosition(scene: Scene): Vector3 {
+  getPickInfo(scene: Scene): PickingInfo {
     const pickinfo: PickingInfo = scene.pick(
       scene.pointerX,
       scene.pointerY,
@@ -240,7 +246,11 @@ export class EditorService {
         return mesh.name == 'ground';
       }
     );
-    return pickinfo.pickedPoint;
+    return pickinfo;
+  }
+
+  getPointerPosition(scene: Scene): Vector3 {
+    return this.getPickInfo(scene).pickedPoint;
   }
 
   setup(scene: Scene): Scene {
@@ -262,7 +272,15 @@ export class EditorService {
       }
     );
 
+    this.onDropFromLibrary.subscribe((point: Vector2) => {
+      // const pickInfo = scene.pick( scene.pointerX, scene.pointerY);
+      const pickInfo = scene.pick(point.x, point.y);
+      this.addToPosition(scene, pickInfo);
+    });
+
     scene.onPointerObservable.add(async (pointerInfo) => {
+      this.lastPointerInfo = pointerInfo;
+
       // drag and drop
       if (this.editorMode.mode.value == EditorMode.EDIT) {
         if (pointerInfo.event.type == POINTERUP) {
@@ -299,7 +317,7 @@ export class EditorService {
           }
 
           if (this.editorMode.mode.value == EditorMode.ADD) {
-            await this.addToPosition(scene, pointerInfo);
+            await this.addToPosition(scene, pointerInfo.pickInfo);
           }
 
           if (this.editorMode.mode.value == EditorMode.EDIT) {
@@ -397,7 +415,7 @@ export class EditorService {
     this.showBoundingBox(true);
   }
 
-  async addToPosition(scene: Scene, pointerInfo: PointerInfo) {
+  async addToPosition(scene: Scene, pickInfo: PickingInfo) {
     if (!this.current) {
       this.notify.warn(
         "Err... I don't know what to add to the scene... select from the " +
@@ -406,12 +424,12 @@ export class EditorService {
       return;
     }
 
-    const faceId = pointerInfo.pickInfo.faceId;
-    let picked = <Mesh>pointerInfo.pickInfo.pickedMesh;
+    const faceId = pickInfo.faceId;
+    let picked = <Mesh>pickInfo.pickedMesh;
     const imageName = this.image.getCurrentImageName();
-    
+
     let skipColision = false;
-    if( this.current.skipColision ){
+    if (this.current.skipColision) {
       skipColision = true;
     }
 
@@ -427,7 +445,7 @@ export class EditorService {
 
     // if picking ground add to the clicking position
     if (picked.name == 'ground') {
-      position = pointerInfo.pickInfo.pickedPoint;
+      position = pickInfo.pickedPoint;
     } else {
       if (picked.parent) {
         picked = <Mesh>picked.parent;
@@ -520,5 +538,18 @@ export class EditorService {
       mesh.rotation = element.rotation;
       mesh.scaling = element.scaling;
     }
+  }
+
+  addToXY(x: number, y: number) {
+    let ray = this.scene.createPickingRay(
+      scene.pointerX,
+      scene.pointerY,
+      BABYLON.Matrix.Identity(),
+      null
+    );
+    let hit = scene.pickWithRay(ray);
+    let pickedPoint = hit.pickedPoint;
+
+    throw new Error('Method not implemented.');
   }
 }
