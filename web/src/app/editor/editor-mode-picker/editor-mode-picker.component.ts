@@ -10,6 +10,7 @@ import {
 import { EditorService } from '../editor.service';
 import { ToggleGroupController } from './toogle-group-controller';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { UpDownAction } from '../up-down/up-down.component';
 
 @Component({
   selector: 'app-editor-mode-picker',
@@ -76,11 +77,11 @@ export class EditorModePickerComponent implements AfterViewInit {
           (keys.ShiftLeft && keys.Equal) ||
           (keys.ShiftRight && keys.Equal)
         ) {
-          this.editPlus();
+          this.executeEdit(UpDownAction.plus);
         }
 
         if (keys.NumpadSubtract || keys.Minus) {
-          this.editMinus();
+          this.executeEdit(UpDownAction.minus);
         }
 
         if (keys.Delete || keys.KeyX) {
@@ -139,16 +140,6 @@ export class EditorModePickerComponent implements AfterViewInit {
     this.service.editAction.next(EditorAction.MOVEZ);
   }
 
-  editPlus() {
-    this.input.focus();
-    this.editor.editPlus();
-  }
-
-  editMinus() {
-    this.input.focus();
-    this.editor.editMinus();
-  }
-
   delete() {
     this.input.focus();
     this.editor.deleteSelected();
@@ -167,4 +158,13 @@ export class EditorModePickerComponent implements AfterViewInit {
     this.service.toggleEdit(event.checked);
   }
 
+  executeEdit(event: UpDownAction) {
+    if (event == UpDownAction.plus) {
+      this.editor.editPlus();
+    }
+    if (event == UpDownAction.minus) {
+      this.editor.editMinus();
+    }
+    this.input.focus();
+  }
 }

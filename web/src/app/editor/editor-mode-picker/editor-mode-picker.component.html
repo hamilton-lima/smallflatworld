@@ -12,7 +12,7 @@
 
 <div class="modify-container" [hidden]="hideEditButtons()">
   <div>
-    <mat-button-toggle-group value="rotate">
+    <mat-button-toggle-group value="rotate" vertical="true">
       <mat-button-toggle
         matBadge="O"
         #code
@@ -25,57 +25,46 @@
         #rotate
         (click)="onClick('rotate')"
         value="rotate"
-        >ROTATE</mat-button-toggle
-      >
+        >ROTATE
+        <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+      </mat-button-toggle>
       <mat-button-toggle
         matBadge="C"
         #scale
         (click)="onClick('scale')"
         value="scale"
-        >SCALE</mat-button-toggle
-      >
+        >SCALE
+        <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+      </mat-button-toggle>
       <mat-button-toggle
         matBadge="L"
         #moveX
         (click)="onClick('moveX')"
         value="moveX"
-        >LEFT</mat-button-toggle
-      >
+        >LEFT <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+      </mat-button-toggle>
       <mat-button-toggle
         matBadge="F"
         #moveY
         (click)="onClick('moveY')"
         value="moveY"
-        >FAR</mat-button-toggle
-      >
+        >FAR <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+      </mat-button-toggle>
       <mat-button-toggle
         matBadge="U"
         #moveZ
         (click)="onClick('moveZ')"
         value="moveZ"
-        >UP</mat-button-toggle
-      >
+        >UP <app-up-down (onTrigger)="executeEdit($event)"></app-up-down>
+      </mat-button-toggle>
+      <mat-button-toggle
+        matBadge="X"
+        (click)="delete()"
+        value="delete"
+        >DELETE</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
-  <div class="up-down-container">
-    <button
-      matBadge="+"
-      class="up-down-button"
-      mat-raised-button
-      (click)="editPlus()"
-    >
-      +
-    </button>
-    <button
-      matBadge="-"
-      class="up-down-button"
-      mat-raised-button
-      (click)="editMinus()"
-    >
-      -
-    </button>
-  </div>
-  <div class="delete-container">
+  <!-- <div class="delete-container">
     <button matBadge="X" mat-raised-button (click)="delete()">DELETE</button>
-  </div>
+  </div> -->
 </div>

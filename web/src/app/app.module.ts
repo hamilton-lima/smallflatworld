@@ -21,6 +21,7 @@ import { BottomMessageComponent } from './coding/bottom-message/bottom-message.c
 import { ImagesLibraryComponent } from './library/images-library/images-library.component';
 import { FileUploadComponent } from './library/file-upload/file-upload.component';
 import { AudioLibraryComponent } from './library/audio-library/audio-library.component';
+import { UpDownComponent } from './editor/up-down/up-down.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AudioLibraryComponent } from './library/audio-library/audio-library.com
     ImagesLibraryComponent,
     FileUploadComponent,
     AudioLibraryComponent,
+    UpDownComponent,
   ],
   imports: [
     BrowserModule,
