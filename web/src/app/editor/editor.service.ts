@@ -3,6 +3,7 @@ import {
   AbstractMesh,
   Mesh,
   PickingInfo,
+  PointerEventTypes,
   PointerInfo,
   PointerInfoPre,
   Scene,
@@ -49,7 +50,6 @@ const VECTOR3_TWO = new Vector3(2.0, 2.0, 2.0);
 export class EditorService {
   dragging = false;
   onDropFromLibrary: Subject<Vector2>;
-  lastPointerInfo: PointerInfo;
 
   executeEditAction(action: EditorAction, positive: boolean) {
     console.log(
@@ -279,7 +279,10 @@ export class EditorService {
     });
 
     scene.onPointerObservable.add(async (pointerInfo) => {
-      this.lastPointerInfo = pointerInfo;
+
+      if( pointerInfo.type == PointerEventTypes.POINTERDOUBLETAP ){
+        this.editorMode.toggleCurrentEditMode();
+      }
 
       // drag and drop
       if (this.editorMode.mode.value == EditorMode.EDIT) {
@@ -314,10 +317,6 @@ export class EditorService {
 
           if (this.editorMode.mode.value == EditorMode.WALK) {
             this.click(scene, pointerInfo);
-          }
-
-          if (this.editorMode.mode.value == EditorMode.ADD) {
-            await this.addToPosition(scene, pointerInfo.pickInfo);
           }
 
           if (this.editorMode.mode.value == EditorMode.EDIT) {
@@ -540,16 +539,4 @@ export class EditorService {
     }
   }
 
-  addToXY(x: number, y: number) {
-    let ray = this.scene.createPickingRay(
-      scene.pointerX,
-      scene.pointerY,
-      BABYLON.Matrix.Identity(),
-      null
-    );
-    let hit = scene.pickWithRay(ray);
-    let pickedPoint = hit.pickedPoint;
-
-    throw new Error('Method not implemented.');
-  }
 }

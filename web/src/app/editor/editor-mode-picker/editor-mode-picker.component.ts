@@ -43,7 +43,7 @@ export class EditorModePickerComponent implements AfterViewInit {
 
     this.keyboard.onKeyPress.subscribe((keys: KeyState) => {
       if (keys.KeyE) {
-        this.toggleEdit(!this.editModeON);
+        this.service.toggleEdit(!this.editModeON);
       }
 
       if (this.mode == EditorMode.EDIT) {
@@ -159,20 +159,12 @@ export class EditorModePickerComponent implements AfterViewInit {
     this.editor.editCode();
   }
 
-  isEdit() {
-    return this.mode != EditorMode.EDIT;
+  hideEditButtons() {
+    return !this.editModeON;
   }
 
   changeEdit(event: MatSlideToggleChange) {
-    this.toggleEdit(event.checked);
+    this.service.toggleEdit(event.checked);
   }
 
-  toggleEdit(edit: boolean) {
-    if (edit) {
-      this.service.edit();
-    } else {
-      this.service.walk();
-    }
-    this.input.focus();
-  }
 }

@@ -1,5 +1,7 @@
 <mat-slide-toggle
   matBadge="E"
+  matBadgePosition="after"
+  matBadgeOverlap="false"
   (change)="changeEdit($event)"
   class="example-margin"
   [checked]="editModeON"
@@ -8,7 +10,7 @@
   EDIT
 </mat-slide-toggle>
 
-<div class="modify-container" [hidden]="isEdit()">
+<div class="modify-container" [hidden]="hideEditButtons()">
   <div>
     <mat-button-toggle-group value="rotate">
       <mat-button-toggle
