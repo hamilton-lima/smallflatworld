@@ -1,3 +1,17 @@
-.pick-library {
+.library {
   width: 100%;
+}
+
+.library-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selected{
+  background-color: cadetblue;
+}
+
+.single-image{
+  width: 33%;
+  text-align: center;
 }

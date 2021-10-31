@@ -53,10 +53,10 @@ export class EditorToolbarComponent implements OnInit {
     }
   }
 
-  getComponentSelectionColor(component) {
+  getSelectedClass(component) {
     const current = this.editor.getCurrent();
     if (current && current.name == component) {
-      return 'primary';
+      return 'selected';
     } else {
       return '';
     }

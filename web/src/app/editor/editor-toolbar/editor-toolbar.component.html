@@ -1,24 +1,13 @@
-<div>
-  <mat-form-field class="pick-library" appearance="fill">
-    <mat-label>Choose a Library</mat-label>
-    <mat-select (selectionChange)="selectLibrary($event.value)" [value]="library.name">
-      <mat-option
-        *ngFor="let one of libraries"
-        [value]="one.name"
-        >{{ one.name }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-</div>
-
-<div>
-  <button
-    mat-raised-button
+<div *ngFor="let library of libraries" class="library">
+  <p>{{ library.name }}</p>
+  <div class="library-container">
+    <div
+    class="single-image"
     *ngFor="let component of library.components"
-    aria-label="{{ component.name }}"
-    (click)="use(component)"
-    [color]="getComponentSelectionColor(component.name)"
+    (mousedown)="use(component)"
+    [ngClass]="getSelectedClass(component.name)"
   >
     <img width="70" height="70" [src]="component.icon" />
-  </button>
+  </div>
+  </div>
 </div>
