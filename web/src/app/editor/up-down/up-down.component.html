@@ -1,7 +1,6 @@
 <div class="up-down-container">
   <button
     [disabled]="disabled"
-    class="up-down-button"
     mat-raised-button
     (mousedown)="downPlus()"
     (mouseup)="upPlus()"
@@ -12,7 +11,7 @@
   </button>
   <button
     [disabled]="disabled"
-    class="up-down-button"
+    class="up-down-button-spacer"
     mat-raised-button
     (mousedown)="downMinus()"
     (mouseup)="upMinus()"
