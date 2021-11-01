@@ -393,9 +393,10 @@ export class EditorService {
 
   click(scene: Scene, pointerInfo: PointerInfo) {
     this.selectClickableMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
-
-    const parent = this.mesh.getParent(this.selectedClickable);
-    this.runner.click(parent.name);
+    if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
+      this.runner.click(parent.name);
+    }
   }
 
   select(scene: Scene, pointerInfo: PointerInfo) {
