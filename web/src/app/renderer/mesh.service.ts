@@ -246,14 +246,21 @@ export class MeshService {
   }
 
   getClickableFromMesh(mesh: Mesh): Mesh {
-    const found = mesh.getChildren().find((node) => {
-      return node.name.endsWith('.clickable');
-    });
-    if (found) {
-      return <Mesh>found;
-    } else {
-      console.log('no clickable found');
+    if (mesh) {
+      const found = mesh.getChildren().find((node) => {
+        return node.name.endsWith('.clickable');
+      });
+      if (found) {
+        return <Mesh>found;
+      } else {
+        console.log('no clickable found');
+      }
     }
     return null;
+  }
+
+  getParent(clickable: Mesh): Mesh {
+    const parent: Mesh = <Mesh>clickable.parent;
+    return parent;
   }
 }

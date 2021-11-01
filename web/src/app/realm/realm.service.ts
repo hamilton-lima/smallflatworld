@@ -80,10 +80,10 @@ export class RealmService {
 
   // update scene elements
   async get(name: string) {
-    const found = this.currentRealm.elements.findIndex(
-      (element) => element.name == name
-    );
-    if (found) {
+    const found = this.currentRealm.elements.findIndex((element) => {
+      return element.name == name;
+    });
+    if (found > -1) {
       return this.currentRealm.elements[found];
     }
     return null;
@@ -94,7 +94,7 @@ export class RealmService {
     const found = this.currentRealm.elements.findIndex(
       (element) => element.name == input.name
     );
-    if (found) {
+    if (found > -1) {
       this.currentRealm.elements[found] = input;
     }
     return this._updateRealm();
@@ -105,7 +105,7 @@ export class RealmService {
       (element) => element.name == name
     );
     if (found > -1) {
-      const element =  this.currentRealm.elements[found];
+      const element = this.currentRealm.elements[found];
       this.currentRealm.elements.splice(found, 1);
       this.broker.onDeleteSceneElement.next(element);
     }
@@ -148,7 +148,7 @@ export class RealmService {
     const found = this.currentRealm.images.findIndex(
       (image) => image.name == name
     );
-    if (found) {
+    if (found > -1) {
       return this.currentRealm.images[found];
     }
     return null;
@@ -159,7 +159,7 @@ export class RealmService {
     const found = this.currentRealm.elements.findIndex(
       (image) => image.name == input.name
     );
-    if (found) {
+    if (found > -1) {
       this.currentRealm.images[found] = input;
     }
     return this._updateRealm();

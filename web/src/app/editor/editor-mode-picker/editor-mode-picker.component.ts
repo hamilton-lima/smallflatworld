@@ -43,7 +43,7 @@ export class EditorModePickerComponent implements AfterViewInit {
       this.editModeON = this.mode == EditorMode.EDIT;
     });
 
-    editor.onSelectMesh.subscribe((mesh) => {
+    editor.onSelectClickable.subscribe((mesh) => {
       if (mesh) {
         this.disableEdit = false;
       } else {

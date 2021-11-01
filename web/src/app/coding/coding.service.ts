@@ -7,8 +7,9 @@ import { RealmService } from '../realm/realm.service';
   providedIn: 'root',
 })
 export class CodingService {
-  constructor(private realm: RealmService) {}
   public onEdit: Subject<string> = new Subject();
+
+  constructor(private realm: RealmService) {}
 
   edit(uuid: string) {
     this.onEdit.next(uuid);
