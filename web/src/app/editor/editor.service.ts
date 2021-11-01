@@ -229,7 +229,7 @@ export class EditorService {
     if (this.isValidSelection()) {
       const parent = this.mesh.getParent(this.selectedClickable);
       console.log('edit code parent', parent);
-      this.coding.edit(parent.name);
+      this.coding.editParent(parent.name);
     }
   }
 

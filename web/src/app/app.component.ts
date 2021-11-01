@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     );
 
-    this.coding.onEdit.subscribe((selection) => this.toggleRight(selection));
+    this.coding.onEditParent.subscribe((selection) => this.toggleRight(selection));
   }
 
   lastSelection: string;

@@ -47,7 +47,7 @@ export class CodePanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.onEdit.subscribe(async (selected) => {
+    this.service.onEditParent.subscribe(async (selected) => {
       this.loadCode(selected);
     });
 
@@ -57,7 +57,8 @@ export class CodePanelComponent implements OnInit {
 
     this.editor.onSelectClickable.subscribe((mesh) => {
       if (mesh) {
-        this.loadCode(mesh.name);
+        const parent = this.mesh.getParent(mesh);
+        this.loadCode(parent.name);
       }
     });
   }
