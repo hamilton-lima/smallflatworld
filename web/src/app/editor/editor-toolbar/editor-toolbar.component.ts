@@ -46,7 +46,7 @@ export class EditorToolbarComponent implements OnInit {
   }
 
   use(component: LibraryComponent) {
-    this.editor.setCurrent(component);
+    this.editor.setCurrentComponent(component);
   }
 
   getLibraryByName(name: string) {

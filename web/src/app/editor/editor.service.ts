@@ -138,8 +138,9 @@ export class EditorService {
 
   async scale(positive: boolean) {
     if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
+
       // rotate the mesh
-      let parent: Mesh = <Mesh>this.selectedClickable.parent;
       const scale = new Vector3(
         SCALE_STEP * this.signal(positive),
         SCALE_STEP * this.signal(positive),
@@ -147,7 +148,7 @@ export class EditorService {
       );
       parent.scaling.addInPlace(scale);
 
-      const element = await this.realm.get(this.selectedClickable.parent.name);
+      const element = await this.realm.get(parent.name);
       element.scaling = vector3ToMemento(parent.scaling);
       this.propagateUpdate(element);
     }
@@ -169,7 +170,7 @@ export class EditorService {
 
   async moveX(positive: boolean) {
     if (this.isValidSelection()) {
-      let parent: Mesh = <Mesh>this.selectedClickable.parent;
+      const parent = this.mesh.getParent(this.selectedClickable);
       if (positive) {
         parent.position.x += MOVE_STEP;
       } else {
@@ -181,7 +182,7 @@ export class EditorService {
 
   async moveY(positive: boolean) {
     if (this.isValidSelection()) {
-      let parent: Mesh = <Mesh>this.selectedClickable.parent;
+      const parent = this.mesh.getParent(this.selectedClickable);
       parent.position.z += MOVE_STEP * this.signal(positive);
       this.move(parent);
     }
@@ -189,7 +190,7 @@ export class EditorService {
 
   async moveZ(positive: boolean) {
     if (this.isValidSelection()) {
-      let parent: Mesh = <Mesh>this.selectedClickable.parent;
+      const parent = this.mesh.getParent(this.selectedClickable);
       parent.position.y += MOVE_STEP * this.signal(positive);
       this.move(parent);
     }
@@ -209,7 +210,7 @@ export class EditorService {
 
   async delete(found: AbstractMesh) {
     if (this.selectedClickable && this.selectedClickable.name) {
-      this.selectMesh(null);
+      this.selectClickableMesh(null);
     }
     found.dispose();
 
@@ -218,27 +219,17 @@ export class EditorService {
 
   async deleteSelected() {
     if (this.isValidSelection()) {
-      let parent: Mesh = <Mesh>this.selectedClickable.parent;
-      if (parent) {
-        this.client.delete(parent.name);
-        this.delete(parent);
-      } else {
-        this.client.delete(this.selectedClickable.name);
-        this.delete(this.selectedClickable);
-      }
+      const parent = this.mesh.getParent(this.selectedClickable);
+      this.client.delete(parent.name);
+      this.delete(parent);
     }
   }
 
   editCode() {
     if (this.isValidSelection()) {
-      let parent: Mesh = <Mesh>this.selectedClickable.parent;
-      if (parent) {
-        console.log('edit code parent', parent);
-        this.coding.edit(parent.name);
-      } else {
-        console.log('edit code selected', parent);
-        this.coding.edit(this.selectedClickable.name);
-      }
+      const parent = this.mesh.getParent(this.selectedClickable);
+      console.log('edit code parent', parent);
+      this.coding.edit(parent.name);
     }
   }
 
@@ -294,7 +285,7 @@ export class EditorService {
 
       const clickable = this.mesh.getClickableFromMesh(mesh);
       if (clickable) {
-        this.selectMesh(clickable);
+        this.selectClickableMesh(clickable);
       }
     });
 
@@ -306,25 +297,22 @@ export class EditorService {
       // drag and drop
       if (this.editorMode.mode.value == EditorMode.EDIT) {
         if (pointerInfo.event.type == POINTERUP) {
-          if( this.dragging ){
+          if (this.dragging) {
             this.dragging = false;
-            const parent: Mesh = <Mesh>this.selectedClickable.parent;
+            const parent = this.mesh.getParent(this.selectedClickable);
             this.move(parent);
           }
         }
 
         if (pointerInfo.event.type == POINTERMOVE) {
           if (this.dragging && this.selectedClickable) {
-            const parent: Mesh = <Mesh>this.selectedClickable.parent;
-
-            if (parent) {
-              const current = this.getPointerPosition(scene);
-              const diff = current.subtract(this.dragPosition);
-              // drag should not affect Y coord
-              diff.y = 0;
-              parent.position.addInPlace(diff);
-              this.dragPosition = current;
-            }
+            const parent = this.mesh.getParent(this.selectedClickable);
+            const current = this.getPointerPosition(scene);
+            const diff = current.subtract(this.dragPosition);
+            // drag should not affect Y coord
+            diff.y = 0;
+            parent.position.addInPlace(diff);
+            this.dragPosition = current;
           }
         }
       }
@@ -333,8 +321,6 @@ export class EditorService {
         if (pointerInfo.event.type == POINTERDOWN) {
           this.dragging = true;
           this.dragPosition = this.getPointerPosition(scene);
-
-          console.log('pickInfo', pointerInfo);
 
           if (this.editorMode.mode.value == EditorMode.WALK) {
             this.click(scene, pointerInfo);
@@ -368,7 +354,6 @@ export class EditorService {
     }
 
     const size = mesh.getBoundingInfo().boundingBox.extendSize;
-    //size.divideInPlace(VECTOR3_TWO);
     const snap = size2Snap.multiply(VECTOR3_TWO);
 
     var facet = faceId / 2;
@@ -407,25 +392,21 @@ export class EditorService {
   }
 
   click(scene: Scene, pointerInfo: PointerInfo) {
-    this.selectMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
+    this.selectClickableMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
 
-    let parent: Mesh = <Mesh>this.selectedClickable.parent;
-    if (parent) {
-      this.runner.click(parent.name);
-    } else {
-      this.runner.click(this.selectedClickable.name);
-    }
+    const parent = this.mesh.getParent(this.selectedClickable);
+    this.runner.click(parent.name);
   }
 
   select(scene: Scene, pointerInfo: PointerInfo) {
-    this.selectMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
+    this.selectClickableMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
   }
 
   showBoundingBox(show: boolean) {
     this.selectedClickable.showBoundingBox = show;
   }
 
-  selectMesh(mesh: Mesh) {
+  selectClickableMesh(mesh: Mesh) {
     if (this.selectedClickable) {
       this.showBoundingBox(false);
     }
@@ -472,15 +453,11 @@ export class EditorService {
     if (picked.name == 'ground') {
       position = pickInfo.pickedPoint;
     } else {
-      if (picked.parent) {
-        picked = <Mesh>picked.parent;
-      }
-
-      console.log('picked', picked);
+      const parent = this.mesh.getParent(picked);
 
       position = this.calcSnapPositionCenterOfCubeFace(
         faceId,
-        picked,
+        parent,
         dimensions
       );
     }
@@ -516,9 +493,8 @@ export class EditorService {
     return mesh;
   }
 
-  async setCurrent(component: LibraryComponent) {
+  async setCurrentComponent(component: LibraryComponent) {
     this.current = component;
-    this.editorMode.mode.next(EditorMode.ADD);
     this.input.focus();
     console.log('current', component);
   }
