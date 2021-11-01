@@ -40,7 +40,7 @@ const POINTERUP = 'pointerup';
 const POINTERMOVE = 'pointermove';
 
 const ROTATION_STEP = 0.2;
-const SCALE_STEP = 0.2;
+const SCALE_STEP = 0.1;
 const MOVE_STEP = 0.2;
 const VECTOR3_TWO = new Vector3(2.0, 2.0, 2.0);
 
