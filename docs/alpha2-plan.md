@@ -10,6 +10,7 @@
 
 ### Extras
 - Roads dont have colision to avoid small jumps when walking
+- Update on the Editor UI
 
 ### Custom images
 - Add basic shapes library with cube 
@@ -24,13 +25,12 @@
 - player library 
 - upload mp3 files 
 - add code action to play mp3
-- Drag and drop from library - timeboxed
+- Drag and drop from library
 
-CURRENT
-- add code action to play musical note
-- add code action to play a sequence 
+release 0.4.2
 
 ### Create scene elements with code
+CURRENT
 - Add function to create scenario elements
 - Display mouse position and character position - to be used as reference 
 for the create scenario code

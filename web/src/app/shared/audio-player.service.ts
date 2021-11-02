@@ -14,10 +14,10 @@ class NoteDef {
 export class AudioPlayerService {
   synth: Tone.Synth<Tone.SynthOptions>;
 
-  playSound(audio: SceneAudio){
+  playSound(audio: SceneAudio) {
     const player = new Tone.Player(audio.base64).toDestination();
     Tone.loaded().then(() => {
-	    player.start();
+      player.start();
     });
   }
 
@@ -48,6 +48,10 @@ export class AudioPlayerService {
       this.synth.triggerAttackRelease(single.note, single.duration, now + time);
       time += single.time;
     }
+  }
+
+  playNote(note: string, duration: Tone.Unit.Time, time: Tone.Unit.Time) {
+    this.synth.triggerAttackRelease(note, duration, time);
   }
 
   buildNoteDefinition(input: string, duration: Tone.Unit.Time, time: number) {
