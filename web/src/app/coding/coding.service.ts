@@ -7,11 +7,12 @@ import { RealmService } from '../realm/realm.service';
   providedIn: 'root',
 })
 export class CodingService {
-  constructor(private realm: RealmService) {}
-  public onEdit: Subject<string> = new Subject();
+  public onEditParent: Subject<string> = new Subject();
 
-  edit(uuid: string) {
-    this.onEdit.next(uuid);
+  constructor(private realm: RealmService) {}
+
+  editParent(uuid: string) {
+    this.onEditParent.next(uuid);
   }
 
   async getCode(uuid): Promise<CodeDefinition> {

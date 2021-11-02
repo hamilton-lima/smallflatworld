@@ -1,4 +1,4 @@
-import { SceneElementMemento, SceneImage } from '../../../../server/src/events.model';
+import { SceneAudio, SceneElementMemento, SceneImage } from '../../../../server/src/events.model';
 
 export class Realm {
   id: string;
@@ -6,6 +6,7 @@ export class Realm {
   character: SceneElementMemento;
   elements: SceneElementMemento[];
   images: SceneImage[];
+  audios: SceneAudio[];
 }
 
 export class Configuration {

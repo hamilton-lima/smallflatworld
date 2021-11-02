@@ -9,6 +9,14 @@ import {
   BottomMessageComponent,
   BottomMessageData,
 } from './bottom-message/bottom-message.component';
+import { AudioPlayerService } from '../shared/audio-player.service';
+import { AudioService } from '../library/audio.service';
+import { EventsBrokerService } from '../shared/events-broker.service';
+
+function playSoundByName(name: string) {
+  console.log('playSound', name);
+  sharedContext.audio.playSoundByName(name);
+}
 
 function showMessage(message: string) {
   console.log('showmessage', message);
@@ -19,7 +27,7 @@ function showMessage(message: string) {
 
 function showBottomMessage(message: string) {
   console.log('showBottomMessage', message);
-  
+
   // TODO: accept multiple lines in blockly
   const data = <BottomMessageData>{
     messages: [message],
@@ -33,6 +41,7 @@ function showBottomMessage(message: string) {
 class Context {
   snackBar: MatSnackBar;
   bottomSheet: MatBottomSheet;
+  audio: AudioService;
 }
 
 let sharedContext: Context;
@@ -45,8 +54,10 @@ class CodeRunner {
       // variables exposed to eval()
       const message = showMessage;
       const bottomMessage = showBottomMessage;
+      const playSound = playSoundByName;
       const onClick = this.onClickHandlers;
-
+      
+      // execute the code 
       eval(code);
     } catch (error) {
       console.warn('error parsing code', error, code);
@@ -56,7 +67,6 @@ class CodeRunner {
 
   click() {
     for (const handler of this.onClickHandlers) {
-      console.log('call handler function');
       // inject this context to the function
       handler.call(this);
     }
@@ -72,33 +82,37 @@ export class RunnerService {
 
   constructor(
     public snackBar: MatSnackBar,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private player: AudioPlayerService,
+    private audio: AudioService,
+    private broker: EventsBrokerService
   ) {
     // make injected services available to scripts
     sharedContext = <Context>{
       snackBar: this.snackBar,
       bottomSheet: this.bottomSheet,
+      player: this.player,
+      audio: this.audio,
     };
 
     this.onClick.subscribe((uuid) => {
-      console.log('click', uuid);
-
       const handler = this.registry[uuid];
-      console.log('handler', handler, this.registry);
       if (handler) {
-        console.log('handler onclick found');
         handler.click();
       }
     });
+
+    // remove existing runner for a deleted element
+    broker.onDeleteSceneElement.subscribe((element) =>
+      this.delete(element.name)
+    );
   }
 
   register(uuid: string, code: string) {
     this.registry[uuid] = new CodeRunner(uuid, code);
-    console.log('registry', this.registry);
   }
 
   click(uuid: string) {
-    console.log('click', uuid);
     this.onClick.next(uuid);
   }
 

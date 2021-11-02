@@ -43,21 +43,13 @@ export class MeshService {
     scene: Scene,
     width: number,
     height: number,
+    depth: number,
     color: string,
     position: Vector3,
     rotation: Vector3,
     name: string
   ): Mesh {
-    const box = MeshBuilder.CreateBox(
-      name,
-      { width: width, height: height, faceUV: this.getFaceUV(), wrap: true },
-      // { width: width, height: height },
-      scene
-    );
-    const material = new StandardMaterial('material', scene);
-    material.diffuseColor = Color3.FromHexString(color);
-    box.material = material;
-
+    const box = this._getBox(scene, width, height, depth, color, name);
     position.y += box.getBoundingInfo().boundingBox.maximum.y;
     box.position = position;
 
@@ -70,13 +62,19 @@ export class MeshService {
     scene: Scene,
     width: number,
     height: number,
+    depth: number,
     color: string,
     name: string
   ): Mesh {
     const box = MeshBuilder.CreateBox(
       name,
-      { width: width, height: height, faceUV: this.getFaceUV(), wrap: true },
-      // { width: width, height: height  },
+      {
+        width: width,
+        height: height,
+        depth: depth,
+        faceUV: this.getFaceUV(),
+        wrap: true,
+      },
       scene
     );
     const material = new StandardMaterial('material', scene);
@@ -87,7 +85,17 @@ export class MeshService {
   }
 
   public getBox(scene: Scene) {
-    return this._getBox(scene, 1, 1, '#427BD2', 'primitive-box');
+    return this._getBox(scene, 1, 1, 1, '#427BD2', 'primitive-box');
+  }
+
+  public getBoxSizeColor(
+    scene: Scene,
+    width: number,
+    height: number,
+    depth: number,
+    color: string
+  ) {
+    return this._getBox(scene, width, height, depth, color, 'primitive-box');
   }
 
   addbox(scene: Scene): Mesh {
@@ -95,6 +103,7 @@ export class MeshService {
     position.y = 1;
     return this._addbox(
       scene,
+      1,
       1,
       1,
       '#FF0000',
@@ -110,11 +119,20 @@ export class MeshService {
     rotation: Vector3,
     name: string
   ) {
-    return this._addbox(scene, 1, 1, '#FF0000', position, rotation, name);
+    return this._addbox(scene, 1, 1, 1, '#FF0000', position, rotation, name);
   }
 
   addTallbox(scene: Scene, position: Vector3, name: string): Mesh {
-    return this._addbox(scene, 1, 3, '#00FF00', position, Vector3.Zero(), name);
+    return this._addbox(
+      scene,
+      1,
+      3,
+      1,
+      '#00FF00',
+      position,
+      Vector3.Zero(),
+      name
+    );
   }
 
   addRotatedTallbox(
@@ -123,7 +141,7 @@ export class MeshService {
     rotation: Vector3,
     name: string
   ) {
-    return this._addbox(scene, 1, 3, '#00FF00', position, rotation, name);
+    return this._addbox(scene, 1, 3, 1, '#00FF00', position, rotation, name);
   }
 
   cloneMesh(
@@ -153,7 +171,8 @@ export class MeshService {
   public createClickableDummy(
     scene: Scene,
     parent: Mesh,
-    boundingBoxInfo: BoundingInfo
+    boundingBoxInfo: BoundingInfo,
+    skipColision: boolean
   ) {
     const bb = boundingBoxInfo.boundingBox;
     const width = bb.maximum.x - bb.minimum.x;
@@ -171,7 +190,14 @@ export class MeshService {
     clickable.setParent(parent);
     clickable.isPickable = true;
     clickable.isVisible = true;
-    clickable.checkCollisions = true;
+
+    console.log('skipColision mesh service', skipColision);
+
+    if (skipColision) {
+      clickable.checkCollisions = false;
+    } else {
+      clickable.checkCollisions = true;
+    }
 
     const transparent = new StandardMaterial('transparent', scene);
     transparent.alpha = 0.0;
@@ -185,7 +211,8 @@ export class MeshService {
     scene: Scene,
     name: string,
     visible: boolean,
-    meshes: Mesh[]
+    meshes: Mesh[],
+    skipColision: boolean
   ): Mesh {
     // create parent mesh
     const parent = new Mesh(name, scene);
@@ -214,7 +241,26 @@ export class MeshService {
     // set parent bounding box
     const boundingBoxInfo = new BoundingInfo(min, max);
     parent.setBoundingInfo(boundingBoxInfo);
-    this.createClickableDummy(scene, parent, boundingBoxInfo);
+    this.createClickableDummy(scene, parent, boundingBoxInfo, skipColision);
+    return parent;
+  }
+
+  getClickableFromMesh(mesh: Mesh): Mesh {
+    if (mesh) {
+      const found = mesh.getChildren().find((node) => {
+        return node.name.endsWith('.clickable');
+      });
+      if (found) {
+        return <Mesh>found;
+      } else {
+        console.log('no clickable found');
+      }
+    }
+    return null;
+  }
+
+  getParent(clickable: Mesh): Mesh {
+    const parent: Mesh = <Mesh>clickable.parent;
     return parent;
   }
 }

@@ -70,6 +70,7 @@ export class SceneElementMemento {
   scaling: Vector3Memento;
   code: CodeDefinition;
   imageName: string;
+  skipColision: boolean;
 }
 
 export class SceneImage {
@@ -77,9 +78,15 @@ export class SceneImage {
   base64: string;
 }
 
+export class SceneAudio {
+  name: string;
+  base64: string;
+}
+
 export class StateUpdate implements ClientData, ClientResponseData {
   data: SceneElementMemento[];
   images: SceneImage[];
+  audios: SceneAudio[]
 }
 
 export class ShareRequest implements ClientData {}

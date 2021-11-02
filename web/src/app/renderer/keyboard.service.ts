@@ -13,6 +13,7 @@ export class KeyState {
   KeyD: boolean;
   KeyM: boolean;
   KeyO: boolean;
+  KeyE: boolean;
   KeyR: boolean;
   KeyC: boolean;
   KeyL: boolean;

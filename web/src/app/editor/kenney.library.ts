@@ -166,6 +166,7 @@ const citykiturban1Components = [
     model3D:
       'library/kenney/city-kit-urban-1/Models/GLTF format/driveway_long.glb',
     scale: 12,
+    skipColision: true,
   },
   {
     id: 'city-kit-urban-1://driveway_short',
@@ -174,6 +175,7 @@ const citykiturban1Components = [
     model3D:
       'library/kenney/city-kit-urban-1/Models/GLTF format/driveway_short.glb',
     scale: 12,
+    skipColision: true,
   },
   {
     id: 'city-kit-urban-1://fence_large',
@@ -405,6 +407,7 @@ const citykiturban1Components = [
     icon: 'assets/library/kenney/city-kit-urban-1/Isometric/path_long_NE.png',
     model3D: 'library/kenney/city-kit-urban-1/Models/GLTF format/path_long.glb',
     scale: 12,
+    skipColision: true,
   },
   {
     id: 'city-kit-urban-1://path_short',
@@ -413,6 +416,7 @@ const citykiturban1Components = [
     model3D:
       'library/kenney/city-kit-urban-1/Models/GLTF format/path_short.glb',
     scale: 12,
+    skipColision: true,
   },
   {
     id: 'city-kit-urban-1://path_tilesLong',
@@ -421,6 +425,7 @@ const citykiturban1Components = [
     model3D:
       'library/kenney/city-kit-urban-1/Models/GLTF format/path_tilesLong.glb',
     scale: 12,
+    skipColision: true,
   },
   {
     id: 'city-kit-urban-1://path_tilesShort',
@@ -429,6 +434,7 @@ const citykiturban1Components = [
     model3D:
       'library/kenney/city-kit-urban-1/Models/GLTF format/path_tilesShort.glb',
     scale: 12,
+    skipColision: true,
   },
   {
     id: 'city-kit-urban-1://tree_large',
@@ -540,6 +546,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_bendBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_bendSidewalk',
@@ -548,6 +555,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_bendSidewalk.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_bendSquareBarrier',
@@ -556,6 +564,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_bendSquareBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_bendSquare',
@@ -564,6 +573,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_bendSquare.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_bend',
@@ -571,6 +581,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_bend_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_bend.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_bridge',
@@ -578,6 +589,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_bridge_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_bridge.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_crossing',
@@ -585,6 +597,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_crossing_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_crossing.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_crossroadBarrier',
@@ -593,6 +606,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_crossroadBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_crossroadLine',
@@ -601,6 +615,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_crossroadLine.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_crossroadPath',
@@ -609,6 +624,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_crossroadPath.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_crossroad',
@@ -617,6 +633,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_crossroad.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_curveBarrier',
@@ -625,6 +642,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_curveBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_curveIntersectionBarrier',
@@ -633,6 +651,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_curveIntersectionBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_curveIntersection',
@@ -641,6 +660,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_curveIntersection.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_curvePavement',
@@ -649,6 +669,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_curvePavement.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_curve',
@@ -656,6 +677,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_curve_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_curve.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_drivewayDoubleBarrier',
@@ -664,6 +686,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_drivewayDoubleBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_drivewayDouble',
@@ -672,6 +695,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_drivewayDouble.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_drivewaySingleBarrier',
@@ -680,6 +704,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_drivewaySingleBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_drivewaySingle',
@@ -688,6 +713,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_drivewaySingle.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_endBarrier',
@@ -696,6 +722,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_endBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_end',
@@ -703,6 +730,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_end_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_end.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_intersectionBarrier',
@@ -711,6 +739,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_intersectionBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_intersectionLine',
@@ -719,6 +748,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_intersectionLine.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_intersectionPath',
@@ -727,6 +757,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_intersectionPath.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_intersection',
@@ -735,6 +766,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_intersection.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_roundaboutBarrier',
@@ -743,6 +775,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_roundaboutBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_roundabout',
@@ -751,6 +784,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_roundabout.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_sideBarrier',
@@ -759,6 +793,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_sideBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_sideEntryBarrier',
@@ -767,6 +802,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_sideEntryBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_sideEntry',
@@ -775,6 +811,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_sideEntry.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_sideExitBarrier',
@@ -783,6 +820,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_sideExitBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_sideExit',
@@ -790,6 +828,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_sideExit_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_sideExit.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_side',
@@ -797,6 +836,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_side_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_side.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slantBarrier',
@@ -805,6 +845,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slantCurveBarrier',
@@ -813,6 +854,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantCurveBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slantCurve',
@@ -821,6 +863,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantCurve.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slantFlatCurve',
@@ -829,6 +872,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantFlatCurve.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slantFlatHigh',
@@ -837,6 +881,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantFlatHigh.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slantFlat',
@@ -845,6 +890,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantFlat.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slantHighBarrier',
@@ -853,6 +899,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantHighBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slantHigh',
@@ -861,6 +908,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_slantHigh.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_slant',
@@ -868,6 +916,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_slant_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_slant.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_splitBarrier',
@@ -876,6 +925,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_splitBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_split',
@@ -883,6 +933,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_split_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_split.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_squareBarrier',
@@ -891,6 +942,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_squareBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_square',
@@ -898,6 +950,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_square_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_square.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_straightBarrierEnd',
@@ -906,6 +959,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_straightBarrierEnd.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_straightBarrier',
@@ -914,6 +968,7 @@ const citykitroadsComponents = [
     model3D:
       'library/kenney/citykitroads/Models/GLTF format/road_straightBarrier.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://road_straight',
@@ -921,6 +976,7 @@ const citykitroadsComponents = [
     icon: 'assets/library/kenney/citykitroads/Isometric/road_straight_NE.png',
     model3D: 'library/kenney/citykitroads/Models/GLTF format/road_straight.glb',
     scale: 12.1,
+    skipColision: true,
   },
   {
     id: 'citykitroads://tile_high',

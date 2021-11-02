@@ -32,12 +32,21 @@
       <mat-expansion-panel class="panel" [expanded]="false">
         <mat-expansion-panel-header>
           <mat-panel-title
-            ><mat-icon class="panel-icon">perm_media</mat-icon>Images
+            ><mat-icon class="panel-icon">image</mat-icon>Images
           </mat-panel-title>
         </mat-expansion-panel-header>
         <app-images-library></app-images-library>
       </mat-expansion-panel>
-      
+
+      <mat-expansion-panel class="panel" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><mat-icon class="panel-icon">music_note</mat-icon>Sounds
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-audio-library></app-audio-library>
+      </mat-expansion-panel>
+
       <mat-expansion-panel class="panel" [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title

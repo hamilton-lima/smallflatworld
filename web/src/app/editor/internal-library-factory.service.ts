@@ -8,6 +8,12 @@ import {
 import { ImagesService } from '../library/images.service';
 import { MeshService } from '../renderer/mesh.service';
 import { NotifyService } from '../shared/notify.service';
+import { NMSColor } from './nmscolor';
+
+const WIDTH = 2;
+const HEIGHT= 2;
+const DEPTH = 2;
+const COLOR = NMSColor.TANGERINE;
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +25,8 @@ export class InternalLibraryFactoryService {
     private notify: NotifyService
   ) {}
 
-  build(scene: Scene, id: string, name: string, imageName: string): AbstractMesh {
-    const cube = this.mesh.getBox(scene);
+  build(scene: Scene, id: string, name: string, imageName: string, skipColision: boolean): AbstractMesh {
+    const cube = this.mesh.getBoxSizeColor(scene, WIDTH, HEIGHT, DEPTH, COLOR);
 
     const current = this.images.findByName(imageName);
     if (current) {
@@ -31,8 +37,7 @@ export class InternalLibraryFactoryService {
       cube.material = mat;
     } 
 
-    const result = this.mesh.createParent(scene, name, false, [cube]);
-
+    const result = this.mesh.createParent(scene, name, false, [cube], skipColision);
     return result;
   }
 }

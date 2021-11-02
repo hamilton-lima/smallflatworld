@@ -1,0 +1,23 @@
+<div class="up-down-container">
+  <button
+    [disabled]="disabled"
+    mat-raised-button
+    (mousedown)="downPlus()"
+    (mouseup)="upPlus()"
+    (mouseleave)="upPlus()"
+    (click)="plus()"
+  >
+    <mat-icon>{{ iconPlus }}</mat-icon>
+  </button>
+  <button
+    [disabled]="disabled"
+    class="up-down-button-spacer"
+    mat-raised-button
+    (mousedown)="downMinus()"
+    (mouseup)="upMinus()"
+    (mouseleave)="upMinus()"
+    (click)="minus()"
+  >
+    <mat-icon>{{ iconMinus }}</mat-icon>
+  </button>
+</div>

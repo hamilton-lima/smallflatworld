@@ -17,4 +17,5 @@ export class SceneElement {
   scaling: Vector3;
   code: CodeDefinition;
   imageName: string;
+  skipColision: boolean;
 }

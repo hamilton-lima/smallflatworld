@@ -25,6 +25,7 @@ export function sceneElement2Memento(
     rotation: vector3ToMemento(element.rotation),
     scaling: vector3ToMemento(element.scaling),
     imageName: element.imageName,
+    skipColision: element.skipColision,
     code: element.code
   };
   return result;
@@ -40,6 +41,7 @@ export function memento2SceneElement(
     rotation: buildVector3(element.rotation),
     scaling: buildVector3(element.scaling),
     imageName: element.imageName,
+    skipColision: element.skipColision,
     code: element.code
   };
   return result;

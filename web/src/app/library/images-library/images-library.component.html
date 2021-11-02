@@ -1,5 +1,7 @@
 <div class="upload-wrapper">
-  <app-image-upload (onUpload)="newImage($event)"></app-image-upload>
+  <app-file-upload (onUpload)="newImage($event)">
+    Choose an image to ADD or drop here.
+  </app-file-upload>
 </div>
 
 <div class="image-list">
@@ -18,8 +20,8 @@
     </button>
     <button
       class="floating-delete"
-      mat-mini-fab
-      color="primary"
+      mat-icon-button
+      color="accent"
       (click)="delete(image.name)"
       *ngIf="image.name == mouseOverImage"
     >

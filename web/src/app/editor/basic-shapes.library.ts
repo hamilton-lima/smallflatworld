@@ -5,6 +5,7 @@ const shapes = [
     id: 'internal/basic://cube',
     name: 'cube',
     icon: 'assets/library/basic/cube.png',
+    supportImage: true,
     model3D:
       'library/basic/cube.glb',
       scale: 1.0

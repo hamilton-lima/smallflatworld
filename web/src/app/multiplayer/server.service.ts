@@ -8,6 +8,7 @@ import {
   DeleteRequest,
   JoinRequest,
   JoinResponse,
+  SceneAudio,
   SceneElementMemento,
   SceneImage,
   ShareRequest,
@@ -140,6 +141,13 @@ export class ServerService {
     this.send(Actions.Update, request);
   }
 
+  updateAudios(audios: SceneAudio[]) {
+    const request = <StateUpdate>{
+      audios: audios,
+    };
+    this.send(Actions.Update, request);
+  }
+
   delete(name: string) {
     const request = <DeleteRequest>{
       name: name,
@@ -149,6 +157,10 @@ export class ServerService {
 
   deleteImage(name: string) {
     console.error('DELETE IMAGE AT SERVER is not implemented.');
+  }
+
+  deleteAudio(name: string) {
+    console.error('DELETE AUDIO AT SERVER is not implemented.');
   }
 
 }

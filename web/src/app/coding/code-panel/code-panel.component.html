@@ -8,6 +8,8 @@
     <mat-progress-bar class="progress" mode="indeterminate"></mat-progress-bar>
   </div>
 
+  <div *ngIf="loading" class="magic-courtain"></div>
+
   <app-code-blockly 
     [definition]="codeDefinition"
     (codeChanged)="changed($event)"

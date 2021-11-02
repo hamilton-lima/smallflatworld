@@ -1,27 +1,25 @@
 import {
   Component,
   ElementRef,
-  HostBinding,
   HostListener,
-  Input,
   Output,
   EventEmitter,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-image-upload',
-  templateUrl: './image-upload.component.html',
-  styleUrls: ['./image-upload.component.scss'],
+  selector: 'app-file-upload',
+  templateUrl: './file-upload.component.html',
+  styleUrls: ['./file-upload.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: ImageUploadComponent,
+      useExisting: FileUploadComponent,
       multi: true,
     },
   ],
 })
-export class ImageUploadComponent {
+export class FileUploadComponent {
   file: File | null = null;
   @Output() onUpload: EventEmitter<File> = new EventEmitter();
 

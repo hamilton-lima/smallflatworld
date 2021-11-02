@@ -3,9 +3,11 @@ import {
   AbstractMesh,
   Mesh,
   PickingInfo,
+  PointerEventTypes,
   PointerInfo,
   PointerInfoPre,
   Scene,
+  Vector2,
   Vector3,
 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
@@ -31,13 +33,14 @@ import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
 import { NotifyService } from '../shared/notify.service';
 import { ImagesService } from '../library/images.service';
+import { Subject } from 'rxjs';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
 const POINTERMOVE = 'pointermove';
 
 const ROTATION_STEP = 0.2;
-const SCALE_STEP = 0.2;
+const SCALE_STEP = 0.1;
 const MOVE_STEP = 0.2;
 const VECTOR3_TWO = new Vector3(2.0, 2.0, 2.0);
 
@@ -45,7 +48,29 @@ const VECTOR3_TWO = new Vector3(2.0, 2.0, 2.0);
   providedIn: 'root',
 })
 export class EditorService {
+  private current: LibraryComponent = null;
+  private selectedClickable: Mesh;
+  private dragPosition: Vector3;
+
   dragging = false;
+  onDropFromLibrary: Subject<Vector2>;
+  onSelectClickable = new Subject<Mesh>();
+
+  constructor(
+    private mesh: MeshService,
+    private realm: RealmService,
+    private client: ClientService,
+    private library: EditorLibraryService,
+    private camera: CameraService,
+    private editorMode: EditorModeService,
+    private input: InputService,
+    private coding: CodingService,
+    private runner: RunnerService,
+    private notify: NotifyService,
+    private image: ImagesService
+  ) {
+    this.onDropFromLibrary = new Subject();
+  }
 
   executeEditAction(action: EditorAction, positive: boolean) {
     console.log(
@@ -89,22 +114,33 @@ export class EditorService {
     this.client.update(element);
   }
 
-  async rotate(positive: boolean) {
-    if (this.selected) {
-      // rotate the mesh
-      let parent: Mesh = <Mesh>this.selected.parent;
-      parent.rotation.y += ROTATION_STEP * this.signal(positive);
+  isValidSelection() {
+    return this.selectedClickable && this.selectedClickable.name != 'ground';
+  }
 
-      const element = await this.realm.get(this.selected.parent.name);
+  async rotate(positive: boolean) {
+    if (this.isValidSelection()) {
+      // rotate the mesh
+      const parent = this.mesh.getParent(this.selectedClickable);
+
+      // make positive rotation clockwise
+      if (positive) {
+        parent.rotation.y -= ROTATION_STEP;
+      } else {
+        parent.rotation.y += ROTATION_STEP;
+      }
+
+      const element = await this.realm.get(parent.name);
       element.rotation = vector3ToMemento(parent.rotation);
       this.propagateUpdate(element);
     }
   }
 
   async scale(positive: boolean) {
-    if (this.selected) {
+    if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
+
       // rotate the mesh
-      let parent: Mesh = <Mesh>this.selected.parent;
       const scale = new Vector3(
         SCALE_STEP * this.signal(positive),
         SCALE_STEP * this.signal(positive),
@@ -112,7 +148,7 @@ export class EditorService {
       );
       parent.scaling.addInPlace(scale);
 
-      const element = await this.realm.get(this.selected.parent.name);
+      const element = await this.realm.get(parent.name);
       element.scaling = vector3ToMemento(parent.scaling);
       this.propagateUpdate(element);
     }
@@ -133,27 +169,28 @@ export class EditorService {
   }
 
   async moveX(positive: boolean) {
-    if (this.selected) {
-      // rotate the mesh
-      let parent: Mesh = <Mesh>this.selected.parent;
-      parent.position.x += MOVE_STEP * this.signal(positive);
+    if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
+      if (positive) {
+        parent.position.x += MOVE_STEP;
+      } else {
+        parent.position.x -= MOVE_STEP;
+      }
       this.move(parent);
     }
   }
 
   async moveY(positive: boolean) {
-    if (this.selected) {
-      // rotate the mesh
-      let parent: Mesh = <Mesh>this.selected.parent;
+    if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
       parent.position.z += MOVE_STEP * this.signal(positive);
       this.move(parent);
     }
   }
 
   async moveZ(positive: boolean) {
-    if (this.selected) {
-      // rotate the mesh
-      let parent: Mesh = <Mesh>this.selected.parent;
+    if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
       parent.position.y += MOVE_STEP * this.signal(positive);
       this.move(parent);
     }
@@ -172,8 +209,8 @@ export class EditorService {
   }
 
   async delete(found: AbstractMesh) {
-    if (this.selected && this.selected.name) {
-      this.selected = null;
+    if (this.selectedClickable && this.selectedClickable.name) {
+      this.selectClickableMesh(null);
     }
     found.dispose();
 
@@ -181,26 +218,18 @@ export class EditorService {
   }
 
   async deleteSelected() {
-    if (this.selected) {
-      let parent: Mesh = <Mesh>this.selected.parent;
-      if (parent) {
-        this.client.delete(parent.name);
-        this.delete(parent);
-      } else {
-        this.client.delete(this.selected.name);
-        this.delete(this.selected);
-      }
+    if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
+      this.client.delete(parent.name);
+      this.delete(parent);
     }
   }
 
   editCode() {
-    if (this.selected) {
-      let parent: Mesh = <Mesh>this.selected.parent;
-      if (parent) {
-        this.coding.edit(parent.name);
-      } else {
-        this.coding.edit(this.selected.name);
-      }
+    if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
+      console.log('edit code parent', parent);
+      this.coding.editParent(parent.name);
     }
   }
 
@@ -214,25 +243,7 @@ export class EditorService {
     }
   }
 
-  private current: LibraryComponent = null;
-  private selected: Mesh;
-  private dragPosition: Vector3;
-
-  constructor(
-    private mesh: MeshService,
-    private realm: RealmService,
-    private client: ClientService,
-    private library: EditorLibraryService,
-    private camera: CameraService,
-    private editorMode: EditorModeService,
-    private input: InputService,
-    private coding: CodingService,
-    private runner: RunnerService,
-    private notify: NotifyService,
-    private image: ImagesService
-  ) {}
-
-  getPointerPosition(scene: Scene): Vector3 {
+  getPickInfo(scene: Scene): PickingInfo {
     const pickinfo: PickingInfo = scene.pick(
       scene.pointerX,
       scene.pointerY,
@@ -240,7 +251,11 @@ export class EditorService {
         return mesh.name == 'ground';
       }
     );
-    return pickinfo.pickedPoint;
+    return pickinfo;
+  }
+
+  getPointerPosition(scene: Scene): Vector3 {
+    return this.getPickInfo(scene).pickedPoint;
   }
 
   setup(scene: Scene): Scene {
@@ -262,27 +277,42 @@ export class EditorService {
       }
     );
 
+    this.onDropFromLibrary.subscribe(async (point: Vector2) => {
+      // const pickInfo = scene.pick( scene.pointerX, scene.pointerY);
+      const pickInfo = scene.pick(point.x, point.y);
+      const mesh = await this.addToPosition(scene, pickInfo);
+      this.editorMode.edit();
+
+      const clickable = this.mesh.getClickableFromMesh(mesh);
+      if (clickable) {
+        this.selectClickableMesh(clickable);
+      }
+    });
+
     scene.onPointerObservable.add(async (pointerInfo) => {
+      if (pointerInfo.type == PointerEventTypes.POINTERDOUBLETAP) {
+        this.editorMode.toggleCurrentEditMode();
+      }
+
       // drag and drop
       if (this.editorMode.mode.value == EditorMode.EDIT) {
         if (pointerInfo.event.type == POINTERUP) {
-          this.dragging = false;
-          const parent: Mesh = <Mesh>this.selected.parent;
-          this.move(parent);
+          if (this.dragging) {
+            this.dragging = false;
+            const parent = this.mesh.getParent(this.selectedClickable);
+            this.move(parent);
+          }
         }
 
         if (pointerInfo.event.type == POINTERMOVE) {
-          if (this.dragging && this.selected) {
-            const parent: Mesh = <Mesh>this.selected.parent;
-
-            if (parent) {
-              const current = this.getPointerPosition(scene);
-              const diff = current.subtract(this.dragPosition);
-              // drag should not affect Y coord
-              diff.y = 0;
-              parent.position.addInPlace(diff);
-              this.dragPosition = current;
-            }
+          if (this.dragging && this.selectedClickable) {
+            const parent = this.mesh.getParent(this.selectedClickable);
+            const current = this.getPointerPosition(scene);
+            const diff = current.subtract(this.dragPosition);
+            // drag should not affect Y coord
+            diff.y = 0;
+            parent.position.addInPlace(diff);
+            this.dragPosition = current;
           }
         }
       }
@@ -292,14 +322,8 @@ export class EditorService {
           this.dragging = true;
           this.dragPosition = this.getPointerPosition(scene);
 
-          console.log('pickInfo', pointerInfo);
-
           if (this.editorMode.mode.value == EditorMode.WALK) {
             this.click(scene, pointerInfo);
-          }
-
-          if (this.editorMode.mode.value == EditorMode.ADD) {
-            await this.addToPosition(scene, pointerInfo);
           }
 
           if (this.editorMode.mode.value == EditorMode.EDIT) {
@@ -330,7 +354,6 @@ export class EditorService {
     }
 
     const size = mesh.getBoundingInfo().boundingBox.extendSize;
-    //size.divideInPlace(VECTOR3_TWO);
     const snap = size2Snap.multiply(VECTOR3_TWO);
 
     var facet = faceId / 2;
@@ -368,36 +391,39 @@ export class EditorService {
     }
   }
 
-  showBoundingBox(show: boolean) {
-    this.selected.showBoundingBox = show;
-  }
-
   click(scene: Scene, pointerInfo: PointerInfo) {
-    if (this.selected) {
-      this.showBoundingBox(false);
-    }
-
-    this.selected = <Mesh>pointerInfo.pickInfo.pickedMesh;
-    this.showBoundingBox(true);
-
-    let parent: Mesh = <Mesh>this.selected.parent;
-    if (parent) {
+    this.selectClickableMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
+    if (this.isValidSelection()) {
+      const parent = this.mesh.getParent(this.selectedClickable);
       this.runner.click(parent.name);
-    } else {
-      this.runner.click(this.selected.name);
     }
   }
 
   select(scene: Scene, pointerInfo: PointerInfo) {
-    if (this.selected) {
+    this.selectClickableMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
+  }
+
+  showBoundingBox(show: boolean) {
+    this.selectedClickable.showBoundingBox = show;
+  }
+
+  selectClickableMesh(mesh: Mesh) {
+    if (this.selectedClickable) {
       this.showBoundingBox(false);
     }
 
-    this.selected = <Mesh>pointerInfo.pickInfo.pickedMesh;
-    this.showBoundingBox(true);
+    this.selectedClickable = mesh;
+
+    if (this.isValidSelection()) {
+      console.log('select mesh', mesh.name);
+      this.onSelectClickable.next(mesh);
+      this.showBoundingBox(true);
+    } else {
+      this.onSelectClickable.next(null);
+    }
   }
 
-  async addToPosition(scene: Scene, pointerInfo: PointerInfo) {
+  async addToPosition(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {
     if (!this.current) {
       this.notify.warn(
         "Err... I don't know what to add to the scene... select from the " +
@@ -406,29 +432,41 @@ export class EditorService {
       return;
     }
 
-    const faceId = pointerInfo.pickInfo.faceId;
-    let picked = <Mesh>pointerInfo.pickInfo.pickedMesh;
+    const faceId = pickInfo.faceId;
+    let picked = <Mesh>pickInfo.pickedMesh;
     const imageName = this.image.getCurrentImageName();
 
-    const templateMesh = await this.library.getMesh(scene, this.current.id, imageName);
+    let skipColision = false;
+    if (this.current.skipColision) {
+      skipColision = true;
+    }
+
+    const templateMesh = await this.library.getMesh(
+      scene,
+      this.current.id,
+      imageName,
+      skipColision
+    );
     const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
     let position: Vector3;
 
     // if picking ground add to the clicking position
     if (picked.name == 'ground') {
-      position = pointerInfo.pickInfo.pickedPoint;
+      position = pickInfo.pickedPoint;
     } else {
-      if (picked.parent) {
-        picked = <Mesh>picked.parent;
-      }
-
-      console.log('picked', picked);
+      const parent = this.mesh.getParent(picked);
 
       position = this.calcSnapPositionCenterOfCubeFace(
         faceId,
-        picked,
+        parent,
         dimensions
       );
+    }
+
+    // only adds image to the model if the library component supports
+    let image = '';
+    if (this.current.supportImage) {
+      image = imageName;
     }
 
     const element = <SceneElement>{
@@ -442,20 +480,22 @@ export class EditorService {
         this.current.scale
       ),
       code: new CodeDefinition(),
-      imageName: imageName
+      imageName: image,
+      skipColision: skipColision,
     };
 
-    await this.create(scene, element);
+    const mesh = await this.create(scene, element);
+    console.log('mesh created', mesh.name);
 
     // update local realm and send client event
     const memento = sceneElement2Memento(element);
     await this.realm.add(memento);
     this.client.update(memento);
+    return mesh;
   }
 
-  async setCurrent(component: LibraryComponent) {
+  async setCurrentComponent(component: LibraryComponent) {
     this.current = component;
-    this.editorMode.mode.next(EditorMode.ADD);
     this.input.focus();
     console.log('current', component);
   }
@@ -464,9 +504,14 @@ export class EditorService {
     return this.current;
   }
 
-  async create(scene: Scene, element: SceneElement) {
+  async create(scene: Scene, element: SceneElement): Promise<Mesh> {
     console.log('create', element.name, element.position);
-    const templateMesh = await this.library.getMesh(scene, element.componentID, element.imageName);
+    const templateMesh = await this.library.getMesh(
+      scene,
+      element.componentID,
+      element.imageName,
+      element.skipColision
+    );
 
     const mesh = this.mesh.cloneMesh(
       scene,
@@ -479,6 +524,7 @@ export class EditorService {
 
     // updates position with the calculated position by the cloner
     element.position = mesh.position;
+    return mesh;
   }
 
   async add(scene: Scene, element: SceneElement) {

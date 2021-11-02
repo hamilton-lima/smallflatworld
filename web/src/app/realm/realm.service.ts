@@ -3,6 +3,7 @@ import { Realm } from '../persistence/persistence.model';
 import { PersistenceService } from '../persistence/persistence.service';
 import { ClientService } from '../multiplayer/client.service';
 import {
+  SceneAudio,
   SceneElementMemento,
   SceneImage,
   Vector3MementoOne,
@@ -11,6 +12,7 @@ import {
 import { RunnerService } from '../coding/runner.service';
 import { ConfigurationService } from '../shared/configuration.service';
 import { Subject } from 'rxjs';
+import { EventsBrokerService } from '../shared/events-broker.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +26,7 @@ export class RealmService {
     private persistence: PersistenceService,
     private configuration: ConfigurationService,
     private client: ClientService,
-    private runner: RunnerService
+    private broker: EventsBrokerService
   ) {}
 
   async ready(): Promise<Realm> {
@@ -78,10 +80,10 @@ export class RealmService {
 
   // update scene elements
   async get(name: string) {
-    const found = this.currentRealm.elements.findIndex(
-      (element) => element.name == name
-    );
-    if (found) {
+    const found = this.currentRealm.elements.findIndex((element) => {
+      return element.name == name;
+    });
+    if (found > -1) {
       return this.currentRealm.elements[found];
     }
     return null;
@@ -92,7 +94,7 @@ export class RealmService {
     const found = this.currentRealm.elements.findIndex(
       (element) => element.name == input.name
     );
-    if (found) {
+    if (found > -1) {
       this.currentRealm.elements[found] = input;
     }
     return this._updateRealm();
@@ -102,9 +104,10 @@ export class RealmService {
     const found = this.currentRealm.elements.findIndex(
       (element) => element.name == name
     );
-    if (found) {
+    if (found > -1) {
+      const element = this.currentRealm.elements[found];
       this.currentRealm.elements.splice(found, 1);
-      this.runner.delete(name);
+      this.broker.onDeleteSceneElement.next(element);
     }
     return this._updateRealm();
   }
@@ -135,12 +138,17 @@ export class RealmService {
     return this._updateRealm();
   }
 
+  addAudio(audio: SceneAudio) {
+    this.currentRealm.audios.push(audio);
+    return this._updateRealm();
+  }
+
   // update scene elements
   async getImage(name: string) {
     const found = this.currentRealm.images.findIndex(
       (image) => image.name == name
     );
-    if (found) {
+    if (found > -1) {
       return this.currentRealm.images[found];
     }
     return null;
@@ -151,7 +159,7 @@ export class RealmService {
     const found = this.currentRealm.elements.findIndex(
       (image) => image.name == input.name
     );
-    if (found) {
+    if (found > -1) {
       this.currentRealm.images[found] = input;
     }
     return this._updateRealm();
@@ -162,9 +170,21 @@ export class RealmService {
       (image) => image.name == name
     );
     console.log('found', name);
-    if (found) {
+    if (found > -1) {
       this.currentRealm.images.splice(found, 1);
     }
+    return this._updateRealm();
+  }
+
+  deleteAudio(name: string) {
+    const found = this.currentRealm.audios.findIndex(
+      (audio) => audio.name == name
+    );
+    console.log('found', name, found);
+    if (found > -1) {
+      this.currentRealm.audios.splice(found, 1);
+    }
+
     return this._updateRealm();
   }
 }

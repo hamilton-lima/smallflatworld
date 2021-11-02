@@ -4,6 +4,8 @@ export class LibraryComponent {
   icon: string;
   model3D: string;
   scale: number;
+  supportImage?: boolean;
+  skipColision?:boolean;
 }
 
 export class Library {

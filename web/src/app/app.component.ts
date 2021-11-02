@@ -5,7 +5,8 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { CodingService } from './coding/coding.service';
 import { VERSION } from 'src/app/version';
 import { EditorModeService } from './editor/editor-mode.service';
-
+import { AudioPlayerService } from './shared/audio-player.service';
+import { EditorService } from './editor/editor.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,6 +16,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   ready = false;
   name = '';
   version = VERSION;
+  audio = 'C4 D4 E4 F4 G4 A4:4n B4 C5';
+
+  play() {
+    this.player.play(this.audio);
+  }
 
   @ViewChild('drawer') drawer: MatDrawer;
   @ViewChild('drawerRight') drawerRight: MatDrawer;
@@ -23,7 +29,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     private realm: RealmService,
     private input: InputService,
     private coding: CodingService,
-    private editorMode: EditorModeService
+    private editorMode: EditorModeService,
+    private player: AudioPlayerService,
+    private editor: EditorService
   ) {}
 
   ngAfterViewInit(): void {
@@ -45,7 +53,16 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     );
 
-    this.coding.onEdit.subscribe((selection) => this.toggleRight(selection));
+    this.coding.onEditParent.subscribe((selection) =>
+      this.toggleRight(selection)
+    );
+
+    // selection is deleted close the code panel
+    this.editor.onSelectClickable.subscribe((mesh) => {
+      if (!mesh) {
+        this.drawerRight.close();
+      }
+    });
   }
 
   lastSelection: string;

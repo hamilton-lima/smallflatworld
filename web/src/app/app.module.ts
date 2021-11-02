@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialAllComponentsModule } from './material-all-components-module';
 import { RealmUploadComponent } from './realm/realm-upload/realm-upload.component';
 import { ConnectComponent } from './multiplayer/connect/connect.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './multiplayer/share/share.component';
 import { JoinComponent } from './multiplayer/join/join.component';
 import { EditorToolbarComponent } from './editor/editor-toolbar/editor-toolbar.component';
@@ -19,7 +19,9 @@ import { ConfimDialogComponent } from './shared/confim-dialog/confim-dialog.comp
 import { RealmToolbarComponent } from './realm/realm-toolbar/realm-toolbar.component';
 import { BottomMessageComponent } from './coding/bottom-message/bottom-message.component';
 import { ImagesLibraryComponent } from './library/images-library/images-library.component';
-import { ImageUploadComponent } from './library/image-upload/image-upload.component';
+import { FileUploadComponent } from './library/file-upload/file-upload.component';
+import { AudioLibraryComponent } from './library/audio-library/audio-library.component';
+import { UpDownComponent } from './editor/up-down/up-down.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +39,16 @@ import { ImageUploadComponent } from './library/image-upload/image-upload.compon
     RealmToolbarComponent,
     BottomMessageComponent,
     ImagesLibraryComponent,
-    ImageUploadComponent,
+    FileUploadComponent,
+    AudioLibraryComponent,
+    UpDownComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialAllComponentsModule,
+    FormsModule,
     ReactiveFormsModule,
   ],
   providers: [],
