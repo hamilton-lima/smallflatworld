@@ -4,6 +4,7 @@ import {
   DeleteRequest,
   JoinResponse,
   SceneAudio,
+  SceneCode,
   SceneElementMemento,
   SceneImage,
   ShareResponse,
@@ -70,6 +71,10 @@ export class ClientService {
     this.server.updateAudios([audio]);
   }
 
+  updateCode(code: SceneCode) {
+    this.server.updateCodes([code]);
+  }
+
   delete(name: string) {
     this.server.delete(name);
   }
@@ -80,6 +85,10 @@ export class ClientService {
 
   deleteAudio(name: string) {
     this.server.deleteAudio(name);
+  }
+  
+  deleteCode(name: string) {
+    this.server.deleteCode(name);
   }
 
   listen2Updates() {
