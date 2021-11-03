@@ -160,13 +160,12 @@ export class RealmService {
     return null;
   }
 
-  // update scene elements
-  async updateImage(input: SceneImage) {
-    const found = this.currentRealm.elements.findIndex(
-      (image) => image.name == input.name
+  async updateCode(input: SceneCode) {
+    const found = this.currentRealm.codes.findIndex(
+      (code) => code.name == input.name
     );
     if (found > -1) {
-      this.currentRealm.images[found] = input;
+      this.currentRealm.codes[found] = input;
     }
     return this._updateRealm();
   }

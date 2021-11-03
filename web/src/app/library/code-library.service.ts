@@ -26,8 +26,10 @@ export class CodeLibraryService {
   }
 
   buildCode() {
+    const name = DEFAULT_NAME + this.name.getDateString();
     const result = <SceneCode>{
-      name: DEFAULT_NAME + this.name.getDateString(),
+      name: name,
+      label: name,
       code: new CodeDefinition(),
     };
     return result;
@@ -36,6 +38,13 @@ export class CodeLibraryService {
   add(code: SceneCode) {
     this.client.updateCode(code);
     this.realm.addCode(code).then((_) => {
+      this.onUpdate.next(this.realm.getCurrentRealm().codes);
+    });
+  }
+
+  update(code: SceneCode) {
+    this.client.updateCode(code);
+    this.realm.updateCode(code).then((_) => {
       this.onUpdate.next(this.realm.getCurrentRealm().codes);
     });
   }
@@ -49,5 +58,12 @@ export class CodeLibraryService {
 
   execute(code: SceneCode) {
     console.log('execute', code);
+    throw new Error('Method not implemented.');
   }
+
+  edit(code: SceneCode) {
+    console.log('edit', code);
+    throw new Error('Method not implemented.');
+  }
+
 }

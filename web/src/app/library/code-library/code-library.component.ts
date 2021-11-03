@@ -11,7 +11,7 @@ import { CodeLibraryService } from '../code-library.service';
 })
 export class CodeLibraryComponent implements OnInit {
   codes: BehaviorSubject<SceneCode[]>;
-  columns: string[] = ['play', 'name', 'delete'];
+  columns: string[] = ['play', 'edit', 'label', 'delete'];
 
   constructor(
     private service: CodeLibraryService,
@@ -44,5 +44,14 @@ export class CodeLibraryComponent implements OnInit {
 
   execute(code: SceneCode) {
     this.service.execute(code);
+  }
+  
+  edit(code: SceneCode) {
+    this.service.edit(code);
+  }
+
+  updateLabel(element){
+    console.log('update label', element);
+    this.service.update(element);
   }
 }

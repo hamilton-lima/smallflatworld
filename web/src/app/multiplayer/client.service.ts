@@ -22,6 +22,8 @@ export class ClientService {
   subscriptions: Subscription[] = [];
   onUpdate: Subject<SceneElement[]> = new Subject();
   onUpdateImages: Subject<SceneImage[]> = new Subject();
+  onUpdateAudios: Subject<SceneAudio[]> = new Subject();
+  onUpdateCodes: Subject<SceneCode[]> = new Subject();
   onDelete: Subject<string> = new Subject();
 
   constructor(private server: ServerService) {}
@@ -86,7 +88,7 @@ export class ClientService {
   deleteAudio(name: string) {
     this.server.deleteAudio(name);
   }
-  
+
   deleteCode(name: string) {
     this.server.deleteCode(name);
   }
@@ -96,7 +98,18 @@ export class ClientService {
       this.server.onStateUpdate.subscribe((request: StateUpdate) => {
         const data = this.memento2Vector3(request.data);
         this.onUpdate.next(data);
-        this.onUpdateImages.next(request.images);
+
+        if (request.images && request.images.length > 0) {
+          this.onUpdateImages.next(request.images);
+        }
+
+        if (request.audios && request.audios.length > 0) {
+          this.onUpdateAudios.next(request.audios);
+        }
+
+        if (request.codes && request.codes.length > 0) {
+          this.onUpdateCodes.next(request.codes);
+        }
       })
     );
 
@@ -117,7 +130,7 @@ export class ClientService {
         scaling: buildVector3(element.scaling),
         code: element.code,
         imageName: element.imageName,
-        skipColision: element.skipColision
+        skipColision: element.skipColision,
       };
       result.push(converted);
     });

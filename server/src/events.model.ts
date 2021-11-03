@@ -85,6 +85,7 @@ export class SceneAudio {
 
 export class SceneCode {
   name: string;
+  label: string;
   code: CodeDefinition;
 }
 
