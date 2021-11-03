@@ -7,3 +7,4 @@ TBI items from mindmap and previous roadmap
 - Add translation to all messages, evaluate translation to coding elements
 - Add code action to play musical note
 - Add code action to play a sequence of notes 
+- Export/Import code from code library

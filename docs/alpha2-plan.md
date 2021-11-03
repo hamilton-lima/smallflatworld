@@ -37,6 +37,7 @@ for the create scenario code
 
 - Add legs to the character or wheels :)
 - Add mixpanel.com tracking (timeboxed)
+- Export/Import code from code library
 
 ### play together
 - Auto generate user name
