@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CodeDefinition, SceneCode } from '../../../../server/src/events.model';
 import { CodingService } from '../coding/coding.service';
+import { RunnerService } from '../coding/runner.service';
 import { ClientService } from '../multiplayer/client.service';
 import { RealmService } from '../realm/realm.service';
 import { NameService } from '../shared/name.service';
@@ -19,7 +20,8 @@ export class CodeLibraryService {
     private client: ClientService,
     private realm: RealmService,
     private name: NameService,
-    private coding: CodingService
+    private coding: CodingService,
+    private runner: RunnerService
   ) {
     this.onUpdate = new BehaviorSubject([]);
     this.realm.onNew.subscribe((newRealm) => {
@@ -58,9 +60,9 @@ export class CodeLibraryService {
     });
   }
 
-  execute(code: SceneCode) {
-    console.log('execute', code);
-    throw new Error('Method not implemented.');
+  execute(sceneCode: SceneCode) {
+    console.log('execute', sceneCode);
+    this.runner.register(sceneCode.name, sceneCode.code.code);
   }
 
   async edit(code: SceneCode) {
