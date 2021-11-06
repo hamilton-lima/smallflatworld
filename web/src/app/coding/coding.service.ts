@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { CodeDefinition } from '../../../../server/src/events.model';
+import { CodeDefinition, SceneCode } from '../../../../server/src/events.model';
 import { EditorService } from '../editor/editor.service';
 import { RealmService } from '../realm/realm.service';
 import { MeshService } from '../renderer/mesh.service';
@@ -32,6 +32,12 @@ export class CodingService {
   public isEditing: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private realm: RealmService) {}
+
+  editCodeFromLibrary(sceneCode: SceneCode) {
+    const request = new CodeEditRequest(sceneCode.name, sceneCode.code);
+    this.onEdit.next(request);
+    return request;
+  }
 
   async editParent(uuid: string): Promise<CodeEditRequest> {
     const code = await this.getCodeFromSceneElement(uuid);

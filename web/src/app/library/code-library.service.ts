@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CodeDefinition, SceneCode } from '../../../../server/src/events.model';
+import { CodingService } from '../coding/coding.service';
 import { ClientService } from '../multiplayer/client.service';
 import { RealmService } from '../realm/realm.service';
 import { NameService } from '../shared/name.service';
@@ -17,7 +18,8 @@ export class CodeLibraryService {
   constructor(
     private client: ClientService,
     private realm: RealmService,
-    private name: NameService
+    private name: NameService,
+    private coding: CodingService
   ) {
     this.onUpdate = new BehaviorSubject([]);
     this.realm.onNew.subscribe((newRealm) => {
@@ -61,9 +63,15 @@ export class CodeLibraryService {
     throw new Error('Method not implemented.');
   }
 
-  edit(code: SceneCode) {
+  async edit(code: SceneCode) {
     console.log('edit', code);
-    throw new Error('Method not implemented.');
-  }
+    const request = await this.coding.editCodeFromLibrary(code);
 
+    // save code changes
+    request.onApplyChanges.subscribe(async (request) => {
+      const sceneCode = await this.realm.getCode(request.uuid);
+      sceneCode.code = request.updatedCodeDefinition;
+      this.update(sceneCode);
+    });
+  }
 }

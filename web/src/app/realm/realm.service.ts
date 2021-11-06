@@ -170,6 +170,16 @@ export class RealmService {
     return this._updateRealm();
   }
 
+  async getCode(name: string) {
+    const found = this.currentRealm.codes.findIndex((code) => {
+      return code.name == name;
+    });
+    if (found > -1) {
+      return this.currentRealm.codes[found];
+    }
+    return null;
+  }
+
   deleteImage(name: string) {
     const found = this.currentRealm.images.findIndex(
       (image) => image.name == name
