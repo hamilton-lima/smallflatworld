@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { INTERNAL_BASIC_LIBRARY } from '../basic-shapes.library';
 import { Library, LibraryComponent } from '../editor-library.model';
 import { EditorLibraryService } from '../editor-library.service';
 import { EditorService } from '../editor.service';
@@ -12,7 +13,7 @@ export class EditorToolbarComponent implements OnInit {
   libraries: Library[];
   library: Library;
 
-  readonly PRE_SELECT_LIBRARY = 'internal/basic';
+  readonly PRE_SELECT_LIBRARY = INTERNAL_BASIC_LIBRARY;
   readonly PRE_SELECT_COMPONENT = 'cube';
 
   constructor(

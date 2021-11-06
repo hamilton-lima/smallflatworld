@@ -3,6 +3,8 @@ import { OnRepeatDefinition } from './definition/code-blockly.onrepeat';
 import { OnClickDefinition } from './definition/code-blockly.onclick';
 import { AudioService } from 'src/app/library/audio.service';
 import { EditorLibraryService } from 'src/app/editor/editor-library.service';
+import { INTERNAL_BASIC_LIBRARY } from 'src/app/editor/basic-shapes.library';
+import { ImagesService } from 'src/app/library/images.service';
 
 declare var Blockly: any;
 
@@ -28,7 +30,8 @@ export class BlocklyService {
   constructor(
     private factory: RendererFactory2,
     private audio: AudioService,
-    private editorLibrary: EditorLibraryService
+    private editorLibrary: EditorLibraryService,
+    private images: ImagesService
   ) {
     this.configResolution = new Map([
       [BlocklyConfig.Default, this.getToolboxDefault()],
@@ -238,6 +241,28 @@ export class BlocklyService {
     return options;
   }
 
+  getListOfImages() {
+    let options = [['Please choose a library', 'N/A']];
+
+    const components = this.images.onUpdate.value.map((sceneImage) => {
+      const image = {
+        src: sceneImage.base64,
+        width: 70,
+        height: 70,
+        alt: sceneImage.name,
+      };
+      return [image, sceneImage.name];
+    });
+
+    console.log('images', components);
+
+    if (components.length > 0) {
+      return components;
+    }
+
+    return options;
+  }
+
   setup() {
     this.definitions.forEach((definition) => {
       Blockly.defineBlocksWithJsonArray([definition.getBlockConfig()]);
@@ -263,7 +288,7 @@ export class BlocklyService {
     });
 
     Blockly.Extensions.register('list_editor_library_extension', function () {
-      this.getInput('INPUT').appendField(
+      this.getInput('INPUT_LIBRARY').appendField(
         new Blockly.FieldDropdown(function () {
           const libraries = self.editorLibrary.getLibraries();
 
@@ -285,7 +310,7 @@ export class BlocklyService {
       function () {
         const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
 
-        this.getInput('INPUT2').appendField(
+        this.getInput('INPUT_NAME').appendField(
           new Blockly.FieldDropdown(function () {
             return self.getListOfComponents(currentLibrary);
           }),
@@ -294,41 +319,71 @@ export class BlocklyService {
       }
     );
 
+    Blockly.Extensions.register(
+      'list_images_for_internal_basic_extension',
+      function () {
+        const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
+        if (currentLibrary == INTERNAL_BASIC_LIBRARY) {
+          this.getInput('INPUT_IMAGE').appendField(
+            new Blockly.FieldDropdown(function () {
+              return self.getListOfImages();
+            }),
+            'CREATE_LIBRARY_IMAGE_VALUE'
+          );
+        }
+      }
+    );
+
     Blockly.Blocks['create'] = {
       init: function () {
         this.jsonInit({
           // create scene element
           type: 'create',
-          message0: 'create %1 %2',
+          message0: 'create %1 %2 %3',
           args0: [
-            { type: 'input_dummy', name: 'INPUT' },
-            { type: 'input_dummy', name: 'INPUT2' },
+            { type: 'input_dummy', name: 'INPUT_LIBRARY' },
+            { type: 'input_dummy', name: 'INPUT_IMAGE' },
+            { type: 'input_dummy', name: 'INPUT_NAME' },
           ],
           previousStatement: null,
           nextStatement: null,
           colour: 355,
           extensions: [
             'list_editor_library_extension',
+            'list_images_for_internal_basic_extension',
             'list_components_from_library_extension',
           ],
         });
       },
       onchange: function (event) {
         // @see https://stackoverflow.com/questions/67206414/blockly-update-other-inputdummy-dropdown-fields-based-on-selection-of-a-inputdu
-        console.log('on change create[]', event);
         if (event.name == 'CREATE_LIBRARY_VALUE') {
           // remove existing dropdown list
-          this.getInput('INPUT2').removeField('CREATE_LIBRARY_NAME_VALUE');
+          this.getInput('INPUT_NAME').removeField('CREATE_LIBRARY_NAME_VALUE');
 
           // add new list
           const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
 
-          this.getInput('INPUT2').appendField(
+          this.getInput('INPUT_NAME').appendField(
             new Blockly.FieldDropdown(function () {
               return self.getListOfComponents(currentLibrary);
             }),
             'CREATE_LIBRARY_NAME_VALUE'
           );
+
+          // change to internal add list of images to select
+          if (currentLibrary == INTERNAL_BASIC_LIBRARY) {
+            this.getInput('INPUT_IMAGE').appendField(
+              new Blockly.FieldDropdown(function () {
+                return self.getListOfImages();
+              }),
+              'CREATE_LIBRARY_IMAGE_VALUE'
+            );
+          } else {
+            // remove the image selection
+            this.getInput('INPUT_IMAGE').removeField('CREATE_LIBRARY_IMAGE_VALUE');
+          }
+
         }
       },
     };
