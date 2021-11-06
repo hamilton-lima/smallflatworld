@@ -61,6 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.editor.onSelectClickable.subscribe((mesh) => {
       if (!mesh) {
         this.drawerRight.close();
+        this.coding.isEditing.next(this.drawerRight.opened);
       }
     });
   }
@@ -74,6 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.drawerRight.open();
     }
     this.lastSelection = selection;
+    this.coding.isEditing.next(this.drawerRight.opened);
   }
 
   toggle() {

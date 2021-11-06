@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="request">
   <div class="top">
     <h1>Edit code</h1>
     <button mat-raised-button [disabled]="!dirty" (click)="apply()">APPLY</button>

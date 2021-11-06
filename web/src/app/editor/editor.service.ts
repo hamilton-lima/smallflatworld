@@ -434,7 +434,10 @@ export class EditorService {
     if (this.isValidSelection()) {
       console.log('select mesh', mesh.name);
       this.onSelectClickable.next(mesh);
-      this.editCode();
+      // if is editing code refresh to the newly selected 
+      if( this.coding.isEditing.value){
+        this.editCode();
+      }
       this.showBoundingBox(true);
     } else {
       this.onSelectClickable.next(null);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { CodeDefinition } from '../../../../server/src/events.model';
 import { EditorService } from '../editor/editor.service';
 import { RealmService } from '../realm/realm.service';
@@ -31,6 +31,7 @@ export class CodingService {
   // public onEditParent: Subject<string> = new Subject();
 
   public onEdit: Subject<CodeEditRequest> = new Subject();
+  public isEditing: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private realm: RealmService) {}
 
