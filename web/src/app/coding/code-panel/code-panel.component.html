@@ -12,6 +12,7 @@
 
   <app-code-blockly 
     [definition]="request.codeDefinition"
+    [reload]="reloadCounter"
     (codeChanged)="changed($event)"
     [onReady]="onReady"
   ></app-code-blockly>

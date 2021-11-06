@@ -30,6 +30,7 @@ export class CodeBlocklyComponent implements OnChanges {
     this.init();
   }
 
+  @Input() reload: number;
   @Input() config: BlocklyConfig;
   @Input() onReady: Subject<void>;
   @Output() codeChanged = new EventEmitter<CodeDefinition>();

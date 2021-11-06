@@ -15,6 +15,7 @@ export class CodePanelComponent implements OnInit {
   loading = false;
   dirty = false;
   onReady: Subject<void>;
+  reloadCounter = 0;
 
   constructor(
     private service: CodingService,
@@ -34,6 +35,7 @@ export class CodePanelComponent implements OnInit {
       this.loading = true;
       this.request = request;
       this.dirty = false;
+      this.reloadCounter ++;
       this.cdr.detectChanges();
     });
 
