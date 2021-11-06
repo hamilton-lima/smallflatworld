@@ -1,6 +1,7 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { OnRepeatDefinition } from './definition/code-blockly.onrepeat';
 import { OnClickDefinition } from './definition/code-blockly.onclick';
+import { PositionDefinition } from './definition/code-blockly.position';
 import { AudioService } from 'src/app/library/audio.service';
 import { EditorLibraryService } from 'src/app/editor/editor-library.service';
 import { INTERNAL_BASIC_LIBRARY } from 'src/app/editor/basic-shapes.library';
@@ -104,6 +105,7 @@ export class BlocklyService {
     <block type="bottom_message" />
     <block type="playSound" />
     <block type="create" />
+    <block type="position" />
     <block type="turn" />
     <block type="math_number" />
     <block type="math_arithmetic" />
@@ -203,6 +205,7 @@ export class BlocklyService {
   readonly definitions: Array<BlocklyDefinition> = [
     new OnClickDefinition(),
     new OnRepeatDefinition(),
+    new PositionDefinition(),
   ];
 
   // Return list of component based on library name
@@ -339,8 +342,13 @@ export class BlocklyService {
         this.jsonInit({
           // create scene element
           type: 'create',
-          message0: 'create %1 %2 %3',
+          message0: 'create %1 %2 %3 %4',
           args0: [
+            {
+              type: 'input_value',
+              name: 'INPUT_POSITION',
+              check: 'Position',
+            },
             { type: 'input_dummy', name: 'INPUT_LIBRARY' },
             { type: 'input_dummy', name: 'INPUT_IMAGE' },
             { type: 'input_dummy', name: 'INPUT_NAME' },
@@ -381,9 +389,10 @@ export class BlocklyService {
             );
           } else {
             // remove the image selection
-            this.getInput('INPUT_IMAGE').removeField('CREATE_LIBRARY_IMAGE_VALUE');
+            this.getInput('INPUT_IMAGE').removeField(
+              'CREATE_LIBRARY_IMAGE_VALUE'
+            );
           }
-
         }
       },
     };
