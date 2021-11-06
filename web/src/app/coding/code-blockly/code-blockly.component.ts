@@ -22,7 +22,14 @@ export class CodeBlocklyComponent implements OnChanges {
   static nextId = 0;
   id: string;
 
-  @Input() definition: CodeDefinition;
+  _definition: CodeDefinition;
+
+  @Input() set definition(_definition: CodeDefinition) {
+    console.log('definition updated');
+    this._definition = _definition;
+    this.init();
+  }
+
   @Input() config: BlocklyConfig;
   @Input() onReady: Subject<void>;
   @Output() codeChanged = new EventEmitter<CodeDefinition>();
@@ -37,18 +44,22 @@ export class CodeBlocklyComponent implements OnChanges {
   }
 
   init() {
-    timer(1500).subscribe((done) => {
-      console.log('init code');
+    if( this.onReady ){
+    // timer(1500).subscribe((done) => {
+      console.log('init code', );
       this.workspace = this.service.inject(
         this.id,
         this.config,
         this.update.bind(this)
       );
-      if (this.definition && this.definition.blocklyDefinition) {
-        this.service.setXML(this.definition.blocklyDefinition, this.workspace);
+      if (this._definition && this._definition.blocklyDefinition) {
+        this.service.setXML(this._definition.blocklyDefinition, this.workspace);
       }
       this.onReady.next();
-    });
+    } else {
+      console.warn('ready subject is not ready :)');
+    }
+    // });
   }
 
   ngAfterViewInit(): void {

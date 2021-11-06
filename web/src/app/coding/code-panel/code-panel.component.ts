@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { NotifyService } from 'src/app/shared/notify.service';
 import { CodeDefinition } from '../../../../../server/src/events.model';
@@ -10,12 +10,17 @@ import { CodeEditRequest, CodingService } from '../coding.service';
   styleUrls: ['./code-panel.component.scss'],
 })
 export class CodePanelComponent implements OnInit {
+  codeDefinition: CodeDefinition;
   request: CodeEditRequest;
   loading = false;
   dirty = false;
   onReady: Subject<void>;
 
-  constructor(private service: CodingService, private notify: NotifyService) {
+  constructor(
+    private service: CodingService,
+    private notify: NotifyService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.onReady = new Subject();
   }
 
@@ -25,9 +30,11 @@ export class CodePanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.onEdit.subscribe(async (request) => {
+      console.log('code panel subscribe', request);
       this.loading = true;
       this.request = request;
       this.dirty = false;
+      this.cdr.detectChanges();
     });
 
     this.onReady.subscribe(() => {

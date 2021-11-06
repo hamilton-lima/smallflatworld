@@ -225,14 +225,14 @@ export class EditorService {
     }
   }
 
-  editCode() {
+  async editCode() {
     if (this.isValidSelection()) {
       const parent = this.mesh.getParent(this.selectedClickable);
       console.log('edit code parent', parent);
-      const request = this.coding.editParent(parent.name);
+      const request = await this.coding.editParent(parent.name);
 
       // save code changes
-      request.then((request) => {
+      request.onApplyChanges.subscribe((request) => {
         const uuid = request.uuid;
         const codeDef = request.updatedCodeDefinition;
 
@@ -409,7 +409,22 @@ export class EditorService {
   }
 
   select(scene: Scene, pointerInfo: PointerInfo) {
-    this.selectClickableMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
+    const mesh = <Mesh>pointerInfo.pickInfo.pickedMesh;
+    this.selectClickableMesh(mesh);
+
+    if (this.isValidSelection()) {
+      console.log('select mesh', mesh.name);
+      this.onSelectClickable.next(mesh);
+
+      // if is editing code refresh to the newly selected 
+      // redundant? 
+      if( this.coding.isEditing.value){
+        this.editCode();
+      }
+      this.showBoundingBox(true);
+    } else {
+      this.onSelectClickable.next(null);
+    }
   }
 
   showBoundingBox(show: boolean) {
@@ -422,26 +437,6 @@ export class EditorService {
     }
 
     this.selectedClickable = mesh;
-
-    // when selecting trigger code edit
-    // this.onSelectClickable.subscribe((mesh) => {
-    //   if (mesh) {
-    //     const parent = this.mesh.getParent(mesh);
-    //     this.coding.editParent(parent.name);
-    //   }
-    // });
-
-    if (this.isValidSelection()) {
-      console.log('select mesh', mesh.name);
-      this.onSelectClickable.next(mesh);
-      // if is editing code refresh to the newly selected 
-      if( this.coding.isEditing.value){
-        this.editCode();
-      }
-      this.showBoundingBox(true);
-    } else {
-      this.onSelectClickable.next(null);
-    }
   }
 
   async addToPosition(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {

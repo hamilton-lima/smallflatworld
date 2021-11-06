@@ -37,8 +37,10 @@ export class CodingService {
 
   async editParent(uuid: string): Promise<CodeEditRequest> {
     const code = await this.getCodeFromSceneElement(uuid);
+    console.log('get code from scene element', code);
     const request = new CodeEditRequest(uuid, code);
     this.onEdit.next(request);
+    console.log('on edit next');
     return request;
   }
 
