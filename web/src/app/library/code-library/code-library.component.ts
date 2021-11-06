@@ -12,6 +12,7 @@ import { CodeLibraryService } from '../code-library.service';
 export class CodeLibraryComponent implements OnInit {
   codes: BehaviorSubject<SceneCode[]>;
   columns: string[] = ['play', 'edit', 'label', 'delete'];
+  selectedName: string;
 
   constructor(
     private service: CodeLibraryService,
@@ -29,6 +30,7 @@ export class CodeLibraryComponent implements OnInit {
   add() {
     const code = this.service.buildCode();
     this.service.add(code);
+    this.edit(code);
   }
 
   async delete(name: string) {
@@ -38,6 +40,7 @@ export class CodeLibraryComponent implements OnInit {
     ]);
 
     if (response == ConfirmOptions.YES) {
+      this.select(null);
       await this.service.remove(name);
     }
   }
@@ -45,13 +48,23 @@ export class CodeLibraryComponent implements OnInit {
   execute(code: SceneCode) {
     this.service.execute(code);
   }
-  
+
   edit(code: SceneCode) {
+    this.select(code.name);
     this.service.edit(code);
   }
 
-  updateLabel(element){
+  updateLabel(element) {
     console.log('update label', element);
     this.service.update(element);
+  }
+
+  isSelected(row) {
+    const selected = row.name == this.selectedName;
+    return selected;
+  }
+
+  select(name: string) {
+    this.selectedName = name;
   }
 }
