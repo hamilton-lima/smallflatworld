@@ -2,6 +2,7 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { OnRepeatDefinition } from './definition/code-blockly.onrepeat';
 import { OnClickDefinition } from './definition/code-blockly.onclick';
 import { AudioService } from 'src/app/library/audio.service';
+import { EditorLibraryService } from 'src/app/editor/editor-library.service';
 
 declare var Blockly: any;
 
@@ -26,7 +27,8 @@ export class BlocklyService {
 
   constructor(
     private factory: RendererFactory2,
-    private audio: AudioService
+    private audio: AudioService,
+    private editorLibrary: EditorLibraryService
   ) {
     this.configResolution = new Map([
       [BlocklyConfig.Default, this.getToolboxDefault()],
@@ -98,6 +100,7 @@ export class BlocklyService {
     <block type="message" />
     <block type="bottom_message" />
     <block type="playSound" />
+    <block type="create" />
     <block type="turn" />
     <block type="math_number" />
     <block type="math_arithmetic" />
@@ -199,6 +202,42 @@ export class BlocklyService {
     new OnRepeatDefinition(),
   ];
 
+  // Return list of component based on library name
+  // @see https://developers.google.com/blockly/guides/create-custom-blocks/fields/built-in-fields/dropdown
+  //
+  getListOfComponents(currentLibrary: string) {
+    console.log('current library', currentLibrary);
+    let options = [['Please choose a library', 'N/A']];
+
+    if (currentLibrary) {
+      const libraries = this.editorLibrary.getLibraries();
+      const library = libraries.find(
+        (library) => library.name == currentLibrary
+      );
+
+      console.log('current library (2)', library);
+
+      if (library) {
+        const components = library.components.map((component) => {
+          const image = {
+            src: component.icon,
+            width: 70,
+            height: 70,
+            alt: component.name,
+          };
+          return [image, component.name];
+        });
+
+        console.log('components', components);
+
+        if (components.length > 0) {
+          return components;
+        }
+      }
+    }
+    return options;
+  }
+
   setup() {
     this.definitions.forEach((definition) => {
       Blockly.defineBlocksWithJsonArray([definition.getBlockConfig()]);
@@ -210,8 +249,11 @@ export class BlocklyService {
     Blockly.Extensions.register('list_sound_menu_extension', function () {
       this.getInput('INPUT').appendField(
         new Blockly.FieldDropdown(function () {
-          var options = self.audio.onUpdate.value.map( audio => [audio.name, audio.name]);
-          if( options.length == 0){
+          var options = self.audio.onUpdate.value.map((audio) => [
+            audio.name,
+            audio.name,
+          ]);
+          if (options.length == 0) {
             options = [['No sound available', 'N/A']];
           }
           return options;
@@ -219,6 +261,77 @@ export class BlocklyService {
         'PLAY_SOUND_VALUE'
       );
     });
+
+    Blockly.Extensions.register('list_editor_library_extension', function () {
+      this.getInput('INPUT').appendField(
+        new Blockly.FieldDropdown(function () {
+          const libraries = self.editorLibrary.getLibraries();
+
+          var options = libraries.map((library) => [
+            library.name,
+            library.name,
+          ]);
+          if (options.length == 0) {
+            options = [['No libraries available', 'N/A']];
+          }
+          return options;
+        }),
+        'CREATE_LIBRARY_VALUE'
+      );
+    });
+
+    Blockly.Extensions.register(
+      'list_components_from_library_extension',
+      function () {
+        const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
+
+        this.getInput('INPUT2').appendField(
+          new Blockly.FieldDropdown(function () {
+            return self.getListOfComponents(currentLibrary);
+          }),
+          'CREATE_LIBRARY_NAME_VALUE'
+        );
+      }
+    );
+
+    Blockly.Blocks['create'] = {
+      init: function () {
+        this.jsonInit({
+          // create scene element
+          type: 'create',
+          message0: 'create %1 %2',
+          args0: [
+            { type: 'input_dummy', name: 'INPUT' },
+            { type: 'input_dummy', name: 'INPUT2' },
+          ],
+          previousStatement: null,
+          nextStatement: null,
+          colour: 355,
+          extensions: [
+            'list_editor_library_extension',
+            'list_components_from_library_extension',
+          ],
+        });
+      },
+      onchange: function (event) {
+        // @see https://stackoverflow.com/questions/67206414/blockly-update-other-inputdummy-dropdown-fields-based-on-selection-of-a-inputdu
+        console.log('on change create[]', event);
+        if (event.name == 'CREATE_LIBRARY_VALUE') {
+          // remove existing dropdown list
+          this.getInput('INPUT2').removeField('CREATE_LIBRARY_NAME_VALUE');
+
+          // add new list
+          const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
+
+          this.getInput('INPUT2').appendField(
+            new Blockly.FieldDropdown(function () {
+              return self.getListOfComponents(currentLibrary);
+            }),
+            'CREATE_LIBRARY_NAME_VALUE'
+          );
+        }
+      },
+    };
 
     // debug	message	string
     Blockly.defineBlocksWithJsonArray([
@@ -330,6 +443,13 @@ export class BlocklyService {
       const value = block.getFieldValue('PLAY_SOUND_VALUE');
       console.log('building play sound', value);
       return `playSound('${value}');\n`;
+    };
+
+    Blockly.JavaScript['create'] = function (block) {
+      const library = block.getFieldValue('CREATE_LIBRARY_VALUE');
+      const name = block.getFieldValue('CREATE_LIBRARY_NAME_VALUE');
+      console.log('building create command', library, name);
+      return `create('${library}','${name}');\n`;
     };
 
     Blockly.JavaScript['message'] = function (block) {
