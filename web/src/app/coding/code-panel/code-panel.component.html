@@ -11,7 +11,7 @@
   <div *ngIf="loading" class="magic-courtain"></div>
 
   <app-code-blockly 
-    [definition]="codeDefinition"
+    [definition]="request.codeDefinition"
     (codeChanged)="changed($event)"
     [onReady]="onReady"
   ></app-code-blockly>

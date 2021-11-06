@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { RealmService } from './realm/realm.service';
 import { InputService } from './shared/input.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { CodingService } from './coding/coding.service';
+import { CodeEditRequest, CodingService } from './coding/coding.service';
 import { VERSION } from 'src/app/version';
 import { EditorModeService } from './editor/editor-mode.service';
 import { AudioPlayerService } from './shared/audio-player.service';
@@ -53,8 +53,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     );
 
-    this.coding.onEditParent.subscribe((selection) =>
-      this.toggleRight(selection)
+    this.coding.onEdit.subscribe((request) =>
+      this.toggleRight(request)
     );
 
     // selection is deleted close the code panel
@@ -66,7 +66,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   lastSelection: string;
-  toggleRight(selection: string): void {
+  toggleRight(request: CodeEditRequest): void {
+    const selection = request.uuid;
     if (selection == this.lastSelection) {
       this.drawerRight.toggle();
     } else {

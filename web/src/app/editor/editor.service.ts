@@ -229,7 +229,16 @@ export class EditorService {
     if (this.isValidSelection()) {
       const parent = this.mesh.getParent(this.selectedClickable);
       console.log('edit code parent', parent);
-      this.coding.editParent(parent.name);
+      const request = this.coding.editParent(parent.name);
+
+      // save code changes
+      request.then((request) => {
+        const uuid = request.uuid;
+        const codeDef = request.updatedCodeDefinition;
+
+        this.saveCode(uuid, codeDef);
+        this.runner.register(uuid, codeDef.code);
+      });
     }
   }
 
@@ -414,9 +423,18 @@ export class EditorService {
 
     this.selectedClickable = mesh;
 
+    // when selecting trigger code edit
+    // this.onSelectClickable.subscribe((mesh) => {
+    //   if (mesh) {
+    //     const parent = this.mesh.getParent(mesh);
+    //     this.coding.editParent(parent.name);
+    //   }
+    // });
+
     if (this.isValidSelection()) {
       console.log('select mesh', mesh.name);
       this.onSelectClickable.next(mesh);
+      this.editCode();
       this.showBoundingBox(true);
     } else {
       this.onSelectClickable.next(null);

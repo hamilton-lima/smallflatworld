@@ -1,11 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { EditorService } from 'src/app/editor/editor.service';
-import { MeshService } from 'src/app/renderer/mesh.service';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { NotifyService } from 'src/app/shared/notify.service';
 import { CodeDefinition } from '../../../../../server/src/events.model';
-import { CodingService } from '../coding.service';
-import { RunnerService } from '../runner.service';
+import { CodeEditRequest, CodingService } from '../coding.service';
 
 @Component({
   selector: 'app-code-panel',
@@ -13,64 +10,38 @@ import { RunnerService } from '../runner.service';
   styleUrls: ['./code-panel.component.scss'],
 })
 export class CodePanelComponent implements OnInit {
-  selected: string;
-  codeDefinition: CodeDefinition;
-  updatedCodeDefinition: CodeDefinition;
+  request: CodeEditRequest;
   loading = false;
   dirty = false;
   onReady: Subject<void>;
 
-  constructor(
-    private service: CodingService,
-    private editor: EditorService,
-    private runner: RunnerService,
-    private notify: NotifyService,
-    private mesh: MeshService
-  ) {
+  constructor(private service: CodingService, private notify: NotifyService) {
     this.onReady = new Subject();
   }
 
   showCode() {
-    return this.selected && !this.loading;
-  }
-
-  async loadCode(uuid: string) {
-    // prevent reload
-    if (uuid != this.selected) {
-      this.loading = true;
-      console.log('on edit', uuid);
-      this.selected = uuid;
-      this.codeDefinition = await this.service.getCode(uuid);
-      this.updatedCodeDefinition = this.codeDefinition;
-      this.dirty = false;
-    }
+    return this.request && !this.loading;
   }
 
   ngOnInit(): void {
-    this.service.onEditParent.subscribe(async (selected) => {
-      this.loadCode(selected);
+    this.service.onEdit.subscribe(async (request) => {
+      this.loading = true;
+      this.request = request;
+      this.dirty = false;
     });
 
     this.onReady.subscribe(() => {
       this.loading = false;
     });
-
-    this.editor.onSelectClickable.subscribe((mesh) => {
-      if (mesh) {
-        const parent = this.mesh.getParent(mesh);
-        this.loadCode(parent.name);
-      }
-    });
   }
 
-  changed(event: CodeDefinition) {
-    this.updatedCodeDefinition = event;
+  changed(code: CodeDefinition) {
+    this.request.updatedCodeDefinition = code;
     this.dirty = true;
   }
 
   apply() {
-    this.editor.saveCode(this.selected, this.updatedCodeDefinition);
-    this.runner.register(this.selected, this.updatedCodeDefinition.code);
+    this.request.apply();
     this.notify.info('Code applied with success');
     this.dirty = false;
   }
