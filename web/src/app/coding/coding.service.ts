@@ -28,8 +28,6 @@ export class CodeEditRequest {
   providedIn: 'root',
 })
 export class CodingService {
-  // public onEditParent: Subject<string> = new Subject();
-
   public onEdit: Subject<CodeEditRequest> = new Subject();
   public isEditing: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
