@@ -78,8 +78,6 @@ export class BlocklyService {
   }
 
   setXML(xml: string, workspace: any) {
-    console.log('xml', xml);
-
     if (xml) {
       Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
     } else {

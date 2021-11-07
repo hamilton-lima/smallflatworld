@@ -7,6 +7,7 @@ import { VERSION } from 'src/app/version';
 import { EditorModeService } from './editor/editor-mode.service';
 import { AudioPlayerService } from './shared/audio-player.service';
 import { EditorService } from './editor/editor.service';
+import { EventsBrokerService } from './shared/events-broker.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,7 +32,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private coding: CodingService,
     private editorMode: EditorModeService,
     private player: AudioPlayerService,
-    private editor: EditorService
+    private editor: EditorService,
+    private broker: EventsBrokerService
   ) {}
 
   ngAfterViewInit(): void {
@@ -63,6 +65,10 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.drawerRight.close();
         this.coding.isEditing.next(this.drawerRight.opened);
       }
+    });
+
+    this.broker.requestToCloseCodePanel.subscribe(()=>{
+      this.drawerRight.close();
     });
   }
 

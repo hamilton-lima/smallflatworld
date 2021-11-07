@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { EventsBrokerService } from 'src/app/shared/events-broker.service';
 import { NotifyService } from 'src/app/shared/notify.service';
 import { CodeDefinition } from '../../../../../server/src/events.model';
 import { CodeEditRequest, CodingService } from '../coding.service';
@@ -20,7 +21,8 @@ export class CodePanelComponent implements OnInit {
   constructor(
     private service: CodingService,
     private notify: NotifyService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private broker: EventsBrokerService
   ) {
     this.onReady = new Subject();
   }
@@ -53,5 +55,9 @@ export class CodePanelComponent implements OnInit {
     this.request.apply();
     this.notify.info('Code applied with success');
     this.dirty = false;
+  }
+
+  close(){
+    this.broker.requestToCloseCodePanel.next();
   }
 }

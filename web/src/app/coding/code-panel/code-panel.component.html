@@ -2,6 +2,7 @@
   <div class="top">
     <h1>Edit code</h1>
     <button mat-raised-button [disabled]="!dirty" (click)="apply()">APPLY</button>
+    <button class="left-spacer" mat-raised-button (click)="close()">CLOSE</button>
   </div>
   <div *ngIf="loading" class="loading">
     <h2>Loading code</h2>

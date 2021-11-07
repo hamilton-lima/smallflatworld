@@ -7,7 +7,9 @@ import { SceneElementMemento } from '../../../../server/src/events.model';
 })
 export class EventsBrokerService {
   onDeleteSceneElement: Subject<SceneElementMemento>;
+  requestToCloseCodePanel: Subject<void>;
   constructor() {
     this.onDeleteSceneElement = new Subject();
+    this.requestToCloseCodePanel = new Subject();
   }
 }
