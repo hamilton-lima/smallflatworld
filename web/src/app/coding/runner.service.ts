@@ -12,6 +12,7 @@ import {
 import { AudioPlayerService } from '../shared/audio-player.service';
 import { AudioService } from '../library/audio.service';
 import { EventsBrokerService } from '../shared/events-broker.service';
+import { Vector3 } from '@babylonjs/core';
 
 function playSoundByName(name: string) {
   console.log('playSound', name);
@@ -23,6 +24,17 @@ function showMessage(message: string) {
   sharedContext.snackBar.open(message, 'DISMISS', {
     duration: 5000,
   });
+}
+
+class Position{
+  vector3: Vector3;
+  constructor(x: number, z:number, y:number){
+    this.vector3 = new Vector3(x,y,z);
+  }
+}
+
+function createImpl(library: string, component: string, image: string, position: Position) {
+  console.log('create', library, component, image, position.vector3);
 }
 
 function showBottomMessage(message: string) {
@@ -55,6 +67,7 @@ class CodeRunner {
       const message = showMessage;
       const bottomMessage = showBottomMessage;
       const playSound = playSoundByName;
+      const create = createImpl;
       const onClick = this.onClickHandlers;
       
       // execute the code 
