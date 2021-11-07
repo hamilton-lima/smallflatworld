@@ -46,10 +46,6 @@ const codeGenerator = function (block) {
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  //   const left = block.getFieldValue('LEFT_VALUE');
-  //   const far = block.getFieldValue('FAR_VALUE');
-  //   const up = block.getFieldValue('UP_VALUE');
-
   const result = `new Position(${left},${far},${up})`;
   return [result, Blockly.JavaScript.ORDER_ATOMIC];
 };
