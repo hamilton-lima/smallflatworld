@@ -78,6 +78,8 @@ export class BlocklyService {
   }
 
   setXML(xml: string, workspace: any) {
+    console.log('xml', xml);
+
     if (xml) {
       Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
     } else {
@@ -221,7 +223,7 @@ export class BlocklyService {
         (library) => library.name == currentLibrary
       );
 
-      console.log('current library (2)', library);
+      console.log('current library object', library);
 
       if (library) {
         const components = library.components.map((component) => {
@@ -311,7 +313,9 @@ export class BlocklyService {
     Blockly.Extensions.register(
       'list_components_from_library_extension',
       function () {
+        console.log('who is this?', this);
         const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
+        console.log('getListOfComponents extension', currentLibrary);
 
         this.getInput('INPUT_NAME').appendField(
           new Blockly.FieldDropdown(function () {
@@ -337,6 +341,54 @@ export class BlocklyService {
       }
     );
 
+    Blockly.Extensions.registerMutator('create_mutator', {
+      mutationToDom: function () {
+        const container = Blockly.utils.xml.createElement('mutation');
+        const library = this.getFieldValue('CREATE_LIBRARY_VALUE');
+        const name = this.getFieldValue('CREATE_LIBRARY_NAME_VALUE');
+        const image = this.getFieldValue('CREATE_LIBRARY_IMAGE_VALUE');
+
+        container.setAttribute('library', library);
+        container.setAttribute('name', name);
+        container.setAttribute('image', image);
+        console.log('mutation to dom', container);
+        return container;
+      },
+
+      domToMutation: function (containerElement) {
+        const library = containerElement.getAttribute('library');
+        const name = containerElement.getAttribute('name');
+        const image = containerElement.getAttribute('image');
+
+        // set name based on the value saved on mutation
+        this.getInput('INPUT_NAME').removeField('CREATE_LIBRARY_NAME_VALUE');
+        this.getInput('INPUT_NAME').appendField(
+          new Blockly.FieldDropdown(function () {
+            return self.getListOfComponents(library);
+          }),
+          'CREATE_LIBRARY_NAME_VALUE'
+        );
+        this.getField('CREATE_LIBRARY_NAME_VALUE').setValue(name);
+
+        // set image based on the value saved on mutation
+        this.getInput('INPUT_IMAGE').removeField(
+          'CREATE_LIBRARY_IMAGE_VALUE'
+        );
+
+        if (library == INTERNAL_BASIC_LIBRARY) {
+          this.getInput('INPUT_IMAGE').appendField(
+            new Blockly.FieldDropdown(function () {
+              return self.getListOfImages();
+            }),
+            'CREATE_LIBRARY_IMAGE_VALUE'
+          );
+          this.getField('CREATE_LIBRARY_IMAGE_VALUE').setValue(image);
+        } 
+
+        console.log('dom 2 mutation', name, image, library);
+      },
+    });
+
     Blockly.Blocks['create'] = {
       init: function () {
         this.jsonInit({
@@ -361,9 +413,11 @@ export class BlocklyService {
             'list_images_for_internal_basic_extension',
             'list_components_from_library_extension',
           ],
+          mutator: 'create_mutator',
         });
       },
       onchange: function (event) {
+        console.log('changed', event);
         // @see https://stackoverflow.com/questions/67206414/blockly-update-other-inputdummy-dropdown-fields-based-on-selection-of-a-inputdu
         if (event.name == 'CREATE_LIBRARY_VALUE') {
           // remove existing dropdown list
@@ -372,6 +426,7 @@ export class BlocklyService {
           // add new list
           const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
 
+          console.log('getListOfComponents onchange', currentLibrary);
           this.getInput('INPUT_NAME').appendField(
             new Blockly.FieldDropdown(function () {
               return self.getListOfComponents(currentLibrary);
@@ -519,7 +574,7 @@ export class BlocklyService {
         'INPUT_POSITION',
         Blockly.JavaScript.ORDER_ATOMIC
       );
-      
+
       const generatedCode = `create('${library}','${name}', '${image}', ${position});\n`;
       console.log('building create command', generatedCode);
       return generatedCode;
