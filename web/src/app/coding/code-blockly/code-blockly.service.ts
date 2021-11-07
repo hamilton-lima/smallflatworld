@@ -512,8 +512,17 @@ export class BlocklyService {
     Blockly.JavaScript['create'] = function (block) {
       const library = block.getFieldValue('CREATE_LIBRARY_VALUE');
       const name = block.getFieldValue('CREATE_LIBRARY_NAME_VALUE');
-      console.log('building create command', library, name);
-      return `create('${library}','${name}');\n`;
+      const image = block.getFieldValue('CREATE_LIBRARY_IMAGE_VALUE');
+
+      const position = Blockly.JavaScript.valueToCode(
+        block,
+        'INPUT_POSITION',
+        Blockly.JavaScript.ORDER_ATOMIC
+      );
+      
+      const generatedCode = `create('${library}','${name}', '${image}', ${position});\n`;
+      console.log('building create command', generatedCode);
+      return generatedCode;
     };
 
     Blockly.JavaScript['message'] = function (block) {

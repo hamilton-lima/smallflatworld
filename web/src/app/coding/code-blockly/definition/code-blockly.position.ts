@@ -9,17 +9,17 @@ const block = {
   args0: [
     {
       type: 'input_value',
-      name: 'LEFT',
+      name: 'LEFT_VALUE',
       check: 'Number',
     },
     {
       type: 'input_value',
-      name: 'FAR',
+      name: 'FAR_VALUE',
       check: 'Number',
     },
     {
       type: 'input_value',
-      name: 'UP',
+      name: 'UP_VALUE',
       check: 'Number',
     },
   ],
@@ -30,10 +30,28 @@ const block = {
 };
 
 const codeGenerator = function (block) {
-  const left = Blockly.JavaScript.statementToCode(block, 'LEFT');
-  const far = Blockly.JavaScript.statementToCode(block, 'FAR');
-  const up = Blockly.JavaScript.statementToCode(block, 'UP');
-  return `new Position(${left},${far},${up})`;
+  const left = Blockly.JavaScript.valueToCode(
+    block,
+    'LEFT_VALUE',
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  const far = Blockly.JavaScript.valueToCode(
+    block,
+    'FAR_VALUE',
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  const up = Blockly.JavaScript.valueToCode(
+    block,
+    'UP_VALUE',
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  //   const left = block.getFieldValue('LEFT_VALUE');
+  //   const far = block.getFieldValue('FAR_VALUE');
+  //   const up = block.getFieldValue('UP_VALUE');
+
+  const result = `new Position(${left},${far},${up})`;
+  return [result, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 export class PositionDefinition implements BlocklyDefinition {
