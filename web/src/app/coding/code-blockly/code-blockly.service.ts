@@ -396,17 +396,18 @@ export class BlocklyService {
           type: 'create',
           message0: 'create %1 %2 %3 %4',
           args0: [
+            { type: 'input_dummy', name: 'INPUT_LIBRARY' },
+            { type: 'input_dummy', name: 'INPUT_IMAGE' },
+            { type: 'input_dummy', name: 'INPUT_NAME' },
             {
               type: 'input_value',
               name: 'INPUT_POSITION',
               check: 'Position',
             },
-            { type: 'input_dummy', name: 'INPUT_LIBRARY' },
-            { type: 'input_dummy', name: 'INPUT_IMAGE' },
-            { type: 'input_dummy', name: 'INPUT_NAME' },
           ],
           previousStatement: null,
           nextStatement: null,
+          inputsInline: true,
           colour: 355,
           extensions: [
             'list_editor_library_extension',
