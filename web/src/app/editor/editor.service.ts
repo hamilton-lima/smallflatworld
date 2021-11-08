@@ -434,6 +434,7 @@ export class EditorService {
     this.selectedClickable = mesh;
   }
 
+  // TODO: refactor to use MeshService.addFromLibraryComponent( )
   async addFromPickInfo(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {
     if (!this.current) {
       this.notify.warn(
@@ -495,7 +496,7 @@ export class EditorService {
       skipColision: skipColision,
     };
 
-    const mesh = await this.create(scene, element);
+    const mesh = await this.mesh.create(scene, element);
     console.log('mesh created', mesh.name);
 
     // update local realm and send client event
@@ -504,53 +505,6 @@ export class EditorService {
     this.client.update(memento);
     return mesh;
   }
-
-  async addFromLibraryComponent(scene: Scene, componentID: string, imageName: string, position: Vector3): Promise<Mesh> {
-
-    const component = this.library.getComponent(componentID);
-    let skipColision = false;
-    if (component.skipColision) {
-      skipColision = true;
-    }
-
-    const templateMesh = await this.library.getMesh(
-      scene,
-      component.id,
-      imageName,
-      skipColision
-    );
-
-    // only adds image to the model if the library component supports
-    let image = '';
-    if (component.supportImage) {
-      image = imageName;
-    }
-
-    const element = <SceneElement>{
-      name: uuidv4(),
-      componentID: component.id,
-      position: position,
-      rotation: Vector3.Zero(),
-      scaling: new Vector3(
-        component.scale,
-        component.scale,
-        component.scale
-      ),
-      code: new CodeDefinition(),
-      imageName: image,
-      skipColision: skipColision,
-    };
-
-    const mesh = await this.create(scene, element);
-    console.log('mesh created', mesh.name);
-
-    // update local realm and send client event
-    const memento = sceneElement2Memento(element);
-    await this.realm.add(memento);
-    this.client.update(memento);
-    return mesh;
-  }
-
 
   async setCurrentComponent(component: LibraryComponent) {
     this.current = component;
@@ -562,31 +516,8 @@ export class EditorService {
     return this.current;
   }
 
-  async create(scene: Scene, element: SceneElement): Promise<Mesh> {
-    console.log('create', element.name, element.position);
-    const templateMesh = await this.library.getMesh(
-      scene,
-      element.componentID,
-      element.imageName,
-      element.skipColision
-    );
-
-    const mesh = this.mesh.cloneMesh(
-      scene,
-      templateMesh,
-      element.position,
-      element.rotation,
-      element.scaling,
-      element.name
-    );
-
-    // updates position with the calculated position by the cloner
-    element.position = mesh.position;
-    return mesh;
-  }
-
   async add(scene: Scene, element: SceneElement) {
-    await this.create(scene, element);
+    await this.mesh.create(scene, element);
     console.log('add', element.name, element.position);
     const memento = sceneElement2Memento(element);
     this.realm.add(memento);

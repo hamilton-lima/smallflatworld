@@ -67,7 +67,7 @@ export class ScenarioService {
           element.position
         );
 
-        await this.editor.create(engineState.scene, element);
+        await this.mesh.create(engineState.scene, element);
 
         // if there is code definition register with runner
         if (memento.code) {

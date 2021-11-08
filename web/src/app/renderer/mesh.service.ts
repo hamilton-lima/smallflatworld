@@ -10,13 +10,25 @@ import {
   BoundingInfo,
   Vector4,
 } from '@babylonjs/core';
+import { LibraryComponent } from '../editor/editor-library.model';
+import { EditorLibraryService } from '../editor/editor-library.service';
+import { SceneElement } from './renderer.model';
+import { v4 as uuidv4 } from 'uuid';
+import { CodeDefinition } from '../../../../server/src/events.model';
+import { sceneElement2Memento } from './builders';
+import { RealmService } from '../realm/realm.service';
+import { ClientService } from '../multiplayer/client.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeshService {
   faceUV: Array<Vector4>;
-  constructor() {}
+  constructor(
+    private library: EditorLibraryService,
+    private realm: RealmService,
+    private client: ClientService
+  ) {}
 
   // Create faceUV to match 6 sides texture to sides of the cube
   // see https://playground.babylonjs.com/#ICLXQ8
@@ -262,5 +274,66 @@ export class MeshService {
   getParent(clickable: Mesh): Mesh {
     const parent: Mesh = <Mesh>clickable.parent;
     return parent;
+  }
+
+  async create(scene: Scene, element: SceneElement): Promise<Mesh> {
+    console.log('create', element.name, element.position);
+    const templateMesh = await this.library.getMesh(
+      scene,
+      element.componentID,
+      element.imageName,
+      element.skipColision
+    );
+
+    const mesh = this.cloneMesh(
+      scene,
+      templateMesh,
+      element.position,
+      element.rotation,
+      element.scaling,
+      element.name
+    );
+
+    // updates position with the calculated position by the cloner
+    element.position = mesh.position;
+    return mesh;
+  }
+
+  async addFromLibraryComponent(
+    scene: Scene,
+    component: LibraryComponent,
+    imageName: string,
+    position: Vector3
+  ): Promise<Mesh> {
+    let skipColision = false;
+    if (component.skipColision) {
+      skipColision = true;
+    }
+
+    // only adds image to the model if the library component supports
+    let image = '';
+    if (component.supportImage) {
+      image = imageName;
+    }
+
+    const element = <SceneElement>{
+      name: uuidv4(),
+      componentID: component.id,
+      position: position,
+      rotation: Vector3.Zero(),
+      scaling: new Vector3(component.scale, component.scale, component.scale),
+      code: new CodeDefinition(),
+      imageName: image,
+      skipColision: skipColision,
+    };
+
+    const mesh = await this.create(scene, element);
+    console.log('mesh created', mesh.name);
+
+    // update local realm and send client event
+    const memento = sceneElement2Memento(element);
+    await this.realm.add(memento);
+    this.client.update(memento);
+    return mesh;
   }
 }
