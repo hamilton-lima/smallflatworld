@@ -13,8 +13,7 @@ import { AudioPlayerService } from '../shared/audio-player.service';
 import { AudioService } from '../library/audio.service';
 import { EventsBrokerService } from '../shared/events-broker.service';
 import { Vector3 } from '@babylonjs/core';
-import { RendererService } from '../renderer/renderer.service';
-import { EditorService } from '../editor/editor.service';
+import { MeshService } from '../renderer/mesh.service';
 
 function playSoundByName(name: string) {
   console.log('playSound', name);
@@ -43,7 +42,7 @@ function createImpl(
 ) {
   console.log('create', library, component, image, position.vector3);
 
-  const engineState = sharedContext.renderer.engineState.value;
+  const engineState = sharedContext.broker.engineState.value;
   if (engineState) {
     const start = engineState.character.position;
     start.addInPlace(position.vector3);
@@ -71,8 +70,8 @@ class Context {
   snackBar: MatSnackBar;
   bottomSheet: MatBottomSheet;
   audio: AudioService;
-  renderer: RendererService;
-  editor: EditorService;
+  mesh: MeshService;
+  broker: EventsBrokerService;
 }
 
 let sharedContext: Context;
@@ -118,8 +117,7 @@ export class RunnerService {
     private player: AudioPlayerService,
     private audio: AudioService,
     private broker: EventsBrokerService,
-    private renderer: RendererService,
-    private editor: EditorService
+    private mesh: MeshService
   ) {
     // make injected services available to scripts
     sharedContext = <Context>{
@@ -127,8 +125,8 @@ export class RunnerService {
       bottomSheet: this.bottomSheet,
       player: this.player,
       audio: this.audio,
-      renderer: this.renderer,
-      editor: this.editor,
+      mesh: this.mesh,
+      broker: this.broker,
     };
 
     this.onClick.subscribe((uuid) => {

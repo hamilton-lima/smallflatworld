@@ -505,50 +505,36 @@ export class EditorService {
     return mesh;
   }
 
-  async addFromLibraryComponent(scene: Scene, library: string, component: string, imageName: string, position: Vector3): Promise<Mesh> {
+  async addFromLibraryComponent(scene: Scene, componentID: string, imageName: string, position: Vector3): Promise<Mesh> {
 
+    const component = this.library.getComponent(componentID);
     let skipColision = false;
-    if (this.current.skipColision) {
+    if (component.skipColision) {
       skipColision = true;
     }
 
     const templateMesh = await this.library.getMesh(
       scene,
-      this.current.id,
+      component.id,
       imageName,
       skipColision
     );
-    const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
-    let position: Vector3;
-
-    // if picking ground add to the clicking position
-    if (picked.name == 'ground') {
-      position = pickInfo.pickedPoint;
-    } else {
-      const parent = this.mesh.getParent(picked);
-
-      position = this.calcSnapPositionCenterOfCubeFace(
-        faceId,
-        parent,
-        dimensions
-      );
-    }
 
     // only adds image to the model if the library component supports
     let image = '';
-    if (this.current.supportImage) {
+    if (component.supportImage) {
       image = imageName;
     }
 
     const element = <SceneElement>{
       name: uuidv4(),
-      componentID: this.current.id,
+      componentID: component.id,
       position: position,
       rotation: Vector3.Zero(),
       scaling: new Vector3(
-        this.current.scale,
-        this.current.scale,
-        this.current.scale
+        component.scale,
+        component.scale,
+        component.scale
       ),
       code: new CodeDefinition(),
       imageName: image,

@@ -10,6 +10,7 @@ import {
 } from '@babylonjs/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { EditorService } from '../editor/editor.service';
+import { EventsBrokerService } from '../shared/events-broker.service';
 import { EngineState, SceneElement } from './renderer.model';
 
 @Injectable({
@@ -17,8 +18,7 @@ import { EngineState, SceneElement } from './renderer.model';
 })
 export class RendererService {
   reload: Subject<void> = new Subject();
-  engineState: BehaviorSubject<EngineState> = new BehaviorSubject(null);
-  constructor(private editor: EditorService) {}
+  constructor(private editor: EditorService, private broker: EventsBrokerService) {}
 
   setup(canvas: ElementRef<HTMLCanvasElement>): EngineState {
     const result = new EngineState();
@@ -52,7 +52,7 @@ export class RendererService {
     light.diffuse = new Color3(1, 1, 1);
     light.intensity = 1;
 
-    this.engineState.next(result);
+    this.broker.engineState.next(result);
     return result;
   }
 
