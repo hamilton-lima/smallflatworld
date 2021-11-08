@@ -53,6 +53,7 @@ export class RendererService {
     light.intensity = 1;
 
     this.broker.engineState.next(result);
+    console.log('engine state setup', result);
     return result;
   }
 

@@ -42,7 +42,8 @@ function createImpl(
 ) {
   console.log('create', library, component, image, position.vector3);
 
-  const engineState = sharedContext.broker.engineState.value;
+  const engineState = sharedContext.broker.engineState.getValue();
+  console.log('engine state', engineState);
   if (engineState) {
     const start = engineState.character.position;
     start.addInPlace(position.vector3);
@@ -140,6 +141,7 @@ export class RunnerService {
     this.broker.onDeleteSceneElement.subscribe((element) =>
       this.delete(element.name)
     );
+
   }
 
   register(uuid: string, code: string) {
