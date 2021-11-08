@@ -43,7 +43,6 @@ export class RendererComponent implements AfterViewInit {
   init(): void {
     if( this.currentEngineState){
       this.currentEngineState.scene.dispose();
-      this.currentEngineState.engine.dispose();
     }
 
     const engineState = this.service.setup(this.canvas);

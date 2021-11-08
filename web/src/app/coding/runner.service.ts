@@ -116,7 +116,7 @@ export class RunnerService {
     });
 
     // remove existing runner for a deleted element
-    broker.onDeleteSceneElement.subscribe((element) =>
+    this.broker.onDeleteSceneElement.subscribe((element) =>
       this.delete(element.name)
     );
   }
