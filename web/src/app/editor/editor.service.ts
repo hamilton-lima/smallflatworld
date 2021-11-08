@@ -34,6 +34,7 @@ import { RunnerService } from '../coding/runner.service';
 import { NotifyService } from '../shared/notify.service';
 import { ImagesService } from '../library/images.service';
 import { Subject } from 'rxjs';
+import { SceneService } from '../shared/scene.service';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
@@ -67,7 +68,8 @@ export class EditorService {
     private coding: CodingService,
     private runner: RunnerService,
     private notify: NotifyService,
-    private image: ImagesService
+    private image: ImagesService,
+    private scene: SceneService
   ) {
     this.onDropFromLibrary = new Subject();
   }
@@ -415,7 +417,11 @@ export class EditorService {
     if (this.isValidSelection()) {
       console.log('select mesh', mesh.name);
       this.onSelectClickable.next(mesh);
-      this.editCode();
+
+      // if already editing change the current selection
+      if (this.coding.isEditing.getValue()) {
+        this.editCode();
+      }
       this.showBoundingBox(true);
     } else {
       this.onSelectClickable.next(null);
@@ -496,7 +502,7 @@ export class EditorService {
       skipColision: skipColision,
     };
 
-    const mesh = await this.mesh.create(scene, element);
+    const mesh = await this.scene.create(scene, element);
     console.log('mesh created', mesh.name);
 
     // update local realm and send client event
@@ -517,7 +523,7 @@ export class EditorService {
   }
 
   async add(scene: Scene, element: SceneElement) {
-    await this.mesh.create(scene, element);
+    await this.scene.create(scene, element);
     console.log('add', element.name, element.position);
     const memento = sceneElement2Memento(element);
     this.realm.add(memento);

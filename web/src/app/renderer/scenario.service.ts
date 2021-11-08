@@ -9,12 +9,11 @@ import {
   Vector3,
 } from '@babylonjs/core';
 import { RunnerService } from '../coding/runner.service';
-import { EditorService } from '../editor/editor.service';
-import { CharacterService } from '../mesh/character.service';
 import { RealmService } from '../realm/realm.service';
 import { buildVector3, memento2SceneElement } from './builders';
 import { MeshService } from './mesh.service';
 import { EngineState, SceneElement } from './renderer.model';
+import { SceneService} from '../shared/scene.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +22,8 @@ export class ScenarioService {
   constructor(
     private mesh: MeshService,
     private realm: RealmService,
-    private editor: EditorService,
-    private character: CharacterService,
-    private runner: RunnerService
+    private runner: RunnerService,
+    private scene: SceneService,
   ) {}
 
   addCharacter(engineState: EngineState, character: SceneElement) {
@@ -67,7 +65,7 @@ export class ScenarioService {
           element.position
         );
 
-        await this.mesh.create(engineState.scene, element);
+        await this.scene.create(engineState.scene, element);
 
         // if there is code definition register with runner
         if (memento.code) {
