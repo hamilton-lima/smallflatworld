@@ -8,7 +8,7 @@ import {
   DirectionalLight,
   Color3,
 } from '@babylonjs/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { EditorService } from '../editor/editor.service';
 import { EngineState, SceneElement } from './renderer.model';
 
@@ -17,7 +17,7 @@ import { EngineState, SceneElement } from './renderer.model';
 })
 export class RendererService {
   reload: Subject<void> = new Subject();
-
+  engineState: BehaviorSubject<EngineState> = new BehaviorSubject(null);
   constructor(private editor: EditorService) {}
 
   setup(canvas: ElementRef<HTMLCanvasElement>): EngineState {
@@ -52,6 +52,7 @@ export class RendererService {
     light.diffuse = new Color3(1, 1, 1);
     light.intensity = 1;
 
+    this.engineState.next(result);
     return result;
   }
 

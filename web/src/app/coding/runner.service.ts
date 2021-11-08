@@ -13,6 +13,8 @@ import { AudioPlayerService } from '../shared/audio-player.service';
 import { AudioService } from '../library/audio.service';
 import { EventsBrokerService } from '../shared/events-broker.service';
 import { Vector3 } from '@babylonjs/core';
+import { RendererService } from '../renderer/renderer.service';
+import { EditorService } from '../editor/editor.service';
 
 function playSoundByName(name: string) {
   console.log('playSound', name);
@@ -26,15 +28,30 @@ function showMessage(message: string) {
   });
 }
 
-class Position{
+class Position {
   vector3: Vector3;
-  constructor(x: number, z:number, y:number){
-    this.vector3 = new Vector3(x,y,z);
+  constructor(x: number, z: number, y: number) {
+    this.vector3 = new Vector3(x, y, z);
   }
 }
 
-function createImpl(library: string, component: string, image: string, position: Position) {
+function createImpl(
+  library: string,
+  component: string,
+  image: string,
+  position: Position
+) {
   console.log('create', library, component, image, position.vector3);
+
+  const engineState = sharedContext.renderer.engineState.value;
+  if (engineState) {
+    const start = engineState.character.position;
+    start.addInPlace(position.vector3);
+    console.log('position to create', start);
+
+  } else {
+    console.warn('engine state is not ready');
+  }
 }
 
 function showBottomMessage(message: string) {
@@ -54,6 +71,8 @@ class Context {
   snackBar: MatSnackBar;
   bottomSheet: MatBottomSheet;
   audio: AudioService;
+  renderer: RendererService;
+  editor: EditorService;
 }
 
 let sharedContext: Context;
@@ -69,8 +88,8 @@ class CodeRunner {
       const playSound = playSoundByName;
       const create = createImpl;
       const onClick = this.onClickHandlers;
-      
-      // execute the code 
+
+      // execute the code
       eval(code);
     } catch (error) {
       console.warn('error parsing code', error, code);
@@ -98,7 +117,9 @@ export class RunnerService {
     private bottomSheet: MatBottomSheet,
     private player: AudioPlayerService,
     private audio: AudioService,
-    private broker: EventsBrokerService
+    private broker: EventsBrokerService,
+    private renderer: RendererService,
+    private editor: EditorService
   ) {
     // make injected services available to scripts
     sharedContext = <Context>{
@@ -106,6 +127,8 @@ export class RunnerService {
       bottomSheet: this.bottomSheet,
       player: this.player,
       audio: this.audio,
+      renderer: this.renderer,
+      editor: this.editor,
     };
 
     this.onClick.subscribe((uuid) => {

@@ -289,7 +289,7 @@ export class EditorService {
     this.onDropFromLibrary.subscribe(async (point: Vector2) => {
       // const pickInfo = scene.pick( scene.pointerX, scene.pointerY);
       const pickInfo = scene.pick(point.x, point.y);
-      const mesh = await this.addToPosition(scene, pickInfo);
+      const mesh = await this.addFromPickInfo(scene, pickInfo);
       this.editorMode.edit();
 
       const clickable = this.mesh.getClickableFromMesh(mesh);
@@ -434,7 +434,7 @@ export class EditorService {
     this.selectedClickable = mesh;
   }
 
-  async addToPosition(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {
+  async addFromPickInfo(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {
     if (!this.current) {
       this.notify.warn(
         "Err... I don't know what to add to the scene... select from the " +
@@ -504,6 +504,67 @@ export class EditorService {
     this.client.update(memento);
     return mesh;
   }
+
+  async addFromLibraryComponent(scene: Scene, library: string, component: string, imageName: string, position: Vector3): Promise<Mesh> {
+
+    let skipColision = false;
+    if (this.current.skipColision) {
+      skipColision = true;
+    }
+
+    const templateMesh = await this.library.getMesh(
+      scene,
+      this.current.id,
+      imageName,
+      skipColision
+    );
+    const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
+    let position: Vector3;
+
+    // if picking ground add to the clicking position
+    if (picked.name == 'ground') {
+      position = pickInfo.pickedPoint;
+    } else {
+      const parent = this.mesh.getParent(picked);
+
+      position = this.calcSnapPositionCenterOfCubeFace(
+        faceId,
+        parent,
+        dimensions
+      );
+    }
+
+    // only adds image to the model if the library component supports
+    let image = '';
+    if (this.current.supportImage) {
+      image = imageName;
+    }
+
+    const element = <SceneElement>{
+      name: uuidv4(),
+      componentID: this.current.id,
+      position: position,
+      rotation: Vector3.Zero(),
+      scaling: new Vector3(
+        this.current.scale,
+        this.current.scale,
+        this.current.scale
+      ),
+      code: new CodeDefinition(),
+      imageName: image,
+      skipColision: skipColision,
+    };
+
+    const mesh = await this.create(scene, element);
+    console.log('mesh created', mesh.name);
+
+    // update local realm and send client event
+    const memento = sceneElement2Memento(element);
+    await this.realm.add(memento);
+    this.client.update(memento);
+    return mesh;
+  }
+
 
   async setCurrentComponent(component: LibraryComponent) {
     this.current = component;
