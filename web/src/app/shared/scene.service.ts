@@ -81,4 +81,25 @@ export class SceneService {
     this.client.update(memento);
     return mesh;
   }
+
+  async addFromLibraryComponentID(
+    scene: Scene,
+    componentID: string,
+    imageName: string,
+    position: Vector3
+  ): Promise<Mesh> {
+    const component = this.library.getComponent(componentID);
+
+    if (component) {
+      return this.addFromLibraryComponent(
+        scene,
+        component,
+        imageName,
+        position
+      );
+    } else {
+      console.warn('Unknown component ID to be created', componentID);
+      return null;
+    }
+  }
 }

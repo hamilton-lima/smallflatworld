@@ -231,7 +231,7 @@ export class BlocklyService {
             height: 70,
             alt: component.name,
           };
-          return [image, component.name];
+          return [image, component.id];
         });
 
         console.log('components', components);
@@ -245,7 +245,7 @@ export class BlocklyService {
   }
 
   getListOfImages() {
-    let options = [['Please choose a library', 'N/A']];
+    let options = [['No images available', 'N/A']];
 
     const components = this.images.onUpdate.value.map((sceneImage) => {
       const image = {

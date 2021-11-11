@@ -14,6 +14,7 @@ import { AudioService } from '../library/audio.service';
 import { EventsBrokerService } from '../shared/events-broker.service';
 import { Vector3 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
+import { SceneService } from '../shared/scene.service';
 
 function playSoundByName(name: string) {
   console.log('playSound', name);
@@ -46,8 +47,15 @@ function createImpl(
   console.log('engine state', engineState);
   if (engineState) {
     const start = engineState.character.position;
-    start.addInPlace(position.vector3);
-    console.log('position to create', start);
+    const creationPosition = start.add(position.vector3);
+    console.log('create element', start, creationPosition, position.vector3);
+    // CREATE the component using the character position as reference!!
+    sharedContext.scene.addFromLibraryComponentID(
+      engineState.scene,
+      component,
+      image,
+      creationPosition
+    );
 
   } else {
     console.warn('engine state is not ready');
@@ -73,6 +81,7 @@ class Context {
   audio: AudioService;
   mesh: MeshService;
   broker: EventsBrokerService;
+  scene: SceneService;
 }
 
 let sharedContext: Context;
@@ -118,7 +127,8 @@ export class RunnerService {
     private player: AudioPlayerService,
     private audio: AudioService,
     private broker: EventsBrokerService,
-    private mesh: MeshService
+    private mesh: MeshService,
+    private scene: SceneService
   ) {
     // make injected services available to scripts
     sharedContext = <Context>{
@@ -128,6 +138,7 @@ export class RunnerService {
       audio: this.audio,
       mesh: this.mesh,
       broker: this.broker,
+      scene: this.scene,
     };
 
     this.onClick.subscribe((uuid) => {
@@ -141,7 +152,6 @@ export class RunnerService {
     this.broker.onDeleteSceneElement.subscribe((element) =>
       this.delete(element.name)
     );
-
   }
 
   register(uuid: string, code: string) {

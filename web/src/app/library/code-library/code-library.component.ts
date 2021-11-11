@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
+import { InputService } from 'src/app/shared/input.service';
 import { SceneCode } from '../../../../../server/src/events.model';
 import { CodeLibraryService } from '../code-library.service';
 
@@ -16,7 +17,8 @@ export class CodeLibraryComponent implements OnInit {
 
   constructor(
     private service: CodeLibraryService,
-    private confirm: ConfirmService
+    private confirm: ConfirmService,
+    private input: InputService,
   ) {
     this.codes = new BehaviorSubject<SceneCode[]>([]);
   }
@@ -47,6 +49,7 @@ export class CodeLibraryComponent implements OnInit {
 
   execute(code: SceneCode) {
     this.service.execute(code);
+    this.input.focus();
   }
 
   edit(code: SceneCode) {
