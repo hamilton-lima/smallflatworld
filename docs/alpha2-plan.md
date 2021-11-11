@@ -33,10 +33,10 @@ release 0.4.2
 - Add function to create scenario elements
 
 CURRENT
-- Display mouse position and character position - to be used as reference 
-for the create scenario code
+- Display mouse position and character position and north direction 
+  so FAR and LEFT makes sense, to be used as reference for the create scenario code
 
-- Add legs to the character or wheels :)
+- Add legs to the character or wheels :) or googly eyes
 - Add mixpanel.com tracking (timeboxed)
 - Export/Import code from code library
 
