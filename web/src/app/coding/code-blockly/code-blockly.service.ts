@@ -204,7 +204,7 @@ export class BlocklyService {
 
   readonly definitions: Array<BlocklyDefinition> = [
     new OnClickDefinition(),
-    new OnRepeatDefinition(),
+    // new OnRepeatDefinition(), // TODO: add back when on repeat is ready
     new PositionDefinition(),
   ];
 
