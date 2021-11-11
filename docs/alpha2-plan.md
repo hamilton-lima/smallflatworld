@@ -30,8 +30,9 @@
 release 0.4.2
 
 ### Create scene elements with code
-CURRENT
 - Add function to create scenario elements
+
+CURRENT
 - Display mouse position and character position - to be used as reference 
 for the create scenario code
 
