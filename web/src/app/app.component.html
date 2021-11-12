@@ -18,6 +18,15 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <app-realm-toolbar></app-realm-toolbar>
+      </mat-expansion-panel>      
+      
+      <mat-expansion-panel class="panel" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><mat-icon class="panel-icon">info</mat-icon>Info
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-info-panel></app-info-panel>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="panel">

@@ -8,7 +8,7 @@ import {
   DirectionalLight,
   Color3,
 } from '@babylonjs/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { EditorService } from '../editor/editor.service';
 import { EventsBrokerService } from '../shared/events-broker.service';
 import { EngineState, SceneElement } from './renderer.model';
@@ -18,6 +18,7 @@ import { EngineState, SceneElement } from './renderer.model';
 })
 export class RendererService {
   reload: Subject<void> = new Subject();
+  
   constructor(private editor: EditorService, private broker: EventsBrokerService) {}
 
   setup(canvas: ElementRef<HTMLCanvasElement>): EngineState {
