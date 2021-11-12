@@ -55,9 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     );
 
-    this.coding.onEdit.subscribe((request) =>
-      this.toggleRight(request)
-    );
+    this.coding.onEdit.subscribe((request) => this.toggleRight(request));
 
     // selection is deleted close the code panel
     this.editor.onSelectClickable.subscribe((mesh) => {
@@ -67,7 +65,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.broker.requestToCloseCodePanel.subscribe(()=>{
+    this.broker.requestToCloseCodePanel.subscribe(() => {
       this.drawerRight.close();
     });
   }
@@ -82,10 +80,5 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
     this.lastSelection = selection;
     this.coding.isEditing.next(this.drawerRight.opened);
-  }
-
-  toggle() {
-    this.drawer.toggle();
-    this.input.focus();
   }
 }
