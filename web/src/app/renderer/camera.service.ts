@@ -25,23 +25,32 @@ export class CameraService {
     camera.radius = this.distance;
     camera.heightOffset = this.height;
     console.log('camera.cameraAcceleration', camera.cameraAcceleration);
-    camera.cameraAcceleration = camera.cameraAcceleration /2;
+    camera.cameraAcceleration = camera.cameraAcceleration / 2;
 
     this.camera = camera;
     return camera;
   }
 
+  getAngle() {
+    if (this.camera) {
+      return this.camera.getDirection(Vector3.Zero());
+    } else {
+      console.warn('get camera angle with no camera set');
+      return Vector3.Zero();
+    }
+  }
+
   zoomOut() {
     if (Math.abs(this.camera.radius) < MAX) {
       this.camera.radius -= STEP;
-      this.camera.heightOffset +=STEP;
+      this.camera.heightOffset += STEP;
     }
   }
 
   zoomIn() {
     if (Math.abs(this.camera.radius) > MIN) {
       this.camera.radius += STEP;
-      this.camera.heightOffset -=STEP;
+      this.camera.heightOffset -= STEP;
     }
   }
 

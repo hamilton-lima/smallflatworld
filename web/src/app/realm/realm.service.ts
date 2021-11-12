@@ -116,6 +116,7 @@ export class RealmService {
   // update character state
   async updateCharacter(character: SceneElementMemento) {
     this.currentRealm.character = character;
+    this.broker.onUpdateCharacter.next(character);
     return this._updateRealm();
   }
 

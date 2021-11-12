@@ -10,10 +10,12 @@ export class EventsBrokerService {
   onDeleteSceneElement: Subject<SceneElementMemento>;
   requestToCloseCodePanel: Subject<void>;
   engineState: BehaviorSubject<EngineState>;
+  onUpdateCharacter: Subject<SceneElementMemento>;
 
   constructor() {
     this.onDeleteSceneElement = new Subject();
     this.requestToCloseCodePanel = new Subject();
+    this.onUpdateCharacter = new Subject();
     this.engineState = new BehaviorSubject(null);
   }
 }
