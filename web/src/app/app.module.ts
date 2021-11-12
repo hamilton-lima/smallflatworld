@@ -25,6 +25,7 @@ import { UpDownComponent } from './editor/up-down/up-down.component';
 import { CodeLibraryComponent } from './library/code-library/code-library.component';
 import { DisplayFPSComponent } from './info/display-fps/display-fps.component';
 import { InfoPanelComponent } from './info/info-panel/info-panel.component';
+import { PositionPanelComponent } from './info/position-panel/position-panel.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { InfoPanelComponent } from './info/info-panel/info-panel.component';
     CodeLibraryComponent,
     DisplayFPSComponent,
     InfoPanelComponent,
+    PositionPanelComponent,
   ],
   imports: [
     BrowserModule,
