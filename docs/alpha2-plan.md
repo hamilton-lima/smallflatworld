@@ -33,8 +33,11 @@ release 0.4.2
 - Add function to create scenario elements
 
 CURRENT
+- format position
+- move normalize to saving rotation
 - Display mouse position and character position and camera north direction 
   replace FAR,LEFT,UP by NORTH,WEST,ALTITUDE in the editor and in the position display
+- Add teleport to 0,0,0 and set rotation 0,0,0
 
 - Add legs to the character or wheels :) or googly eyes
 

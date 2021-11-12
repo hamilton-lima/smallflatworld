@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vector2, Vector3 } from '@babylonjs/core';
-import { CameraService } from 'src/app/renderer/camera.service';
+import { Tools } from '@babylonjs/core';
 import { EventsBrokerService } from 'src/app/shared/events-broker.service';
 import { Vector3Memento } from '../../../../../server/src/events.model';
 
@@ -13,14 +12,18 @@ export class PositionPanelComponent implements OnInit {
   characterPosition: Vector3Memento;
   cameraRotation = 0;
 
-  constructor(private broker: EventsBrokerService, private camera: CameraService) {}
+  constructor(
+    private broker: EventsBrokerService,
+  ) {}
 
   ngOnInit(): void {
     this.characterPosition = new Vector3Memento();
-    
+
     this.broker.onUpdateCharacter.subscribe((character) => {
       this.characterPosition = character.position;
-      this.cameraRotation = this.camera.getCameraRotation();
+      const nomrmalizedRad = character.rotation.y % (2 * Math.PI);
+      this.cameraRotation = Tools.ToDegrees(nomrmalizedRad);
+      console.log('character', character);
     });
   }
 }
