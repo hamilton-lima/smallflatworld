@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Scene, Mesh, FollowCamera, Camera, Vector3 } from '@babylonjs/core';
+import { Scene, Mesh, FollowCamera, Camera, Vector3, Vector2, Tools } from '@babylonjs/core';
 const DEFAULT_DISTANCE = -25;
 const DEFAULT_HEIGHT = 25;
 const STEP = 2;
@@ -31,12 +31,22 @@ export class CameraService {
     return camera;
   }
 
-  getAngle() {
+  getCameraRotation() {
+    console.log('camera', this.camera);
     if (this.camera) {
-      return this.camera.getDirection(Vector3.Zero());
+
+      let origin = new Vector3(0, 0, 1);
+      let v1 = origin.subtract(this.camera.rotation);
+    
+      v1.normalize();
+      
+      let angle = Math.acos(Vector3.Dot(origin, v1));
+      let angleInDegree = Tools.ToDegrees(angle);
+
+      return angleInDegree;
     } else {
       console.warn('get camera angle with no camera set');
-      return Vector3.Zero();
+      return 0;
     }
   }
 

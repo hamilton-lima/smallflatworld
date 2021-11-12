@@ -37,6 +37,10 @@ CURRENT
   replace FAR,LEFT,UP by NORTH,WEST,ALTITUDE in the editor and in the position display
 
 - Add legs to the character or wheels :) or googly eyes
+
+Experiment with this camera 
+https://www.babylonjs-playground.com/#LYCSQ#256
+
 - Add mixpanel.com tracking (timeboxed)
 - Export/Import code from code library
 
