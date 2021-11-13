@@ -35,6 +35,16 @@ class Position {
   }
 }
 
+function teleportCharacterImpl(
+  destination: Position
+) {
+
+  const position = destination.vector3;
+  const rotation = Vector3.Zero();
+
+  console.log('teleport', destination.vector3);
+}
+
 function createImpl(
   library: string,
   component: string,
@@ -96,6 +106,7 @@ class CodeRunner {
       const bottomMessage = showBottomMessage;
       const playSound = playSoundByName;
       const create = createImpl;
+      const teleport = teleportCharacterImpl;
       const onClick = this.onClickHandlers;
 
       // execute the code

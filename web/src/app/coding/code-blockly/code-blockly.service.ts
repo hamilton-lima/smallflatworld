@@ -1,6 +1,7 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { OnRepeatDefinition } from './definition/code-blockly.onrepeat';
 import { OnClickDefinition } from './definition/code-blockly.onclick';
+import { TeleportDefinition } from './definition/code-blockly.teleport';
 import { PositionDefinition } from './definition/code-blockly.position';
 import { AudioService } from 'src/app/library/audio.service';
 import { EditorLibraryService } from 'src/app/editor/editor-library.service';
@@ -105,6 +106,7 @@ export class BlocklyService {
     <block type="bottom_message" />
     <block type="playSound" />
     <block type="create" />
+    <block type="teleport" />
     <block type="position" />
     <block type="turn" />
     <block type="math_number" />
@@ -206,6 +208,7 @@ export class BlocklyService {
     new OnClickDefinition(),
     // new OnRepeatDefinition(), // TODO: add back when on repeat is ready
     new PositionDefinition(),
+    new TeleportDefinition(),
   ];
 
   // Return list of component based on library name
@@ -369,9 +372,7 @@ export class BlocklyService {
         this.getField('CREATE_LIBRARY_NAME_VALUE').setValue(name);
 
         // set image based on the value saved on mutation
-        this.getInput('INPUT_IMAGE').removeField(
-          'CREATE_LIBRARY_IMAGE_VALUE'
-        );
+        this.getInput('INPUT_IMAGE').removeField('CREATE_LIBRARY_IMAGE_VALUE');
 
         if (library == INTERNAL_BASIC_LIBRARY) {
           this.getInput('INPUT_IMAGE').appendField(
@@ -381,7 +382,7 @@ export class BlocklyService {
             'CREATE_LIBRARY_IMAGE_VALUE'
           );
           this.getField('CREATE_LIBRARY_IMAGE_VALUE').setValue(image);
-        } 
+        }
 
         console.log('dom 2 mutation', name, image, library);
       },
@@ -575,7 +576,6 @@ export class BlocklyService {
       );
 
       const generatedCode = `create('${library}','${name}', '${image}', ${position});\n`;
-      console.log('building create command', generatedCode);
       return generatedCode;
     };
 
