@@ -105,9 +105,70 @@ export class BlocklyService {
     <block type="message" />
     <block type="bottom_message" />
     <block type="playSound" />
+
     <block type="create" />
-    <block type="teleport" />
-    <block type="position" />
+    <block type="create">
+      <value name="INPUT_POSITION">
+        <block type="position" >
+          <value name="LEFT_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="FAR_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="UP_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+        </block>  
+      </value>
+    </block>
+    
+    <block type="teleport">
+      <value name="TELEPORT_POSITION">
+        <block type="position" >
+          <value name="LEFT_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="FAR_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="UP_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+        </block>  
+      </value>
+    </block>
+
+    <block type="position" >
+      <value name="LEFT_VALUE">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+      <value name="FAR_VALUE">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+      <value name="UP_VALUE">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+    </block>  
+
     <block type="turn" />
     <block type="math_number" />
     <block type="math_arithmetic" />
