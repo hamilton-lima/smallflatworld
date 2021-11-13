@@ -15,6 +15,7 @@ import { EventsBrokerService } from '../shared/events-broker.service';
 import { Vector3 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
 import { SceneService } from '../shared/scene.service';
+import { MovementService } from '../renderer/movement.service';
 
 function playSoundByName(name: string) {
   console.log('playSound', name);
@@ -35,14 +36,13 @@ class Position {
   }
 }
 
-function teleportCharacterImpl(
-  destination: Position
-) {
-
+function teleportCharacterImpl(destination: Position) {
   const position = destination.vector3;
   const rotation = Vector3.Zero();
 
   console.log('teleport', destination.vector3);
+  const engineState = sharedContext.broker.engineState.getValue();
+  sharedContext.movement.teleport(engineState.character, position, rotation);
 }
 
 function createImpl(
@@ -66,7 +66,6 @@ function createImpl(
       image,
       creationPosition
     );
-
   } else {
     console.warn('engine state is not ready');
   }
@@ -92,6 +91,7 @@ class Context {
   mesh: MeshService;
   broker: EventsBrokerService;
   scene: SceneService;
+  movement: MovementService;
 }
 
 let sharedContext: Context;
@@ -139,7 +139,8 @@ export class RunnerService {
     private audio: AudioService,
     private broker: EventsBrokerService,
     private mesh: MeshService,
-    private scene: SceneService
+    private scene: SceneService,
+    private movement: MovementService
   ) {
     // make injected services available to scripts
     sharedContext = <Context>{
@@ -150,6 +151,7 @@ export class RunnerService {
       mesh: this.mesh,
       broker: this.broker,
       scene: this.scene,
+      movement: this.movement,
     };
 
     this.onClick.subscribe((uuid) => {

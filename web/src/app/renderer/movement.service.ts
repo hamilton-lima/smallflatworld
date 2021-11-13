@@ -100,4 +100,15 @@ export class MovementService {
       this.realm.updateCharacter(mesh2Memento(character));
     }
   }
+
+  teleport(
+    character: Mesh,
+    position: Vector3,
+    rotation: Vector3
+  ) {
+    character.position = position;
+    character.rotation = rotation;
+
+    this.realm.updateCharacter(mesh2Memento(character));
+  }
 }
