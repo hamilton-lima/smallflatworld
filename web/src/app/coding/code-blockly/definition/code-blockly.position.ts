@@ -51,7 +51,7 @@ const codeGenerator = function (block) {
 };
 
 export class PositionDefinition implements BlocklyDefinition {
-  getXML() {
+  static getXML() {
     return `
       <block type="${type}" >
       <value name="LEFT_VALUE">

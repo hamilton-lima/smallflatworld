@@ -1,4 +1,5 @@
 import { BlocklyDefinition } from '../code-blockly.service';
+import { PositionDefinition } from './code-blockly.position';
 declare var Blockly: any;
 
 const type = 'teleport';
@@ -31,27 +32,13 @@ const codeGenerator = function (block) {
 };
 
 export class TeleportDefinition implements BlocklyDefinition {
-  getXML() {
+  static getXML() {
+    const position = PositionDefinition.getXML();
+
     const xml = `
       <block type="${type}">
       <value name="TELEPORT_POSITION">
-        <block type="position" >
-          <value name="LEFT_VALUE">
-            <block type="math_number">
-              <field name="NUM">0</field>
-            </block>
-          </value>
-          <value name="FAR_VALUE">
-            <block type="math_number">
-              <field name="NUM">0</field>
-            </block>
-          </value>
-          <value name="UP_VALUE">
-            <block type="math_number">
-              <field name="NUM">0</field>
-            </block>
-          </value>
-        </block>  
+        ${position}
       </value>
     </block>
     `;

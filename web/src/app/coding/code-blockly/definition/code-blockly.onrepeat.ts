@@ -26,7 +26,7 @@ const codeGenerator = function (block) {
 };
 
 export class OnRepeatDefinition implements BlocklyDefinition {
-  getXML() {
+  static getXML() {
     return `<block type="${type}" />`;
   }
 

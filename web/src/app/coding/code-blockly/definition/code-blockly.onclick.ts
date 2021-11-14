@@ -27,7 +27,7 @@ const codeGenerator = function (block) {
 
 export class OnClickDefinition implements BlocklyDefinition {
 
-  getXML() {
+  static getXML() {
     return `<block type="${type}" />`;
   }
   

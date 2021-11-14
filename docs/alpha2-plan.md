@@ -36,10 +36,10 @@ release 0.4.2
 CURRENT
 - format position
 - compass rotation = character.rotation.x *-1
-- move blockly xml definition to the *.definition file
-- move normalize to saving rotation
 - Display mouse position and character position and camera north direction 
   replace FAR,LEFT,UP by NORTH,WEST,ALTITUDE in the editor and in the position display
+- move blockly xml definition to the *.definition file
+- move normalize to saving rotation
 
 - Add legs to the character or wheels :) or googly eyes
 
