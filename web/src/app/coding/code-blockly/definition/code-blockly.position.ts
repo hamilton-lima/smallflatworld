@@ -5,21 +5,21 @@ const type = 'position';
 
 const block = {
   type: type,
-  message0: 'Left %1 Far %2 Up %3',
+  message0: 'North %2 East %1 Altitude %3',
   args0: [
     {
       type: 'input_value',
-      name: 'LEFT_VALUE',
+      name: 'NORTH_VALUE',
       check: 'Number',
     },
     {
       type: 'input_value',
-      name: 'FAR_VALUE',
+      name: 'EAST_VALUE',
       check: 'Number',
     },
     {
       type: 'input_value',
-      name: 'UP_VALUE',
+      name: 'ALTITUDE_VALUE',
       check: 'Number',
     },
   ],
@@ -30,23 +30,23 @@ const block = {
 };
 
 const codeGenerator = function (block) {
-  const left = Blockly.JavaScript.valueToCode(
+  const north = Blockly.JavaScript.valueToCode(
     block,
-    'LEFT_VALUE',
+    'NORTH_VALUE',
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  const far = Blockly.JavaScript.valueToCode(
+  const east = Blockly.JavaScript.valueToCode(
     block,
-    'FAR_VALUE',
+    'EAST_VALUE',
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  const up = Blockly.JavaScript.valueToCode(
+  const altitude = Blockly.JavaScript.valueToCode(
     block,
-    'UP_VALUE',
+    'ALTITUDE_VALUE',
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  const result = `new Position(${left},${far},${up})`;
+  const result = `new Position(${north},${east},${altitude})`;
   return [result, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -54,17 +54,17 @@ export class PositionDefinition implements BlocklyDefinition {
   static getXML() {
     return `
       <block type="${type}" >
-      <value name="LEFT_VALUE">
+      <value name="NORTH_VALUE">
         <block type="math_number">
           <field name="NUM">0</field>
         </block>
       </value>
-      <value name="FAR_VALUE">
+      <value name="EAST_VALUE">
         <block type="math_number">
           <field name="NUM">0</field>
         </block>
       </value>
-      <value name="UP_VALUE">
+      <value name="ALTITUDE_VALUE">
         <block type="math_number">
           <field name="NUM">0</field>
         </block>

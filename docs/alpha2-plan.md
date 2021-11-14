@@ -32,15 +32,16 @@ release 0.4.2
 ### Create scene elements with code
 - Add function to create scenario elements
 - Add teleport to 0,0,0 and set rotation 0,0,0
+- move blockly xml definition to the *.definition file
 
 CURRENT
-- format position
-- compass rotation = character.rotation.x *-1
 - Display mouse position and character position and camera north direction 
   replace FAR,LEFT,UP by NORTH,WEST,ALTITUDE in the editor and in the position display
-- move blockly xml definition to the *.definition file
-- move normalize to saving rotation
 
+- format position
+- compass rotation = character.rotation.x *-1
+- move normalize to saving rotation
+- BUG Several clickables are created at 0,0,0, are these left over from previous create implemenetation?
 - Add legs to the character or wheels :) or googly eyes
 
 Experiment with this camera 

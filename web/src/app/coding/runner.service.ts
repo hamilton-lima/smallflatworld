@@ -31,7 +31,7 @@ function showMessage(message: string) {
 
 class Position {
   vector3: Vector3;
-  constructor(x: number, z: number, y: number) {
+  constructor(z: number, x: number, y: number) {
     this.vector3 = new Vector3(x, y, z);
   }
 }
