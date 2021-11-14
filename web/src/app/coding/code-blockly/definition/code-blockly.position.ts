@@ -5,7 +5,7 @@ const type = 'position';
 
 const block = {
   type: type,
-  message0: 'North %2 East %1 Altitude %3',
+  message0: 'North %2 West %1 Altitude %3',
   args0: [
     {
       type: 'input_value',
@@ -14,7 +14,7 @@ const block = {
     },
     {
       type: 'input_value',
-      name: 'EAST_VALUE',
+      name: 'WEST_VALUE',
       check: 'Number',
     },
     {
@@ -35,9 +35,9 @@ const codeGenerator = function (block) {
     'NORTH_VALUE',
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  const east = Blockly.JavaScript.valueToCode(
+  const west = Blockly.JavaScript.valueToCode(
     block,
-    'EAST_VALUE',
+    'WEST_VALUE',
     Blockly.JavaScript.ORDER_ATOMIC
   );
   const altitude = Blockly.JavaScript.valueToCode(
@@ -46,7 +46,7 @@ const codeGenerator = function (block) {
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  const result = `new Position(${north},${east},${altitude})`;
+  const result = `new Position(${north},${west},${altitude})`;
   return [result, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -59,7 +59,7 @@ export class PositionDefinition implements BlocklyDefinition {
           <field name="NUM">0</field>
         </block>
       </value>
-      <value name="EAST_VALUE">
+      <value name="WEST_VALUE">
         <block type="math_number">
           <field name="NUM">0</field>
         </block>

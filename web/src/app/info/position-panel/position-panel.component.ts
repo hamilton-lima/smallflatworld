@@ -23,7 +23,6 @@ export class PositionPanelComponent implements OnInit {
       this.characterPosition = character.position;
       const nomrmalizedRad = character.rotation.y % (2 * Math.PI);
       this.cameraRotation = Tools.ToDegrees(nomrmalizedRad);
-      console.log('character', character);
     });
   }
 }

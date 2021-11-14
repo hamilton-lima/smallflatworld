@@ -69,12 +69,12 @@ export class EditorModePickerComponent implements AfterViewInit {
           this.modifyController.selectAndClick('scale', this);
         }
 
-        if (keys.KeyL) {
-          this.modifyController.selectAndClick('moveX', this);
+        if (keys.KeyN) {
+          this.modifyController.selectAndClick('moveY', this);
         }
 
-        if (keys.KeyF) {
-          this.modifyController.selectAndClick('moveY', this);
+        if (keys.KeyT) {
+          this.modifyController.selectAndClick('moveX', this);
         }
 
         if (keys.KeyU) {

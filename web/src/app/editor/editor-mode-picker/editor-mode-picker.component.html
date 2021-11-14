@@ -49,25 +49,11 @@
       </mat-button-toggle>
       <mat-button-toggle
         [disabled]="disableEdit"
-        matBadge="L"
-        #moveX
-        (click)="onClick('moveX')"
-        value="moveX"
-        >LEFT
-        <app-up-down
-          [disabled]="disableEdit"
-          iconPlus="west"
-          iconMinus="east"
-          (onTrigger)="executeMoveX($event)"
-        ></app-up-down>
-      </mat-button-toggle>
-      <mat-button-toggle
-        [disabled]="disableEdit"
-        matBadge="F"
+        matBadge="N"
         #moveY
         (click)="onClick('moveY')"
         value="moveY"
-        >FAR
+        >NORTH
         <app-up-down
           [disabled]="disableEdit"
           iconPlus="north"
@@ -77,11 +63,25 @@
       </mat-button-toggle>
       <mat-button-toggle
         [disabled]="disableEdit"
+        matBadge="T"
+        #moveX
+        (click)="onClick('moveX')"
+        value="moveX"
+        >WEST
+        <app-up-down
+          [disabled]="disableEdit"
+          iconPlus="west"
+          iconMinus="east"
+          (onTrigger)="executeMoveX($event)"
+        ></app-up-down>
+      </mat-button-toggle>
+      <mat-button-toggle
+        [disabled]="disableEdit"
         matBadge="U"
         #moveZ
         (click)="onClick('moveZ')"
         value="moveZ"
-        >UP
+        >ALTITUDE
         <app-up-down
           [disabled]="disableEdit"
           iconPlus="vertical_align_top"

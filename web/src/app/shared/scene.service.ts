@@ -22,7 +22,7 @@ export class SceneService {
   ) {}
 
   async create(scene: Scene, element: SceneElement): Promise<Mesh> {
-    console.log('create', element.name, element.position);
+    console.log('create', element.name, element.position.x, element.position.y, element.position.z);
     const templateMesh = await this.library.getMesh(
       scene,
       element.componentID,
@@ -73,7 +73,6 @@ export class SceneService {
     };
 
     const mesh = await this.create(scene, element);
-    console.log('mesh created', mesh.name);
 
     // update local realm and send client event
     const memento = sceneElement2Memento(element);

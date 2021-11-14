@@ -17,7 +17,9 @@ export class KeyState {
   KeyR: boolean;
   KeyC: boolean;
   KeyL: boolean;
+  KeyN: boolean;
   KeyF: boolean;
+  KeyT: boolean;
   KeyU: boolean;
   KeyV: boolean;
   KeyX: boolean;
