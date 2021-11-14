@@ -6,10 +6,19 @@
     </div>
   </div>
   <div class="child position">
-    You are at:
-    <br />
-    NORTH: {{ characterPosition.x | number: "1.1-1" }}<br />
-    WEST:{{ characterPosition.z | number: "1.1-1" }}<br />
-    ALTITUDE:{{ characterPosition.y | number: "1.1-1" }}
+    <table>
+      <tr>
+        <td>NORTH</td>
+        <td class="position-value">{{ characterPosition.x | number: "1.1-1" }}</td>
+      </tr>
+      <tr>
+        <td>WEST</td>
+        <td class="position-value">{{ characterPosition.z | number: "1.1-1" }}</td>
+      </tr>
+      <tr>
+        <td>ALTITUDE</td>
+        <td class="position-value">{{ characterPosition.y | number: "1.1-1" }}</td>
+      </tr>
+    </table>
   </div>
 </div>

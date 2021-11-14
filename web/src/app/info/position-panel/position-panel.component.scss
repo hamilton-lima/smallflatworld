@@ -4,28 +4,35 @@
   padding: 10px;
 }
 
-.compass-container{
-    text-align: center;
-    width: 60px;
+.compass-container {
+  text-align: center;
+  flex-basis: 60px;
 }
 
-.compass-title{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    font-weight: bolder;
-    color: whitesmoke;
+.compass-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bolder;
+  color: whitesmoke;
 }
 
-.compass{
-    color: whitesmoke;
-    transform: scale(2);
+.compass {
 }
 
-.position{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    font-weight: bolder;
-    color: whitesmoke;
+.mat-icon{
+  width: 50px;
+  height: 50px;
+}
+
+.position {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.position-value{
+  text-align: right;
+  color: whitesmoke;
 }
 
 .container {
