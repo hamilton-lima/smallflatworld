@@ -28,8 +28,8 @@ export class PositionPanelComponent implements OnInit {
 
     this.broker.onUpdateCharacter.subscribe((character) => {
       this.characterPosition = character.position;
-      const nomrmalizedRad = character.rotation.y % (2 * Math.PI);
-      const angle = Tools.ToDegrees(nomrmalizedRad);
+      const normalizedRad = character.rotation.y % (2 * Math.PI);
+      const angle = Tools.ToDegrees(normalizedRad);
       this.rotateCompass(angle);
     });
   }
