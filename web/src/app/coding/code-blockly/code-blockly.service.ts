@@ -1,11 +1,11 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { OnRepeatDefinition } from './definition/code-blockly.onrepeat';
 import { OnClickDefinition } from './definition/code-blockly.onclick';
+import { CreateDefinition } from './definition/code-blockly.create';
 import { TeleportDefinition } from './definition/code-blockly.teleport';
 import { PositionDefinition } from './definition/code-blockly.position';
 import { AudioService } from 'src/app/library/audio.service';
 import { EditorLibraryService } from 'src/app/editor/editor-library.service';
-import { INTERNAL_BASIC_LIBRARY } from 'src/app/editor/basic-shapes.library';
 import { ImagesService } from 'src/app/library/images.service';
 
 declare var Blockly: any;
@@ -19,14 +19,21 @@ export enum BlocklyConfig {
 
 export interface BlocklyDefinition {
   getTypeName();
-  getBlockConfig();
+  defineBlock();
   getCodeGenerator();
+  getXML();
+}
+
+export class BlocklyServiceContext {
+  audio: AudioService;
+  editorLibrary: EditorLibraryService;
+  images: ImagesService;
 }
 
 @Injectable({ providedIn: 'root' })
 export class BlocklyService {
   private renderer: Renderer2;
-
+  private context: BlocklyServiceContext;
   private configResolution;
 
   constructor(
@@ -39,6 +46,12 @@ export class BlocklyService {
       [BlocklyConfig.Default, this.getToolboxDefault()],
       [BlocklyConfig.DefaultWithOther, this.getToolboxDefault()],
     ]);
+
+    this.context = <BlocklyServiceContext>{
+      audio: this.audio,
+      editorLibrary: this.editorLibrary,
+      images: this.images,
+    };
 
     // Renderer2 needs to be created manually as there is no provider by default
     this.renderer = factory.createRenderer(null, null);
@@ -265,74 +278,17 @@ export class BlocklyService {
     return this.getToolboxXML(this.toolboxDefault);
   }
 
-  readonly definitions: Array<BlocklyDefinition> = [
-    new OnClickDefinition(),
-    // new OnRepeatDefinition(), // TODO: add back when on repeat is ready
-    new PositionDefinition(),
-    new TeleportDefinition(),
-  ];
-
-  // Return list of component based on library name
-  // @see https://developers.google.com/blockly/guides/create-custom-blocks/fields/built-in-fields/dropdown
-  //
-  getListOfComponents(currentLibrary: string) {
-    console.log('current library', currentLibrary);
-    let options = [['Please choose a library', 'N/A']];
-
-    if (currentLibrary) {
-      const libraries = this.editorLibrary.getLibraries();
-      const library = libraries.find(
-        (library) => library.name == currentLibrary
-      );
-
-      console.log('current library object', library);
-
-      if (library) {
-        const components = library.components.map((component) => {
-          const image = {
-            src: component.icon,
-            width: 70,
-            height: 70,
-            alt: component.name,
-          };
-          return [image, component.id];
-        });
-
-        console.log('components', components);
-
-        if (components.length > 0) {
-          return components;
-        }
-      }
-    }
-    return options;
-  }
-
-  getListOfImages() {
-    let options = [['No images available', 'N/A']];
-
-    const components = this.images.onUpdate.value.map((sceneImage) => {
-      const image = {
-        src: sceneImage.base64,
-        width: 70,
-        height: 70,
-        alt: sceneImage.name,
-      };
-      return [image, sceneImage.name];
-    });
-
-    console.log('images', components);
-
-    if (components.length > 0) {
-      return components;
-    }
-
-    return options;
-  }
-
   setup() {
-    this.definitions.forEach((definition) => {
-      Blockly.defineBlocksWithJsonArray([definition.getBlockConfig()]);
+    const definitions: Array<BlocklyDefinition> = [
+      new OnClickDefinition(),
+      // new OnRepeatDefinition(), // TODO: add back when on repeat is ready
+      new PositionDefinition(),
+      new TeleportDefinition(),
+      new CreateDefinition(this.context),
+    ];
+
+    definitions.forEach((definition) => {
+      definition.defineBlock();
       Blockly.JavaScript[definition.getTypeName()] =
         definition.getCodeGenerator();
     });
@@ -353,165 +309,6 @@ export class BlocklyService {
         'PLAY_SOUND_VALUE'
       );
     });
-
-    Blockly.Extensions.register('list_editor_library_extension', function () {
-      this.getInput('INPUT_LIBRARY').appendField(
-        new Blockly.FieldDropdown(function () {
-          const libraries = self.editorLibrary.getLibraries();
-
-          var options = libraries.map((library) => [
-            library.name,
-            library.name,
-          ]);
-          if (options.length == 0) {
-            options = [['No libraries available', 'N/A']];
-          }
-          return options;
-        }),
-        'CREATE_LIBRARY_VALUE'
-      );
-    });
-
-    Blockly.Extensions.register(
-      'list_components_from_library_extension',
-      function () {
-        console.log('who is this?', this);
-        const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
-        console.log('getListOfComponents extension', currentLibrary);
-
-        this.getInput('INPUT_NAME').appendField(
-          new Blockly.FieldDropdown(function () {
-            return self.getListOfComponents(currentLibrary);
-          }),
-          'CREATE_LIBRARY_NAME_VALUE'
-        );
-      }
-    );
-
-    Blockly.Extensions.register(
-      'list_images_for_internal_basic_extension',
-      function () {
-        const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
-        if (currentLibrary == INTERNAL_BASIC_LIBRARY) {
-          this.getInput('INPUT_IMAGE').appendField(
-            new Blockly.FieldDropdown(function () {
-              return self.getListOfImages();
-            }),
-            'CREATE_LIBRARY_IMAGE_VALUE'
-          );
-        }
-      }
-    );
-
-    Blockly.Extensions.registerMutator('create_mutator', {
-      mutationToDom: function () {
-        const container = Blockly.utils.xml.createElement('mutation');
-        const library = this.getFieldValue('CREATE_LIBRARY_VALUE');
-        const name = this.getFieldValue('CREATE_LIBRARY_NAME_VALUE');
-        const image = this.getFieldValue('CREATE_LIBRARY_IMAGE_VALUE');
-
-        container.setAttribute('library', library);
-        container.setAttribute('name', name);
-        container.setAttribute('image', image);
-        console.log('mutation to dom', container);
-        return container;
-      },
-
-      domToMutation: function (containerElement) {
-        const library = containerElement.getAttribute('library');
-        const name = containerElement.getAttribute('name');
-        const image = containerElement.getAttribute('image');
-
-        // set name based on the value saved on mutation
-        this.getInput('INPUT_NAME').removeField('CREATE_LIBRARY_NAME_VALUE');
-        this.getInput('INPUT_NAME').appendField(
-          new Blockly.FieldDropdown(function () {
-            return self.getListOfComponents(library);
-          }),
-          'CREATE_LIBRARY_NAME_VALUE'
-        );
-        this.getField('CREATE_LIBRARY_NAME_VALUE').setValue(name);
-
-        // set image based on the value saved on mutation
-        this.getInput('INPUT_IMAGE').removeField('CREATE_LIBRARY_IMAGE_VALUE');
-
-        if (library == INTERNAL_BASIC_LIBRARY) {
-          this.getInput('INPUT_IMAGE').appendField(
-            new Blockly.FieldDropdown(function () {
-              return self.getListOfImages();
-            }),
-            'CREATE_LIBRARY_IMAGE_VALUE'
-          );
-          this.getField('CREATE_LIBRARY_IMAGE_VALUE').setValue(image);
-        }
-
-        console.log('dom 2 mutation', name, image, library);
-      },
-    });
-
-    Blockly.Blocks['create'] = {
-      init: function () {
-        this.jsonInit({
-          // create scene element
-          type: 'create',
-          message0: 'create %1 %2 %3 %4',
-          args0: [
-            { type: 'input_dummy', name: 'INPUT_LIBRARY' },
-            { type: 'input_dummy', name: 'INPUT_IMAGE' },
-            { type: 'input_dummy', name: 'INPUT_NAME' },
-            {
-              type: 'input_value',
-              name: 'INPUT_POSITION',
-              check: 'Position',
-            },
-          ],
-          previousStatement: null,
-          nextStatement: null,
-          inputsInline: true,
-          colour: 355,
-          extensions: [
-            'list_editor_library_extension',
-            'list_images_for_internal_basic_extension',
-            'list_components_from_library_extension',
-          ],
-          mutator: 'create_mutator',
-        });
-      },
-      onchange: function (event) {
-        console.log('changed', event);
-        // @see https://stackoverflow.com/questions/67206414/blockly-update-other-inputdummy-dropdown-fields-based-on-selection-of-a-inputdu
-        if (event.name == 'CREATE_LIBRARY_VALUE') {
-          // remove existing dropdown list
-          this.getInput('INPUT_NAME').removeField('CREATE_LIBRARY_NAME_VALUE');
-
-          // add new list
-          const currentLibrary = this.getFieldValue('CREATE_LIBRARY_VALUE');
-
-          console.log('getListOfComponents onchange', currentLibrary);
-          this.getInput('INPUT_NAME').appendField(
-            new Blockly.FieldDropdown(function () {
-              return self.getListOfComponents(currentLibrary);
-            }),
-            'CREATE_LIBRARY_NAME_VALUE'
-          );
-
-          // change to internal add list of images to select
-          if (currentLibrary == INTERNAL_BASIC_LIBRARY) {
-            this.getInput('INPUT_IMAGE').appendField(
-              new Blockly.FieldDropdown(function () {
-                return self.getListOfImages();
-              }),
-              'CREATE_LIBRARY_IMAGE_VALUE'
-            );
-          } else {
-            // remove the image selection
-            this.getInput('INPUT_IMAGE').removeField(
-              'CREATE_LIBRARY_IMAGE_VALUE'
-            );
-          }
-        }
-      },
-    };
 
     // debug	message	string
     Blockly.defineBlocksWithJsonArray([
@@ -623,21 +420,6 @@ export class BlocklyService {
       const value = block.getFieldValue('PLAY_SOUND_VALUE');
       console.log('building play sound', value);
       return `playSound('${value}');\n`;
-    };
-
-    Blockly.JavaScript['create'] = function (block) {
-      const library = block.getFieldValue('CREATE_LIBRARY_VALUE');
-      const name = block.getFieldValue('CREATE_LIBRARY_NAME_VALUE');
-      const image = block.getFieldValue('CREATE_LIBRARY_IMAGE_VALUE');
-
-      const position = Blockly.JavaScript.valueToCode(
-        block,
-        'INPUT_POSITION',
-        Blockly.JavaScript.ORDER_ATOMIC
-      );
-
-      const generatedCode = `create('${library}','${name}', '${image}', ${position});\n`;
-      return generatedCode;
     };
 
     Blockly.JavaScript['message'] = function (block) {

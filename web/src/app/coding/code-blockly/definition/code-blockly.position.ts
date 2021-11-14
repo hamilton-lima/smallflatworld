@@ -51,12 +51,39 @@ const codeGenerator = function (block) {
 };
 
 export class PositionDefinition implements BlocklyDefinition {
+  getXML() {
+    return `
+      <block type="${type}" >
+      <value name="LEFT_VALUE">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+      <value name="FAR_VALUE">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+      <value name="UP_VALUE">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+    </block> 
+    `;
+  }
+
   getTypeName() {
     return type;
   }
   getBlockConfig() {
     return block;
   }
+
+  defineBlock() {
+    Blockly.defineBlocksWithJsonArray([this.getBlockConfig()]);
+  }
+
   getCodeGenerator() {
     return codeGenerator;
   }

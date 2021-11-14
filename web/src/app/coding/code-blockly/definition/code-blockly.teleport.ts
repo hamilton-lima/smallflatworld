@@ -31,12 +31,43 @@ const codeGenerator = function (block) {
 };
 
 export class TeleportDefinition implements BlocklyDefinition {
+  getXML() {
+    const xml = `
+      <block type="${type}">
+      <value name="TELEPORT_POSITION">
+        <block type="position" >
+          <value name="LEFT_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="FAR_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+          <value name="UP_VALUE">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+        </block>  
+      </value>
+    </block>
+    `;
+    return xml;
+  }
   getTypeName() {
     return type;
   }
   getBlockConfig() {
     return block;
   }
+
+  defineBlock() {
+    Blockly.defineBlocksWithJsonArray([this.getBlockConfig()]);
+  }
+
   getCodeGenerator() {
     return codeGenerator;
   }
