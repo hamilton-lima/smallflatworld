@@ -1,0 +1,41 @@
+.block {
+  background-color: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding: 10px;
+}
+
+.compass-container{
+    text-align: center;
+    width: 60px;
+}
+
+.compass-title{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bolder;
+    color: whitesmoke;
+}
+
+.compass{
+    color: whitesmoke;
+    transform: scale(2);
+}
+
+.position{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bolder;
+    color: whitesmoke;
+}
+
+.container {
+  display: flex;
+}
+
+.child {
+  flex: 1;
+}
+
+.child:first-child {
+  margin-right: 10px;
+}

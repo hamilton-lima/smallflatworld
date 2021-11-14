@@ -33,10 +33,10 @@ release 0.4.2
 - Add function to create scenario elements
 - Add teleport to 0,0,0 and set rotation 0,0,0
 - move blockly xml definition to the *.definition file
+- replace FAR,LEFT,UP by NORTH,WEST,ALTITUDE in the editor and in the position display
 
 CURRENT
 - Display mouse position and character position and camera north direction 
-  replace FAR,LEFT,UP by NORTH,WEST,ALTITUDE in the editor and in the position display
 
 - format position
 - compass rotation = character.rotation.x *-1

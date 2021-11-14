@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Tools } from '@babylonjs/core';
 import { EventsBrokerService } from 'src/app/shared/events-broker.service';
 import { Vector3Memento } from '../../../../../server/src/events.model';
@@ -9,11 +15,12 @@ import { Vector3Memento } from '../../../../../server/src/events.model';
   styleUrls: ['./position-panel.component.scss'],
 })
 export class PositionPanelComponent implements OnInit {
+  @ViewChild('compass') compass: ElementRef;
   characterPosition: Vector3Memento;
-  cameraRotation = 0;
 
   constructor(
     private broker: EventsBrokerService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -22,7 +29,14 @@ export class PositionPanelComponent implements OnInit {
     this.broker.onUpdateCharacter.subscribe((character) => {
       this.characterPosition = character.position;
       const nomrmalizedRad = character.rotation.y % (2 * Math.PI);
-      this.cameraRotation = Tools.ToDegrees(nomrmalizedRad);
+      const angle = Tools.ToDegrees(nomrmalizedRad);
+      this.rotateCompass(angle);
     });
+  }
+
+  rotateCompass(angle: number) {
+    const adjustedAngle = angle * -1;
+    const rotate = `rotate(${adjustedAngle}deg)`;
+    this.renderer.setStyle(this.compass.nativeElement, 'transform', rotate);
   }
 }

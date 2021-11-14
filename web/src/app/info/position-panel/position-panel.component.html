@@ -1,8 +1,15 @@
-<p>
-  char: NORTH: {{ characterPosition.x | number }}, WEST:{{
-    characterPosition.z | number
-  }}, ALTITUDE:{{ characterPosition.y | number }}
-</p>
-<p>
-  ROTATION: {{ cameraRotation }}
-</p>
+<div class="block container">
+  <div class="child compass-container">
+    <div class="compass-title">N</div>
+    <div #compass class="compass">
+      <mat-icon class="panel-icon">north</mat-icon>
+    </div>
+  </div>
+  <div class="child position">
+    You are at:
+    <br />
+    NORTH: {{ characterPosition.x | number: "1.1-1" }}<br />
+    WEST:{{ characterPosition.z | number: "1.1-1" }}<br />
+    ALTITUDE:{{ characterPosition.y | number: "1.1-1" }}
+  </div>
+</div>
