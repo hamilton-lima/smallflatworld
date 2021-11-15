@@ -75,7 +75,7 @@ export class EditorLibraryService {
   }
 
   // get Mesh based on componentID
-  getMesh(scene: Scene, componentID: string, imageName: string, skipColision: boolean): Promise<AbstractMesh> {
+  getMesh(scene: Scene, componentID: string, imageName: string): Promise<AbstractMesh> {
     console.log('getMesh', componentID, this.cacheSize());
 
     return new Promise<AbstractMesh>((resolve, reject) => {
@@ -99,7 +99,6 @@ export class EditorLibraryService {
             component.id,
             component.name,
             imageName,
-            skipColision
           );
           this.add2Cache(cacheKey, model);
           console.log('getmesh build from the factory model', component.id, imageName);
@@ -107,7 +106,7 @@ export class EditorLibraryService {
         } else {
           // not present in the cache load the model
           this.loader
-            .loadWithClickable(scene, component.model3D, component.name, false, skipColision)
+            .loadWithClickable(scene, component.model3D, component.name, false)
             .then((loaded) => {
               this.add2Cache(cacheKey, loaded);
               console.log('getmesh loaded model', component.id);

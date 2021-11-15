@@ -25,7 +25,7 @@ export class InternalLibraryFactoryService {
     private notify: NotifyService
   ) {}
 
-  build(scene: Scene, id: string, name: string, imageName: string, skipColision: boolean): AbstractMesh {
+  build(scene: Scene, id: string, name: string, imageName: string): AbstractMesh {
     const cube = this.mesh.getBoxSizeColor(scene, WIDTH, HEIGHT, DEPTH, COLOR);
 
     const current = this.images.findByName(imageName);
@@ -37,7 +37,7 @@ export class InternalLibraryFactoryService {
       cube.material = mat;
     } 
 
-    const result = this.mesh.createParent(scene, name, false, [cube], skipColision);
+    const result = this.mesh.createParent(scene, name, false, [cube]);
     return result;
   }
 }

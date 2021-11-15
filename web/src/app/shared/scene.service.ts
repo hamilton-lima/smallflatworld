@@ -27,7 +27,6 @@ export class SceneService {
       scene,
       element.componentID,
       element.imageName,
-      element.skipColision
     );
 
     const mesh = this.mesh.cloneMesh(
@@ -36,7 +35,8 @@ export class SceneService {
       element.position,
       element.rotation,
       element.scaling,
-      element.name
+      element.name, 
+      element.skipColision
     );
 
     // updates position with the calculated position by the cloner
