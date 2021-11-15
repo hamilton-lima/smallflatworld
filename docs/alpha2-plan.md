@@ -37,14 +37,14 @@ release 0.4.2
 - Display mouse position and character position and camera north direction 
 - format position
 - compass rotation = character.rotation.x *-1
+- BUG Several empty clickables are created at 0,0,0
 
 CURRENT
-- BUG Several clickables are created at 0,0,0, are these left over from previous create implemenetation?
+- BUG, create code edit and save, when entering edit mode first selection will auto open code editor
+
+NICE TO HAVE
 - Add legs to the character or wheels :) or googly eyes
-
-Experiment with this camera 
-https://www.babylonjs-playground.com/#LYCSQ#256
-
+- Experiment with this camera https://www.babylonjs-playground.com/#LYCSQ#256
 - Add mixpanel.com tracking (timeboxed)
 - Export/Import code from code library
 
