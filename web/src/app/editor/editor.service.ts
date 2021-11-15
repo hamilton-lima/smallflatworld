@@ -318,12 +318,14 @@ export class EditorService {
         if (pointerInfo.event.type == POINTERMOVE) {
           if (this.dragging && this.selectedClickable) {
             const parent = this.mesh.getParent(this.selectedClickable);
-            const current = this.getPointerPosition(scene);
-            const diff = current.subtract(this.dragPosition);
-            // drag should not affect Y coord
-            diff.y = 0;
-            parent.position.addInPlace(diff);
-            this.dragPosition = current;
+            if (parent) {
+              const current = this.getPointerPosition(scene);
+              const diff = current.subtract(this.dragPosition);
+              // drag should not affect Y coord
+              diff.y = 0;
+              parent.position.addInPlace(diff);
+              this.dragPosition = current;
+            }
           }
         }
       }
