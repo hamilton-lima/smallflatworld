@@ -16,3 +16,6 @@ TBIncluded items from mindmap and previous roadmap
 - Resize 3D elements
 - Introduce physics to the scene elements, this can generate a lot of fun with colisions and ropes and other simulations :)
 - Provide shareable url with server and realm
+- Add legs to the character or wheels :) or googly eyes
+- Add mixpanel.com tracking
+- Export/Import code from code library

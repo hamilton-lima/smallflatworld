@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Mesh,
-  SceneLoader,
-  StandardMaterial,
-  Texture,
-} from '@babylonjs/core';
+import { Mesh, SceneLoader, StandardMaterial, Texture } from '@babylonjs/core';
 import { EngineState } from '../renderer/renderer.model';
 import { MeshLoaderService } from './mesh-loader.service';
 
@@ -17,15 +12,14 @@ export class CharacterService {
   async load(engineState: EngineState): Promise<Mesh> {
     //return this.loadAnimated(engineState);
     return this.loadModelOnly(engineState);
-  }  
-  
+  }
+
   async loadModelOnly(engineState: EngineState): Promise<Mesh> {
     const mesh = await this.loader.load(
       engineState.scene,
       'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian.gltf',
       'character_barbarian',
-      true,
-      false
+      true
     );
 
     return <Mesh>mesh;
@@ -83,8 +77,7 @@ export class CharacterService {
       engineState.scene,
       'character/model/characterMedium.glb',
       'characterMedium',
-      true,
-      false
+      true
     );
 
     const animations = await this.loader.loadAllAnimations(

@@ -48,6 +48,11 @@ export class ScenarioService {
       engineState.character = this.mesh.getBox(engineState.scene);
       engineState.character.isVisible = true;
 
+      const mat = new StandardMaterial('mat', engineState.scene);
+      const texture = new Texture('/assets/character/box/eggplant-character.png', engineState.scene);
+      mat.diffuseTexture = texture;
+      engineState.character.material = mat;
+
       const character = memento2SceneElement(realm.character);
       this.addCharacter(engineState, character);
 

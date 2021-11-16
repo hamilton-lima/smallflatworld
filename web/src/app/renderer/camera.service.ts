@@ -5,8 +5,8 @@ const DEFAULT_DISTANCE = -25;
 const DEFAULT_HEIGHT = 25;
 const STEP = 6;
 
-const MIN = 3;
-const MAX = 100;
+const MIN = 7;
+const MAX = 70;
 
 @Injectable({
   providedIn: 'root',

@@ -42,12 +42,6 @@ release 0.4.2
 CURRENT
 - BUG, create code edit and save, when entering edit mode first selection will auto open code editor
 
-NICE TO HAVE
-- Add legs to the character or wheels :) or googly eyes
-- Experiment with this camera https://www.babylonjs-playground.com/#LYCSQ#256
-- Add mixpanel.com tracking (timeboxed)
-- Export/Import code from code library
-
 ### play together
 - Auto generate user name
 - Allow to update names
