@@ -63,13 +63,10 @@ export class RendererComponent implements AfterViewInit {
       () => {
         console.log('engineState after loading', engineState);
 
-        engineState.camera = this.camera.setup(
-          engineState.scene,
-          engineState.character
-        );
+        engineState.camera = this.camera.setup(engineState);
 
         engineState.engine.runRenderLoop(() => {
-          this.movement.move(engineState.scene, engineState.character);
+          this.movement.move(engineState);
           this.clipboard.render();
           engineState.scene.render();
         });

@@ -465,7 +465,6 @@ export class EditorService {
       scene,
       this.current.id,
       imageName,
-      skipColision
     );
     const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
     let position: Vector3;
