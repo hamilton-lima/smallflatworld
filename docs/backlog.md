@@ -19,3 +19,12 @@ TBIncluded items from mindmap and previous roadmap
 - Add legs to the character or wheels :) or googly eyes
 - Add mixpanel.com tracking
 - Export/Import code from code library
+- Document examples of the image format
+  - example on how wrap 6 faces on the cube https://playground.babylonjs.com/#ICLXQ8
+
+- Add default library of images, with some minecraft images
+    - https://aka.ms/resourcepacktemplate
+    - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
+    - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
+
+- Add defeault library of sound effects

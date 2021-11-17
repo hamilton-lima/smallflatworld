@@ -39,8 +39,14 @@ release 0.4.2
 - compass rotation = character.rotation.x *-1
 - BUG Several empty clickables are created at 0,0,0
 
+release 0.4.3
+
+### visual fixes
+
 CURRENT
-- BUG, create code edit and save, when entering edit mode first selection will auto open code editor
+- show and gather feedback
+
+release 0.4.4
 
 ### play together
 - Auto generate user name
@@ -51,14 +57,3 @@ CURRENT
 - Wait for the full state of the scenario to load before sync
 - Synchronize code updates
 
-### Nice to have 
-
-- Document examples of the image format
-  - example on how wrap 6 faces on the cube https://playground.babylonjs.com/#ICLXQ8
-
-- Add default library of images, with some minecraft images
-    - https://aka.ms/resourcepacktemplate
-    - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
-    - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
-
-- Add defeault library of sound effects
