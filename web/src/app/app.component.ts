@@ -60,14 +60,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     // selection is deleted close the code panel
     this.editor.onSelectClickable.subscribe((mesh) => {
       if (!mesh) {
-        this.drawerRight.close();
-        this.coding.isEditing.next(this.drawerRight.opened);
+        this.closeRight();
       }
     });
 
     this.broker.requestToCloseCodePanel.subscribe(() => {
-      this.drawerRight.close();
+      this.closeRight();
     });
+  }
+
+  closeRight(){
+    this.drawerRight.close();
+    this.coding.isEditing.next(this.drawerRight.opened);
   }
 
   lastSelection: string;
