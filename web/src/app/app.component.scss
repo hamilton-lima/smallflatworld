@@ -38,7 +38,16 @@
   z-index: 100;
 }
 
+.position-panel{
+  position: absolute;
+  width: 250px;
+  bottom: 25px;
+  right: 70%;
+  left: 450px;
+  z-index: 100;
+}
+
 .drawer-right {
-  min-width: 600px;
+  min-width: 800px;
   right: 0;
 }

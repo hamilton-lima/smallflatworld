@@ -9,6 +9,7 @@ import {
   JoinRequest,
   JoinResponse,
   SceneAudio,
+  SceneCode,
   SceneElementMemento,
   SceneImage,
   ShareRequest,
@@ -148,6 +149,13 @@ export class ServerService {
     this.send(Actions.Update, request);
   }
 
+  updateCodes(codes: SceneCode[]) {
+    const request = <StateUpdate>{
+      codes: codes,
+    };
+    this.send(Actions.Update, request);
+  }
+
   delete(name: string) {
     const request = <DeleteRequest>{
       name: name,
@@ -161,6 +169,10 @@ export class ServerService {
 
   deleteAudio(name: string) {
     console.error('DELETE AUDIO AT SERVER is not implemented.');
+  }
+
+  deleteCode(name: string) {
+    console.error('DELETE CODE AT SERVER is not implemented.');
   }
 
 }

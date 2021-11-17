@@ -18,6 +18,15 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <app-realm-toolbar></app-realm-toolbar>
+      </mat-expansion-panel>      
+      
+      <mat-expansion-panel class="panel" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><mat-icon class="panel-icon">info</mat-icon>Info
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-info-panel></app-info-panel>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="panel">
@@ -29,6 +38,15 @@
         <app-connect></app-connect>
       </mat-expansion-panel>
 
+      <mat-expansion-panel class="panel" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><mat-icon class="panel-icon">code</mat-icon>Code
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+       <app-code-library></app-code-library>
+      </mat-expansion-panel>      
+
       <mat-expansion-panel class="panel" [expanded]="false">
         <mat-expansion-panel-header>
           <mat-panel-title
@@ -38,7 +56,7 @@
         <app-images-library></app-images-library>
       </mat-expansion-panel>
 
-      <mat-expansion-panel class="panel" [expanded]="true">
+      <mat-expansion-panel class="panel" [expanded]="false">
         <mat-expansion-panel-header>
           <mat-panel-title
             ><mat-icon class="panel-icon">music_note</mat-icon>Sounds
@@ -61,7 +79,6 @@
   </mat-sidenav>
 
   <section>
-    <button mat-raised-button class="toogle" (click)="toggle()">TOGGLE</button>
     <app-renderer *ngIf="ready"></app-renderer>
   </section>
 
@@ -80,4 +97,8 @@
 
 <div class="mode-toolbar">
   <app-editor-mode-picker></app-editor-mode-picker>
+</div>
+
+<div class="position-panel">
+  <app-position-panel></app-position-panel>
 </div>

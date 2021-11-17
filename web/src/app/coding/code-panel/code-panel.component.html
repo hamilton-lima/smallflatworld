@@ -1,7 +1,8 @@
-<div class="container">
+<div class="container" *ngIf="request">
   <div class="top">
     <h1>Edit code</h1>
     <button mat-raised-button [disabled]="!dirty" (click)="apply()">APPLY</button>
+    <button class="left-spacer" mat-raised-button (click)="close()">CLOSE</button>
   </div>
   <div *ngIf="loading" class="loading">
     <h2>Loading code</h2>
@@ -11,7 +12,8 @@
   <div *ngIf="loading" class="magic-courtain"></div>
 
   <app-code-blockly 
-    [definition]="codeDefinition"
+    [definition]="request.codeDefinition"
+    [reload]="reloadCounter"
     (codeChanged)="changed($event)"
     [onReady]="onReady"
   ></app-code-blockly>

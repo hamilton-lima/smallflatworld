@@ -4,6 +4,7 @@ import { PersistenceService } from '../persistence/persistence.service';
 import { ClientService } from '../multiplayer/client.service';
 import {
   SceneAudio,
+  SceneCode,
   SceneElementMemento,
   SceneImage,
   Vector3MementoOne,
@@ -115,6 +116,7 @@ export class RealmService {
   // update character state
   async updateCharacter(character: SceneElementMemento) {
     this.currentRealm.character = character;
+    this.broker.onUpdateCharacter.next(character);
     return this._updateRealm();
   }
 
@@ -143,6 +145,11 @@ export class RealmService {
     return this._updateRealm();
   }
 
+  addCode(code: SceneCode) {
+    this.currentRealm.codes.push(code);
+    return this._updateRealm();
+  }
+
   // update scene elements
   async getImage(name: string) {
     const found = this.currentRealm.images.findIndex(
@@ -154,15 +161,24 @@ export class RealmService {
     return null;
   }
 
-  // update scene elements
-  async updateImage(input: SceneImage) {
-    const found = this.currentRealm.elements.findIndex(
-      (image) => image.name == input.name
+  async updateCode(input: SceneCode) {
+    const found = this.currentRealm.codes.findIndex(
+      (code) => code.name == input.name
     );
     if (found > -1) {
-      this.currentRealm.images[found] = input;
+      this.currentRealm.codes[found] = input;
     }
     return this._updateRealm();
+  }
+
+  async getCode(name: string) {
+    const found = this.currentRealm.codes.findIndex((code) => {
+      return code.name == name;
+    });
+    if (found > -1) {
+      return this.currentRealm.codes[found];
+    }
+    return null;
   }
 
   deleteImage(name: string) {
@@ -187,4 +203,18 @@ export class RealmService {
 
     return this._updateRealm();
   }
+
+  deleteCode(name: string) {
+    const found = this.currentRealm.codes.findIndex(
+      (code) => code.name == name
+    );
+    console.log('found', name, found);
+    if (found > -1) {
+      this.currentRealm.codes.splice(found, 1);
+    }
+
+    return this._updateRealm();
+  }
+
 }
+

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AudioPlayerService } from 'src/app/shared/audio-player.service';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
+import { InputService } from 'src/app/shared/input.service';
 import { NotifyService } from 'src/app/shared/notify.service';
 import { SceneAudio } from '../../../../../server/src/events.model';
 import { AudioService } from '../audio.service';
@@ -21,6 +22,7 @@ export class AudioLibraryComponent implements OnInit {
     private service: AudioService,
     private confirm: ConfirmService,
     private notify: NotifyService,
+    private input: InputService,
   ) {
     this.audios = new BehaviorSubject<SceneAudio[]>([]);
   }
@@ -59,6 +61,7 @@ export class AudioLibraryComponent implements OnInit {
 
   play(audio: SceneAudio) {
     this.service.play(audio);
+    this.input.focus();
   }
 
 }

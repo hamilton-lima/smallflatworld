@@ -1,4 +1,4 @@
-import { BlocklyDefinition } from "../code-blockly.service";
+import { BlocklyDefinition, BlocklyServiceContext } from "../code-blockly.service";
 declare var Blockly: any;
 
 const type = "onclick";
@@ -26,12 +26,22 @@ const codeGenerator = function (block) {
 };
 
 export class OnClickDefinition implements BlocklyDefinition {
+
+  static getXML() {
+    return `<block type="${type}" />`;
+  }
+  
   getTypeName() {
     return type;
   }
   getBlockConfig() {
     return block;
   }
+
+  defineBlock() {
+    Blockly.defineBlocksWithJsonArray([this.getBlockConfig()]);
+  }
+
   getCodeGenerator() {
     return codeGenerator;
   }

@@ -12,6 +12,10 @@ import {
 import { AudioPlayerService } from '../shared/audio-player.service';
 import { AudioService } from '../library/audio.service';
 import { EventsBrokerService } from '../shared/events-broker.service';
+import { Vector3 } from '@babylonjs/core';
+import { MeshService } from '../renderer/mesh.service';
+import { SceneService } from '../shared/scene.service';
+import { MovementService } from '../renderer/movement.service';
 
 function playSoundByName(name: string) {
   console.log('playSound', name);
@@ -23,6 +27,48 @@ function showMessage(message: string) {
   sharedContext.snackBar.open(message, 'DISMISS', {
     duration: 5000,
   });
+}
+
+class Position {
+  vector3: Vector3;
+  constructor(x: number, z: number, y: number) {
+    this.vector3 = new Vector3(x, y, z);
+  }
+}
+
+function teleportCharacterImpl(destination: Position) {
+  const position = destination.vector3;
+  const rotation = Vector3.Zero();
+
+  console.log('teleport', destination.vector3);
+  const engineState = sharedContext.broker.engineState.getValue();
+  sharedContext.movement.teleport(engineState.character, position, rotation);
+}
+
+function createImpl(
+  library: string,
+  component: string,
+  image: string,
+  position: Position
+) {
+  console.log('create', library, component, image, position.vector3);
+
+  const engineState = sharedContext.broker.engineState.getValue();
+  console.log('engine state', engineState);
+  if (engineState) {
+    const start = engineState.character.position;
+    const creationPosition = start.add(position.vector3);
+    console.log('create element', start, creationPosition, position.vector3);
+    // CREATE the component using the character position as reference!!
+    sharedContext.scene.addFromLibraryComponentID(
+      engineState.scene,
+      component,
+      image,
+      creationPosition
+    );
+  } else {
+    console.warn('engine state is not ready');
+  }
 }
 
 function showBottomMessage(message: string) {
@@ -42,6 +88,10 @@ class Context {
   snackBar: MatSnackBar;
   bottomSheet: MatBottomSheet;
   audio: AudioService;
+  mesh: MeshService;
+  broker: EventsBrokerService;
+  scene: SceneService;
+  movement: MovementService;
 }
 
 let sharedContext: Context;
@@ -55,9 +105,11 @@ class CodeRunner {
       const message = showMessage;
       const bottomMessage = showBottomMessage;
       const playSound = playSoundByName;
+      const create = createImpl;
+      const teleport = teleportCharacterImpl;
       const onClick = this.onClickHandlers;
-      
-      // execute the code 
+
+      // execute the code
       eval(code);
     } catch (error) {
       console.warn('error parsing code', error, code);
@@ -85,7 +137,10 @@ export class RunnerService {
     private bottomSheet: MatBottomSheet,
     private player: AudioPlayerService,
     private audio: AudioService,
-    private broker: EventsBrokerService
+    private broker: EventsBrokerService,
+    private mesh: MeshService,
+    private scene: SceneService,
+    private movement: MovementService
   ) {
     // make injected services available to scripts
     sharedContext = <Context>{
@@ -93,6 +148,10 @@ export class RunnerService {
       bottomSheet: this.bottomSheet,
       player: this.player,
       audio: this.audio,
+      mesh: this.mesh,
+      broker: this.broker,
+      scene: this.scene,
+      movement: this.movement,
     };
 
     this.onClick.subscribe((uuid) => {
@@ -103,7 +162,7 @@ export class RunnerService {
     });
 
     // remove existing runner for a deleted element
-    broker.onDeleteSceneElement.subscribe((element) =>
+    this.broker.onDeleteSceneElement.subscribe((element) =>
       this.delete(element.name)
     );
   }

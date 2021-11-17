@@ -2,11 +2,12 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { RealmService } from './realm/realm.service';
 import { InputService } from './shared/input.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { CodingService } from './coding/coding.service';
+import { CodeEditRequest, CodingService } from './coding/coding.service';
 import { VERSION } from 'src/app/version';
 import { EditorModeService } from './editor/editor-mode.service';
 import { AudioPlayerService } from './shared/audio-player.service';
 import { EditorService } from './editor/editor.service';
+import { EventsBrokerService } from './shared/events-broker.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,7 +32,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private coding: CodingService,
     private editorMode: EditorModeService,
     private player: AudioPlayerService,
-    private editor: EditorService
+    private editor: EditorService,
+    private broker: EventsBrokerService
   ) {}
 
   ngAfterViewInit(): void {
@@ -53,30 +55,34 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     );
 
-    this.coding.onEditParent.subscribe((selection) =>
-      this.toggleRight(selection)
-    );
+    this.coding.onEdit.subscribe((request) => this.toggleRight(request));
 
     // selection is deleted close the code panel
     this.editor.onSelectClickable.subscribe((mesh) => {
       if (!mesh) {
-        this.drawerRight.close();
+        this.closeRight();
       }
+    });
+
+    this.broker.requestToCloseCodePanel.subscribe(() => {
+      this.closeRight();
     });
   }
 
+  closeRight(){
+    this.drawerRight.close();
+    this.coding.isEditing.next(this.drawerRight.opened);
+  }
+
   lastSelection: string;
-  toggleRight(selection: string): void {
+  toggleRight(request: CodeEditRequest): void {
+    const selection = request.uuid;
     if (selection == this.lastSelection) {
       this.drawerRight.toggle();
     } else {
       this.drawerRight.open();
     }
     this.lastSelection = selection;
-  }
-
-  toggle() {
-    this.drawer.toggle();
-    this.input.focus();
+    this.coding.isEditing.next(this.drawerRight.opened);
   }
 }

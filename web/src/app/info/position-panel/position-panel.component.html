@@ -1,0 +1,24 @@
+<div class="block container">
+  <div class="child compass-container">
+    <div class="compass-title">N</div>
+    <div #compass class="compass">
+      <mat-icon class="panel-icon">north</mat-icon>
+    </div>
+  </div>
+  <div class="child position">
+    <table>
+      <tr>
+        <td>NORTH</td>
+        <td class="position-value">{{ characterPosition.z | number: "1.1-1" }}</td>
+      </tr>
+      <tr>
+        <td>WEST</td>
+        <td class="position-value">{{ characterPosition.x | number: "1.1-1" }}</td>
+      </tr>
+      <tr>
+        <td>ALTITUDE</td>
+        <td class="position-value">{{ characterPosition.y | number: "1.1-1" }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

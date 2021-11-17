@@ -83,10 +83,17 @@ export class SceneAudio {
   base64: string;
 }
 
+export class SceneCode {
+  name: string;
+  label: string;
+  code: CodeDefinition;
+}
+
 export class StateUpdate implements ClientData, ClientResponseData {
   data: SceneElementMemento[];
   images: SceneImage[];
-  audios: SceneAudio[]
+  audios: SceneAudio[];
+  codes: SceneCode[];
 }
 
 export class ShareRequest implements ClientData {}

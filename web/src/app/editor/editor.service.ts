@@ -34,6 +34,7 @@ import { RunnerService } from '../coding/runner.service';
 import { NotifyService } from '../shared/notify.service';
 import { ImagesService } from '../library/images.service';
 import { Subject } from 'rxjs';
+import { SceneService } from '../shared/scene.service';
 
 const POINTERDOWN = 'pointerdown';
 const POINTERUP = 'pointerup';
@@ -67,7 +68,8 @@ export class EditorService {
     private coding: CodingService,
     private runner: RunnerService,
     private notify: NotifyService,
-    private image: ImagesService
+    private image: ImagesService,
+    private scene: SceneService
   ) {
     this.onDropFromLibrary = new Subject();
   }
@@ -225,11 +227,20 @@ export class EditorService {
     }
   }
 
-  editCode() {
+  async editCode() {
     if (this.isValidSelection()) {
       const parent = this.mesh.getParent(this.selectedClickable);
       console.log('edit code parent', parent);
-      this.coding.editParent(parent.name);
+      const request = await this.coding.editParent(parent.name);
+
+      // save code changes
+      request.onApplyChanges.subscribe((request) => {
+        const uuid = request.uuid;
+        const codeDef = request.updatedCodeDefinition;
+
+        this.saveCode(uuid, codeDef);
+        this.runner.register(uuid, codeDef.code);
+      });
     }
   }
 
@@ -280,7 +291,7 @@ export class EditorService {
     this.onDropFromLibrary.subscribe(async (point: Vector2) => {
       // const pickInfo = scene.pick( scene.pointerX, scene.pointerY);
       const pickInfo = scene.pick(point.x, point.y);
-      const mesh = await this.addToPosition(scene, pickInfo);
+      const mesh = await this.addFromPickInfo(scene, pickInfo);
       this.editorMode.edit();
 
       const clickable = this.mesh.getClickableFromMesh(mesh);
@@ -307,12 +318,14 @@ export class EditorService {
         if (pointerInfo.event.type == POINTERMOVE) {
           if (this.dragging && this.selectedClickable) {
             const parent = this.mesh.getParent(this.selectedClickable);
-            const current = this.getPointerPosition(scene);
-            const diff = current.subtract(this.dragPosition);
-            // drag should not affect Y coord
-            diff.y = 0;
-            parent.position.addInPlace(diff);
-            this.dragPosition = current;
+            if (parent) {
+              const current = this.getPointerPosition(scene);
+              const diff = current.subtract(this.dragPosition);
+              // drag should not affect Y coord
+              diff.y = 0;
+              parent.position.addInPlace(diff);
+              this.dragPosition = current;
+            }
           }
         }
       }
@@ -400,7 +413,21 @@ export class EditorService {
   }
 
   select(scene: Scene, pointerInfo: PointerInfo) {
-    this.selectClickableMesh(<Mesh>pointerInfo.pickInfo.pickedMesh);
+    const mesh = <Mesh>pointerInfo.pickInfo.pickedMesh;
+    this.selectClickableMesh(mesh);
+
+    if (this.isValidSelection()) {
+      console.log('select mesh', mesh.name);
+      this.onSelectClickable.next(mesh);
+
+      // if already editing change the current selection
+      if (this.coding.isEditing.getValue()) {
+        this.editCode();
+      }
+      this.showBoundingBox(true);
+    } else {
+      this.onSelectClickable.next(null);
+    }
   }
 
   showBoundingBox(show: boolean) {
@@ -413,17 +440,10 @@ export class EditorService {
     }
 
     this.selectedClickable = mesh;
-
-    if (this.isValidSelection()) {
-      console.log('select mesh', mesh.name);
-      this.onSelectClickable.next(mesh);
-      this.showBoundingBox(true);
-    } else {
-      this.onSelectClickable.next(null);
-    }
   }
 
-  async addToPosition(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {
+  // TODO: refactor to use MeshService.addFromLibraryComponent( )
+  async addFromPickInfo(scene: Scene, pickInfo: PickingInfo): Promise<Mesh> {
     if (!this.current) {
       this.notify.warn(
         "Err... I don't know what to add to the scene... select from the " +
@@ -445,7 +465,6 @@ export class EditorService {
       scene,
       this.current.id,
       imageName,
-      skipColision
     );
     const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
     let position: Vector3;
@@ -484,7 +503,7 @@ export class EditorService {
       skipColision: skipColision,
     };
 
-    const mesh = await this.create(scene, element);
+    const mesh = await this.scene.create(scene, element);
     console.log('mesh created', mesh.name);
 
     // update local realm and send client event
@@ -504,31 +523,8 @@ export class EditorService {
     return this.current;
   }
 
-  async create(scene: Scene, element: SceneElement): Promise<Mesh> {
-    console.log('create', element.name, element.position);
-    const templateMesh = await this.library.getMesh(
-      scene,
-      element.componentID,
-      element.imageName,
-      element.skipColision
-    );
-
-    const mesh = this.mesh.cloneMesh(
-      scene,
-      templateMesh,
-      element.position,
-      element.rotation,
-      element.scaling,
-      element.name
-    );
-
-    // updates position with the calculated position by the cloner
-    element.position = mesh.position;
-    return mesh;
-  }
-
   async add(scene: Scene, element: SceneElement) {
-    await this.create(scene, element);
+    await this.scene.create(scene, element);
     console.log('add', element.name, element.position);
     const memento = sceneElement2Memento(element);
     this.realm.add(memento);

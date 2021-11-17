@@ -22,6 +22,10 @@ import { ImagesLibraryComponent } from './library/images-library/images-library.
 import { FileUploadComponent } from './library/file-upload/file-upload.component';
 import { AudioLibraryComponent } from './library/audio-library/audio-library.component';
 import { UpDownComponent } from './editor/up-down/up-down.component';
+import { CodeLibraryComponent } from './library/code-library/code-library.component';
+import { DisplayFPSComponent } from './info/display-fps/display-fps.component';
+import { InfoPanelComponent } from './info/info-panel/info-panel.component';
+import { PositionPanelComponent } from './info/position-panel/position-panel.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { UpDownComponent } from './editor/up-down/up-down.component';
     FileUploadComponent,
     AudioLibraryComponent,
     UpDownComponent,
+    CodeLibraryComponent,
+    DisplayFPSComponent,
+    InfoPanelComponent,
+    PositionPanelComponent,
   ],
   imports: [
     BrowserModule,

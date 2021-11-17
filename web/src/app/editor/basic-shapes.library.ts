@@ -1,8 +1,10 @@
 import { Library } from './editor-library.model';
 
+export const INTERNAL_BASIC_LIBRARY = 'internal/basic';
+
 const shapes = [
   {
-    id: 'internal/basic://cube',
+    id: INTERNAL_BASIC_LIBRARY + '://cube',
     name: 'cube',
     icon: 'assets/library/basic/cube.png',
     supportImage: true,
@@ -13,5 +15,5 @@ const shapes = [
 ];
 
 export const basicShapesLibrary: Library[] = [
-  { name: 'internal/basic', components: shapes },
+  { name: INTERNAL_BASIC_LIBRARY, components: shapes },
 ];

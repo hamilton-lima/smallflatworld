@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Mesh, Ray, Scene, Vector3 } from '@babylonjs/core';
 import { RealmService } from '../realm/realm.service';
 import { mesh2Memento } from './builders';
+import { CameraService } from './camera.service';
 import { KeyboardService } from './keyboard.service';
+import { EngineState } from './renderer.model';
 
 const ROTATION_SPEED = 0.04;
 const MOVEMENT_SPEED = 3.5;
@@ -18,7 +20,11 @@ class RotationPair {
   providedIn: 'root',
 })
 export class MovementService {
-  constructor(private realm: RealmService, private keyboard: KeyboardService) {}
+  constructor(
+    private realm: RealmService,
+    private keyboard: KeyboardService,
+    private camera: CameraService
+  ) {}
 
   jumpEnergy = 0.0;
 
@@ -43,7 +49,10 @@ export class MovementService {
     return result;
   }
 
-  move(scene: Scene, character: Mesh) {
+  move(engineState: EngineState) {
+    const scene = engineState.scene;
+    const character = engineState.character;
+
     let rotated = false;
     let moved = false;
     let falling = false;
@@ -97,7 +106,15 @@ export class MovementService {
     character.moveWithCollisions(movement);
 
     if (moved || rotated || falling) {
+      this.camera.setTarget(character);
       this.realm.updateCharacter(mesh2Memento(character));
     }
+  }
+
+  teleport(character: Mesh, position: Vector3, rotation: Vector3) {
+    character.position = position;
+    character.rotation = rotation;
+
+    this.realm.updateCharacter(mesh2Memento(character));
   }
 }

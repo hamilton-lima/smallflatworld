@@ -30,13 +30,17 @@
 release 0.4.2
 
 ### Create scene elements with code
-CURRENT
 - Add function to create scenario elements
-- Display mouse position and character position - to be used as reference 
-for the create scenario code
+- Add teleport to 0,0,0 and set rotation 0,0,0
+- move blockly xml definition to the *.definition file
+- replace FAR,LEFT,UP by NORTH,WEST,ALTITUDE in the editor and in the position display
+- Display mouse position and character position and camera north direction 
+- format position
+- compass rotation = character.rotation.x *-1
+- BUG Several empty clickables are created at 0,0,0
 
-- Add legs to the character or wheels :)
-- Add mixpanel.com tracking (timeboxed)
+CURRENT
+- BUG, create code edit and save, when entering edit mode first selection will auto open code editor
 
 ### play together
 - Auto generate user name

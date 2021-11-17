@@ -1,7 +1,13 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { OnRepeatDefinition } from './definition/code-blockly.onrepeat';
 import { OnClickDefinition } from './definition/code-blockly.onclick';
+import { CreateDefinition } from './definition/code-blockly.create';
+import { TeleportDefinition } from './definition/code-blockly.teleport';
+import { PositionDefinition } from './definition/code-blockly.position';
 import { AudioService } from 'src/app/library/audio.service';
+import { EditorLibraryService } from 'src/app/editor/editor-library.service';
+import { ImagesService } from 'src/app/library/images.service';
+import { BlocklyDefaultToolboxService } from './blockly-default-toolbox.service';
 
 declare var Blockly: any;
 
@@ -14,24 +20,39 @@ export enum BlocklyConfig {
 
 export interface BlocklyDefinition {
   getTypeName();
-  getBlockConfig();
+  defineBlock();
   getCodeGenerator();
+}
+
+export class BlocklyServiceContext {
+  audio: AudioService;
+  editorLibrary: EditorLibraryService;
+  images: ImagesService;
 }
 
 @Injectable({ providedIn: 'root' })
 export class BlocklyService {
   private renderer: Renderer2;
-
+  private context: BlocklyServiceContext;
   private configResolution;
 
   constructor(
     private factory: RendererFactory2,
-    private audio: AudioService
+    private audio: AudioService,
+    private editorLibrary: EditorLibraryService,
+    private images: ImagesService,
+    private toolboxDefault: BlocklyDefaultToolboxService
   ) {
     this.configResolution = new Map([
       [BlocklyConfig.Default, this.getToolboxDefault()],
       [BlocklyConfig.DefaultWithOther, this.getToolboxDefault()],
     ]);
+
+    this.context = <BlocklyServiceContext>{
+      audio: this.audio,
+      editorLibrary: this.editorLibrary,
+      images: this.images,
+    };
 
     // Renderer2 needs to be created manually as there is no provider by default
     this.renderer = factory.createRenderer(null, null);
@@ -93,97 +114,6 @@ export class BlocklyService {
     return code;
   }
 
-  readonly commands = `
-  <category name="Commands" colour="%{BKY_PROCEDURES_HUE}">
-    <block type="message" />
-    <block type="bottom_message" />
-    <block type="playSound" />
-    <block type="turn" />
-    <block type="math_number" />
-    <block type="math_arithmetic" />
-  </category>
-  `;
-
-  readonly events = `
-  <category name="Events" colour="%{BKY_PROCEDURES_HUE}">
-    <block type="onclick" />
-    <block type="onrepeat" />
-  </category>
-  `;
-
-  readonly luchador = `
-  <category name="Luchador" colour="260">
-    <block type="me_string" />
-    <block type="me_number" />
-  </category>
-  `;
-
-  readonly separator = `
-  <sep></sep>
-  `;
-
-  readonly variables = `
-  <category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}" />
-  `;
-
-  readonly math = `
-  <category name="Math" colour="%{BKY_MATH_HUE}">
-    <block type="math_number" />
-    <block type="math_arithmetic" />
-    <block type="math_single" />
-    <block type="math_constant" />
-    <block type="math_random_int" />
-  </category>
-  `;
-
-  readonly control = `
-  <category name="Control" colour="%{BKY_LOOPS_HUE}" >
-    <block type="controls_if" />
-    <block type="controls_ifelse"/>
-    <block type="controls_whileUntil"/>
-    <block type="controls_for"/>
-    <block type="controls_forEach"/>
-    <block type="controls_flow_statements"/>
-  </category>
-  `;
-
-  readonly logic = `
-  <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-    <block type="logic_compare"/>
-    <block type="logic_operation"/>
-    <block type="logic_boolean"/>
-    <block type="logic_negate"/>
-  </category>
-  `;
-
-  readonly text = `
-  <category name="Text" colour="%{BKY_TEXTS_HUE}">
-    <block type="text"/>
-    <block type="text_join"/>
-    <block type="text_append"/>
-    <block type="text_indexOf"/>
-    <block type="text_charAt"/>
-    <block type="text_changeCase"/>
-  </category>
-  `;
-
-  readonly functions = `
-  <category name="Functions" colour="#995ba5" custom="PROCEDURE">
-  </category>
-  `;
-
-  readonly toolboxDefault = [
-    this.commands,
-    this.events,
-    this.separator,
-    this.variables,
-    this.math,
-    this.text,
-    this.control,
-    this.logic,
-    this.functions,
-  ];
-
   getToolboxXML(data: string[]) {
     const xml = data.join('\n');
     const result = `<xml id="toolbox" style="display: none">${xml}</xml>`;
@@ -191,17 +121,20 @@ export class BlocklyService {
   }
 
   getToolboxDefault() {
-    return this.getToolboxXML(this.toolboxDefault);
+    return this.getToolboxXML(this.toolboxDefault.getToolbox());
   }
 
-  readonly definitions: Array<BlocklyDefinition> = [
-    new OnClickDefinition(),
-    new OnRepeatDefinition(),
-  ];
-
   setup() {
-    this.definitions.forEach((definition) => {
-      Blockly.defineBlocksWithJsonArray([definition.getBlockConfig()]);
+    const definitions: Array<BlocklyDefinition> = [
+      new OnClickDefinition(),
+      new OnRepeatDefinition(),
+      new PositionDefinition(),
+      new TeleportDefinition(),
+      new CreateDefinition(this.context),
+    ];
+
+    definitions.forEach((definition) => {
+      definition.defineBlock();
       Blockly.JavaScript[definition.getTypeName()] =
         definition.getCodeGenerator();
     });
@@ -210,8 +143,11 @@ export class BlocklyService {
     Blockly.Extensions.register('list_sound_menu_extension', function () {
       this.getInput('INPUT').appendField(
         new Blockly.FieldDropdown(function () {
-          var options = self.audio.onUpdate.value.map( audio => [audio.name, audio.name]);
-          if( options.length == 0){
+          var options = self.audio.onUpdate.value.map((audio) => [
+            audio.name,
+            audio.name,
+          ]);
+          if (options.length == 0) {
             options = [['No sound available', 'N/A']];
           }
           return options;

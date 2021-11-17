@@ -150,7 +150,8 @@ export class MeshService {
     position: Vector3,
     rotation: Vector3,
     scaling: Vector3,
-    name: string
+    name: string,
+    skipColision: boolean,
   ): Mesh {
     const result = <Mesh>mesh.clone(name, null);
     result.name = name;
@@ -162,6 +163,14 @@ export class MeshService {
       mesh.isVisible = true;
     });
 
+    const clickable = this.getClickableFromMesh(result);
+
+    if (skipColision) {
+      clickable.checkCollisions = false;
+    } else {
+      clickable.checkCollisions = true;
+    }
+
     scene.addMesh(result);
     console.log('clone', result);
     return result;
@@ -172,7 +181,6 @@ export class MeshService {
     scene: Scene,
     parent: Mesh,
     boundingBoxInfo: BoundingInfo,
-    skipColision: boolean
   ) {
     const bb = boundingBoxInfo.boundingBox;
     const width = bb.maximum.x - bb.minimum.x;
@@ -191,14 +199,6 @@ export class MeshService {
     clickable.isPickable = true;
     clickable.isVisible = true;
 
-    console.log('skipColision mesh service', skipColision);
-
-    if (skipColision) {
-      clickable.checkCollisions = false;
-    } else {
-      clickable.checkCollisions = true;
-    }
-
     const transparent = new StandardMaterial('transparent', scene);
     transparent.alpha = 0.0;
     clickable.material = transparent;
@@ -212,7 +212,6 @@ export class MeshService {
     name: string,
     visible: boolean,
     meshes: Mesh[],
-    skipColision: boolean
   ): Mesh {
     // create parent mesh
     const parent = new Mesh(name, scene);
@@ -241,7 +240,7 @@ export class MeshService {
     // set parent bounding box
     const boundingBoxInfo = new BoundingInfo(min, max);
     parent.setBoundingInfo(boundingBoxInfo);
-    this.createClickableDummy(scene, parent, boundingBoxInfo, skipColision);
+    this.createClickableDummy(scene, parent, boundingBoxInfo);
     return parent;
   }
 
