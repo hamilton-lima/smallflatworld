@@ -1,50 +1,26 @@
 # Roadmap
 
 ## Release Alfa2 0.5.0
-- Custom images on scenario
-- Play sound effects
-- Create scenario using code
+- Custom images on scenario (OK)
+- Play sound effects (OK)
+- Create scenario using code (OK)
 - Code together
 
 ## Action plan
 
-### Extras
-- Roads dont have colision to avoid small jumps when walking
-- Update on the Editor UI
-
-### Custom images
-- Add basic shapes library with cube 
-- Add library of images 
-  - upload image + save in the realm
-  - sync realm update of image library
-- Add properties input WHEN creating basic shapes
-
-### Audio - In progress
-- Add code function to play audio
-- Add audio library to the realm - explore using strings to define the sound or MP3 files
-- player library 
-- upload mp3 files 
-- add code action to play mp3
-- Drag and drop from library
-
-release 0.4.2
-
-### Create scene elements with code
-- Add function to create scenario elements
-- Add teleport to 0,0,0 and set rotation 0,0,0
-- move blockly xml definition to the *.definition file
-- replace FAR,LEFT,UP by NORTH,WEST,ALTITUDE in the editor and in the position display
-- Display mouse position and character position and camera north direction 
-- format position
-- compass rotation = character.rotation.x *-1
-- BUG Several empty clickables are created at 0,0,0
-
-release 0.4.3
-
-### visual fixes
+### Miscellaneous + documentation
 
 CURRENT
 - show and gather feedback
+
+Candidates
+- website documentation
+- first lessons
+- create logic blocks with prefill numbers
+- import models from tinkercad
+
+- make imcompatible data structures are fixed - self heal
+- shadows
 
 release 0.4.4
 
