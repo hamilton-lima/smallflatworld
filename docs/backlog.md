@@ -1,6 +1,7 @@
 # backlog
-TBIncluded items from mindmap and previous roadmap
+To be included items from mindmap and previous roadmap
 
+- Add sticker library
 - Add predefined list of images that cant be deleted
 - Add texture to the floor - e.g. garage concrete, wood
 - Customize face of the character based on robolucha mask editor
