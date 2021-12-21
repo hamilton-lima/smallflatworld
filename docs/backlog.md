@@ -1,22 +1,27 @@
 # backlog
-TBIncluded items from mindmap and previous roadmap
+To be included items from mindmap and previous roadmap
+
+- Add sticker library
+- Add predefined list of images that cant be deleted
+- Add texture to the floor - e.g. garage concrete, wood
+- Customize face of the character based on robolucha mask editor
+- Add legs to the character or wheels :) or googly eyes
 
 - Copy and Paste Scene elements - does it make sense for a single element?
 - Create terrain based on seed
 - Import 3D elements, this can be a start of the favorites library or imported
-- Create glass and water blocks
+- Create glass and water blocks, add attributes editor, Colider, transparency.
 
 - Music library from ABC format, see for renderer https://github.com/paulrosen/abcjs or adapt tuneJs to support it
 - Translation to all messages, evaluate translation to coding elements
 - Code action to play musical note
 - Code action to play a sequence of notes 
 - Export/Import code from code library
-- Move 3D elements
 - Render Shadow in the scene
 - Resize 3D elements
 - Introduce physics to the scene elements, this can generate a lot of fun with colisions and ropes and other simulations :)
 - Provide shareable url with server and realm
-- Add legs to the character or wheels :) or googly eyes
+
 - Add mixpanel.com tracking
 - Export/Import code from code library
 - Document examples of the image format
@@ -28,3 +33,7 @@ TBIncluded items from mindmap and previous roadmap
     - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
 
 - Add defeault library of sound effects
+
+# to be evaluated
+
+- Add https://twitter.com/quaternius assets to the library

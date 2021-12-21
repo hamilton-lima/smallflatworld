@@ -68,6 +68,7 @@ export class MovementService {
 
     if (this.keyboard.keyState.Space) {
       console.log('jump');
+      engineState.animations.jump.start(false);
       // if (this.isGrounded(scene, character)) {
       this.jumpEnergy = JUMP_FORCE;
       // }
@@ -108,6 +109,9 @@ export class MovementService {
     if (moved || rotated || falling) {
       this.camera.setTarget(character);
       this.realm.updateCharacter(mesh2Memento(character));
+      engineState.animations.walk.start(false);
+    } else {
+      engineState.animations.walk.stop();
     }
   }
 

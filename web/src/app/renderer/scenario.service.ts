@@ -13,7 +13,8 @@ import { RealmService } from '../realm/realm.service';
 import { buildVector3, memento2SceneElement } from './builders';
 import { MeshService } from './mesh.service';
 import { EngineState, SceneElement } from './renderer.model';
-import { SceneService} from '../shared/scene.service';
+import { SceneService } from '../shared/scene.service';
+import { CharacterService } from '../mesh/character.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,8 @@ export class ScenarioService {
     private realm: RealmService,
     private runner: RunnerService,
     private scene: SceneService,
-  ) {}
+    private character: CharacterService,
+  ) { }
 
   addCharacter(engineState: EngineState, character: SceneElement) {
     const position = buildVector3(character.position);
@@ -44,8 +46,11 @@ export class ScenarioService {
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
 
-      // engineState.character = await this.character.load(engineState);
-      engineState.character = this.mesh.getBox(engineState.scene);
+      const loaded = await this.character.load(engineState);
+      engineState.character = loaded.character;
+      engineState.animations = loaded.animations;
+      
+      // engineState.character = this.mesh.getBox(engineState.scene);
       engineState.character.isVisible = true;
 
       const mat = new StandardMaterial('mat', engineState.scene);
