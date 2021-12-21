@@ -2,13 +2,15 @@
 To be included items from mindmap and previous roadmap
 
 - Add sticker library
+- add virtual controller, see https://playground.babylonjs.com/#C6V6UY#5
 - Add predefined list of images that cant be deleted
 - Add texture to the floor - e.g. garage concrete, wood
 - Customize face of the character based on robolucha mask editor
 - Add legs to the character or wheels :) or googly eyes
 
 - Copy and Paste Scene elements - does it make sense for a single element?
-- Create terrain based on seed
+- Create terrain based on seed, some ideas on https://80.lv/articles/001agt-005cg-crafting-a-hexagonal-map-generator/
+
 - Import 3D elements, this can be a start of the favorites library or imported
 - Create glass and water blocks, add attributes editor, Colider, transparency.
 

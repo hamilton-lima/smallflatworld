@@ -23,6 +23,7 @@
     - read and save user info to track if the tutorial was already loaded
     - settings to see all user info saved in the browser
     - set realm as template, add to realm options
+    - track log of events
 
 - website documentation
 - first lessons, what are the topics?
