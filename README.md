@@ -11,6 +11,4 @@ Web 3D programable sandbox
 - Allow users to code behavior of scenario elements
 - Allow creation of stories
 
-## Roadmap
-
-[Alpha 2 release plan](docs/alpha2-plan.md)
+[Work in progress](docs/work-in-progress.md)
