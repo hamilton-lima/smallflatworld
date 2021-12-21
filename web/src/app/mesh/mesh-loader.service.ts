@@ -144,7 +144,7 @@ export class MeshLoaderService {
   }
 
   // load all animations from specific file from /assets folder
-  public loadAllAnimation(
+  public loadAnimation(
     scene: Scene,
     loaded: ISceneLoaderAsyncResult,
     fileName: string,

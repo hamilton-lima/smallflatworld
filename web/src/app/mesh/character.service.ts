@@ -35,21 +35,28 @@ export class CharacterService {
     const loaded: ISceneLoaderAsyncResult = await SceneLoader.ImportMeshAsync(
       '',
       'assets/',
-      'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian2.glb',
+      'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian.glb',
       engineState.scene
     );
 
-    const jump = await this.loader.loadAllAnimation(
+    const jump = await this.loader.loadAnimation(
       engineState.scene, loaded,
-      'library/kaykit/kayyit-dungeon-pack-1/animations/jump3.glb',
+      'library/kaykit/kayyit-dungeon-pack-1/animations/jump.glb',
       true
     );
 
-    console.log('(1) loaded', loaded);
+    const walk = await this.loader.loadAnimation(
+      engineState.scene, loaded,
+      'library/kaykit/kayyit-dungeon-pack-1/animations/walk.glb',
+      true
+    );
 
     const result = <CharacterAndAnimations>{
       character: <Mesh>loaded.meshes[0],
-      animations: <CharacterAnimations>{ jump: jump }
+      animations: <CharacterAnimations>{
+        jump: jump,
+        walk: walk
+      }
     }
 
     return result;

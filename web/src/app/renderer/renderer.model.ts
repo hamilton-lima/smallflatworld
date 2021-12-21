@@ -3,6 +3,7 @@ import { CodeDefinition } from '../../../../server/src/events.model';
 
 export class CharacterAnimations {
   jump: AnimationGroup;
+  walk: AnimationGroup;
 }
 
 export class EngineState {

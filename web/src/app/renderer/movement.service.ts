@@ -109,6 +109,9 @@ export class MovementService {
     if (moved || rotated || falling) {
       this.camera.setTarget(character);
       this.realm.updateCharacter(mesh2Memento(character));
+      engineState.animations.walk.start(false);
+    } else {
+      engineState.animations.walk.stop();
     }
   }
 
