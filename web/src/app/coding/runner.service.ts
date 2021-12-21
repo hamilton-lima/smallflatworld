@@ -16,6 +16,7 @@ import { Vector3 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';
 import { SceneService } from '../shared/scene.service';
 import { MovementService } from '../renderer/movement.service';
+import { InputService } from '../shared/input.service';
 
 function playSoundByName(name: string) {
   console.log('playSound', name);
@@ -24,9 +25,13 @@ function playSoundByName(name: string) {
 
 function showMessage(message: string) {
   console.log('showmessage', message);
-  sharedContext.snackBar.open(message, 'DISMISS', {
+  const ref = sharedContext.snackBar.open(message, 'DISMISS', {
     duration: 5000,
   });
+
+  ref.afterDismissed().toPromise().then(() => {
+    sharedContext.input.focus();
+  })
 }
 
 class Position {
@@ -92,6 +97,7 @@ class Context {
   broker: EventsBrokerService;
   scene: SceneService;
   movement: MovementService;
+  input: InputService;
 }
 
 let sharedContext: Context;
@@ -140,7 +146,8 @@ export class RunnerService {
     private broker: EventsBrokerService,
     private mesh: MeshService,
     private scene: SceneService,
-    private movement: MovementService
+    private movement: MovementService,
+    private input: InputService,
   ) {
     // make injected services available to scripts
     sharedContext = <Context>{
@@ -152,6 +159,7 @@ export class RunnerService {
       broker: this.broker,
       scene: this.scene,
       movement: this.movement,
+      input: this.input,
     };
 
     this.onClick.subscribe((uuid) => {

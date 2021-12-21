@@ -305,6 +305,10 @@ export class EditorService {
         this.editorMode.toggleCurrentEditMode();
       }
 
+      if (this.editorMode.mode.value == EditorMode.WALK) {
+        this.click(scene, pointerInfo);
+      }
+
       // drag and drop
       if (this.editorMode.mode.value == EditorMode.EDIT) {
         if (pointerInfo.event.type == POINTERUP) {
@@ -316,31 +320,29 @@ export class EditorService {
         }
 
         if (pointerInfo.event.type == POINTERMOVE) {
-          if (this.dragging && this.selectedClickable) {
-            const parent = this.mesh.getParent(this.selectedClickable);
-            if (parent) {
-              const current = this.getPointerPosition(scene);
-              const diff = current.subtract(this.dragPosition);
-              // drag should not affect Y coord
-              diff.y = 0;
-              parent.position.addInPlace(diff);
-              this.dragPosition = current;
+          if (this.dragging) {
+            if (this.selectedClickable) {
+              const parent = this.mesh.getParent(this.selectedClickable);
+              if (parent) {
+                const current = this.getPointerPosition(scene);
+                const diff = current.subtract(this.dragPosition);
+                // drag should not affect Y coord
+                diff.y = 0;
+                parent.position.addInPlace(diff);
+                this.dragPosition = current;
+              }
             }
           }
         }
-      }
 
-      if (pointerInfo.pickInfo.pickedPoint) {
-        if (pointerInfo.event.type == POINTERDOWN) {
-          this.dragging = true;
-          this.dragPosition = this.getPointerPosition(scene);
+        if (pointerInfo.pickInfo.pickedPoint) {
+          if (pointerInfo.event.type == POINTERDOWN) {
+            this.dragging = true;
+            this.dragPosition = this.getPointerPosition(scene);
 
-          if (this.editorMode.mode.value == EditorMode.WALK) {
-            this.click(scene, pointerInfo);
-          }
-
-          if (this.editorMode.mode.value == EditorMode.EDIT) {
-            this.select(scene, pointerInfo);
+            if (this.editorMode.mode.value == EditorMode.EDIT) {
+              this.select(scene, pointerInfo);
+            }
           }
         }
       }
@@ -447,7 +449,7 @@ export class EditorService {
     if (!this.current) {
       this.notify.warn(
         "Err... I don't know what to add to the scene... select from the " +
-          'Library on the left.'
+        'Library on the left.'
       );
       return;
     }
