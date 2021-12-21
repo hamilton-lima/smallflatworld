@@ -68,6 +68,7 @@ export class MovementService {
 
     if (this.keyboard.keyState.Space) {
       console.log('jump');
+      engineState.animations.jump.start(false);
       // if (this.isGrounded(scene, character)) {
       this.jumpEnergy = JUMP_FORCE;
       // }

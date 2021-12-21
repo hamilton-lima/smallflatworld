@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Mesh, SceneLoader, StandardMaterial, Texture } from '@babylonjs/core';
-import { EngineState } from '../renderer/renderer.model';
+import { CharacterAnimations, EngineState } from '../renderer/renderer.model';
 import { MeshLoaderService } from './mesh-loader.service';
+
+export class CharacterAndAnimations {
+  character: Mesh;
+  animations: CharacterAnimations;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class CharacterService {
-  constructor(private loader: MeshLoaderService) {}
+  constructor(private loader: MeshLoaderService) { }
 
-  async load(engineState: EngineState): Promise<Mesh> {
-    //return this.loadAnimated(engineState);
-    return this.loadModelOnly(engineState);
+  async load(engineState: EngineState): Promise<CharacterAndAnimations> {
+    const result = this.loadAnimated(engineState);
+    return result;
+    // return this.loadModelOnly(engineState);
   }
 
   async loadModelOnly(engineState: EngineState): Promise<Mesh> {
@@ -25,23 +31,28 @@ export class CharacterService {
     return <Mesh>mesh;
   }
 
-  async loadAnimated(engineState: EngineState): Promise<Mesh> {
+  async loadAnimated(engineState: EngineState): Promise<CharacterAndAnimations> {
     const loaded = await SceneLoader.ImportMeshAsync(
       '',
       'assets/',
-      'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian.gltf',
+      'library/kaykit/kayyit-dungeon-pack-1/characters/character_barbarian2.glb',
       engineState.scene
     );
 
     const animations = await this.loader.loadAllAnimations(
       engineState.scene,
-      'library/kaykit/kayyit-dungeon-pack-1/animations/jump-blender.glb',
+      'library/kaykit/kayyit-dungeon-pack-1/animations/jump3.glb',
       true
     );
 
     const cheer = animations[0];
     console.log('(1) animations', cheer.targetedAnimations);
-    console.log('(1) loaded', loaded.transformNodes);
+    console.log('(1) loaded', loaded);
+
+    const result = <CharacterAndAnimations>{
+      character: <Mesh>loaded.meshes[0],
+      animations: <CharacterAnimations>{}
+    }
 
     if (cheer) {
       console.log('clone animation');
@@ -66,10 +77,11 @@ export class CharacterService {
       });
 
       console.log('cloned animation', newRun);
-      // FIX THIS: NOT WORKING
-      newRun.start(true);
-      return <Mesh>loaded.meshes[0];
+      result.animations.jump = newRun;
+      // newRun.start(true);
     }
+
+    return result;
   }
 
   async loadOld(engineState: EngineState) {
@@ -114,5 +126,6 @@ export class CharacterService {
 
     material.diffuseTexture = texture;
     mesh.material = material;
+    return mesh;
   }
 }

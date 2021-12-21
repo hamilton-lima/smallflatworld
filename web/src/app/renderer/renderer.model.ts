@@ -1,5 +1,9 @@
-import { Engine, Camera, Scene, HemisphericLight, Mesh, Vector3 } from '@babylonjs/core';
+import { Engine, Camera, Scene, HemisphericLight, Mesh, Vector3, AnimationGroup } from '@babylonjs/core';
 import { CodeDefinition } from '../../../../server/src/events.model';
+
+export class CharacterAnimations {
+  jump: AnimationGroup;
+}
 
 export class EngineState {
   engine: Engine;
@@ -7,6 +11,7 @@ export class EngineState {
   camera: Camera;
   mainLight: HemisphericLight;
   character: Mesh;
+  animations: CharacterAnimations;
 }
 
 export class SceneElement {
