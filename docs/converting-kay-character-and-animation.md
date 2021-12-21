@@ -10,7 +10,7 @@
 - adjust z of the hat/helmet to fit the correct position 
 - export as gltf with extension .glb
 ![reassign-hat-parent](reassign-hat-parent.png)
-![reassign-hat-parent-2](export-animation-2.png)
+![reassign-hat-parent-2](reassign-hat-parent-2.png)
 
 # Export animation
 - import the .fbx with single animation
