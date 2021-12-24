@@ -1,4 +1,4 @@
-import { Actions, DeleteRequest, StateUpdate } from "./events.model";
+import { Actions, DeleteRequest } from "./events.model";
 import { Handler } from "./handler.interface";
 import { MemoryStorage } from "./memory.storage";
 import { EventsHandler } from "./events.handler";

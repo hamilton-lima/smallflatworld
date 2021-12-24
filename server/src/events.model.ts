@@ -78,6 +78,11 @@ export class SceneImage {
   base64: string;
 }
 
+export class SceneDesign3D {
+  name: string;
+  base64: string;
+}
+
 export class SceneAudio {
   name: string;
   base64: string;
@@ -94,6 +99,7 @@ export class StateUpdate implements ClientData, ClientResponseData {
   images: SceneImage[];
   audios: SceneAudio[];
   codes: SceneCode[];
+  designs3D: SceneDesign3D[];
 }
 
 export class ShareRequest implements ClientData {}

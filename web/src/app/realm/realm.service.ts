@@ -5,6 +5,7 @@ import { ClientService } from '../multiplayer/client.service';
 import {
   SceneAudio,
   SceneCode,
+  SceneDesign3D,
   SceneElementMemento,
   SceneImage,
   Vector3MementoOne,
@@ -140,6 +141,11 @@ export class RealmService {
     return this._updateRealm();
   }
 
+  async addDesign(design3D: SceneDesign3D) {
+    this.currentRealm.designs3D.push(design3D);
+    return this._updateRealm();
+  }
+
   addAudio(audio: SceneAudio) {
     this.currentRealm.audios.push(audio);
     return this._updateRealm();
@@ -188,6 +194,17 @@ export class RealmService {
     console.log('found', name);
     if (found > -1) {
       this.currentRealm.images.splice(found, 1);
+    }
+    return this._updateRealm();
+  }
+
+  deleteDesign3D(name: string) {
+    const found = this.currentRealm.designs3D.findIndex(
+      (image) => image.name == name
+    );
+    console.log('found', name);
+    if (found > -1) {
+      this.currentRealm.designs3D.splice(found, 1);
     }
     return this._updateRealm();
   }

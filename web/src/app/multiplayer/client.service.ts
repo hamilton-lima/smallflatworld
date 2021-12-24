@@ -9,6 +9,7 @@ import {
   SceneImage,
   ShareResponse,
   StateUpdate,
+  SceneDesign3D
 } from '../../../../server/src/events.model';
 import { ServerService } from './server.service';
 import { buildVector3 } from '../renderer/builders';
@@ -24,6 +25,7 @@ export class ClientService {
   onUpdateImages: Subject<SceneImage[]> = new Subject();
   onUpdateAudios: Subject<SceneAudio[]> = new Subject();
   onUpdateCodes: Subject<SceneCode[]> = new Subject();
+  onUpdateDesigns3D: Subject<SceneDesign3D[]> = new Subject();
   onDelete: Subject<string> = new Subject();
 
   constructor(private server: ServerService) {}
@@ -69,6 +71,10 @@ export class ClientService {
     this.server.updateImages([image]);
   }
 
+  updateDesign(design3D: SceneDesign3D) {
+    this.server.updateDesigns3D([design3D]);
+  }
+
   updateAudio(audio: SceneAudio) {
     this.server.updateAudios([audio]);
   }
@@ -93,6 +99,10 @@ export class ClientService {
     this.server.deleteCode(name);
   }
 
+  deleteDesign3D(name: string) {
+    this.server.deleteDesign3D(name);
+  }
+
   listen2Updates() {
     this.subscriptions.push(
       this.server.onStateUpdate.subscribe((request: StateUpdate) => {
@@ -109,6 +119,10 @@ export class ClientService {
 
         if (request.codes && request.codes.length > 0) {
           this.onUpdateCodes.next(request.codes);
+        }
+        
+        if (request.designs3D && request.designs3D.length > 0) {
+          this.onUpdateDesigns3D.next(request.designs3D);
         }
       })
     );

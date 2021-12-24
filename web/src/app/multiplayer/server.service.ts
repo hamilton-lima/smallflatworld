@@ -10,6 +10,7 @@ import {
   JoinResponse,
   SceneAudio,
   SceneCode,
+  SceneDesign3D,
   SceneElementMemento,
   SceneImage,
   ShareRequest,
@@ -155,6 +156,13 @@ export class ServerService {
     };
     this.send(Actions.Update, request);
   }
+  
+  updateDesigns3D(designs3D: SceneDesign3D[]) {
+    const request = <StateUpdate>{
+      designs3D: designs3D,
+    };
+    this.send(Actions.Update, request);
+  }
 
   delete(name: string) {
     const request = <DeleteRequest>{
@@ -172,6 +180,10 @@ export class ServerService {
   }
 
   deleteCode(name: string) {
+    console.error('DELETE CODE AT SERVER is not implemented.');
+  }
+
+  deleteDesign3D(name: string) {
     console.error('DELETE CODE AT SERVER is not implemented.');
   }
 

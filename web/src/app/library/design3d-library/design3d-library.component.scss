@@ -1,0 +1,29 @@
+.upload-wrapper {
+    width: 100%;
+  }
+  
+  .image-preview {
+    width: 100%;
+  }
+  
+  .image-list {
+    position: relative;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 3;
+  }
+  
+  .one-image {
+    position: relative;
+    flex: 1;
+    max-width: 102px;
+  }
+  
+  .floating-delete {
+    position: absolute;
+    z-index: 100;
+    top: -15px;
+    right: -20px;
+  }
+  

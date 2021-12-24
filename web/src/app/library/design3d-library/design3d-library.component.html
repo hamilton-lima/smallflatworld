@@ -1,1 +1,32 @@
-<p>design3d-library works!</p>
+<div class="upload-wrapper">
+    <app-file-upload (onUpload)="newImage($event)">
+      Choose an GLTF (.glb) file to ADD or drop here.
+    </app-file-upload>
+  </div>
+  
+  <div class="image-list">
+    <div
+      class="one-image"
+      *ngFor="let image of images"
+      (mouseover)="mouseOver(image.name)"
+    >
+      <button
+        mat-raised-button
+        aria-label="{{ image.name }}"
+        (click)="select(image)"
+        [color]="getComponentSelectionColor(image.name)"
+      >
+        <img width="70" height="70" [src]="image.base64" />
+      </button>
+      <button
+        class="floating-delete"
+        mat-icon-button
+        color="accent"
+        (click)="delete(image.name)"
+        *ngIf="image.name == mouseOverImage"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+  
