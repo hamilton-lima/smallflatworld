@@ -10,6 +10,7 @@ import {
 } from 'unique-names-generator';
 import { Realm, Configuration } from './persistence.model';
 import Dexie from 'dexie';
+import { PersistenceDataChecker } from './persistence.data-checker';
 
 const uniqueNameConfig: Config = {
   dictionaries: [adjectives, colors, animals, names],
@@ -47,7 +48,7 @@ class LocalDatabase extends Dexie {
 export class PersistenceService {
   db: LocalDatabase;
 
-  constructor() {
+  constructor(private dataChecker: PersistenceDataChecker) {
     this.db = new LocalDatabase();
   }
 
@@ -92,9 +93,18 @@ export class PersistenceService {
     }
   }
 
+  async checkRealm(realm: Realm): Promise<Realm> {
+    const check = this.dataChecker.realmCheck(realm);
+    if (check.updated) {
+      const updated = await this.updateRealm(<Realm>check.updated);
+      return <Realm>check.updated;
+    }
+    return <Realm>check.original;
+  }
+
   async getRealm(id: string) {
     const realm = await this.db.realms.where('id').equals(id).toArray();
-    return realm[0];
+    return this.checkRealm(realm[0]);
   }
 
   async getConfiguration() {
@@ -103,8 +113,9 @@ export class PersistenceService {
   }
 
   // last realm in the database to be used in the configuration
-  private getLastRealm() {
-    return this.db.realms.toCollection().last();
+  private async getLastRealm() {
+    const realm = await this.db.realms.toCollection().last();
+    return this.checkRealm(realm);
   }
 
   // add or create realm
@@ -126,8 +137,10 @@ export class PersistenceService {
       images: [],
       audios: [],
       codes: [],
+      designs3D: []
     };
 
     return result;
   }
+
 }
