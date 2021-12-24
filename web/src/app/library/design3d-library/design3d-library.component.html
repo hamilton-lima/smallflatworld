@@ -1,32 +1,17 @@
 <div class="upload-wrapper">
-    <app-file-upload (onUpload)="newDesign3D($event)">
-      Choose an GLTF (.glb) file to ADD or drop here.
-    </app-file-upload>
+  <app-file-upload (onUpload)="newDesign3D($event)">
+    Choose an GLTF (.glb) file to ADD or drop here.
+  </app-file-upload>
+</div>
+
+<div class="image-list">
+  <div class="one-image" *ngFor="let design3D of designs3D" (mouseover)="mouseOver(design3D.name)">
+    <button draggable="true" mat-raised-button aria-label="{{ design3D.name }}" (click)="select(design3D)"
+      (mousedown)="select(design3D)" [color]="getComponentSelectionColor(design3D.name)">{{design3D.name}}
+    </button>
+    <button class="floating-delete" mat-icon-button color="accent" (click)="delete(design3D.name)"
+      *ngIf="design3D.name == mouseOverDesign3D">
+      <mat-icon>clear</mat-icon>
+    </button>
   </div>
-  
-  <div class="image-list">
-    <div
-      class="one-image"
-      *ngFor="let design3D of designs3D"
-      (mouseover)="mouseOver(design3D.name)"
-   >
-      <button
-        mat-raised-button
-        aria-label="{{ design3D.name }}"
-        (click)="select(design3D)"
-        (mousedown)="select(design3D)"
-        [color]="getComponentSelectionColor(design3D.name)"
-      >{{design3D.name}}
-      </button>
-      <button
-        class="floating-delete"
-        mat-icon-button
-        color="accent"
-        (click)="delete(design3D.name)"
-        *ngIf="design3D.name == mouseOverDesign3D"
-      >
-        <mat-icon>clear</mat-icon>
-      </button>
-    </div>
-  </div>
-  
+</div>
