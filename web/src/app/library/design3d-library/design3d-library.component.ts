@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { LibraryComponent } from 'src/app/editor/editor-library.model';
+import { EditorService } from 'src/app/editor/editor.service';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { InputService } from 'src/app/shared/input.service';
 import { NotifyService } from 'src/app/shared/notify.service';
 import { SceneDesign3D, SceneImage } from '../../../../../server/src/events.model';
-import { Design3dService} from '../design3d.service';
+import { Design3dService } from '../design3d.service';
 
 @Component({
   selector: 'app-design3d-library',
@@ -21,7 +23,8 @@ export class Design3dLibraryComponent implements OnInit {
     private confirm: ConfirmService,
     private notify: NotifyService,
     private input: InputService,
-  ) {}
+    private editor: EditorService,
+  ) { }
 
   ngOnInit(): void {
     this.service.onUpdate.subscribe((designs3d) => {
@@ -31,15 +34,26 @@ export class Design3dLibraryComponent implements OnInit {
   }
 
   preSelect() {
-    if( this.designs3D && this.designs3D.length > 0){
+    if (this.designs3D && this.designs3D.length > 0) {
       this.select(this.designs3D[0]);
     }
   }
 
-  select(image: SceneDesign3D) {
-    this.service.select(image);
-    console.log('select', image);
+  select(design3D: SceneDesign3D) {
+    this.service.select(design3D);
+    console.log('select', design3D);
     this.input.focus();
+
+    const libraryComponent = <LibraryComponent>{
+      id: design3D.name,
+      name: design3D.name,
+      model3D: design3D.base64,
+      scale: 1.0,
+    }
+
+    // build LibraryComponent to be used by the editor
+    this.editor.setCurrentComponent(libraryComponent);
+
   }
 
   mouseOver(name: string) {
@@ -47,7 +61,7 @@ export class Design3dLibraryComponent implements OnInit {
     this.mouseOverDesign3D = name;
   }
 
-  getComponentSelectionColor(name:string) {
+  getComponentSelectionColor(name: string) {
     const current = this.service.getCurrent();
     if (current && name == current.name) {
       return "primary";
@@ -63,12 +77,12 @@ export class Design3dLibraryComponent implements OnInit {
   }
 
   async delete(name: string) {
-    if( this.service.canRemove(name)){
+    if (this.service.canRemove(name)) {
       const response = await this.confirm.confirm([
         'Do you want to remove this Design3D?',
         'There is no going back from here...',
       ]);
-  
+
       if (response == ConfirmOptions.YES) {
         this.service.remove(name);
       }

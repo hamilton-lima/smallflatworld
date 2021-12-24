@@ -18,7 +18,7 @@ export class EditorToolbarComponent implements OnInit {
 
   constructor(
     private service: EditorLibraryService,
-    private editor: EditorService
+    private editor: EditorService,
   ) {}
 
   ngOnInit(): void {
