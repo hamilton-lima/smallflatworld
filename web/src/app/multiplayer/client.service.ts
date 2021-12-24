@@ -71,7 +71,7 @@ export class ClientService {
     this.server.updateImages([image]);
   }
 
-  updateDesign(design3D: SceneDesign3D) {
+  updateDesign3D(design3D: SceneDesign3D) {
     this.server.updateDesigns3D([design3D]);
   }
 

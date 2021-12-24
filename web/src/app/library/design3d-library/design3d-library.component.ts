@@ -11,11 +11,11 @@ import { Design3dService} from '../design3d.service';
   styleUrls: ['./design3d-library.component.scss']
 })
 export class Design3dLibraryComponent implements OnInit {
-  current: SceneImage;
-  mouseOverImage: string;
+  current: SceneDesign3D;
+  mouseOverDesign3D: string;
 
   preview: string;
-  images: SceneDesign3D[];
+  designs3D: SceneDesign3D[];
   constructor(
     private service: Design3dService,
     private confirm: ConfirmService,
@@ -25,18 +25,18 @@ export class Design3dLibraryComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.onUpdate.subscribe((designs3d) => {
-      this.images = designs3d;
-      this.preSelectImage();
+      this.designs3D = designs3d;
+      this.preSelect();
     });
   }
 
-  preSelectImage() {
-    if( this.images && this.images.length > 0){
-      this.select(this.images[0]);
+  preSelect() {
+    if( this.designs3D && this.designs3D.length > 0){
+      this.select(this.designs3D[0]);
     }
   }
 
-  select(image: SceneImage) {
+  select(image: SceneDesign3D) {
     this.service.select(image);
     console.log('select', image);
     this.input.focus();
@@ -44,7 +44,7 @@ export class Design3dLibraryComponent implements OnInit {
 
   mouseOver(name: string) {
     console.log('mouseover', name);
-    this.mouseOverImage = name;
+    this.mouseOverDesign3D = name;
   }
 
   getComponentSelectionColor(name:string) {
@@ -56,7 +56,7 @@ export class Design3dLibraryComponent implements OnInit {
     }
   }
 
-  newImage(file: File) {
+  newDesign3D(file: File) {
     this.service.fileInputToBase64(file).subscribe((base64) => {
       this.preview = base64;
     });
@@ -65,7 +65,7 @@ export class Design3dLibraryComponent implements OnInit {
   async delete(name: string) {
     if( this.service.canRemove(name)){
       const response = await this.confirm.confirm([
-        'Do you want to remove this image?',
+        'Do you want to remove this Design3D?',
         'There is no going back from here...',
       ]);
   
@@ -73,7 +73,7 @@ export class Design3dLibraryComponent implements OnInit {
         this.service.remove(name);
       }
     } else {
-      this.notify.info('Some block is USING this image, we can\'t delete it.');
+      this.notify.info('This design is in use, we can\'t delete it.');
     }
   }
 }

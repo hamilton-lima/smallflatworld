@@ -141,7 +141,7 @@ export class RealmService {
     return this._updateRealm();
   }
 
-  async addDesign(design3D: SceneDesign3D) {
+  async addDesign3D(design3D: SceneDesign3D) {
     this.currentRealm.designs3D.push(design3D);
     return this._updateRealm();
   }

@@ -20,30 +20,30 @@ export class Design3dService {
     });
   }
 
-  select(image: SceneDesign3D) {
-    this.selected = image;
+  select(selected: SceneDesign3D) {
+    this.selected = selected;
   }
 
   getCurrent() {
     return this.selected;
   }
 
-  getCurrentImageName() {
+  getCurrentName() {
     if (this.selected) {
       return this.selected.name;
     }
     return '';
   }
 
-  findByName(imageName: string) {
-    const found = this.onUpdate.value.find((image) => image.name == imageName);
+  findByName(name: string) {
+    const found = this.onUpdate.value.find((image) => image.name == name);
 
     return found;
   }
 
-  add(image: SceneDesign3D) {
-    this.client.updateImage(image);
-    this.realm.addDesign(image).then((_) => {
+  add(toAdd: SceneDesign3D) {
+    this.client.updateDesign3D(toAdd);
+    this.realm.addDesign3D(toAdd).then((_) => {
       this.onUpdate.next(this.realm.getCurrentRealm().designs3D);
     });
   }

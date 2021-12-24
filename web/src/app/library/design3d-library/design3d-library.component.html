@@ -1,5 +1,5 @@
 <div class="upload-wrapper">
-    <app-file-upload (onUpload)="newImage($event)">
+    <app-file-upload (onUpload)="newDesign3D($event)">
       Choose an GLTF (.glb) file to ADD or drop here.
     </app-file-upload>
   </div>
@@ -7,23 +7,23 @@
   <div class="image-list">
     <div
       class="one-image"
-      *ngFor="let image of images"
-      (mouseover)="mouseOver(image.name)"
+      *ngFor="let design3D of designs3D"
+      (mouseover)="mouseOver(design3D.name)"
     >
       <button
         mat-raised-button
-        aria-label="{{ image.name }}"
-        (click)="select(image)"
-        [color]="getComponentSelectionColor(image.name)"
+        aria-label="{{ design3D.name }}"
+        (click)="select(design3D)"
+        [color]="getComponentSelectionColor(design3D.name)"
       >
-        <img width="70" height="70" [src]="image.base64" />
+        <img width="70" height="70" [src]="design3D.name" />
       </button>
       <button
         class="floating-delete"
         mat-icon-button
         color="accent"
-        (click)="delete(image.name)"
-        *ngIf="image.name == mouseOverImage"
+        (click)="delete(design3D.name)"
+        *ngIf="design3D.name == mouseOverDesign3D"
       >
         <mat-icon>clear</mat-icon>
       </button>
