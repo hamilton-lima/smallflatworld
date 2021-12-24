@@ -9,14 +9,14 @@
       class="one-image"
       *ngFor="let design3D of designs3D"
       (mouseover)="mouseOver(design3D.name)"
-    >
+   >
       <button
         mat-raised-button
         aria-label="{{ design3D.name }}"
         (click)="select(design3D)"
+        (mousedown)="select(design3D)"
         [color]="getComponentSelectionColor(design3D.name)"
-      >
-        <img width="70" height="70" [src]="design3D.name" />
+      >{{design3D.name}}
       </button>
       <button
         class="floating-delete"

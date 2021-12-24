@@ -78,7 +78,7 @@ export class Design3dService {
 
     result.subscribe((base64) => {
       const image = <SceneImage>{
-        name: uuidv4(),
+        name: file.name,
         base64: base64,
       };
       this.add(image);
