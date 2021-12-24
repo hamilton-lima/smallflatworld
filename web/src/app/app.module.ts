@@ -26,7 +26,6 @@ import { CodeLibraryComponent } from './library/code-library/code-library.compon
 import { DisplayFPSComponent } from './info/display-fps/display-fps.component';
 import { InfoPanelComponent } from './info/info-panel/info-panel.component';
 import { PositionPanelComponent } from './info/position-panel/position-panel.component';
-import { Design3DLibraryComponent } from './library/design3-dlibrary/design3-dlibrary.component';
 import { Design3dLibraryComponent } from './library/design3d-library/design3d-library.component';
 
 @NgModule({
@@ -52,7 +51,6 @@ import { Design3dLibraryComponent } from './library/design3d-library/design3d-li
     DisplayFPSComponent,
     InfoPanelComponent,
     PositionPanelComponent,
-    Design3DLibraryComponent,
     Design3dLibraryComponent,
   ],
   imports: [
