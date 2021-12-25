@@ -57,7 +57,7 @@ export class Design3dService {
 
   canRemove(name: string): boolean {
     const found = this.realm.getCurrentRealm().elements.find((element) => {
-      return element.name.startsWith(name);
+      return element.componentID == name
     });
 
     if (found) {
