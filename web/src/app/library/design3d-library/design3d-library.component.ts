@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { LibraryComponent } from 'src/app/editor/editor-library.model';
 import { EditorService } from 'src/app/editor/editor.service';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
@@ -15,28 +16,26 @@ import { Design3dService } from '../design3d.service';
 export class Design3dLibraryComponent implements OnInit {
   current: SceneDesign3D;
   mouseOverDesign3D: string;
+  columns: string[] = ['name', 'delete'];
 
   preview: string;
-  designs3D: SceneDesign3D[];
+  designs3D: BehaviorSubject<SceneDesign3D[]>;
+
   constructor(
     private service: Design3dService,
     private confirm: ConfirmService,
     private notify: NotifyService,
     private input: InputService,
     private editor: EditorService,
-  ) { }
+  ) { 
+    this.designs3D = new BehaviorSubject<SceneDesign3D[]>([]);
+  }
 
   ngOnInit(): void {
     this.service.onUpdate.subscribe((designs3d) => {
-      this.designs3D = designs3d;
-      this.preSelect();
+      console.log('designs3d', designs3d);
+      this.designs3D.next(designs3d);
     });
-  }
-
-  preSelect() {
-    if (this.designs3D && this.designs3D.length > 0) {
-      this.select(this.designs3D[0]);
-    }
   }
 
   select(design3D: SceneDesign3D) {
@@ -51,9 +50,7 @@ export class Design3dLibraryComponent implements OnInit {
       scale: 1.0,
     }
 
-    // build LibraryComponent to be used by the editor
     this.editor.setCurrentComponent(libraryComponent);
-
   }
 
   mouseOver(name: string) {
