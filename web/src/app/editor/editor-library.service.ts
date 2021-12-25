@@ -7,6 +7,7 @@ import { kenneyLibrary } from './kenney.library';
 import { kaykitLibrary } from './kaykit.library';
 import { basicShapesLibrary } from './basic-shapes.library';
 import { InternalLibraryFactoryService } from './internal-library-factory.service';
+import { RealmService } from '../realm/realm.service';
 
 const INTERNAL = 'internal/';
 
@@ -22,7 +23,8 @@ export class EditorLibraryService {
   constructor(
     private loader: MeshLoaderService,
     private mesh: MeshService,
-    private internalFactory: InternalLibraryFactoryService
+    private internalFactory: InternalLibraryFactoryService,
+    private realm: RealmService,
   ) {
     this.mergeLibraries();
     this.setComponentNames();
@@ -45,11 +47,24 @@ export class EditorLibraryService {
   }
 
   getComponent(componentID: string) {
+    // search in the list of predefined components
     if (this.components.has(componentID)) {
       return this.components.get(componentID);
     } else {
-      console.warn('componentID not found', componentID);
-      return null;
+      // search in the realm
+      const found = this.realm.getCurrentRealm().designs3D.find((design3D) => design3D.name == componentID);
+      if (found) {
+        const libraryComponent = <LibraryComponent>{
+          id: found.name,
+          name: found.name,
+          model3D: found.base64,
+          scale: 1.0,
+        }
+        return libraryComponent;
+      } else {
+        console.warn('componentID not found', componentID);
+        return null;
+      }
     }
   }
 
