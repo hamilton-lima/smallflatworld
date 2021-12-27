@@ -95,14 +95,6 @@ export class SceneCode {
 }
 
 export class Realm implements ClientData, ClientResponseData {
-  elements: SceneElementMemento[];
-  images: SceneImage[];
-  audios: SceneAudio[];
-  codes: SceneCode[];
-  designs3D: SceneDesign3D[];
-}
-
-export class RealmImported implements ClientData, ClientResponseData{
   id: string;
   name: string;
   characters: SceneElementMemento[];
