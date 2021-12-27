@@ -62,8 +62,9 @@ export class MemoryStorage {
   getRealmState(uuid: string): Realm {
     const data = this.getStorage(uuid);
     const array = Array.from(data.states.map.values());
+    // TODO: add all arrays and name
     const result = <Realm>{
-      data: array,
+      elements: array,
     };
     return result;
   }

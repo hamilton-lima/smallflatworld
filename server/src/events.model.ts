@@ -95,7 +95,7 @@ export class SceneCode {
 }
 
 export class Realm implements ClientData, ClientResponseData {
-  data: SceneElementMemento[];
+  elements: SceneElementMemento[];
   images: SceneImage[];
   audios: SceneAudio[];
   codes: SceneCode[];

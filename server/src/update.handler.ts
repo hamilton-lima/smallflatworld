@@ -11,7 +11,7 @@ export class UpdateHandler implements Handler {
 
   handle(request: Realm, parent: EventsHandler): void {
     // TODO: Handle all fields
-    request.data.forEach((element) => {
+    request.elements.forEach((element) => {
       this.storage.update(parent.getRealmID(), element);
     });
 
