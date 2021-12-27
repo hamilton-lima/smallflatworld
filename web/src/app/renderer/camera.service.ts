@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   Mesh,
   Camera,
-  ArcFollowCamera,
-  FreeCamera,
   ArcRotateCamera,
   Tools,
   ArcRotateCameraPointersInput,
@@ -52,11 +50,6 @@ export class CameraService {
 
     this.setTarget(character);
     return camera;
-  }
-
-  resetCamera(){
-    this.camera.alpha = Tools.ToRadians(DEFAULT_ALPHA);
-    this.camera.beta = Tools.ToRadians(DEFAULT_BETA);
   }
 
   setTarget(target: Mesh) {
