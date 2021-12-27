@@ -275,19 +275,6 @@ export class EditorService {
       this.dragging = false;
     });
 
-    // handles mouse wheel
-    scene.onPrePointerObservable.add(
-      (pointerInfo: PointerInfoPre, eventState) => {
-        const wheelDelta = pointerInfo.event['wheelDelta'];
-        if (wheelDelta > 0) {
-          this.camera.zoomIn();
-        }
-        if (wheelDelta < 0) {
-          this.camera.zoomOut();
-        }
-      }
-    );
-
     this.onDropFromLibrary.subscribe(async (point: Vector2) => {
       // const pickInfo = scene.pick( scene.pointerX, scene.pointerY);
       const pickInfo = scene.pick(point.x, point.y);

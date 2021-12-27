@@ -11,35 +11,22 @@ import {
 } from '@babylonjs/core';
 import { EngineState } from './renderer.model';
 const DEFAULT_DISTANCE = -25;
-const DEFAULT_HEIGHT = 25;
-const STEP = 6;
-
-const MIN = 7;
-const MAX = 70;
+const DEFAULT_ALPHA = 135;
+const DEFAULT_BETA = 135;
 
 @Injectable({
   providedIn: 'root',
 })
 export class CameraService {
   distance = DEFAULT_DISTANCE;
-  height = DEFAULT_HEIGHT;
   camera: ArcRotateCamera;
 
   setup(engineState: EngineState): Camera {
     const scene = engineState.scene;
     const character = engineState.character;
 
-    // const camera = new ArcFollowCamera(
-    //   'mainCamera',
-    //   45,
-    //   -45,
-    //   this.distance,
-    //   engineState.character,
-    //   scene
-    // );
-
-    const alpha = Tools.ToRadians(135);
-    const beta = Tools.ToRadians(135);
+    const alpha = Tools.ToRadians(DEFAULT_ALPHA);
+    const beta = Tools.ToRadians(DEFAULT_BETA);
 
     const camera = new ArcRotateCamera(
       'camera',
@@ -52,12 +39,12 @@ export class CameraService {
 
     camera.attachControl(engineState.engine.getRenderingCanvas(), true);
     camera.inputs.remove(camera.inputs.attached.keyboard);
-    // camera.panningSensibility = 0;
 
     //enable only first mouse button
     const mouseInput = (camera.inputs.attached.pointers as ArcRotateCameraPointersInput);
     mouseInput.buttons = [0];
 
+    // prevent camera to go thru ground
     camera.collisionRadius = Vector3.One();
     camera.checkCollisions = true; 
 
@@ -67,21 +54,12 @@ export class CameraService {
     return camera;
   }
 
+  resetCamera(){
+    this.camera.alpha = Tools.ToRadians(DEFAULT_ALPHA);
+    this.camera.beta = Tools.ToRadians(DEFAULT_BETA);
+  }
+
   setTarget(target: Mesh) {
     this.camera.lockedTarget = target;
   }
-
-  zoomOut() {
-    // if (Math.abs(this.camera.radius) < MAX) {
-    //   this.camera.radius -= STEP;
-    // }
-  }
-
-  zoomIn() {
-    // if (Math.abs(this.camera.radius) > MIN) {
-    //   this.camera.radius += STEP;
-    // }
-  }
-
-  constructor() {}
 }
