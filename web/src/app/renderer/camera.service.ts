@@ -35,18 +35,18 @@ export class CameraService {
       scene
     );
 
+    this.camera = camera;
+
     camera.attachControl(engineState.engine.getRenderingCanvas(), true);
     camera.inputs.remove(camera.inputs.attached.keyboard);
 
     //enable only first mouse button
-    const mouseInput = (camera.inputs.attached.pointers as ArcRotateCameraPointersInput);
+    const mouseInput = (this.camera.inputs.attached.pointers as ArcRotateCameraPointersInput);
     mouseInput.buttons = [0];
 
     // prevent camera to go thru ground
     camera.collisionRadius = Vector3.One();
-    camera.checkCollisions = true; 
-
-    this.camera = camera;
+    camera.checkCollisions = true;
 
     this.setTarget(character);
     return camera;
@@ -54,5 +54,14 @@ export class CameraService {
 
   setTarget(target: Mesh) {
     this.camera.lockedTarget = target;
+  }
+
+  enableMouse() {
+    this.camera.inputs.attachInput(this.camera.inputs.attached.pointers);
+  }
+
+  disableMouse() {
+    console.log('inputs', this.camera.inputs);
+    this.camera.inputs.attached.pointers.detachControl();
   }
 }

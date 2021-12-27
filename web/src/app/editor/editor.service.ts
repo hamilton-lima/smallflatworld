@@ -5,7 +5,6 @@ import {
   PickingInfo,
   PointerEventTypes,
   PointerInfo,
-  PointerInfoPre,
   Scene,
   Vector2,
   Vector3,

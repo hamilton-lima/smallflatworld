@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { CameraService } from '../renderer/camera.service';
 import { InputService } from '../shared/input.service';
 
 export enum EditorMode {
@@ -21,7 +22,7 @@ export enum EditorAction {
 })
 export class EditorModeService {
 
-  constructor(private input: InputService) {}
+  constructor(private input: InputService, private camera: CameraService) { }
 
   mode: BehaviorSubject<EditorMode> = new BehaviorSubject(EditorMode.WALK);
   editAction: BehaviorSubject<EditorAction> = new BehaviorSubject(
@@ -30,10 +31,12 @@ export class EditorModeService {
 
   edit() {
     this.mode.next(EditorMode.EDIT);
+    this.camera.disableMouse();
   }
 
   walk() {
     this.mode.next(EditorMode.WALK);
+    this.camera.enableMouse();
   }
 
   toggleEdit(edit: boolean) {
