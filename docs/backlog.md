@@ -1,6 +1,7 @@
 # backlog
 To be included items from mindmap and previous roadmap
 
+- Render Shadow in the scene
 - Add sticker library
 - add virtual controller, see https://playground.babylonjs.com/#C6V6UY#5
 - Add predefined list of images that cant be deleted
@@ -10,8 +11,6 @@ To be included items from mindmap and previous roadmap
 
 - Copy and Paste Scene elements - does it make sense for a single element?
 - Create terrain based on seed, some ideas on https://80.lv/articles/001agt-005cg-crafting-a-hexagonal-map-generator/
-
-- Import 3D elements, this can be a start of the favorites library or imported
 - Create glass and water blocks, add attributes editor, Colider, transparency.
 
 - Music library from ABC format, see for renderer https://github.com/paulrosen/abcjs or adapt tuneJs to support it
@@ -19,10 +18,8 @@ To be included items from mindmap and previous roadmap
 - Code action to play musical note
 - Code action to play a sequence of notes 
 - Export/Import code from code library
-- Render Shadow in the scene
 - Resize 3D elements
 - Introduce physics to the scene elements, this can generate a lot of fun with colisions and ropes and other simulations :)
-- Provide shareable url with server and realm
 
 - Add mixpanel.com tracking
 - Export/Import code from code library
@@ -34,7 +31,7 @@ To be included items from mindmap and previous roadmap
     - https://www.curseforge.com/minecraft/texture-packs/faithful-team/files
     - https://www.minecraft.net/en-us/article/try-new-minecraft-textures
 
-- Add defeault library of sound effects
+- Add default library of sound effects
 
 # to be evaluated
 
