@@ -14,6 +14,8 @@ import {
 import { ServerService } from './server.service';
 import { buildVector3 } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
+import { RealmService } from '../realm/realm.service';
+import { Realm } from '../persistence/persistence.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +30,7 @@ export class ClientService {
   onUpdateDesigns3D: Subject<SceneDesign3D[]> = new Subject();
   onDelete: Subject<string> = new Subject();
 
-  constructor(private server: ServerService) {}
+  constructor(private server: ServerService, private realm: RealmService) { }
 
   // Removes all subscriptions
   unsubscribe() {
@@ -56,8 +58,11 @@ export class ClientService {
     this.unsubscribe();
     this.subscriptions.push(
       this.server.onJoin.subscribe((response: JoinResponse) => {
+        // TODO: add casting
+        const realm: Realm = response.data;
         this.realmUUID = realmUUID;
-        this.listen2Updates();
+        this.realm.addRealmAndSetCurrent(realm)
+          this.listen2Updates();
       })
     );
     this.server.join(realmUUID);
@@ -120,7 +125,7 @@ export class ClientService {
         if (request.codes && request.codes.length > 0) {
           this.onUpdateCodes.next(request.codes);
         }
-        
+
         if (request.designs3D && request.designs3D.length > 0) {
           this.onUpdateDesigns3D.next(request.designs3D);
         }

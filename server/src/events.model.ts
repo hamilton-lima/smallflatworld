@@ -36,7 +36,7 @@ export class JoinRequest implements ClientData {
 
 export class JoinResponse implements ClientResponseData {
   ready: boolean;
-  data: StateUpdate;
+  data: Realm;
 }
 
 export class Vector3Memento {
@@ -94,8 +94,19 @@ export class SceneCode {
   code: CodeDefinition;
 }
 
-export class StateUpdate implements ClientData, ClientResponseData {
+export class Realm implements ClientData, ClientResponseData {
   data: SceneElementMemento[];
+  images: SceneImage[];
+  audios: SceneAudio[];
+  codes: SceneCode[];
+  designs3D: SceneDesign3D[];
+}
+
+export class RealmImported implements ClientData, ClientResponseData{
+  id: string;
+  name: string;
+  characters: SceneElementMemento[];
+  elements: SceneElementMemento[];
   images: SceneImage[];
   audios: SceneAudio[];
   codes: SceneCode[];

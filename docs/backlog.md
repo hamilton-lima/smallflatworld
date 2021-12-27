@@ -1,8 +1,10 @@
 # backlog
 To be included items from mindmap and previous roadmap
 
+
 - Render Shadow in the scene
-- Add sticker library
+- Sticker library
+- Edit colider of object  
 - add virtual controller, see https://playground.babylonjs.com/#C6V6UY#5
 - Add predefined list of images that cant be deleted
 - Add texture to the floor - e.g. garage concrete, wood

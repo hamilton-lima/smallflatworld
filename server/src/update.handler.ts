@@ -1,4 +1,4 @@
-import { Actions, StateUpdate } from "./events.model";
+import { Actions, Realm } from "./events.model";
 import { Handler } from "./handler.interface";
 import { MemoryStorage } from "./memory.storage";
 import { EventsHandler } from "./events.handler";
@@ -9,12 +9,11 @@ export class UpdateHandler implements Handler {
     this.storage = storage;
   }
 
-  handle(request: StateUpdate, parent: EventsHandler): void {
+  handle(request: Realm, parent: EventsHandler): void {
+    // TODO: Handle all fields
     request.data.forEach((element) => {
       this.storage.update(parent.getRealmID(), element);
     });
-
-    // TODO: sanitize request to prevent propagation of issues
 
     // sends udpates to all participants
     this.storage

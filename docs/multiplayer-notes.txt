@@ -1,0 +1,21 @@
+StateUpdate -> Realm ?
+
+
+export class StateUpdate implements ClientData, ClientResponseData {
+    data: SceneElementMemento[];
+    images: SceneImage[];
+    audios: SceneAudio[];
+    codes: SceneCode[];
+    designs3D: SceneDesign3D[];
+  }
+
+  export class Realm {
+    id: string;
+    name: string;
+    character: SceneElementMemento;
+    elements: SceneElementMemento[];
+    images: SceneImage[];
+    audios: SceneAudio[];
+    codes: SceneCode[];
+    designs3D: SceneDesign3D[];
+  }

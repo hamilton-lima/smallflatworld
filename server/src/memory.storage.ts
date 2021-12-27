@@ -1,4 +1,4 @@
-import { SceneElementMemento, StateUpdate } from "./events.model";
+import { SceneElementMemento, Realm } from "./events.model";
 import { EventsHandler } from "./events.handler";
 
 class StateUpdateCached {
@@ -59,10 +59,10 @@ export class MemoryStorage {
     }
   }
 
-  getRealmState(uuid: string): StateUpdate {
+  getRealmState(uuid: string): Realm {
     const data = this.getStorage(uuid);
     const array = Array.from(data.states.map.values());
-    const result = <StateUpdate>{
+    const result = <Realm>{
       data: array,
     };
     return result;
