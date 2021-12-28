@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   Actions,
   ClientData,
-  ClientMessage,
   ClientResponse,
   DeleteRequest,
-  JoinRequest,
   JoinResponse,
   Realm,
   SceneAudio,
@@ -14,18 +12,16 @@ import {
   SceneDesign3D,
   SceneElementMemento,
   SceneImage,
-  ShareRequest,
   ShareResponse,
 } from '../../../../server/src/events.model';
 import { FPSService } from './fps.service';
-import Colyseus from "colyseus.js";
-import { ThinSprite } from '@babylonjs/core/Sprites/thinSprite';
+import { Client, Room } from "colyseus.js";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServerService {
-  private colyseusClient: Colyseus.Client;
+  private colyseusClient: Client;
 
   public readonly ready: Subject<boolean> = new Subject();
   private readonly message: Subject<ClientResponse> = new Subject();
@@ -34,9 +30,10 @@ export class ServerService {
   public readonly onStateUpdate: Subject<Realm> = new Subject();
   public readonly onDelete: Subject<DeleteRequest> = new Subject();
   public readonly onJoin: Subject<JoinResponse> = new Subject();
-  room: Colyseus.Room;
+  room: Room;
 
   constructor(fps: FPSService) {
+    // TODO: remove both
     fps.setup(this.message);
     this.messageBroker(this.message);
   }
@@ -70,7 +67,8 @@ export class ServerService {
   }
 
   connect(server: string) {
-    this.colyseusClient = new Colyseus.Client("ws://localhost:2567");
+    console.log('client class', Client);
+    this.colyseusClient = new Client("ws://localhost:2567");
     this.ready.next(true);
     return this.ready;
   }
@@ -96,6 +94,7 @@ export class ServerService {
   async share() {
     try {
       this.room = await this.colyseusClient.create("battle", {/* options */ });
+      this.listenForUpdates();
       console.log("joined successfully", this.room);
     } catch (e) {
       console.error("join error", e);
@@ -105,10 +104,25 @@ export class ServerService {
   async join(realmUUID: string) {
     try {
       this.room = await this.colyseusClient.joinById(realmUUID, {/* options */ });
+      this.listenForUpdates()
       console.log("joined successfully", this.room);
 
     } catch (e) {
       console.error("join error", e);
+    }
+  }
+
+  listenForUpdates() {
+    if (!this.room) {
+      console.error('Trying to listen to room updates with no room defined');
+    } else {
+      //   this.room.onStateChange.once((state) => {
+      //   console.log("this is the first room state!", state);
+      // });
+
+      this.room.onStateChange((state) => {
+        this.onStateUpdate.next(<Realm>state);
+      });
     }
   }
 
