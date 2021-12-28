@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Realm } from '../persistence/persistence.model';
 import { PersistenceService } from '../persistence/persistence.service';
 import { ClientService } from '../multiplayer/client.service';
 import {
+  Realm,
   SceneAudio,
   SceneCode,
   SceneDesign3D,
@@ -11,39 +11,45 @@ import {
   Vector3MementoOne,
   Vector3MementoZero,
 } from '../../../../server/src/events.model';
-import { RunnerService } from '../coding/runner.service';
 import { ConfigurationService } from '../shared/configuration.service';
 import { Subject } from 'rxjs';
 import { EventsBrokerService } from '../shared/events-broker.service';
+import { Configuration } from '../persistence/persistence.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RealmService {
   private currentRealm: Realm;
+  private configuration: Configuration;
+
   acceptingUpdates = true;
   onNew: Subject<Realm> = new Subject();
 
   constructor(
     private persistence: PersistenceService,
-    private configuration: ConfigurationService,
+    private configurationService: ConfigurationService,
     private client: ClientService,
     private broker: EventsBrokerService
-  ) {}
+  ) { }
 
   async ready(): Promise<Realm> {
     try {
       await this.persistence.ready();
-      const configuration = await this.configuration.getConfiguration();
+      this.configuration = await this.configurationService.getConfiguration();
 
       // gets current realm
       this.currentRealm = await this.persistence.getRealm(
-        configuration.currentRealm
+        this.configuration.currentRealm
       );
 
       // checks for character in the current realm
-      if (!this.currentRealm.character) {
-        this.currentRealm.character = this.defaultCharacter();
+      const found = this.currentRealm.characters.find((character: SceneElementMemento) => {
+        character.name = this.configuration.characterID;
+      });
+
+      if (!found) {
+        this.addDefaultCharacter2Realm(this.currentRealm);
         await this.persistence.updateRealm(this.currentRealm);
       }
 
@@ -57,9 +63,15 @@ export class RealmService {
     }
   }
 
-  defaultCharacter(): SceneElementMemento {
+  addDefaultCharacter2Realm(realm: Realm): Realm {
+    const character = this.defaultCharacter(this.configuration.characterID);
+    realm.characters.push(character);
+    return realm;
+  }
+
+  defaultCharacter(name: string): SceneElementMemento {
     return <SceneElementMemento>{
-      name: 'character',
+      name: name,
       position: Vector3MementoZero,
       rotation: Vector3MementoZero,
       scaling: Vector3MementoOne,
@@ -116,22 +128,45 @@ export class RealmService {
 
   // update character state
   async updateCharacter(character: SceneElementMemento) {
-    this.currentRealm.character = character;
-    this.broker.onUpdateCharacter.next(character);
-    return this._updateRealm();
+    const found = this.currentRealm.elements.findIndex(
+      (character: SceneElementMemento) => character.name == this.configuration.characterID
+    );
+
+    if (found > -1) {
+      this.currentRealm.characters[found] = character;
+      this.broker.onUpdateCharacter.next(character);
+      return this._updateRealm();
+    }
+
+    console.error('Current character not found in the realm, something really wrong is going on',
+      this.configuration.characterID);
   }
 
+  getCharacter(): SceneElementMemento {
+    const found = this.currentRealm.elements.find(
+      (character: SceneElementMemento) => character.name == this.configuration.characterID
+    );
+
+    if (found) {
+      return found;
+    }
+
+    console.error('Current character not found in the realm, something really wrong is going on',
+      this.configuration.characterID);
+
+    return null;
+  }
   // add new realm and set as current
   async addRealmAndSetCurrent(realm: Realm) {
     this.currentRealm = realm;
     await this._updateRealm();
-    await this.configuration.setCurrentRealm(realm.id);
+    await this.configurationService.setCurrentRealm(realm.id);
     this.onNew.next(realm);
   }
 
   async createRealm() {
     const realm = this.persistence.buildRealm();
-    realm.character = this.defaultCharacter();
+    this.addDefaultCharacter2Realm(realm);
     console.log('create realm', realm);
     await this.addRealmAndSetCurrent(realm);
   }

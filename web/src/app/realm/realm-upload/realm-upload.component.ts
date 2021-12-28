@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Realm } from 'src/app/persistence/persistence.model';
+import { Realm } from "../../../../../server/src/events.model";
 import { RendererService } from 'src/app/renderer/renderer.service';
 import { RealmService } from '../realm.service';
 

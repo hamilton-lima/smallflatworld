@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Realm, Configuration } from './persistence.model';
-import { SceneElementMemento } from '../../../../server/src/events.model';
+import { Configuration } from './persistence.model';
+import { Realm } from "../../../../server/src/events.model";
 
 class DataCheckResult {
     original: Realm | Configuration;
@@ -19,11 +19,12 @@ export class PersistenceDataChecker {
             original: realm
         };
 
-        const fields = ['elements', 'images', 'audios', 'codes', 'designs3D'];
-        fields.forEach(field => {
-            console.warn('checking', field, realm[field]);
+        const arrays = ['characters','elements', 'images', 'audios', 'codes', 'designs3D'];
+ 
+        arrays.forEach(field => {
+            console.warn('checking field on realm', field, realm[field]);
             if (realm[field] === undefined) {
-                console.warn('field', field);
+                console.warn('field fixed', field);
                 if (!result.updated) {
                     result.updated = realm;
                 }

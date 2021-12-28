@@ -8,9 +8,10 @@ import {
   animals,
   names,
 } from 'unique-names-generator';
-import { Realm, Configuration } from './persistence.model';
+import { Configuration } from './persistence.model';
 import Dexie from 'dexie';
 import { PersistenceDataChecker } from './persistence.data-checker';
+import { Realm } from "../../../../server/src/events.model";
 
 const uniqueNameConfig: Config = {
   dictionaries: [adjectives, colors, animals, names],

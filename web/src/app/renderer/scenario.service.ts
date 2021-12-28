@@ -36,12 +36,11 @@ export class ScenarioService {
     engineState.character.checkCollisions = true;
 
     engineState.character.ellipsoid = new Vector3(1, 1, 1);
-    //engineState.character.ellipsoidOffset = new Vector3(0, 2.5, 0);
   }
 
   buildRealm(engineState: EngineState): Promise<void> {
     return new Promise(async (resolve, reject) => {
-      const realm = this.realm.getCurrentRealm();
+     const realm = this.realm.getCurrentRealm();
       const total = realm.elements.length;
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
@@ -58,7 +57,7 @@ export class ScenarioService {
       mat.diffuseTexture = texture;
       engineState.character.material = mat;
 
-      const character = memento2SceneElement(realm.character);
+      const character = memento2SceneElement(this.realm.getCharacter());
       this.addCharacter(engineState, character);
 
       const start = new Date().getTime();

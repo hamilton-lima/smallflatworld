@@ -8,14 +8,13 @@ import {
   SceneElementMemento,
   SceneImage,
   ShareResponse,
-  StateUpdate,
   SceneDesign3D
 } from '../../../../server/src/events.model';
 import { ServerService } from './server.service';
 import { buildVector3 } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
 import { RealmService } from '../realm/realm.service';
-import { Realm } from '../persistence/persistence.model';
+import { Realm } from "../../../../server/src/events.model";
 
 @Injectable({
   providedIn: 'root',
@@ -29,8 +28,9 @@ export class ClientService {
   onUpdateCodes: Subject<SceneCode[]> = new Subject();
   onUpdateDesigns3D: Subject<SceneDesign3D[]> = new Subject();
   onDelete: Subject<string> = new Subject();
+  afterJoin: Subject<Realm> = new Subject();
 
-  constructor(private server: ServerService, private realm: RealmService) { }
+  constructor(private server: ServerService) { }
 
   // Removes all subscriptions
   unsubscribe() {
@@ -58,11 +58,9 @@ export class ClientService {
     this.unsubscribe();
     this.subscriptions.push(
       this.server.onJoin.subscribe((response: JoinResponse) => {
-        // TODO: add casting
-        const realm: Realm = response.data;
         this.realmUUID = realmUUID;
-        this.realm.addRealmAndSetCurrent(realm)
-          this.listen2Updates();
+        this.afterJoin.next(response.data);
+        this.listen2Updates();
       })
     );
     this.server.join(realmUUID);
@@ -110,9 +108,11 @@ export class ClientService {
 
   listen2Updates() {
     this.subscriptions.push(
-      this.server.onStateUpdate.subscribe((request: StateUpdate) => {
-        const data = this.memento2Vector3(request.data);
-        this.onUpdate.next(data);
+      this.server.onStateUpdate.subscribe((request: Realm) => {
+        if (request.elements && request.elements.length > 0) {
+          const elements = this.memento2Vector3(request.elements);
+          this.onUpdate.next(elements);
+        }
 
         if (request.images && request.images.length > 0) {
           this.onUpdateImages.next(request.images);

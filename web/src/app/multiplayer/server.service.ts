@@ -8,6 +8,7 @@ import {
   DeleteRequest,
   JoinRequest,
   JoinResponse,
+  Realm,
   SceneAudio,
   SceneCode,
   SceneDesign3D,
@@ -15,7 +16,6 @@ import {
   SceneImage,
   ShareRequest,
   ShareResponse,
-  StateUpdate,
 } from '../../../../server/src/events.model';
 import { FPSService } from './fps.service';
 
@@ -29,7 +29,7 @@ export class ServerService {
   private readonly message: Subject<ClientResponse> = new Subject();
 
   public readonly onShare: Subject<ShareResponse> = new Subject();
-  public readonly onStateUpdate: Subject<StateUpdate> = new Subject();
+  public readonly onStateUpdate: Subject<Realm> = new Subject();
   public readonly onDelete: Subject<DeleteRequest> = new Subject();
   public readonly onJoin: Subject<JoinResponse> = new Subject();
 
@@ -42,7 +42,7 @@ export class ServerService {
     message.subscribe((message: ClientResponse) => {
       try {
         if (message.action == Actions.Update) {
-          this.onStateUpdate.next(<StateUpdate>message.data);
+          this.onStateUpdate.next(<Realm>message.data);
           return;
         }
 
@@ -130,35 +130,35 @@ export class ServerService {
   }
 
   update(elements: SceneElementMemento[]) {
-    const request = <StateUpdate>{
-      data: elements,
+    const request = <Realm>{
+      elements: elements,
     };
     this.send(Actions.Update, request);
   }
 
   updateImages(images: SceneImage[]) {
-    const request = <StateUpdate>{
+    const request = <Realm>{
       images: images,
     };
     this.send(Actions.Update, request);
   }
 
   updateAudios(audios: SceneAudio[]) {
-    const request = <StateUpdate>{
+    const request = <Realm>{
       audios: audios,
     };
     this.send(Actions.Update, request);
   }
 
   updateCodes(codes: SceneCode[]) {
-    const request = <StateUpdate>{
+    const request = <Realm>{
       codes: codes,
     };
     this.send(Actions.Update, request);
   }
   
   updateDesigns3D(designs3D: SceneDesign3D[]) {
-    const request = <StateUpdate>{
+    const request = <Realm>{
       designs3D: designs3D,
     };
     this.send(Actions.Update, request);
