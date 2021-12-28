@@ -31,7 +31,12 @@ export class RealmService {
     private configurationService: ConfigurationService,
     private client: ClientService,
     private broker: EventsBrokerService
-  ) {}
+  ) {
+
+    this.client.afterJoin.subscribe((realm: Realm)=>{
+      this.addRealmAndSetCurrent(realm);
+    });
+  }
 
   async ready(): Promise<Realm> {
     try {
