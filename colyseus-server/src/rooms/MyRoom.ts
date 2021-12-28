@@ -1,17 +1,11 @@
 import { Room, Client } from "colyseus";
-import { MyRoomState } from "./schema/MyRoomState";
+import { Realm } from "./schema/MyRoomState";
 
-export class MyRoom extends Room<MyRoomState> {
+export class MyRoom extends Room<Realm> {
 
   onCreate (options: any) {
-    this.setState(new MyRoomState());
-
-    this.onMessage("type", (client, message) => {
-      //
-      // handle "type" message
-      //
-    });
-
+    this.setState(new Realm());
+    this.onMessage("type", (client, message) => {});
   }
 
   onJoin (client: Client, options: any) {
