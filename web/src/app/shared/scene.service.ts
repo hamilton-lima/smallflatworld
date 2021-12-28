@@ -22,7 +22,7 @@ export class SceneService {
   ) {}
 
   async create(scene: Scene, element: SceneElement): Promise<Mesh> {
-    console.log('create', element.name, element.position.x, element.position.y, element.position.z);
+    console.log('scene.create', element.name, element.componentID, element.position.x, element.position.y, element.position.z);
     const templateMesh = await this.library.getMesh(
       scene,
       element.componentID,
