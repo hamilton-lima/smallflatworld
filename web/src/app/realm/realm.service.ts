@@ -31,12 +31,13 @@ export class RealmService {
     private configurationService: ConfigurationService,
     private client: ClientService,
     private broker: EventsBrokerService
-  ) { }
+  ) {}
 
   async ready(): Promise<Realm> {
     try {
       await this.persistence.ready();
       this.configuration = await this.configurationService.getConfiguration();
+      console.log('ready(1)', this.configuration);
 
       // gets current realm
       this.currentRealm = await this.persistence.getRealm(
@@ -44,12 +45,17 @@ export class RealmService {
       );
 
       // checks for character in the current realm
-      const found = this.currentRealm.characters.find((character: SceneElementMemento) => {
-        character.name = this.configuration.characterID;
-      });
+      const found = this.currentRealm.characters.find(
+        (character: SceneElementMemento) => {
+          console.log('ready(1.1) each character', character.name);
+          return character.name == this.configuration.characterID;
+        }
+      );
+      console.log('ready(2) character', found);
 
       if (!found) {
         this.addDefaultCharacter2Realm(this.currentRealm);
+        console.log('ready(3) after add', this.currentRealm);
         await this.persistence.updateRealm(this.currentRealm);
       }
 
@@ -128,31 +134,40 @@ export class RealmService {
 
   // update character state
   async updateCharacter(character: SceneElementMemento) {
-    const found = this.currentRealm.elements.findIndex(
-      (character: SceneElementMemento) => character.name == this.configuration.characterID
+    const found = this.currentRealm.characters.findIndex(
+      (character: SceneElementMemento) =>
+        character.name == this.configuration.characterID
     );
 
     if (found > -1) {
-      this.currentRealm.characters[found] = character;
+      this.currentRealm.characters[found].position = character.position;
+      this.currentRealm.characters[found].rotation = character.rotation;
+      this.currentRealm.characters[found].scaling = character.scaling;
       this.broker.onUpdateCharacter.next(character);
       return this._updateRealm();
     }
 
-    console.error('Current character not found in the realm, something really wrong is going on',
-      this.configuration.characterID);
+    console.error(
+      'Current character not found in the realm, something really wrong is going on',
+      this.configuration.characterID
+    );
   }
 
   getCharacter(): SceneElementMemento {
-    const found = this.currentRealm.elements.find(
-      (character: SceneElementMemento) => character.name == this.configuration.characterID
+    const found = this.currentRealm.characters.find(
+      (character: SceneElementMemento) => {
+        return character.name == this.configuration.characterID;
+      }
     );
 
     if (found) {
       return found;
     }
 
-    console.error('Current character not found in the realm, something really wrong is going on',
-      this.configuration.characterID);
+    console.error(
+      'Current character not found in the realm, something really wrong is going on',
+      this.configuration.characterID
+    );
 
     return null;
   }
@@ -267,6 +282,4 @@ export class RealmService {
 
     return this._updateRealm();
   }
-
 }
-
