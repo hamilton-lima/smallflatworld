@@ -34,6 +34,7 @@ export class RealmService {
   ) {
 
     this.client.afterJoin.subscribe((realm: Realm)=>{
+      console.log('after join, update realm state', realm);
       this.addRealmAndSetCurrent(realm);
     });
   }
