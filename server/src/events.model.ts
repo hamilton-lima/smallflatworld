@@ -1,18 +1,19 @@
 export enum Actions {
-  // start to share realm state
   Share = "share",
-
-  // connect to an existing realm
   Join = "join",
-
-  // send udpate to a connected realm
   Update = "update",
-
-  // removes element from realm
   Delete = "delete",
-
-  // ping
   Ping = "ping",
+  DeleteImage = "delete-image",
+  DeleteAudio = "delete-audio",
+  DeleteCode = "delete-code",
+  DeleteDesign3D = "delete-design3D",
+  DeleteElement = "DeleteElement",
+  UpdateDesigns3D = "UpdateDesigns3D",
+  UpdateCodes = "UpdateCodes",
+  UpdateAudios = "UpdateAudios",
+  UpdateImages = "UpdateImages",
+  UpdateElemens = "UpdateElemens"
 }
 
 export class ClientMessage {
@@ -27,8 +28,8 @@ export class ClientResponse {
   data: ClientResponseData;
 }
 
-export interface ClientData {}
-export interface ClientResponseData {}
+export interface ClientData { }
+export interface ClientResponseData { }
 
 export class JoinRequest implements ClientData {
   uuid: string;
@@ -105,7 +106,7 @@ export class Realm implements ClientData, ClientResponseData {
   designs3D: SceneDesign3D[];
 }
 
-export class ShareRequest implements ClientData {}
+export class ShareRequest implements ClientData { }
 
 export class ShareResponse implements ClientResponseData {
   uuid: string;
@@ -119,7 +120,7 @@ export class DeleteResponse implements ClientResponseData {
   deleted: boolean;
 }
 
-export class PingRequest implements ClientData {}
+export class PingRequest implements ClientData { }
 
 export class PingResponse implements ClientResponseData {
   data: string;

@@ -18,12 +18,14 @@ import {
   ShareResponse,
 } from '../../../../server/src/events.model';
 import { FPSService } from './fps.service';
+import Colyseus from "colyseus.js";
+import { ThinSprite } from '@babylonjs/core/Sprites/thinSprite';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServerService {
-  private socket: WebSocket;
+  private colyseusClient: Colyseus.Client;
 
   public readonly ready: Subject<boolean> = new Subject();
   private readonly message: Subject<ClientResponse> = new Subject();
@@ -32,6 +34,7 @@ export class ServerService {
   public readonly onStateUpdate: Subject<Realm> = new Subject();
   public readonly onDelete: Subject<DeleteRequest> = new Subject();
   public readonly onJoin: Subject<JoinResponse> = new Subject();
+  room: Colyseus.Room;
 
   constructor(fps: FPSService) {
     fps.setup(this.message);
@@ -67,124 +70,86 @@ export class ServerService {
   }
 
   connect(server: string) {
-    // already connected
-    if (this.socket && this.socket.readyState == WebSocket.OPEN) {
-      console.log('websocket already connected');
-      return new BehaviorSubject(true);
-    }
-
-    this.socket = new WebSocket(server);
-    this.socket.onopen = () => {
-      console.log('websocket connection open');
-      this.ready.next(true);
-    };
-
-    this.socket.onerror = (error) => {
-      console.log('error connecting');
-      this.ready.error(error);
-    };
-
-    this.socket.onmessage = (event: MessageEvent) => {
-      try {
-        const response = <ClientResponse>JSON.parse(event.data);
-        this.message.next(response);
-      } catch (error) {
-        console.error('Error parsing socket message', error, event.data);
-      }
-    };
-
+    this.colyseusClient = new Colyseus.Client("ws://localhost:2567");
+    this.ready.next(true);
     return this.ready;
   }
 
   close() {
-    if (this.socket) {
-      this.socket.close();
+    if (this.room) {
+      this.room.leave();
+    }
+    else {
+      console.error('Trying to leave room that is not defined');
     }
   }
 
   send(action: Actions, data: ClientData) {
-    // skip sending messages if not connected
-    const connected = this.socket && this.socket.readyState == WebSocket.OPEN;
-    if (!connected) {
-      return;
+    if (this.room) {
+      this.room.send(action, data);
     }
-
-    const message = <ClientMessage>{
-      action: action,
-      data: data,
-    };
-    const payload = JSON.stringify(message);
-    this.socket.send(payload);
+    else {
+      console.error('Trying to send message to the server without a room defined', action, data);
+    }
   }
 
-  share() {
-    const request = <ShareRequest>{};
-    this.send(Actions.Share, request);
+  async share() {
+    try {
+      this.room = await this.colyseusClient.create("battle", {/* options */ });
+      console.log("joined successfully", this.room);
+    } catch (e) {
+      console.error("join error", e);
+    }
   }
 
-  join(realmUUID: string) {
-    const request = <JoinRequest>{
-      uuid: realmUUID,
-    };
-    this.send(Actions.Join, request);
+  async join(realmUUID: string) {
+    try {
+      this.room = await this.colyseusClient.joinById(realmUUID, {/* options */ });
+      console.log("joined successfully", this.room);
+
+    } catch (e) {
+      console.error("join error", e);
+    }
   }
 
-  update(elements: SceneElementMemento[]) {
-    const request = <Realm>{
-      elements: elements,
-    };
-    this.send(Actions.Update, request);
+  updateElements(elements: SceneElementMemento[]) {
+    this.send(Actions.UpdateElemens, elements);
   }
 
   updateImages(images: SceneImage[]) {
-    const request = <Realm>{
-      images: images,
-    };
-    this.send(Actions.Update, request);
+    this.send(Actions.UpdateImages, images);
   }
 
   updateAudios(audios: SceneAudio[]) {
-    const request = <Realm>{
-      audios: audios,
-    };
-    this.send(Actions.Update, request);
+    this.send(Actions.UpdateAudios, audios);
   }
 
   updateCodes(codes: SceneCode[]) {
-    const request = <Realm>{
-      codes: codes,
-    };
-    this.send(Actions.Update, request);
-  }
-  
-  updateDesigns3D(designs3D: SceneDesign3D[]) {
-    const request = <Realm>{
-      designs3D: designs3D,
-    };
-    this.send(Actions.Update, request);
+    this.send(Actions.UpdateCodes, codes);
   }
 
-  delete(name: string) {
-    const request = <DeleteRequest>{
-      name: name,
-    };
-    this.send(Actions.Delete, request);
+  updateDesigns3D(designs3D: SceneDesign3D[]) {
+    this.send(Actions.UpdateDesigns3D, designs3D);
+  }
+
+  deleteElement(name: string) {
+    this.send(Actions.DeleteElement, name);
   }
 
   deleteImage(name: string) {
-    console.error('DELETE IMAGE AT SERVER is not implemented.');
+    this.send(Actions.DeleteImage, name);
   }
 
   deleteAudio(name: string) {
-    console.error('DELETE AUDIO AT SERVER is not implemented.');
+    this.send(Actions.DeleteAudio, name);
   }
 
   deleteCode(name: string) {
-    console.error('DELETE CODE AT SERVER is not implemented.');
+    this.send(Actions.DeleteCode, name);
   }
 
   deleteDesign3D(name: string) {
-    console.error('DELETE CODE AT SERVER is not implemented.');
+    this.send(Actions.DeleteDesign3D, name);
   }
 
 }

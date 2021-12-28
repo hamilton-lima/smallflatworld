@@ -67,7 +67,7 @@ export class ClientService {
   }
 
   update(sceneElement: SceneElementMemento) {
-    this.server.update([sceneElement]);
+    this.server.updateElements([sceneElement]);
   }
 
   updateImage(image: SceneImage) {
@@ -87,7 +87,7 @@ export class ClientService {
   }
 
   delete(name: string) {
-    this.server.delete(name);
+    this.server.deleteElement(name);
   }
 
   deleteImage(name: string) {
