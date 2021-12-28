@@ -24,7 +24,7 @@ export class EditorLibraryService {
     private loader: MeshLoaderService,
     private mesh: MeshService,
     private internalFactory: InternalLibraryFactoryService,
-    private realm: RealmService,
+    private realm: RealmService
   ) {
     this.mergeLibraries();
     this.setComponentNames();
@@ -52,14 +52,16 @@ export class EditorLibraryService {
       return this.components.get(componentID);
     } else {
       // search in the realm
-      const found = this.realm.getCurrentRealm().designs3D.find((design3D) => design3D.name == componentID);
+      const found = this.realm
+        .getCurrentRealm()
+        .designs3D.find((design3D) => design3D.name == componentID);
       if (found) {
         const libraryComponent = <LibraryComponent>{
           id: found.name,
           name: found.name,
           model3D: found.base64,
           scale: 1.0,
-        }
+        };
         return libraryComponent;
       } else {
         console.warn('componentID not found', componentID);
@@ -90,7 +92,11 @@ export class EditorLibraryService {
   }
 
   // get Mesh based on componentID
-  getMesh(scene: Scene, componentID: string, imageName: string): Promise<AbstractMesh> {
+  getMesh(
+    scene: Scene,
+    componentID: string,
+    imageName: string
+  ): Promise<AbstractMesh> {
     console.log('getMesh', componentID, this.cacheSize());
 
     return new Promise<AbstractMesh>((resolve, reject) => {
@@ -98,7 +104,14 @@ export class EditorLibraryService {
       console.log('component', component);
       // only if component exists
       if (!component) {
-        resolve(this.mesh.getBox(scene));
+        const model = this.internalFactory.build(
+          scene,
+          componentID,
+          'notfound',
+          ''
+        );
+
+        resolve(model);
       }
 
       const cacheKey = component.id + imageName;
@@ -113,10 +126,14 @@ export class EditorLibraryService {
             scene,
             component.id,
             component.name,
-            imageName,
+            imageName
           );
           this.add2Cache(cacheKey, model);
-          console.log('getmesh build from the factory model', component.id, imageName);
+          console.log(
+            'getmesh build from the factory model',
+            component.id,
+            imageName
+          );
           resolve(model);
         } else {
           // not present in the cache load the model
