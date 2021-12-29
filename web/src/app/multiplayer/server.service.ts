@@ -13,7 +13,7 @@ import {
   SceneElementMemento,
   SceneImage,
   ShareResponse,
-} from '../../../../server/src/events.model';
+} from '../../../../colyseus-server/src/events.model';
 import { FPSService } from './fps.service';
 import { Client, Room } from "colyseus.js";
 

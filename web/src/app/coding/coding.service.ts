@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { CodeDefinition, SceneCode } from '../../../../server/src/events.model';
+import { CodeDefinition, SceneCode } from '../../../../colyseus-server/src/events.model';
 import { EditorService } from '../editor/editor.service';
 import { RealmService } from '../realm/realm.service';
 import { MeshService } from '../renderer/mesh.service';

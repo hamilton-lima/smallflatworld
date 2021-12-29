@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CodeDefinition, SceneCode } from '../../../../server/src/events.model';
+import { CodeDefinition, SceneCode } from '../../../../colyseus-server/src/events.model';
 import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
 import { ClientService } from '../multiplayer/client.service';

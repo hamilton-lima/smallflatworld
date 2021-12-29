@@ -6,8 +6,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Subject, timer } from 'rxjs';
-import { CodeDefinition } from '../../../../../server/src/events.model';
+import { Subject } from 'rxjs';
+import { CodeDefinition } from '../../../../../colyseus-server/src/events.model';
 import { BlocklyConfig, BlocklyService } from './code-blockly.service';
 
 @Component({

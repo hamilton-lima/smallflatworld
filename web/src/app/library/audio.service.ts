@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { SceneAudio } from '../../../../server/src/events.model';
+import { SceneAudio } from '../../../../colyseus-server/src/events.model';
 import { ClientService } from '../multiplayer/client.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';

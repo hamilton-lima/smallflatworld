@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { SceneElementMemento } from '../../../../server/src/events.model';
+import { SceneElementMemento } from '../../../../colyseus-server/src/events.model';
 import { EngineState } from '../renderer/renderer.model';
 
 @Injectable({

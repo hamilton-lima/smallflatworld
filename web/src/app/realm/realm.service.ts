@@ -10,7 +10,7 @@ import {
   SceneImage,
   Vector3MementoOne,
   Vector3MementoZero,
-} from '../../../../server/src/events.model';
+} from '../../../../colyseus-server/src/events.model';
 import { ConfigurationService } from '../shared/configuration.service';
 import { Subject } from 'rxjs';
 import { EventsBrokerService } from '../shared/events-broker.service';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { InputService } from 'src/app/shared/input.service';
-import { SceneCode } from '../../../../../server/src/events.model';
+import { SceneCode } from '../../../../../colyseus-server/src/events.model';
 import { CodeLibraryService } from '../code-library.service';
 
 @Component({

@@ -9,7 +9,7 @@ import {
   SceneImage,
   ShareResponse,
   SceneDesign3D
-} from '../../../../server/src/events.model';
+} from '../../../../colyseus-server/src/events.model';
 import { ServerService } from './server.service';
 import { buildVector3 } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
