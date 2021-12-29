@@ -1,4 +1,4 @@
-import { Schema, ArraySchema, type } from "@colyseus/schema";
+import { Schema, ArraySchema, MapSchema, type } from "@colyseus/schema";
 
 export class Vector3Memento extends Schema {
   @type("number") x: number;
@@ -6,12 +6,12 @@ export class Vector3Memento extends Schema {
   @type("number") z: number;
 }
 
-export class CodeDefinition extends Schema{
+export class CodeDefinition extends Schema {
   @type("string") code: string;
   @type("string") blocklyDefinition: string;
 }
 
-export class SceneElementMemento extends Schema{
+export class SceneElementMemento extends Schema {
   @type("string") name: string;
   @type("string") componentID: string;
   @type(Vector3Memento) position: Vector3Memento = new Vector3Memento();
@@ -22,22 +22,22 @@ export class SceneElementMemento extends Schema{
   @type("boolean") skipColision: boolean;
 }
 
-export class SceneImage extends Schema{
+export class SceneImage extends Schema {
   @type("string") name: string;
   @type("string") base64: string;
 }
 
-export class SceneDesign3D extends Schema{
+export class SceneDesign3D extends Schema {
   @type("string") name: string;
   @type("string") base64: string;
 }
 
-export class SceneAudio extends Schema{
+export class SceneAudio extends Schema {
   @type("string") name: string;
   @type("string") base64: string;
 }
 
-export class SceneCode extends Schema{
+export class SceneCode extends Schema {
   @type("string") name: string;
   @type("string") label: string;
   @type(CodeDefinition) code: CodeDefinition = new CodeDefinition();
@@ -46,10 +46,13 @@ export class SceneCode extends Schema{
 export class Realm extends Schema {
   @type("string") id: string;
   @type("string") name: string;
-  @type([ SceneElementMemento ]) characters = new ArraySchema<SceneElementMemento>();
-  @type([ SceneElementMemento ]) elements = new ArraySchema<SceneElementMemento>();
-  @type([ SceneImage ]) images = new ArraySchema<SceneImage>();
-  @type([ SceneAudio ]) audios = new ArraySchema<SceneAudio>();
-  @type([ SceneCode ]) codes = new ArraySchema<SceneCode>();
-  @type([ SceneDesign3D ]) designs3D = new ArraySchema<SceneDesign3D>();
+  @type([SceneElementMemento]) characters = new ArraySchema<SceneElementMemento>();
+
+  @type({ map: SceneElementMemento }) elements = new MapSchema<SceneElementMemento>();
+
+  // @type([ SceneElementMemento ]) elements = new ArraySchema<SceneElementMemento>();
+  @type([SceneImage]) images = new ArraySchema<SceneImage>();
+  @type([SceneAudio]) audios = new ArraySchema<SceneAudio>();
+  @type([SceneCode]) codes = new ArraySchema<SceneCode>();
+  @type([SceneDesign3D]) designs3D = new ArraySchema<SceneDesign3D>();
 }

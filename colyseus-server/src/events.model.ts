@@ -13,7 +13,7 @@ export enum Actions {
   UpdateCodes = "UpdateCodes",
   UpdateAudios = "UpdateAudios",
   UpdateImages = "UpdateImages",
-  UpdateElemens = "UpdateElemens"
+  UpdateElements = "UpdateElements"
 }
 
 export class ClientMessage {

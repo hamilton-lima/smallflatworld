@@ -1,3 +1,11 @@
+- change realm data structures from array to Map
+  - update fix
+  - update persistence code 
+- listen to the first update and rebuild the realm, then change to listen to all events 
+  onStateChange.once(callback)
+  
+
+
 StateUpdate -> Realm ?
 
 

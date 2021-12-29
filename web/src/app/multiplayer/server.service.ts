@@ -124,7 +124,7 @@ export class ServerService {
   }
 
   updateElements(elements: SceneElementMemento[]) {
-    this.send(Actions.UpdateElemens, elements);
+    this.send(Actions.UpdateElements, elements);
   }
 
   updateImages(images: SceneImage[]) {
