@@ -45,8 +45,9 @@ export class ClientService {
   share() {
     this.unsubscribe();
     this.subscriptions.push(
-      this.server.onShare.subscribe((response: ShareResponse) => {
-        this.realmUUID = response.uuid;
+      this.server.onShare.subscribe((id: string) => {
+        console.log('onshare subscription', id);
+        this.realmUUID = id;
         this.listen2Updates();
       })
     );

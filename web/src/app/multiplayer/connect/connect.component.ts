@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
-const DEFAULT_SERVER = 'ws://localhost:2567';
+const DEFAULT_SERVER = 'ws://localhost:3000';
 
 @Component({
   selector: 'app-connect',
@@ -19,25 +19,23 @@ export class ConnectComponent implements OnInit {
   constructor(
     private server: ServerService,
     private formBuilder: FormBuilder,
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   connect() {
     const url = this.form.get('url').value;
 
-    this.server.connect(url).subscribe(
-      (connected) => {
-        console.log('connected', connected);
-        this.connected = connected;
-      },
-      (error) => {
-        console.error('Error connecting to the server', url, error);
-      }
-    );
+    try {
+      const connected = this.server.connect(url);
+      console.log('connected', connected);
+      this.connected = connected;
+    } catch (error) {
+      console.error('Error connecting to the server', url, error);
+    }
   }
 
-  close(){
+  close() {
     this.server.close();
     this.connected = false;
   }

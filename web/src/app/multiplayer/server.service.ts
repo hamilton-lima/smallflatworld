@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import {
   Actions,
   ClientData,
@@ -23,10 +23,9 @@ import { Client, Room } from "colyseus.js";
 export class ServerService {
   private colyseusClient: Client;
 
-  public readonly ready: Subject<boolean> = new Subject();
   private readonly message: Subject<ClientResponse> = new Subject();
 
-  public readonly onShare: Subject<ShareResponse> = new Subject();
+  public readonly onShare: Subject<string> = new Subject();
   public readonly onStateUpdate: Subject<Realm> = new Subject();
   public readonly onDelete: Subject<DeleteRequest> = new Subject();
   public readonly onJoin: Subject<JoinResponse> = new Subject();
@@ -68,9 +67,8 @@ export class ServerService {
 
   connect(server: string) {
     console.log('client class', Client);
-    this.colyseusClient = new Client("ws://localhost:2567");
-    this.ready.next(true);
-    return this.ready;
+    this.colyseusClient = new Client(server);
+    return true;
   }
 
   close() {
@@ -84,6 +82,7 @@ export class ServerService {
 
   send(action: Actions, data: ClientData) {
     if (this.room) {
+      console.log('send message to server', action, data);
       this.room.send(action, data);
     }
     else {
@@ -93,8 +92,9 @@ export class ServerService {
 
   async share() {
     try {
-      this.room = await this.colyseusClient.create("battle", {/* options */ });
+      this.room = await this.colyseusClient.create("realm", {/* options */ });
       this.listenForUpdates();
+      this.onShare.next(this.room.id);
       console.log("joined successfully", this.room);
     } catch (e) {
       console.error("join error", e);
@@ -104,7 +104,7 @@ export class ServerService {
   async join(realmUUID: string) {
     try {
       this.room = await this.colyseusClient.joinById(realmUUID, {/* options */ });
-      this.listenForUpdates()
+      this.listenForUpdates();
       console.log("joined successfully", this.room);
 
     } catch (e) {
@@ -116,11 +116,8 @@ export class ServerService {
     if (!this.room) {
       console.error('Trying to listen to room updates with no room defined');
     } else {
-      //   this.room.onStateChange.once((state) => {
-      //   console.log("this is the first room state!", state);
-      // });
-
       this.room.onStateChange((state) => {
+        console.log('state change', state);
         this.onStateUpdate.next(<Realm>state);
       });
     }
