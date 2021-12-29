@@ -1,5 +1,5 @@
 import { Room, Client } from "colyseus";
-import { Realm } from "./schema/MyRoomState";
+import { Realm } from "./room.state";
 
 export class MyRoom extends Room<Realm> {
 

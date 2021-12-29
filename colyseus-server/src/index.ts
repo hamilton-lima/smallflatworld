@@ -1,6 +1,6 @@
 // Colyseus + Express
 import { Server } from "colyseus";
-import { MyRoom } from './rooms/MyRoom';
+import { MyRoom } from './room';
 
 import http from "http";
 import express from "express";
