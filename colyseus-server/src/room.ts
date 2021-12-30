@@ -1,11 +1,16 @@
 import { Room, Client } from "colyseus";
-import { Actions, SceneElementMemento } from "./events.model";
-import { Realm } from "./room.state";
+import { Actions } from "./events.model";
+import { Realm, SceneElementMemento } from "./room.state";
 
 export class MyRoom extends Room<Realm> {
 
   onCreate (options: any) {
-    this.setState(new Realm());
+
+    const realm = new Realm();
+    realm.elements.set('foo', new SceneElementMemento());
+    this.setState(realm);
+
+
     this.onMessage(Actions.UpdateElements, (client, elements: SceneElementMemento[]) => {
       elements.forEach( element =>{
         const current = this.state.elements.get(element.name);
