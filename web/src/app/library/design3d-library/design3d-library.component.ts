@@ -5,7 +5,7 @@ import { EditorService } from 'src/app/editor/editor.service';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { InputService } from 'src/app/shared/input.service';
 import { NotifyService } from 'src/app/shared/notify.service';
-import { SceneDesign3D, SceneImage } from '../../../../../colyseus-server/src/events.model';
+import { SceneDesign3D, SceneImage } from '../../../../../colyseus-server/src/room.state';
 import { Design3dService } from '../design3d.service';
 
 @Component({

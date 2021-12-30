@@ -8,13 +8,24 @@ import {
   SceneDesign3D,
   SceneElementMemento,
   SceneImage,
-  Vector3MementoOne,
-  Vector3MementoZero,
-} from '../../../../colyseus-server/src/events.model';
+  Vector3Memento,
+} from '../../../../colyseus-server/src/room.state';
 import { ConfigurationService } from '../shared/configuration.service';
 import { Subject } from 'rxjs';
 import { EventsBrokerService } from '../shared/events-broker.service';
 import { Configuration } from '../persistence/persistence.model';
+
+const Vector3MementoOne = function () {
+  const result = new Vector3Memento();
+  result.assign({ x: 1, y: 1, z: 1 });
+  return result;
+}
+
+const Vector3MementoZero = function () {
+  const result = new Vector3Memento();
+  result.assign({ x: 0, y: 0, z: 0 });
+  return result;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +44,7 @@ export class RealmService {
     private broker: EventsBrokerService
   ) {
 
-    this.client.afterJoin.subscribe((realm: Realm)=>{
+    this.client.afterJoin.subscribe((realm: Realm) => {
       console.log('after join, update realm state', realm);
       this.addRealmAndSetCurrent(realm);
     });
@@ -51,12 +62,7 @@ export class RealmService {
       );
 
       // checks for character in the current realm
-      const found = this.currentRealm.characters.find(
-        (character: SceneElementMemento) => {
-          console.log('ready(1.1) each character', character.name);
-          return character.name == this.configuration.characterID;
-        }
-      );
+      const found = this.currentRealm.characters.get(this.configuration.characterID);
       console.log('ready(2) character', found);
 
       if (!found) {
@@ -77,16 +83,16 @@ export class RealmService {
 
   addDefaultCharacter2Realm(realm: Realm): Realm {
     const character = this.defaultCharacter(this.configuration.characterID);
-    realm.characters.push(character);
+    realm.characters.set(this.configuration.characterID, character);
     return realm;
   }
 
   defaultCharacter(name: string): SceneElementMemento {
     return <SceneElementMemento>{
       name: name,
-      position: Vector3MementoZero,
-      rotation: Vector3MementoZero,
-      scaling: Vector3MementoOne,
+      position: Vector3MementoZero(),
+      rotation: Vector3MementoZero(),
+      scaling: Vector3MementoOne(),
     };
   }
 
@@ -100,55 +106,42 @@ export class RealmService {
 
   // add new scene elements
   async add(element: SceneElementMemento) {
-    this.currentRealm.elements.push(element);
+    this.currentRealm.elements.set(element.name, element);
     return this._updateRealm();
   }
 
-  // update scene elements
-  async get(name: string) {
-    const found = this.currentRealm.elements.findIndex((element) => {
-      return element.name == name;
-    });
-    if (found > -1) {
-      return this.currentRealm.elements[found];
-    }
-    return null;
+  // get scene elements
+  get(name: string) {
+    return this.currentRealm.elements.get(name);
   }
 
   // update scene elements
   async update(input: SceneElementMemento) {
-    const found = this.currentRealm.elements.findIndex(
-      (element) => element.name == input.name
-    );
-    if (found > -1) {
-      this.currentRealm.elements[found] = input;
+    const found = this.get(input.name);
+    if (found) {
+      found.assign(input);
     }
     return this._updateRealm();
   }
 
   delete(name: string) {
-    const found = this.currentRealm.elements.findIndex(
-      (element) => element.name == name
-    );
-    if (found > -1) {
-      const element = this.currentRealm.elements[found];
-      this.currentRealm.elements.splice(found, 1);
-      this.broker.onDeleteSceneElement.next(element);
+    const found = this.get(name);
+    if (found) {
+      this.currentRealm.elements.delete(name);
+      this.broker.onDeleteSceneElement.next(found);
     }
     return this._updateRealm();
   }
 
   // update character state
   async updateCharacter(character: SceneElementMemento) {
-    const found = this.currentRealm.characters.findIndex(
-      (character: SceneElementMemento) =>
-        character.name == this.configuration.characterID
-    );
+    const found = this.currentRealm.elements.get(this.configuration.characterID);
 
-    if (found > -1) {
-      this.currentRealm.characters[found].position = character.position;
-      this.currentRealm.characters[found].rotation = character.rotation;
-      this.currentRealm.characters[found].scaling = character.scaling;
+    if (found) {
+      found.assign(character);
+      // this.currentRealm.characters[found].position = character.position;
+      // this.currentRealm.characters[found].rotation = character.rotation;
+      // this.currentRealm.characters[found].scaling = character.scaling;
       this.broker.onUpdateCharacter.next(character);
       return this._updateRealm();
     }
@@ -160,11 +153,7 @@ export class RealmService {
   }
 
   getCharacter(): SceneElementMemento {
-    const found = this.currentRealm.characters.find(
-      (character: SceneElementMemento) => {
-        return character.name == this.configuration.characterID;
-      }
-    );
+    const found = this.currentRealm.elements.get(this.configuration.characterID);
 
     if (found) {
       return found;
@@ -193,97 +182,70 @@ export class RealmService {
   }
 
   async addImage(image: SceneImage) {
-    this.currentRealm.images.push(image);
+    this.currentRealm.images.set(image.name, image);
     return this._updateRealm();
   }
 
   async addDesign3D(design3D: SceneDesign3D) {
-    this.currentRealm.designs3D.push(design3D);
+    this.currentRealm.designs3D.set(design3D.name, design3D);
     return this._updateRealm();
   }
 
   addAudio(audio: SceneAudio) {
-    this.currentRealm.audios.push(audio);
+    this.currentRealm.audios.set( audio.name,audio);
     return this._updateRealm();
   }
 
   addCode(code: SceneCode) {
-    this.currentRealm.codes.push(code);
+    this.currentRealm.codes.set(code.name, code);
     return this._updateRealm();
   }
 
-  // update scene elements
   async getImage(name: string) {
-    const found = this.currentRealm.images.findIndex(
-      (image) => image.name == name
-    );
-    if (found > -1) {
-      return this.currentRealm.images[found];
-    }
-    return null;
+    return this.currentRealm.images.get(name);
   }
 
   async updateCode(input: SceneCode) {
-    const found = this.currentRealm.codes.findIndex(
-      (code) => code.name == input.name
-    );
-    if (found > -1) {
-      this.currentRealm.codes[found] = input;
+    const found = this.currentRealm.codes.get(input.name);
+    if (found) {
+      found.assign(input);
     }
     return this._updateRealm();
   }
 
   async getCode(name: string) {
-    const found = this.currentRealm.codes.findIndex((code) => {
-      return code.name == name;
-    });
-    if (found > -1) {
-      return this.currentRealm.codes[found];
-    }
-    return null;
+    return this.currentRealm.codes.get(name);
   }
 
   deleteImage(name: string) {
-    const found = this.currentRealm.images.findIndex(
-      (image) => image.name == name
-    );
-    console.log('found', name);
-    if (found > -1) {
-      this.currentRealm.images.splice(found, 1);
+    const found = this.getImage(name);
+    if (found) {
+      this.currentRealm.images.delete(name);
     }
     return this._updateRealm();
   }
 
   deleteDesign3D(name: string) {
-    const found = this.currentRealm.designs3D.findIndex(
-      (image) => image.name == name
-    );
-    console.log('found', name);
-    if (found > -1) {
-      this.currentRealm.designs3D.splice(found, 1);
+    const found = this.currentRealm.designs3D.get(name);
+    if (found) {
+      this.currentRealm.designs3D.delete(name);
     }
     return this._updateRealm();
   }
 
   deleteAudio(name: string) {
-    const found = this.currentRealm.audios.findIndex(
-      (audio) => audio.name == name
-    );
-    console.log('found', name, found);
-    if (found > -1) {
-      this.currentRealm.audios.splice(found, 1);
+    const found = this.currentRealm.audios.get(name);
+    if (found) {
+      this.currentRealm.audios.delete(name);
     }
 
     return this._updateRealm();
   }
 
   deleteCode(name: string) {
-    const found = this.currentRealm.codes.findIndex(
-      (code) => code.name == name
-    );
-    console.log('found', name, found);
-    if (found > -1) {
-      this.currentRealm.codes.splice(found, 1);
+    const found = this.currentRealm.codes.get(name);
+    if (found) {
+      this.currentRealm.codes.delete(name);
     }
 
     return this._updateRealm();

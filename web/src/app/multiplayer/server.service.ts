@@ -1,21 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   Actions,
-  ClientData,
-  ClientResponse,
-  DeleteRequest,
-  JoinResponse,
   Realm,
   SceneAudio,
   SceneCode,
   SceneDesign3D,
   SceneElementMemento,
   SceneImage,
-  ShareResponse,
-} from '../../../../colyseus-server/src/events.model';
-import { FPSService } from './fps.service';
-import { Client, Room } from "colyseus.js";
+} from '../../../../colyseus-server/src/room.state';
+import { Client, Room } from 'colyseus.js';
 
 @Injectable({
   providedIn: 'root',
@@ -23,47 +17,43 @@ import { Client, Room } from "colyseus.js";
 export class ServerService {
   private colyseusClient: Client;
 
-  private readonly message: Subject<ClientResponse> = new Subject();
+  // private readonly message: Subject<ClientResponse> = new Subject();
 
   public readonly onShare: Subject<string> = new Subject();
   public readonly onStateUpdate: Subject<Realm> = new Subject();
-  public readonly onDelete: Subject<DeleteRequest> = new Subject();
-  public readonly onJoin: Subject<JoinResponse> = new Subject();
-  room: Room;
+  // public readonly onDelete: Subject<DeleteRequest> = new Subject();
+  // public readonly onJoin: Subject<JoinResponse> = new Subject();
+  room: Room<Realm>;
 
-  constructor(fps: FPSService) {
-    // TODO: remove both
-    fps.setup(this.message);
-    this.messageBroker(this.message);
-  }
+  constructor() {}
 
-  messageBroker(message: Subject<ClientResponse>) {
-    message.subscribe((message: ClientResponse) => {
-      try {
-        if (message.action == Actions.Update) {
-          this.onStateUpdate.next(<Realm>message.data);
-          return;
-        }
+  // messageBroker(message: Subject<ClientResponse>) {
+  //   message.subscribe((message: ClientResponse) => {
+  //     try {
+  //       if (message.action == Actions.Update) {
+  //         this.onStateUpdate.next(<Realm>message.data);
+  //         return;
+  //       }
 
-        if (message.action == Actions.Delete) {
-          this.onDelete.next(<DeleteRequest>message.data);
-          return;
-        }
+  //       if (message.action == Actions.Delete) {
+  //         this.onDelete.next(<DeleteRequest>message.data);
+  //         return;
+  //       }
 
-        if (message.action == Actions.Join) {
-          this.onJoin.next(<JoinResponse>message.data);
-          return;
-        }
+  //       if (message.action == Actions.Join) {
+  //         this.onJoin.next(<JoinResponse>message.data);
+  //         return;
+  //       }
 
-        if (message.action == Actions.Share) {
-          this.onShare.next(<ShareResponse>message.data);
-          return;
-        }
-      } catch (error) {
-        console.error('Error redirecting messages from server', error);
-      }
-    });
-  }
+  //       // if (message.action == Actions.Share) {
+  //       //   this.onShare.next(<ShareResponse>message.data);
+  //       //   return;
+  //       // }
+  //     } catch (error) {
+  //       console.error('Error redirecting messages from server', error);
+  //     }
+  //   });
+  // }
 
   connect(server: string) {
     console.log('client class', Client);
@@ -74,41 +64,55 @@ export class ServerService {
   close() {
     if (this.room) {
       this.room.leave();
-    }
-    else {
+    } else {
       console.error('Trying to leave room that is not defined');
     }
   }
 
-  send(action: Actions, data: ClientData) {
+  send(
+    action: Actions,
+    data:
+      | string
+      | SceneAudio[]
+      | SceneCode[]
+      | SceneDesign3D[]
+      | SceneElementMemento[]
+      | SceneImage[]
+  ) {
     if (this.room) {
       console.log('send message to server', action, data);
       this.room.send(action, data);
-    }
-    else {
-      console.error('Trying to send message to the server without a room defined', action, data);
+    } else {
+      console.error(
+        'Trying to send message to the server without a room defined',
+        action,
+        data
+      );
     }
   }
 
   async share() {
     try {
-      this.room = await this.colyseusClient.create("realm", {/* options */ });
+      this.room = await this.colyseusClient.create('realm', {
+        /* options */
+      });
       this.listenForUpdates();
       this.onShare.next(this.room.id);
-      console.log("joined successfully", this.room);
+      console.log('joined successfully', this.room);
     } catch (e) {
-      console.error("join error", e);
+      console.error('join error', e);
     }
   }
 
   async join(realmUUID: string) {
     try {
-      this.room = await this.colyseusClient.joinById(realmUUID, {/* options */ });
+      this.room = await this.colyseusClient.joinById(realmUUID, {
+        /* options */
+      });
       this.listenForUpdates();
-      console.log("joined successfully", this.room);
-
+      console.log('joined successfully', this.room);
     } catch (e) {
-      console.error("join error", e);
+      console.error('join error', e);
     }
   }
 
@@ -117,7 +121,7 @@ export class ServerService {
       console.error('Trying to listen to room updates with no room defined');
     } else {
       this.room.onStateChange((state) => {
-        console.log('state change', state);
+        console.log('state change', state.elements);
         this.onStateUpdate.next(<Realm>state);
       });
     }
@@ -162,5 +166,4 @@ export class ServerService {
   deleteDesign3D(name: string) {
     this.send(Actions.DeleteDesign3D, name);
   }
-
 }

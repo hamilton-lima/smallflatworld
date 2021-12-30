@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CodeDefinition, SceneCode } from '../../../../colyseus-server/src/events.model';
+import { CodeDefinition, Realm, SceneCode } from '../../../../colyseus-server/src/room.state';
 import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
 import { ClientService } from '../multiplayer/client.service';
@@ -25,8 +25,12 @@ export class CodeLibraryService {
   ) {
     this.onUpdate = new BehaviorSubject([]);
     this.realm.onNew.subscribe((newRealm) => {
-      this.onUpdate.next(newRealm.codes);
+      this.propagateChanges(newRealm);
     });
+  }
+
+  propagateChanges(realm: Realm) {
+    this.onUpdate.next(Array.from(realm.codes.values()));
   }
 
   buildCode() {
@@ -42,21 +46,21 @@ export class CodeLibraryService {
   add(code: SceneCode) {
     this.client.updateCode(code);
     this.realm.addCode(code).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().codes);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   update(code: SceneCode) {
     this.client.updateCode(code);
     this.realm.updateCode(code).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().codes);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   remove(name: string) {
     this.client.deleteCode(name);
     return this.realm.deleteCode(name).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().codes);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 

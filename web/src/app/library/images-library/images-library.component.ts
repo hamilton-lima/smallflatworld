@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { InputService } from 'src/app/shared/input.service';
 import { NotifyService } from 'src/app/shared/notify.service';
-import { SceneImage } from '../../../../../colyseus-server/src/events.model';
+import { SceneImage } from '../../../../../colyseus-server/src/room.state';
 import { ImagesService } from '../images.service';
 
 @Component({

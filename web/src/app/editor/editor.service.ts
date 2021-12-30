@@ -26,7 +26,7 @@ import {
 import {
   CodeDefinition,
   SceneElementMemento,
-} from '../../../../colyseus-server/src/events.model';
+} from '../../../../colyseus-server/src/room.state';
 import { InputService } from '../shared/input.service';
 import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';

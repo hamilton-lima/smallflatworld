@@ -1,5 +1,23 @@
 import { Schema, ArraySchema, MapSchema, type } from "@colyseus/schema";
 
+export enum Actions {
+  Share = "share",
+  Join = "join",
+  Update = "update",
+  Delete = "delete",
+  Ping = "ping",
+  DeleteImage = "delete-image",
+  DeleteAudio = "delete-audio",
+  DeleteCode = "delete-code",
+  DeleteDesign3D = "delete-design3D",
+  DeleteElement = "DeleteElement",
+  UpdateDesigns3D = "UpdateDesigns3D",
+  UpdateCodes = "UpdateCodes",
+  UpdateAudios = "UpdateAudios",
+  UpdateImages = "UpdateImages",
+  UpdateElements = "UpdateElements"
+}
+
 export class Vector3Memento extends Schema {
   @type("number") x: number;
   @type("number") y: number;
@@ -46,13 +64,10 @@ export class SceneCode extends Schema {
 export class Realm extends Schema {
   @type("string") id: string;
   @type("string") name: string;
-  @type([SceneElementMemento]) characters = new ArraySchema<SceneElementMemento>();
-
+  @type({ map: SceneElementMemento }) characters = new MapSchema<SceneElementMemento>();
   @type({ map: SceneElementMemento }) elements = new MapSchema<SceneElementMemento>();
-
-  // @type([ SceneElementMemento ]) elements = new ArraySchema<SceneElementMemento>();
-  @type([SceneImage]) images = new ArraySchema<SceneImage>();
-  @type([SceneAudio]) audios = new ArraySchema<SceneAudio>();
-  @type([SceneCode]) codes = new ArraySchema<SceneCode>();
-  @type([SceneDesign3D]) designs3D = new ArraySchema<SceneDesign3D>();
+  @type({ map: SceneImage }) images = new MapSchema<SceneImage>();
+  @type({ map: SceneAudio }) audios = new MapSchema<SceneAudio>();
+  @type({ map: SceneCode }) codes = new MapSchema<SceneCode>();
+  @type({ map: SceneDesign3D }) designs3D = new MapSchema<SceneDesign3D>();
 }

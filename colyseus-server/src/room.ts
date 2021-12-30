@@ -1,6 +1,5 @@
 import { Room, Client } from "colyseus";
-import { Actions } from "./events.model";
-import { Realm, SceneElementMemento } from "./room.state";
+import { Actions, Realm, SceneElementMemento } from "./room.state";
 
 export class MyRoom extends Room<Realm> {
 
@@ -8,6 +7,8 @@ export class MyRoom extends Room<Realm> {
 
     const realm = new Realm();
     realm.elements.set('foo', new SceneElementMemento());
+    realm.elements.set('bar', new SceneElementMemento());
+    realm.elements.delete('bar');
     this.setState(realm);
 
 

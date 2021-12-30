@@ -54,7 +54,7 @@ export class EditorLibraryService {
       // search in the realm
       const found = this.realm
         .getCurrentRealm()
-        .designs3D.find((design3D) => design3D.name == componentID);
+        .designs3D.get(componentID);
       if (found) {
         const libraryComponent = <LibraryComponent>{
           id: found.name,

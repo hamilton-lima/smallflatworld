@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { SceneDesign3D, SceneImage } from '../../../../colyseus-server/src/events.model';
+import { Realm, SceneDesign3D, SceneImage } from '../../../../colyseus-server/src/room.state';
 import { ClientService } from '../multiplayer/client.service';
 import { RealmService } from '../realm/realm.service';
-import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,12 @@ export class Design3dService {
   constructor(private client: ClientService, private realm: RealmService) {
     this.onUpdate = new BehaviorSubject([]);
     this.realm.onNew.subscribe((newRealm) => {
-      this.onUpdate.next(newRealm.designs3D);
+      this.propagateChanges(newRealm);
     });
+  }
+
+  propagateChanges(realm: Realm) {
+    this.onUpdate.next(Array.from(realm.designs3D.values()));
   }
 
   select(selected: SceneDesign3D) {
@@ -37,28 +40,30 @@ export class Design3dService {
 
   findByName(name: string) {
     const found = this.onUpdate.value.find((image) => image.name == name);
-
     return found;
   }
 
   add(toAdd: SceneDesign3D) {
     this.client.updateDesign3D(toAdd);
     this.realm.addDesign3D(toAdd).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().designs3D);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   remove(name: string) {
     this.client.deleteDesign3D(name);
     this.realm.deleteDesign3D(name).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().designs3D);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   canRemove(name: string): boolean {
-    const found = this.realm.getCurrentRealm().elements.find((element) => {
-      return element.componentID == name
-    });
+    let found = null;
+    for (let element of this.realm.getCurrentRealm().elements.values()) {
+      if (element.componentID == name) {
+        found = element;
+      }
+    }
 
     if (found) {
       return false;

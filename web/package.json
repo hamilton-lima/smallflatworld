@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.4.3",
+  "version": "0.4.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -23,6 +23,7 @@
     "@angular/router": "~10.0.3",
     "@babylonjs/core": "^4.2.0",
     "@babylonjs/loaders": "^4.2.0",
+    "@colyseus/schema": "^1.0.31",
     "@types/node": "^12.11.1",
     "blockly": "^6.20210701.0",
     "colyseus.js": "^0.14.13",

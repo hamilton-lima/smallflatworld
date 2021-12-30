@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { SceneImage } from '../../../../colyseus-server/src/events.model';
+import { Realm, SceneImage } from '../../../../colyseus-server/src/room.state';
 import { ClientService } from '../multiplayer/client.service';
 import { RealmService } from '../realm/realm.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,8 +15,12 @@ export class ImagesService {
   constructor(private client: ClientService, private realm: RealmService) {
     this.onUpdate = new BehaviorSubject([]);
     this.realm.onNew.subscribe((newRealm) => {
-      this.onUpdate.next(newRealm.images);
+      this.propagateChanges(newRealm);
     });
+  }
+
+  propagateChanges(realm: Realm) {
+    this.onUpdate.next(Array.from(realm.images.values()));
   }
 
   select(image: SceneImage) {
@@ -43,21 +47,24 @@ export class ImagesService {
   add(image: SceneImage) {
     this.client.updateImage(image);
     this.realm.addImage(image).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().images);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   remove(name: string) {
     this.client.deleteImage(name);
     this.realm.deleteImage(name).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().images);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   canRemove(name: string): boolean {
-    const found = this.realm.getCurrentRealm().elements.find((element) => {
-      return element.imageName == name;
-    });
+    let found = null;
+    for (let element of this.realm.getCurrentRealm().elements.values()) {
+      if (element.imageName == name) {
+        found = element;
+      }
+    }
 
     if (found) {
       return false;

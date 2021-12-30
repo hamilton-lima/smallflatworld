@@ -3,7 +3,7 @@ import { Scene, Mesh, Vector3 } from '@babylonjs/core';
 import { LibraryComponent } from '../editor/editor-library.model';
 import { EditorLibraryService } from '../editor/editor-library.service';
 import { v4 as uuidv4 } from 'uuid';
-import { CodeDefinition } from '../../../../colyseus-server/src/events.model';
+import { CodeDefinition } from '../../../../colyseus-server/src/room.state';
 import { RealmService } from '../realm/realm.service';
 import { ClientService } from '../multiplayer/client.service';
 import { sceneElement2Memento } from '../renderer/builders';

@@ -11,7 +11,8 @@ import {
 import { Configuration } from './persistence.model';
 import Dexie from 'dexie';
 import { PersistenceDataChecker } from './persistence.data-checker';
-import { Realm } from "../../../../server/src/events.model";
+import { Realm, SceneAudio, SceneCode, SceneDesign3D, SceneElementMemento, SceneImage } from '../../../../colyseus-server/src/room.state';
+import { MapSchema } from '@colyseus/schema';
 
 const uniqueNameConfig: Config = {
   dictionaries: [adjectives, colors, animals, names],
@@ -131,15 +132,16 @@ export class PersistenceService {
 
   // builds new Realm object
   buildRealm(): Realm {
-    const result = <Realm>{
+    const result = new Realm().assign({
       id: uuidv4(),
       name: uniqueNamesGenerator(uniqueNameConfig),
-      elements: [],
-      images: [],
-      audios: [],
-      codes: [],
-      designs3D: []
-    };
+      characters: new MapSchema<SceneElementMemento>(),
+      elements: new MapSchema<SceneElementMemento>(),
+      images: new MapSchema<SceneImage>(),
+      audios: new MapSchema<SceneAudio>(),
+      codes: new MapSchema<SceneCode>(),
+      designs3D: new MapSchema<SceneDesign3D>()
+    });
 
     return result;
   }

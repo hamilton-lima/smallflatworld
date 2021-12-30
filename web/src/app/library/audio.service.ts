@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { SceneAudio } from '../../../../colyseus-server/src/events.model';
+import { Realm, SceneAudio } from '../../../../colyseus-server/src/room.state';
 import { ClientService } from '../multiplayer/client.service';
 import { RealmService } from '../realm/realm.service';
-import { v4 as uuidv4 } from 'uuid';
 import { AudioPlayerService } from '../shared/audio-player.service';
 
 @Injectable({
@@ -20,8 +19,12 @@ export class AudioService {
   ) {
     this.onUpdate = new BehaviorSubject([]);
     this.realm.onNew.subscribe((newRealm) => {
-      this.onUpdate.next(newRealm.audios);
+      this.propagateChanges(newRealm);
     });
+  }
+
+  propagateChanges(realm: Realm) {
+    this.onUpdate.next(Array.from(realm.audios.values()));
   }
 
   select(audio: SceneAudio) {
@@ -47,14 +50,14 @@ export class AudioService {
   add(audio: SceneAudio) {
     this.client.updateAudio(audio);
     this.realm.addAudio(audio).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().audios);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   remove(name: string) {
     this.client.deleteAudio(name);
     return this.realm.deleteAudio(name).then((_) => {
-      this.onUpdate.next(this.realm.getCurrentRealm().audios);
+      this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 

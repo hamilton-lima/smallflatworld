@@ -8,6 +8,7 @@ import { EditorModeService } from './editor/editor-mode.service';
 import { AudioPlayerService } from './shared/audio-player.service';
 import { EditorService } from './editor/editor.service';
 import { EventsBrokerService } from './shared/events-broker.service';
+import { DefaultUrlSerializer } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -45,6 +46,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    console.log('url', window.location.href);
+    const serializer = new DefaultUrlSerializer();
+    const tree = serializer.parse(window.location.href);
+    console.log('tree', tree);
+
     this.realm.ready().then(
       () => {
         this.ready = true;

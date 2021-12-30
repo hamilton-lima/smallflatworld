@@ -2,7 +2,7 @@ import { Mesh, Vector3 } from '@babylonjs/core';
 import {
   SceneElementMemento,
   Vector3Memento,
-} from '../../../../colyseus-server/src/events.model';
+} from '../../../../colyseus-server/src/room.state';
 import { SceneElement } from './renderer.model';
 
 export function mesh2Memento(mesh: Mesh): SceneElementMemento {

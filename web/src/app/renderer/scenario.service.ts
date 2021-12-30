@@ -10,7 +10,7 @@ import {
 } from '@babylonjs/core';
 import { RunnerService } from '../coding/runner.service';
 import { RealmService } from '../realm/realm.service';
-import { buildVector3, memento2SceneElement } from './builders';
+import { memento2SceneElement } from './builders';
 import { MeshService } from './mesh.service';
 import { EngineState, SceneElement } from './renderer.model';
 import { SceneService } from '../shared/scene.service';
@@ -29,10 +29,10 @@ export class ScenarioService {
   ) { }
 
   addCharacter(engineState: EngineState, character: SceneElement) {
-    const position = buildVector3(character.position);
-    const rotation = buildVector3(character.rotation);
-    engineState.character.position = position;
-    engineState.character.rotation = rotation;
+    // const position = buildVector3(character.position);
+    // const rotation = buildVector3(character.rotation);
+    engineState.character.position = character.position;
+    engineState.character.rotation = character.rotation;
     engineState.character.checkCollisions = true;
 
     engineState.character.ellipsoid = new Vector3(1, 1, 1);
@@ -41,7 +41,7 @@ export class ScenarioService {
   buildRealm(engineState: EngineState): Promise<void> {
     return new Promise(async (resolve, reject) => {
      const realm = this.realm.getCurrentRealm();
-      const total = realm.elements.length;
+      const total = realm.elements.size;
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
 
@@ -64,7 +64,7 @@ export class ScenarioService {
       const createPromises = [];
 
       // add realm elements to the scene
-      for (const memento of realm.elements) {
+      for (const [key,memento] of realm.elements) {
         const element = memento2SceneElement(memento);
 
         console.log(

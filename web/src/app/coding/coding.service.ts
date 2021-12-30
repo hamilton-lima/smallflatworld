@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { CodeDefinition, SceneCode } from '../../../../colyseus-server/src/events.model';
-import { EditorService } from '../editor/editor.service';
+import { CodeDefinition, SceneCode } from '../../../../colyseus-server/src/room.state';
 import { RealmService } from '../realm/realm.service';
-import { MeshService } from '../renderer/mesh.service';
-import { RunnerService } from './runner.service';
 
 export class CodeEditRequest {
   uuid: string;

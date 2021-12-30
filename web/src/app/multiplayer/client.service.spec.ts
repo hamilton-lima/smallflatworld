@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import {
   ShareResponse,
   StateUpdate,
-} from '../../../../colyseus-server/src/events.model';
+} from '../../../../colyseus-server/src/room.state';
 import { APP_TESTBED_MODULE } from '../app.testbed';
 import { SceneElement } from '../persistence/persistence.model';
 

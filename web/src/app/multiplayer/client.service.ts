@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import {
-  DeleteRequest,
-  JoinResponse,
   SceneAudio,
   SceneCode,
   SceneElementMemento,
   SceneImage,
-  ShareResponse,
-  SceneDesign3D
-} from '../../../../colyseus-server/src/events.model';
+  SceneDesign3D,
+  Realm
+} from '../../../../colyseus-server/src/room.state';
 import { ServerService } from './server.service';
 import { buildVector3 } from '../renderer/builders';
 import { SceneElement } from '../renderer/renderer.model';
-import { RealmService } from '../realm/realm.service';
-import { Realm } from "../../../../server/src/events.model";
 
 @Injectable({
   providedIn: 'root',
@@ -23,10 +19,10 @@ export class ClientService {
   realmUUID: string;
   subscriptions: Subscription[] = [];
   onUpdate: Subject<SceneElement[]> = new Subject();
-  onUpdateImages: Subject<SceneImage[]> = new Subject();
-  onUpdateAudios: Subject<SceneAudio[]> = new Subject();
-  onUpdateCodes: Subject<SceneCode[]> = new Subject();
-  onUpdateDesigns3D: Subject<SceneDesign3D[]> = new Subject();
+  onUpdateImages: Subject<IterableIterator<SceneImage>> = new Subject();
+  onUpdateAudios: Subject<IterableIterator<SceneAudio>> = new Subject();
+  onUpdateCodes: Subject<IterableIterator<SceneCode>> = new Subject();
+  onUpdateDesigns3D: Subject<IterableIterator<SceneDesign3D>> = new Subject();
   onDelete: Subject<string> = new Subject();
   afterJoin: Subject<Realm> = new Subject();
 
@@ -58,9 +54,9 @@ export class ClientService {
     this.realmUUID = null;
     this.unsubscribe();
     this.subscriptions.push(
-      this.server.onJoin.subscribe((response: JoinResponse) => {
-        this.realmUUID = realmUUID;
-        this.afterJoin.next(response.data);
+      this.server.onStateUpdate.subscribe((realm: Realm) => {
+        this.realmUUID = realm.id;
+        this.afterJoin.next(realm);
         this.listen2Updates();
       })
     );
@@ -109,40 +105,41 @@ export class ClientService {
 
   listen2Updates() {
     this.subscriptions.push(
-      this.server.onStateUpdate.subscribe((request: Realm) => {
-        if (request.elements && request.elements.length > 0) {
-          const elements = this.memento2Vector3(request.elements);
+      this.server.onStateUpdate.subscribe((update: Realm) => {
+
+        if (update.elements && update.elements.size > 0) {
+          const elements = this.memento2Vector3(update.elements.values());
           this.onUpdate.next(elements);
         }
 
-        if (request.images && request.images.length > 0) {
-          this.onUpdateImages.next(request.images);
+        if (update.images && update.images.size > 0) {
+          this.onUpdateImages.next(update.images.values());
         }
 
-        if (request.audios && request.audios.length > 0) {
-          this.onUpdateAudios.next(request.audios);
+        if (update.audios && update.audios.size > 0) {
+          this.onUpdateAudios.next(update.audios.values());
         }
 
-        if (request.codes && request.codes.length > 0) {
-          this.onUpdateCodes.next(request.codes);
+        if (update.codes && update.codes.size > 0) {
+          this.onUpdateCodes.next(update.codes.values());
         }
 
-        if (request.designs3D && request.designs3D.length > 0) {
-          this.onUpdateDesigns3D.next(request.designs3D);
+        if (update.designs3D && update.designs3D.size > 0) {
+          this.onUpdateDesigns3D.next(update.designs3D.values());
         }
       })
     );
 
-    this.subscriptions.push(
-      this.server.onDelete.subscribe((request: DeleteRequest) => {
-        this.onDelete.next(request.name);
-      })
-    );
+    // this.subscriptions.push(
+    //   this.server.onDelete.subscribe((request: DeleteRequest) => {
+    //     this.onDelete.next(request.name);
+    //   })
+    // );
   }
 
-  memento2Vector3(data: SceneElementMemento[]): SceneElement[] {
+  memento2Vector3(data: IterableIterator<SceneElementMemento>): SceneElement[] {
     const result: SceneElement[] = [];
-    data.forEach((element: SceneElementMemento) => {
+    for (let element of data) {
       const converted = <SceneElement>{
         name: element.name,
         position: buildVector3(element.position),
@@ -153,7 +150,7 @@ export class ClientService {
         skipColision: element.skipColision,
       };
       result.push(converted);
-    });
+    }
     return result;
   }
 
