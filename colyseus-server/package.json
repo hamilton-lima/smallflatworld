@@ -33,6 +33,7 @@
   "dependencies": {
     "@colyseus/arena": "^0.14.22",
     "@colyseus/monitor": "^0.14.20",
+    "@colyseus/ws-transport": "^0.14.21",
     "colyseus": "^0.14.20",
     "cors": "^2.8.5",
     "express": "^4.16.4"
