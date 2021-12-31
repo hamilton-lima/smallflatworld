@@ -1,164 +1,165 @@
 import { Injectable } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   SceneAudio,
   SceneCode,
   SceneElementMemento,
   SceneImage,
   SceneDesign3D,
-  Realm
+  Realm,
 } from '../../../../colyseus-server/src/room.state';
 import { ServerService } from './server.service';
-import { buildVector3 } from '../renderer/builders';
-import { SceneElement } from '../renderer/renderer.model';
+import { MapSchema } from '@colyseus/schema';
+
+class Message<Type> {
+  action: 'add' | 'update' | 'remove';
+  target: string;
+  data: Type;
+}
+
+export class MessageSender2Server<Type> {
+  constructor(private owner: ServerService, private targetName: string) { }
+
+  send(type: string, item: Type) {
+    const message = Object.assign(new Message<Type>(), {
+      action: type,
+      target: this.targetName,
+      data: item,
+    });
+
+    if (this.owner.room) {
+      console.log('send to server', message);
+      this.owner.room.send(message.action, message);
+    } else {
+      console.warn('Sending message to server before connecting', message);
+    }
+  }
+
+  add(item: Type) {
+    this.send('add', item);
+  }
+
+  update(item: Type) {
+    this.send('update', item);
+  }
+
+  remove(item: Type) {
+    this.send('remove', item);
+  }
+}
+
+export class MessageFromServerListener<Type> {
+  public readonly onAdd: Subject<Type> = new Subject();
+  public readonly onChange: Subject<Type> = new Subject();
+  public readonly onRemove: Subject<Type> = new Subject();
+
+  constructor(list: MapSchema<Type>) {
+    list.onAdd = this.add;
+    list.onChange = this.change;
+    list.onRemove = this.remove;
+  }
+
+  add(item: Type, key: string) {
+    this.onAdd.next(item);
+  }
+
+  change(item: Type, key: string) {
+    this.onAdd.next(item);
+  }
+
+  remove(item: Type, key: string) {
+    this.onAdd.next(item);
+  }
+}
+
+export class MessageHandler<Type> {
+  to: MessageSender2Server<Type>;
+  from: MessageFromServerListener<Type>;
+
+  constructor(
+    private owner: ServerService,
+    list: MapSchema<Type>,
+    private targetName: string
+  ) {
+    this.to = new MessageSender2Server(owner, targetName);
+    this.from = new MessageFromServerListener(list);
+  }
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientService {
   realmUUID: string;
-  subscriptions: Subscription[] = [];
-  onUpdate: Subject<SceneElement[]> = new Subject();
-  onUpdateImages: Subject<IterableIterator<SceneImage>> = new Subject();
-  onUpdateAudios: Subject<IterableIterator<SceneAudio>> = new Subject();
-  onUpdateCodes: Subject<IterableIterator<SceneCode>> = new Subject();
-  onUpdateDesigns3D: Subject<IterableIterator<SceneDesign3D>> = new Subject();
-  onDelete: Subject<string> = new Subject();
   afterJoin: Subject<Realm> = new Subject();
+
+  elements: MessageHandler<SceneElementMemento>;
+  characters: MessageHandler<SceneElementMemento>;
+  audios: MessageHandler<SceneAudio>;
+  codes: MessageHandler<SceneCode>;
+  designs3D: MessageHandler<SceneDesign3D>;
+  images: MessageHandler<SceneImage>;
 
   constructor(private server: ServerService) { }
 
-  // Removes all subscriptions
-  unsubscribe() {
-    this.subscriptions.forEach((subscription) => {
-      if (subscription && !subscription.closed) {
-        subscription.unsubscribe();
-      }
-    });
-    this.subscriptions = [];
-  }
-
   share() {
-    this.unsubscribe();
-    this.subscriptions.push(
-      this.server.onShare.subscribe((id: string) => {
-        console.log('onshare subscription', id);
-        this.realmUUID = id;
-        this.listen2Updates();
-      })
-    );
+    this.server.onShare.subscribe((id: string) => {
+      console.log('onshare subscription', id);
+      this.realmUUID = id;
+      this.setupMessageHandler();
+    });
     this.server.share();
   }
 
   join(realmUUID: string) {
     this.realmUUID = null;
-    this.unsubscribe();
-    this.subscriptions.push(
-      this.server.onStateUpdate.subscribe((realm: Realm) => {
-        this.realmUUID = realm.id;
-        this.afterJoin.next(realm);
-        this.listen2Updates();
-      })
-    );
+    this.server.onStateUpdate.subscribe((realm: Realm) => {
+      this.realmUUID = realm.id;
+      this.afterJoin.next(realm);
+      this.setupMessageHandler();
+    });
     this.server.join(realmUUID);
   }
 
-  update(sceneElement: SceneElementMemento) {
-    this.server.elementsHandler.update(sceneElement);
-  }
-
-  updateImage(image: SceneImage) {
-    this.server.updateImages([image]);
-  }
-
-  updateDesign3D(design3D: SceneDesign3D) {
-    this.server.updateDesigns3D([design3D]);
-  }
-
-  updateAudio(audio: SceneAudio) {
-    this.server.updateAudios([audio]);
-  }
-
-  updateCode(code: SceneCode) {
-    this.server.updateCodes([code]);
-  }
-
-  delete(name: string) {
-    this.server.deleteElement(name);
-  }
-
-  deleteImage(name: string) {
-    this.server.deleteImage(name);
-  }
-
-  deleteAudio(name: string) {
-    this.server.deleteAudio(name);
-  }
-
-  deleteCode(name: string) {
-    this.server.deleteCode(name);
-  }
-
-  deleteDesign3D(name: string) {
-    this.server.deleteDesign3D(name);
-  }
-
-  listen2Updates() {
-    this.subscriptions.push(
-      this.server.onElementsAdd.subscribe(element => {
-        const converted = this.memento2Vector3(element);
-        console.log('updated!!!!', converted);
-        this.onUpdate.next([converted]);
-      })
+  setupMessageHandler() {
+    this.elements = new MessageHandler(
+      this.server,
+      this.server.room.state.elements,
+      'elements'
     );
 
-    //   this.server.onStateUpdate.subscribe((update: Realm) => {
+    this.characters = new MessageHandler(
+      this.server,
+      this.server.room.state.characters,
+      'characters'
+    );
 
-    //     if (update.elements && update.elements.size > 0) {
-    //       const elements = this.memento2Vector3(update.elements.values());
-    //       this.onUpdate.next(elements);
-    //     }
+    this.audios = new MessageHandler(
+      this.server,
+      this.server.room.state.audios,
+      'audios'
+    );
 
-    //     if (update.images && update.images.size > 0) {
-    //       this.onUpdateImages.next(update.images.values());
-    //     }
+    this.codes = new MessageHandler(
+      this.server,
+      this.server.room.state.codes,
+      'codes'
+    );
 
-    //     if (update.audios && update.audios.size > 0) {
-    //       this.onUpdateAudios.next(update.audios.values());
-    //     }
+    this.designs3D = new MessageHandler(
+      this.server,
+      this.server.room.state.designs3D,
+      'designs3D'
+    );
 
-    //     if (update.codes && update.codes.size > 0) {
-    //       this.onUpdateCodes.next(update.codes.values());
-    //     }
-
-    //     if (update.designs3D && update.designs3D.size > 0) {
-    //       this.onUpdateDesigns3D.next(update.designs3D.values());
-    //     }
-    //   })
-    // );
-
-    // this.subscriptions.push(
-    //   this.server.onDelete.subscribe((request: DeleteRequest) => {
-    //     this.onDelete.next(request.name);
-    //   })
-    // );
-  }
-
-  memento2Vector3(element: SceneElementMemento): SceneElement {
-    const result = <SceneElement>{
-      name: element.name,
-      position: buildVector3(element.position),
-      rotation: buildVector3(element.rotation),
-      scaling: buildVector3(element.scaling),
-      code: element.code,
-      imageName: element.imageName,
-      skipColision: element.skipColision,
-    };
-    return result;
+    this.images = new MessageHandler(
+      this.server,
+      this.server.room.state.images,
+      'images'
+    );
   }
 
   stopShare() {
-    this.unsubscribe();
     this.realmUUID = null;
   }
 }

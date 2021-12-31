@@ -12,44 +12,6 @@ import {
 } from '../../../../colyseus-server/src/room.state';
 import { Client, Room } from 'colyseus.js';
 
-class Message<Type>
-{
-  action: "add" | "update" | "remove";
-  target: string;
-  data: Type;
-}
-
-export class MessageSender2Server<Type>{
-  constructor(private owner: ServerService, private targetName: string) {}
-
-  send(type: string, item: Type) {
-    const message = Object.assign(new Message<Type>(), {
-      action: type,
-      target: this.targetName,
-      data: item,
-    });
-    
-    if( this.owner.room){
-      console.log("send to server", message);
-      this.owner.room.send(message.action, message);
-    } else {
-      console.warn('Sending message to server before connecting', message);
-    }
-  }
-
-  add(item: Type) {
-    this.send("add", item);
-  }
-
-  update(item: Type) {
-    this.send("update", item);
-  }
-
-  remove(item: Type) {
-    this.send("remove", item);
-  }
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -64,10 +26,8 @@ export class ServerService {
   // public readonly onDelete: Subject<DeleteRequest> = new Subject();
   // public readonly onJoin: Subject<JoinResponse> = new Subject();
   room: Room<RealmSchema>;
-  public readonly elementsHandler: MessageSender2Server<SceneElementMemento>
 
   constructor() {
-    this.elementsHandler = new MessageSender2Server<SceneElementMemento>(this, "elements");
   }
 
   // messageBroker(message: Subject<ClientResponse>) {

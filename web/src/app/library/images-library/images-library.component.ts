@@ -62,15 +62,15 @@ export class ImagesLibraryComponent implements OnInit {
     });
   }
 
-  async delete(name: string) {
-    if( this.service.canRemove(name)){
+  async delete(image: SceneImage) {
+    if( this.service.canRemove(image.name)){
       const response = await this.confirm.confirm([
         'Do you want to remove this image?',
         'There is no going back from here...',
       ]);
   
       if (response == ConfirmOptions.YES) {
-        this.service.remove(name);
+        this.service.remove(image);
       }
     } else {
       this.notify.info('Some block is USING this image, we can\'t delete it.');

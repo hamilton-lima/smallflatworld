@@ -10,6 +10,8 @@ import { EngineState, SceneElement } from './renderer.model';
 import { KeyboardService } from './keyboard.service';
 import { LocalClipboardService} from './local-clipboard.service';
 import { Vector2 } from '@babylonjs/core';
+import { SceneElementMemento } from '../../../../colyseus-server/src/room.state';
+import { buildVector3 } from '../renderer/builders';
 
 @Component({
   selector: 'app-renderer',
@@ -74,13 +76,20 @@ export class RendererComponent implements AfterViewInit {
         engineState.engine.hideLoadingUI();
 
         // subscribe to updates from multiplayer client
-        this.client.onUpdate.subscribe((elements: SceneElement[]) => {
-          this.service.update(engineState, elements);
+        this.client.elements.from.onAdd.subscribe((element: SceneElementMemento) => {
+          const converted = this.memento2Vector3(element);
+          this.service.update(engineState, [converted]);
         });
 
-        this.client.onDelete.subscribe((name: string) => {
-          this.service.delete(engineState, name);
+        this.client.elements.from.onChange.subscribe((element: SceneElementMemento) => {
+          const converted = this.memento2Vector3(element);
+          this.service.update(engineState, [converted]);
         });
+
+        this.client.elements.from.onRemove.subscribe((element: SceneElementMemento) => {
+          this.service.delete(engineState, element.name);
+        });
+
       },
       (error) => {
         console.error('Error when building scenario', error);
@@ -122,4 +131,18 @@ export class RendererComponent implements AfterViewInit {
     this.editor.onDropFromLibrary.next(point);
     this.input.focus();
   }
+
+  memento2Vector3(element: SceneElementMemento): SceneElement {
+    const result = <SceneElement>{
+      name: element.name,
+      position: buildVector3(element.position),
+      rotation: buildVector3(element.rotation),
+      scaling: buildVector3(element.scaling),
+      code: element.code,
+      imageName: element.imageName,
+      skipColision: element.skipColision,
+    };
+    return result;
+  }
 }
+

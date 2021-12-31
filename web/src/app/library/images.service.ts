@@ -40,20 +40,19 @@ export class ImagesService {
 
   findByName(imageName: string) {
     const found = this.onUpdate.value.find((image) => image.name == imageName);
-
     return found;
   }
 
   add(image: SceneImage) {
-    this.client.updateImage(image);
+    this.client.images.to.add(image);
     this.realm.addImage(image).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
-  remove(name: string) {
-    this.client.deleteImage(name);
-    this.realm.deleteImage(name).then((_) => {
+  remove(image:SceneImage) {
+    this.client.images.to.remove(image);
+    this.realm.deleteImage(image.name).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
