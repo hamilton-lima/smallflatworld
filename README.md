@@ -12,3 +12,6 @@ Web 3D programable sandbox
 - Allow creation of stories
 
 [Work in progress](docs/work-in-progress.md)
+
+## License 
+smallflatworld is [fair-code](https://faircode.io/) distributed under [**Apache 2.0 with Commons Clause**](https://github.com/hamilton-lima/smallflatworld/blob/main/LICENSE.md) license.
