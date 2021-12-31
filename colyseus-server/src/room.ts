@@ -12,34 +12,38 @@ export class MyRoom extends Room<RealmSchema> {
     this.setState(realm);
 
 
-    this.onMessage(Actions.UpdateElements, (client, elements: SceneElementMemento[]) => {
-      elements.forEach(element => {
-        const current = this.state.elements.get(element.name);
-        if(current){
-          current.code.assign(element.code);
-          current.position.assign(element.position);
-          current.rotation.assign(element.rotation);
-          current.scaling.assign(element.scaling);
-          console.log('element updated', current);
-        } else {
-          const current = new SceneElementMemento();
-          current.name = element.name;
-          current.componentID = element.componentID;
-          current.imageName = element.imageName;
-          current.skipColision = element.skipColision;
-          current.code.assign(element.code);
-          current.position.assign(element.position);
-          current.rotation.assign(element.rotation);
-          current.scaling.assign(element.scaling);
-          this.state.elements.set(element.name, current);
-        }
-      });
+    // this.onMessage(Actions.UpdateElements, (client, elements: SceneElementMemento[]) => {
+    //   elements.forEach(element => {
+    //     const current = this.state.elements.get(element.name);
+    //     if(current){
+    //       current.code.assign(element.code);
+    //       current.position.assign(element.position);
+    //       current.rotation.assign(element.rotation);
+    //       current.scaling.assign(element.scaling);
+    //       console.log('element updated', current);
+    //     } else {
+    //       const current = new SceneElementMemento();
+    //       current.name = element.name;
+    //       current.componentID = element.componentID;
+    //       current.imageName = element.imageName;
+    //       current.skipColision = element.skipColision;
+    //       current.code.assign(element.code);
+    //       current.position.assign(element.position);
+    //       current.rotation.assign(element.rotation);
+    //       current.scaling.assign(element.scaling);
+    //       this.state.elements.set(element.name, current);
+    //     }
+    //   });
+    // });
+
+    this.onMessage("*", (client, type, message)=>{
+      console.log('on message', client.id, message);
     });
 
-    this.onMessage(Actions.AddElement, (client, element: SceneElementMemento) => {
-      this.state.elements.set(element.name, new SceneElementMemento().assign(element));
-      console.log('element created', element);
-    });
+    // this.onMessage(Actions.AddElement, (client, element: SceneElementMemento) => {
+    //   this.state.elements.set(element.name, new SceneElementMemento().assign(element));
+    //   console.log('element created', element);
+    // });
 
   }
 

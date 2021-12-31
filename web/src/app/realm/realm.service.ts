@@ -137,7 +137,6 @@ export class RealmService {
   // update character state
   async updateCharacter(character: SceneElementMemento) {
     const found = this.getCharacter();
-    console.log('character found', found);
 
     if (found) {
       Object.assign(found, character);

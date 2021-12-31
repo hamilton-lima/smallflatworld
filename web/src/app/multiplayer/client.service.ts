@@ -64,7 +64,7 @@ export class ClientService {
   }
 
   update(sceneElement: SceneElementMemento) {
-    this.server.updateElements([sceneElement]);
+    this.server.elementsHandler.update(sceneElement);
   }
 
   updateImage(image: SceneImage) {
