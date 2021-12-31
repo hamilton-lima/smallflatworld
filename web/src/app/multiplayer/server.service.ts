@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import {
   Actions,
   Realm,
+  RealmSchema,
   SceneAudio,
   SceneCode,
   SceneDesign3D,
@@ -21,11 +22,12 @@ export class ServerService {
 
   public readonly onShare: Subject<string> = new Subject();
   public readonly onStateUpdate: Subject<Realm> = new Subject();
+  public readonly onElementsAdd: Subject<SceneElementMemento> = new Subject();
   // public readonly onDelete: Subject<DeleteRequest> = new Subject();
   // public readonly onJoin: Subject<JoinResponse> = new Subject();
-  room: Room<Realm>;
+  room: Room<RealmSchema>;
 
-  constructor() {}
+  constructor() { }
 
   // messageBroker(message: Subject<ClientResponse>) {
   //   message.subscribe((message: ClientResponse) => {
@@ -120,8 +122,13 @@ export class ServerService {
     if (!this.room) {
       console.error('Trying to listen to room updates with no room defined');
     } else {
-      this.room.onStateChange((state) => {
+      this.room.state.elements.onAdd = (item: SceneElementMemento, key: string) => {
+        this.onElementsAdd.next(item);
+      };
+
+      this.room.onStateChange.once((state) => {
         console.log('state change', state.elements);
+        // TODO: convert RealmSchema to Realm
         this.onStateUpdate.next(<Realm>state);
       });
     }

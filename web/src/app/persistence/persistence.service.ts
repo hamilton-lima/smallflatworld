@@ -12,7 +12,6 @@ import { Configuration } from './persistence.model';
 import Dexie from 'dexie';
 import { PersistenceDataChecker } from './persistence.data-checker';
 import { Realm, SceneAudio, SceneCode, SceneDesign3D, SceneElementMemento, SceneImage } from '../../../../colyseus-server/src/room.state';
-import { MapSchema } from '@colyseus/schema';
 
 const uniqueNameConfig: Config = {
   dictionaries: [adjectives, colors, animals, names],
@@ -97,11 +96,10 @@ export class PersistenceService {
 
   async checkRealm(realm: Realm): Promise<Realm> {
     const check = this.dataChecker.realmCheck(realm);
-    if (check.updated) {
-      const updated = await this.updateRealm(<Realm>check.updated);
-      return <Realm>check.updated;
+    if (check.updates > 0) {
+      const updated = await this.updateRealm(<Realm>check.realm);
     }
-    return <Realm>check.original;
+    return <Realm>check.realm;
   }
 
   async getRealm(id: string) {
@@ -132,16 +130,16 @@ export class PersistenceService {
 
   // builds new Realm object
   buildRealm(): Realm {
-    const result = new Realm().assign({
+    const result = <Realm>{
       id: uuidv4(),
       name: uniqueNamesGenerator(uniqueNameConfig),
-      characters: new MapSchema<SceneElementMemento>(),
-      elements: new MapSchema<SceneElementMemento>(),
-      images: new MapSchema<SceneImage>(),
-      audios: new MapSchema<SceneAudio>(),
-      codes: new MapSchema<SceneCode>(),
-      designs3D: new MapSchema<SceneDesign3D>()
-    });
+      characters: new Map<string, SceneElementMemento>(),
+      elements: new Map<string, SceneElementMemento>(),
+      images: new Map<string, SceneImage>(),
+      audios: new Map<string, SceneAudio>(),
+      codes: new Map<string, SceneCode>(),
+      designs3D: new Map<string, SceneDesign3D>()
+    };
 
     return result;
   }

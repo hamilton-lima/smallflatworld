@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Realm, SceneAudio, SceneCode, SceneDesign3D, SceneElementMemento, SceneImage } from '../../../../colyseus-server/src/room.state';
-import { Configuration } from './persistence.model';
-import { MapSchema } from '@colyseus/schema';
+import { SceneAudio, SceneCode, SceneDesign3D, SceneElementMemento, SceneImage, Realm } from '../../../../colyseus-server/src/room.state';
 
 class DataCheckResult {
-    original: Realm | Configuration;
-    updated: Realm | Configuration;
+    realm: Realm;
+    updates: number;
 }
 
 @Injectable({
@@ -15,67 +13,98 @@ export class PersistenceDataChecker {
 
     // check if the necessary properties are present 
     realmCheck(realm: Realm): DataCheckResult {
-        console.warn('realmCheck');
+        console.warn('realm data check');
         const result = <DataCheckResult>{
-            original: realm
+            realm: realm,
+            updates: 0
         };
 
-        if (realm.characters === undefined) {
-            realm.characters = new MapSchema<SceneElementMemento>();
+        this.checkCharacter(result);
+        this.checkElements(result);
+
+        if (result.realm.images === undefined) {
+            result.realm.images = new Map<string, SceneImage>();
         }
 
-        if (Array.isArray(realm.characters)) {
-            const replacement = new MapSchema<SceneElementMemento>();
-            realm.characters.forEach(one => replacement.set(one.name, one));
-            realm.characters = replacement;
+        if (Array.isArray(result.realm.elements)) {
+            const replacement = new Map<string, SceneImage>();
+            result.realm.images.forEach(one => {
+                replacement.set(one.name, one);
+            });
+            result.realm.images = replacement;
         }
 
-        if (realm.elements === undefined) {
-            realm.elements = new MapSchema<SceneElementMemento>();
+        if (result.realm.audios === undefined) {
+            result.realm.audios = new Map<string, SceneAudio>();
         }
 
-        if (Array.isArray(realm.elements)) {
-            const replacement = new MapSchema<SceneElementMemento>();
-            realm.elements.forEach(one => replacement.set(one.name, one));
-            realm.elements = replacement;
+        if (Array.isArray(result.realm.audios)) {
+            const replacement = new Map<string, SceneAudio>();
+            result.realm.audios.forEach(one => {
+                replacement.set(one.name, one);
+            });
+            result.realm.audios = replacement;
         }
 
-        if (realm.images === undefined) {
-            realm.images = new MapSchema<SceneImage>();
+        if (result.realm.codes === undefined) {
+            result.realm.codes = new Map<string, SceneCode>();
         }
 
-        if (Array.isArray(realm.elements)) {
-            const replacement = new MapSchema<SceneImage>();
-            realm.images.forEach(one => replacement.set(one.name, one));
-            realm.images = replacement;
+        if (Array.isArray(result.realm.codes)) {
+            const replacement = new Map<string, SceneCode>();
+            result.realm.codes.forEach(one => {
+                replacement.set(one.name, one);
+            });
+            result.realm.codes = replacement;
         }
 
-        if (realm.audios === undefined) {
-            realm.audios = new MapSchema<SceneAudio>();
+        if (result.realm.designs3D === undefined) {
+            result.realm.designs3D = new Map<string, SceneDesign3D>();
         }
 
-        if (Array.isArray(realm.audios)) {
-            const replacement = new MapSchema<SceneAudio>();
-            realm.audios.forEach(one => replacement.set(one.name, one));
-            realm.audios = replacement;
+        if (Array.isArray(result.realm.designs3D)) {
+            const replacement = new Map<string, SceneDesign3D>();
+            result.realm.designs3D.forEach(one => {
+                replacement.set(one.name, one);
+            });
+            result.realm.designs3D = replacement;
         }
 
-        if (realm.codes === undefined) {
-            realm.codes = new MapSchema<SceneCode>();
-        }
-
-        if (Array.isArray(realm.codes)) {
-            const replacement = new MapSchema<SceneCode>();
-            realm.codes.forEach(one => replacement.set(one.name, one));
-            realm.codes = replacement;
-        }
-
-        if (Array.isArray(realm.designs3D)) {
-            const replacement = new MapSchema<SceneDesign3D>();
-            realm.designs3D.forEach(one => replacement.set(one.name, one));
-            realm.designs3D = replacement;
-        }
-
+        console.log('after check', result);
         return result;
+    }
+
+    private checkElements(result: DataCheckResult) {
+        if (result.realm.elements === undefined) {
+            result.realm.elements = new Map<string, SceneElementMemento>();
+        }
+
+        if (Array.isArray(result.realm.elements)) {
+            const replacement = new Map<string, SceneElementMemento>();
+            result.realm.elements.forEach(one => {
+                replacement.set(one.name, one);
+            });
+            result.realm.elements = replacement;
+        }
+    }
+
+    private checkCharacter(result: DataCheckResult) {
+        console.log('characters 4', result.realm.characters);
+        if (result.realm.characters === undefined) {
+            result.realm.characters = new Map<string, SceneElementMemento>();
+            result.updates++;
+        }
+
+        console.log('characters after 3', result.realm.characters);
+        if (Array.isArray(result.realm.characters)) {
+            const replacement = new Map<string, SceneElementMemento>();
+            result.realm.characters.forEach(one => {
+                replacement.set(one.name, one);
+            });
+            result.realm.characters = replacement;
+            result.updates++;
+        }
+
+        console.log('characters after 1', result.realm.characters);
     }
 }

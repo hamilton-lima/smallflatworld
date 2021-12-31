@@ -40,7 +40,7 @@ export class ScenarioService {
 
   buildRealm(engineState: EngineState): Promise<void> {
     return new Promise(async (resolve, reject) => {
-     const realm = this.realm.getCurrentRealm();
+      const realm = this.realm.getCurrentRealm();
       const total = realm.elements.size;
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
@@ -48,7 +48,7 @@ export class ScenarioService {
       const loaded = await this.character.load(engineState);
       engineState.character = loaded.character;
       engineState.animations = loaded.animations;
-      
+
       // engineState.character = this.mesh.getBox(engineState.scene);
       engineState.character.isVisible = true;
 
@@ -64,15 +64,10 @@ export class ScenarioService {
       const createPromises = [];
 
       // add realm elements to the scene
-      for (const [key,memento] of realm.elements) {
-        const element = memento2SceneElement(memento);
+      for (const memento of realm.elements.values()) {
 
-        console.log(
-          'create element',
-          element.componentID,
-          element.name,
-          element.position
-        );
+        console.log('create element', memento);
+        const element = memento2SceneElement(memento);
 
         await this.scene.create(engineState.scene, element);
 

@@ -17,13 +17,13 @@ import { Configuration } from '../persistence/persistence.model';
 
 const Vector3MementoOne = function () {
   const result = new Vector3Memento();
-  result.assign({ x: 1, y: 1, z: 1 });
+  Object.assign(result, { x: 1, y: 1, z: 1 });
   return result;
 }
 
 const Vector3MementoZero = function () {
   const result = new Vector3Memento();
-  result.assign({ x: 0, y: 0, z: 0 });
+  Object.assign(result, { x: 0, y: 0, z: 0 });
   return result;
 }
 
@@ -61,6 +61,7 @@ export class RealmService {
         this.configuration.currentRealm
       );
 
+      console.log('current realm', this.currentRealm);
       // checks for character in the current realm
       const found = this.currentRealm.characters.get(this.configuration.characterID);
       console.log('ready(2) character', found);
@@ -119,7 +120,7 @@ export class RealmService {
   async update(input: SceneElementMemento) {
     const found = this.get(input.name);
     if (found) {
-      found.assign(input);
+      Object.assign(found, input);
     }
     return this._updateRealm();
   }
@@ -135,10 +136,11 @@ export class RealmService {
 
   // update character state
   async updateCharacter(character: SceneElementMemento) {
-    const found = this.currentRealm.elements.get(this.configuration.characterID);
+    const found = this.getCharacter();
+    console.log('character found', found);
 
     if (found) {
-      found.assign(character);
+      Object.assign(found, character);
       // this.currentRealm.characters[found].position = character.position;
       // this.currentRealm.characters[found].rotation = character.rotation;
       // this.currentRealm.characters[found].scaling = character.scaling;
@@ -153,7 +155,7 @@ export class RealmService {
   }
 
   getCharacter(): SceneElementMemento {
-    const found = this.currentRealm.elements.get(this.configuration.characterID);
+    const found = this.currentRealm.characters.get(this.configuration.characterID);
 
     if (found) {
       return found;
@@ -192,7 +194,7 @@ export class RealmService {
   }
 
   addAudio(audio: SceneAudio) {
-    this.currentRealm.audios.set( audio.name,audio);
+    this.currentRealm.audios.set(audio.name, audio);
     return this._updateRealm();
   }
 
@@ -208,7 +210,7 @@ export class RealmService {
   async updateCode(input: SceneCode) {
     const found = this.currentRealm.codes.get(input.name);
     if (found) {
-      found.assign(input);
+      Object.assign(found, input);
     }
     return this._updateRealm();
   }

@@ -1,4 +1,5 @@
-import { Schema, ArraySchema, MapSchema, type } from "@colyseus/schema";
+import { Schema, MapSchema, type } from "@colyseus/schema";
+
 
 export enum Actions {
   Share = "share",
@@ -15,7 +16,8 @@ export enum Actions {
   UpdateCodes = "UpdateCodes",
   UpdateAudios = "UpdateAudios",
   UpdateImages = "UpdateImages",
-  UpdateElements = "UpdateElements"
+  UpdateElements = "UpdateElements",
+  AddElement = "AddElement"
 }
 
 export class Vector3Memento extends Schema {
@@ -61,7 +63,7 @@ export class SceneCode extends Schema {
   @type(CodeDefinition) code: CodeDefinition = new CodeDefinition();
 }
 
-export class Realm extends Schema {
+export class RealmSchema extends Schema {
   @type("string") id: string;
   @type("string") name: string;
   @type({ map: SceneElementMemento }) characters = new MapSchema<SceneElementMemento>();
@@ -70,4 +72,15 @@ export class Realm extends Schema {
   @type({ map: SceneAudio }) audios = new MapSchema<SceneAudio>();
   @type({ map: SceneCode }) codes = new MapSchema<SceneCode>();
   @type({ map: SceneDesign3D }) designs3D = new MapSchema<SceneDesign3D>();
+}
+
+export class Realm extends Schema {
+  id: string;
+  name: string;
+  characters = new Map<string,SceneElementMemento>();
+  elements = new Map<string,SceneElementMemento>();
+  images = new Map<string,SceneImage>();
+  audios = new Map<string,SceneAudio>();
+  codes = new Map<string,SceneCode>();
+  designs3D = new Map<string,SceneDesign3D>();
 }

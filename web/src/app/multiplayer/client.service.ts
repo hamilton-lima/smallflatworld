@@ -105,30 +105,37 @@ export class ClientService {
 
   listen2Updates() {
     this.subscriptions.push(
-      this.server.onStateUpdate.subscribe((update: Realm) => {
-
-        if (update.elements && update.elements.size > 0) {
-          const elements = this.memento2Vector3(update.elements.values());
-          this.onUpdate.next(elements);
-        }
-
-        if (update.images && update.images.size > 0) {
-          this.onUpdateImages.next(update.images.values());
-        }
-
-        if (update.audios && update.audios.size > 0) {
-          this.onUpdateAudios.next(update.audios.values());
-        }
-
-        if (update.codes && update.codes.size > 0) {
-          this.onUpdateCodes.next(update.codes.values());
-        }
-
-        if (update.designs3D && update.designs3D.size > 0) {
-          this.onUpdateDesigns3D.next(update.designs3D.values());
-        }
+      this.server.onElementsAdd.subscribe(element => {
+        const converted = this.memento2Vector3(element);
+        console.log('updated!!!!', converted);
+        this.onUpdate.next([converted]);
       })
     );
+
+    //   this.server.onStateUpdate.subscribe((update: Realm) => {
+
+    //     if (update.elements && update.elements.size > 0) {
+    //       const elements = this.memento2Vector3(update.elements.values());
+    //       this.onUpdate.next(elements);
+    //     }
+
+    //     if (update.images && update.images.size > 0) {
+    //       this.onUpdateImages.next(update.images.values());
+    //     }
+
+    //     if (update.audios && update.audios.size > 0) {
+    //       this.onUpdateAudios.next(update.audios.values());
+    //     }
+
+    //     if (update.codes && update.codes.size > 0) {
+    //       this.onUpdateCodes.next(update.codes.values());
+    //     }
+
+    //     if (update.designs3D && update.designs3D.size > 0) {
+    //       this.onUpdateDesigns3D.next(update.designs3D.values());
+    //     }
+    //   })
+    // );
 
     // this.subscriptions.push(
     //   this.server.onDelete.subscribe((request: DeleteRequest) => {
@@ -137,20 +144,16 @@ export class ClientService {
     // );
   }
 
-  memento2Vector3(data: IterableIterator<SceneElementMemento>): SceneElement[] {
-    const result: SceneElement[] = [];
-    for (let element of data) {
-      const converted = <SceneElement>{
-        name: element.name,
-        position: buildVector3(element.position),
-        rotation: buildVector3(element.rotation),
-        scaling: buildVector3(element.scaling),
-        code: element.code,
-        imageName: element.imageName,
-        skipColision: element.skipColision,
-      };
-      result.push(converted);
-    }
+  memento2Vector3(element: SceneElementMemento): SceneElement {
+    const result = <SceneElement>{
+      name: element.name,
+      position: buildVector3(element.position),
+      rotation: buildVector3(element.rotation),
+      scaling: buildVector3(element.scaling),
+      code: element.code,
+      imageName: element.imageName,
+      skipColision: element.skipColision,
+    };
     return result;
   }
 
