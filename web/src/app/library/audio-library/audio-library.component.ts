@@ -44,15 +44,15 @@ export class AudioLibraryComponent implements OnInit {
     });
   }
 
-  async delete(name: string) {
-    if (this.service.canRemove(name)) {
+  async delete(audio) {
+    if (this.service.canRemove(audio.name)) {
       const response = await this.confirm.confirm([
         'Do you want to remove this sound file?',
         'There is no going back from here...',
       ]);
 
       if (response == ConfirmOptions.YES) {
-        await this.service.remove(name);
+        await this.service.remove(audio);
       }
     } else {
       this.notify.info("Some code is USING this sound, we can't delete it.");
