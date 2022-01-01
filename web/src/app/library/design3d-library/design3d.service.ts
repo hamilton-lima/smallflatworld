@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Realm, SceneDesign3D, SceneImage } from '../../../../colyseus-server/src/room.state';
-import { ClientService } from '../multiplayer/client.service';
-import { RealmService } from '../realm/realm.service';
+import { Realm, SceneDesign3D, SceneImage } from '../../../../../colyseus-server/src/room.state';
+import { ClientService } from '../../multiplayer/client.service';
+import { RealmService } from '../../realm/realm.service';
 
 @Injectable({
   providedIn: 'root'
@@ -50,9 +50,9 @@ export class Design3dService {
     });
   }
 
-  remove(name: string) {
-    this.client.deleteDesign3D(name);
-    this.realm.deleteDesign3D(name).then((_) => {
+  remove(design3D: SceneDesign3D) {
+    this.client.designs3D.to.remove(design3D);
+    this.realm.deleteDesign3D(design3D.name).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
   }

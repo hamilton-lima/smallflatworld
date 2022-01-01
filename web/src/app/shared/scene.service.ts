@@ -77,7 +77,7 @@ export class SceneService {
     // update local realm and send client event
     const memento = sceneElement2Memento(element);
     await this.realm.add(memento);
-    this.client.update(memento);
+    this.client.elements.to.update(memento);
     return mesh;
   }
 

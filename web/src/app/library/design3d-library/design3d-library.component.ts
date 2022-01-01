@@ -6,7 +6,7 @@ import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { InputService } from 'src/app/shared/input.service';
 import { NotifyService } from 'src/app/shared/notify.service';
 import { SceneDesign3D } from '../../../../../colyseus-server/src/room.state';
-import { Design3dService } from '../design3d.service';
+import { Design3dService } from './design3d.service';
 
 @Component({
   selector: 'app-design3d-library',
@@ -73,15 +73,15 @@ export class Design3dLibraryComponent implements OnInit {
     });
   }
 
-  async delete(name: string) {
-    if (this.service.canRemove(name)) {
+  async delete(design3D: SceneDesign3D) {
+    if (this.service.canRemove(design3D.name)) {
       const response = await this.confirm.confirm([
         'Do you want to remove this Design3D?',
         'There is no going back from here...',
       ]);
 
       if (response == ConfirmOptions.YES) {
-        this.service.remove(name);
+        this.service.remove(design3D);
       }
     } else {
       this.notify.info('This design is in use, we can\'t delete it.');

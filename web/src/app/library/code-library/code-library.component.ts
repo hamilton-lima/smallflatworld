@@ -35,7 +35,7 @@ export class CodeLibraryComponent implements OnInit {
     this.edit(code);
   }
 
-  async delete(name: string) {
+  async delete(code: SceneCode) {
     const response = await this.confirm.confirm([
       'Do you want to remove this CODE?',
       'There is no going back from here...',
@@ -43,7 +43,7 @@ export class CodeLibraryComponent implements OnInit {
 
     if (response == ConfirmOptions.YES) {
       this.select(null);
-      await this.service.remove(name);
+      await this.service.remove(code);
     }
   }
 
