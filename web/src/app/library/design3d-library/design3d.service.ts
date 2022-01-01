@@ -44,7 +44,7 @@ export class Design3dService {
   }
 
   add(toAdd: SceneDesign3D) {
-    this.client.updateDesign3D(toAdd);
+    this.client.designs3D.to.update(toAdd);
     this.realm.addDesign3D(toAdd).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });

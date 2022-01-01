@@ -120,6 +120,7 @@ export class PersistenceService {
 
   // add or create realm
   updateRealm(realm: Realm) {
+    console.log('update realm', realm.name, realm.id, realm );
     return this.db.realms.put(realm);
   }
 

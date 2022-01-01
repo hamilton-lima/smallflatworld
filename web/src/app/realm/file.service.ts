@@ -10,9 +10,10 @@ export class FileService {
 
   download() {
     const currentRealm = this.realm.getCurrentRealm();
-    var data = JSON.stringify(currentRealm);
+    const data = this.realm.toJSON(currentRealm);
+    console.log('realm_data', data, currentRealm);
     const dateFileName = this.name.getDateString();
-    var element = document.createElement('a');
+    let element = document.createElement('a');
     element.setAttribute(
       'href',
       'data:text/json;charset=UTF-8,' + encodeURIComponent(data)

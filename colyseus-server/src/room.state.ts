@@ -74,13 +74,15 @@ export class RealmSchema extends Schema {
   @type({ map: SceneDesign3D }) designs3D = new MapSchema<SceneDesign3D>();
 }
 
+export const REALM_MAPS = ['elements', 'characters', 'audios', 'codes', 'designs3D', 'images'];
+
 export class Realm extends Schema {
   id: string;
   name: string;
-  characters = new Map<string,SceneElementMemento>();
-  elements = new Map<string,SceneElementMemento>();
-  images = new Map<string,SceneImage>();
-  audios = new Map<string,SceneAudio>();
-  codes = new Map<string,SceneCode>();
-  designs3D = new Map<string,SceneDesign3D>();
+  characters = new Map<string, SceneElementMemento>();
+  elements = new Map<string, SceneElementMemento>();
+  images = new Map<string, SceneImage>();
+  audios = new Map<string, SceneAudio>();
+  codes = new Map<string, SceneCode>();
+  designs3D = new Map<string, SceneDesign3D>();
 }

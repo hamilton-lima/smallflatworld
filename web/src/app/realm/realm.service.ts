@@ -8,7 +8,7 @@ import {
   SceneDesign3D,
   SceneElementMemento,
   SceneImage,
-  Vector3Memento,
+  Vector3Memento, REALM_MAPS,
 } from '../../../../colyseus-server/src/room.state';
 import { ConfigurationService } from '../shared/configuration.service';
 import { Subject } from 'rxjs';
@@ -251,4 +251,18 @@ export class RealmService {
 
     return this._updateRealm();
   }
+
+  toJSON(realm: Realm) {
+    const parseable = {
+      id: realm.id,
+      name: realm.name
+    };
+
+    REALM_MAPS.forEach(map => {
+      parseable[map] = Object.fromEntries(realm[map]);
+    });
+
+    return JSON.stringify(parseable);
+  }
+
 }

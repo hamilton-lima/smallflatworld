@@ -7,6 +7,7 @@ import {
   SceneImage,
   SceneDesign3D,
   Realm,
+  REALM_MAPS,
 } from '../../../../colyseus-server/src/room.state';
 import { ServerService } from './server.service';
 import { MapSchema } from '@colyseus/schema';
@@ -78,11 +79,20 @@ export class MessageHandler<Type> {
 
   constructor(
     private owner: ServerService,
-    list: MapSchema<Type>,
     private targetName: string
   ) {
     this.to = new MessageSender2Server(owner, targetName);
+
+    let list: MapSchema<Type>;
+
+    if (owner.room) {
+      list = owner.room.state[targetName];
+    } else {
+      // no server connection, create dummy MapSchema
+      list = new MapSchema<Type>();
+    }
     this.from = new MessageFromServerListener(list);
+
   }
 }
 
@@ -100,7 +110,9 @@ export class ClientService {
   designs3D: MessageHandler<SceneDesign3D>;
   images: MessageHandler<SceneImage>;
 
-  constructor(private server: ServerService) { }
+  constructor(private server: ServerService) {
+    this.setupMessageHandler();
+  }
 
   share() {
     this.server.onShare.subscribe((id: string) => {
@@ -122,41 +134,9 @@ export class ClientService {
   }
 
   setupMessageHandler() {
-    this.elements = new MessageHandler(
-      this.server,
-      this.server.room.state.elements,
-      'elements'
-    );
-
-    this.characters = new MessageHandler(
-      this.server,
-      this.server.room.state.characters,
-      'characters'
-    );
-
-    this.audios = new MessageHandler(
-      this.server,
-      this.server.room.state.audios,
-      'audios'
-    );
-
-    this.codes = new MessageHandler(
-      this.server,
-      this.server.room.state.codes,
-      'codes'
-    );
-
-    this.designs3D = new MessageHandler(
-      this.server,
-      this.server.room.state.designs3D,
-      'designs3D'
-    );
-
-    this.images = new MessageHandler(
-      this.server,
-      this.server.room.state.images,
-      'images'
-    );
+    REALM_MAPS.forEach((name) => {
+      this[name] = new MessageHandler(this.server, name);
+    });
   }
 
   stopShare() {
