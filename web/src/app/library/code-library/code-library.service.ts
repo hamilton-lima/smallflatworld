@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CodeDefinition, Realm, SceneCode } from '../../../../colyseus-server/src/room.state';
-import { CodingService } from '../coding/coding.service';
-import { RunnerService } from '../coding/runner.service';
-import { ClientService } from '../multiplayer/client.service';
-import { RealmService } from '../realm/realm.service';
-import { NameService } from '../shared/name.service';
+import { CodeDefinition, Realm, SceneCode } from '../../../../../colyseus-server/src/room.state';
+import { CodingService } from '../../coding/coding.service';
+import { RunnerService } from '../../coding/runner.service';
+import { ClientService } from '../../multiplayer/client.service';
+import { RealmService } from '../../realm/realm.service';
+import { NameService } from '../../shared/name.service';
 
 const DEFAULT_NAME = 'Code_';
 

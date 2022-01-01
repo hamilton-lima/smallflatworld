@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Realm, SceneAudio } from '../../../../colyseus-server/src/room.state';
-import { ClientService } from '../multiplayer/client.service';
-import { RealmService } from '../realm/realm.service';
-import { AudioPlayerService } from '../shared/audio-player.service';
+import { Realm, SceneAudio } from '../../../../../colyseus-server/src/room.state';
+import { ClientService } from '../../multiplayer/client.service';
+import { RealmService } from '../../realm/realm.service';
+import { AudioPlayerService } from '../../shared/audio-player.service';
 
 @Injectable({
   providedIn: 'root',

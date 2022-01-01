@@ -4,9 +4,9 @@ import { OnClickDefinition } from './definition/code-blockly.onclick';
 import { CreateDefinition } from './definition/code-blockly.create';
 import { TeleportDefinition } from './definition/code-blockly.teleport';
 import { PositionDefinition } from './definition/code-blockly.position';
-import { AudioService } from 'src/app/library/audio.service';
+import { AudioService } from 'src/app/library/audio-library/audio.service';
 import { EditorLibraryService } from 'src/app/editor/editor-library.service';
-import { ImagesService } from 'src/app/library/images.service';
+import { ImagesService } from 'src/app/library/images-library/images.service';
 import { BlocklyDefaultToolboxService } from './blockly-default-toolbox.service';
 
 declare var Blockly: any;

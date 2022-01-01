@@ -5,7 +5,7 @@ import {
   StandardMaterial,
   Texture,
 } from '@babylonjs/core';
-import { ImagesService } from '../library/images.service';
+import { ImagesService } from '../library/images-library/images.service';
 import { MeshService } from '../renderer/mesh.service';
 import { NotifyService } from '../shared/notify.service';
 import { NMSColor } from './nmscolor';

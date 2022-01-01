@@ -3,7 +3,7 @@ import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { InputService } from 'src/app/shared/input.service';
 import { NotifyService } from 'src/app/shared/notify.service';
 import { SceneImage } from '../../../../../colyseus-server/src/room.state';
-import { ImagesService } from '../images.service';
+import { ImagesService } from './images.service';
 
 @Component({
   selector: 'app-images-library',

@@ -10,7 +10,7 @@ import {
   BottomMessageData,
 } from './bottom-message/bottom-message.component';
 import { AudioPlayerService } from '../shared/audio-player.service';
-import { AudioService } from '../library/audio.service';
+import { AudioService } from '../library/audio-library/audio.service';
 import { EventsBrokerService } from '../shared/events-broker.service';
 import { Vector3 } from '@babylonjs/core';
 import { MeshService } from '../renderer/mesh.service';

@@ -31,7 +31,7 @@ import { InputService } from '../shared/input.service';
 import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
 import { NotifyService } from '../shared/notify.service';
-import { ImagesService } from '../library/images.service';
+import { ImagesService } from '../library/images-library/images.service';
 import { Subject } from 'rxjs';
 import { SceneService } from '../shared/scene.service';
 
