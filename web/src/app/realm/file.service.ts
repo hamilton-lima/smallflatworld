@@ -11,7 +11,6 @@ export class FileService {
   download() {
     const currentRealm = this.realm.getCurrentRealm();
     const data = this.realm.toJSON(currentRealm);
-    console.log('realm_data', data, currentRealm);
     const dateFileName = this.name.getDateString();
     let element = document.createElement('a');
     element.setAttribute(

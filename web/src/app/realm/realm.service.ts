@@ -265,4 +265,16 @@ export class RealmService {
     return JSON.stringify(parseable);
   }
 
+  fromJSON(parsed: any): Realm {
+    const result = new Realm();
+    result.id= parsed.id;
+    result.name = parsed.name;
+
+    REALM_MAPS.forEach(map => {
+      result[map] = new Map(Object.entries(parsed[map]));
+    });
+
+    return result;
+  }
+
 }

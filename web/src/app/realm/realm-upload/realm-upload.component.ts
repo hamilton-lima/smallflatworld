@@ -25,7 +25,8 @@ export class RealmUploadComponent {
       let reader = new FileReader();
       reader.onload = (e: any) => {
         try {
-          this.realm = JSON.parse(e.target.result);
+          const parsed = JSON.parse(e.target.result);
+          this.realm = this.realmService.fromJSON(parsed);
         } catch (error) {
           console.error('Error parsing imported file', file, error);
         }
