@@ -6,22 +6,95 @@ import {
   SceneDesign3D,
   CodeDefinition,
   Vector3Memento,
+  Named,
+  RealmSchema,
+  Realm,
 } from "./room.state";
 import { MapSchema, Schema } from "@colyseus/schema";
 
 export interface InstanceBuilder<Type> {
-  create(list: MapSchema<Type>, update: Type): Type;
+  create(update: Type): Type;
   update(list: MapSchema<Type>, update: Type): Type;
+}
+
+export class RealmSchemaBuilder {
+  private constructor() {}
+  static instance = new RealmSchemaBuilder();
+  static getInstance() {
+    return RealmSchemaBuilder.instance;
+  }
+
+  create(update: Realm): RealmSchema {
+    const instance = new RealmSchema();
+    instance.id = update.id;
+    instance.name = update.name;
+    this.assignSceneElement(instance.characters, update.characters);
+    this.assignSceneElement(instance.elements, update.elements);
+    this.assignSceneImage(instance.images, update.images);
+    this.assignSceneAudio(instance.audios, update.audios);
+    this.assignSceneCodes(instance.codes, update.codes);
+    this.assignSceneDesign3D(instance.designs3D, update.designs3D);
+    return instance;
+  }
+
+  assignSceneDesign3D(
+    list: MapSchema<SceneDesign3D>,
+    input: Map<string, SceneDesign3D>
+  ) {
+    for (let [key, value] of Object.entries(input)) {
+      const instance = SceneDesign3DBuilder.getInstance().create(value);
+      list.set(key, instance);
+    }
+  }
+
+  assignSceneCodes(list: MapSchema<SceneCode>, input: Map<string, SceneCode>) {
+    for (let [key, value] of Object.entries(input)) {
+      const instance = SceneCodeBuilder.getInstance().create(value);
+      list.set(key, instance);
+    }
+  }
+
+  assignSceneAudio(
+    list: MapSchema<SceneAudio>,
+    input: Map<string, SceneAudio>
+  ) {
+    for (let [key, value] of Object.entries(input)) {
+      const instance = SceneAudioBuilder.getInstance().create(value);
+      list.set(key, instance);
+    }
+  }
+
+  assignSceneImage(
+    list: MapSchema<SceneImage>,
+    input: Map<string, SceneImage>
+  ) {
+    for (let [key, value] of Object.entries(input)) {
+      const instance = SceneImageBuilder.getInstance().create(value);
+      list.set(key, instance);
+    }
+  }
+
+  assignSceneElement(
+    list: MapSchema<SceneElementMemento>,
+    input: Map<string, SceneElementMemento>
+  ) {
+    for (let [key, value] of Object.entries(input)) {
+      const instance = SceneElementMementoBuilder.getInstance().create(value);
+      list.set(key, instance);
+    }
+  }
 }
 
 export class SceneElementMementoBuilder
   implements InstanceBuilder<SceneElementMemento>
 {
-  private constructor(){}
+  private constructor() {}
   static instance = new SceneElementMementoBuilder();
-  static getInstance(){ return SceneElementMementoBuilder.instance;}
+  static getInstance() {
+    return SceneElementMementoBuilder.instance;
+  }
 
-  create(list: MapSchema<SceneElementMemento>, update: SceneElementMemento) {
+  create(update: SceneElementMemento) {
     const instance = new SceneElementMemento();
     instance.name = update.name;
     instance.componentID = update.componentID;
@@ -31,7 +104,6 @@ export class SceneElementMementoBuilder
     instance.rotation = new Vector3Memento().assign(update.rotation);
     instance.scaling = new Vector3Memento().assign(update.scaling);
     instance.code = new CodeDefinition().assign(update.code);
-    list.set(instance.name, instance);
     return instance;
   }
 
@@ -49,13 +121,14 @@ export class SceneElementMementoBuilder
 }
 
 export class SceneImageBuilder implements InstanceBuilder<SceneImage> {
-  private constructor(){}
+  private constructor() {}
   static instance = new SceneImageBuilder();
-  static getInstance(){ return SceneImageBuilder.instance;}
-  
-  create(list: MapSchema<SceneImage>, update: SceneImage) {
+  static getInstance() {
+    return SceneImageBuilder.instance;
+  }
+
+  create(update: SceneImage) {
     const instance = new SceneImage().assign(update);
-    list.set(instance.name, instance);
     return instance;
   }
 
@@ -67,13 +140,14 @@ export class SceneImageBuilder implements InstanceBuilder<SceneImage> {
 }
 
 export class SceneDesign3DBuilder implements InstanceBuilder<SceneDesign3D> {
-  private constructor(){}
+  private constructor() {}
   static instance = new SceneDesign3DBuilder();
-  static getInstance(){ return SceneDesign3DBuilder.instance;}
-  
-  create(list: MapSchema<SceneDesign3D>, update: SceneDesign3D) {
+  static getInstance() {
+    return SceneDesign3DBuilder.instance;
+  }
+
+  create(update: SceneDesign3D) {
     const instance = new SceneDesign3D().assign(update);
-    list.set(instance.name, instance);
     return instance;
   }
 
@@ -85,13 +159,14 @@ export class SceneDesign3DBuilder implements InstanceBuilder<SceneDesign3D> {
 }
 
 export class SceneAudioBuilder implements InstanceBuilder<SceneAudio> {
-  private constructor(){}
+  private constructor() {}
   static instance = new SceneAudioBuilder();
-  static getInstance(){ return SceneAudioBuilder.instance;}
+  static getInstance() {
+    return SceneAudioBuilder.instance;
+  }
 
-  create(list: MapSchema<SceneAudio>, update: SceneAudio) {
+  create(update: SceneAudio) {
     const instance = new SceneAudio().assign(update);
-    list.set(instance.name, instance);
     return instance;
   }
 
@@ -103,16 +178,17 @@ export class SceneAudioBuilder implements InstanceBuilder<SceneAudio> {
 }
 
 export class SceneCodeBuilder implements InstanceBuilder<SceneCode> {
-  private constructor(){}
+  private constructor() {}
   static instance = new SceneCodeBuilder();
-  static getInstance(){ return SceneCodeBuilder.instance;}
+  static getInstance() {
+    return SceneCodeBuilder.instance;
+  }
 
-  create(list: MapSchema<SceneCode>, update: SceneCode) {
+  create(update: SceneCode) {
     const instance = new SceneCode();
     instance.name = update.name;
     instance.label = update.label;
     instance.code = new CodeDefinition().assign(update.code);
-    list.set(instance.name, instance);
     return instance;
   }
 
@@ -124,7 +200,7 @@ export class SceneCodeBuilder implements InstanceBuilder<SceneCode> {
   }
 }
 
-export class MessageHandler<Type extends Schema> {
+export class MessageHandler<Type extends Named> {
   list: MapSchema<Type>;
   handler: InstanceBuilder<Type>;
 
@@ -135,11 +211,14 @@ export class MessageHandler<Type extends Schema> {
 
   handle(message: any) {
     if (message.action == "add") {
-      this.handler.create(this.list, message.data);
+      const instance = this.handler.create(message.data);
+      this.list.set(instance.name, instance);
     }
+
     if (message.action == "update") {
       this.handler.update(this.list, message.data);
     }
+
     if (message.action == "remove") {
       this.list.delete(message.data.name);
     }

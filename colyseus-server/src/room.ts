@@ -11,6 +11,7 @@ import {
 } from "./room.state";
 import {
   MessageHandler,
+  RealmSchemaBuilder,
   SceneAudioBuilder,
   SceneCodeBuilder,
   SceneDesign3DBuilder,
@@ -93,24 +94,9 @@ export class MyRoom extends Room<RealmSchema> {
   }
 
   buildState(options: RealmShareOptions): RealmSchema {
-    const result = new RealmSchema();
     const realm: Realm = JSON.parse(options.realm);
-    result.id = realm.id;
-    result.name = realm.name;
-    console.log("parsed realm", realm);
-
-    REALM_MAPS.forEach((map) => {
-      const input = (realm as any)[map];
-      if (input) {
-        const entries = Object.entries(input);
-        console.log("build map from entries", map, entries);
-        // TODO: add method to message Handlers to rebuild realm
-        (result as any)[map] = new MapSchema(input);
-      } else {
-        console.log("no data sent for map", map);
-      }
-    });
-
+    const result = RealmSchemaBuilder.getInstance().create(realm);
+    console.log('created realm schema', result);
     return result;
   }
 

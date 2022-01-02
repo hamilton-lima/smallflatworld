@@ -1,6 +1,5 @@
 import { Schema, MapSchema, type } from "@colyseus/schema";
 
-
 export enum Actions {
   Share = "share",
   Join = "join",
@@ -17,7 +16,11 @@ export enum Actions {
   UpdateAudios = "UpdateAudios",
   UpdateImages = "UpdateImages",
   UpdateElements = "UpdateElements",
-  AddElement = "AddElement"
+  AddElement = "AddElement",
+}
+
+export interface Named {
+  name: string;
 }
 
 export class Vector3Memento extends Schema {
@@ -31,7 +34,7 @@ export class CodeDefinition extends Schema {
   @type("string") blocklyDefinition: string;
 }
 
-export class SceneElementMemento extends Schema {
+export class SceneElementMemento extends Schema implements Named {
   @type("string") name: string;
   @type("string") componentID: string;
   @type(Vector3Memento) position: Vector3Memento = new Vector3Memento();
@@ -42,40 +45,48 @@ export class SceneElementMemento extends Schema {
   @type("boolean") skipColision: boolean;
 }
 
-export class SceneImage extends Schema {
+export class SceneImage extends Schema implements Named {
   @type("string") name: string;
   @type("string") base64: string;
 }
 
-export class SceneDesign3D extends Schema {
+export class SceneDesign3D extends Schema implements Named {
   @type("string") name: string;
   @type("string") base64: string;
 }
 
-
-export class SceneAudio extends Schema {
+export class SceneAudio extends Schema implements Named {
   @type("string") name: string;
   @type("string") base64: string;
 }
 
-export class SceneCode extends Schema {
+export class SceneCode extends Schema implements Named {
   @type("string") name: string;
   @type("string") label: string;
   @type(CodeDefinition) code: CodeDefinition = new CodeDefinition();
 }
 
-export class RealmSchema extends Schema {
+export class RealmSchema extends Schema implements Named {
   @type("string") id: string;
   @type("string") name: string;
-  @type({ map: SceneElementMemento }) characters = new MapSchema<SceneElementMemento>();
-  @type({ map: SceneElementMemento }) elements = new MapSchema<SceneElementMemento>();
+  @type({ map: SceneElementMemento }) characters =
+    new MapSchema<SceneElementMemento>();
+  @type({ map: SceneElementMemento }) elements =
+    new MapSchema<SceneElementMemento>();
   @type({ map: SceneImage }) images = new MapSchema<SceneImage>();
   @type({ map: SceneAudio }) audios = new MapSchema<SceneAudio>();
   @type({ map: SceneCode }) codes = new MapSchema<SceneCode>();
   @type({ map: SceneDesign3D }) designs3D = new MapSchema<SceneDesign3D>();
 }
 
-export const REALM_MAPS = ['elements', 'characters', 'audios', 'codes', 'designs3D', 'images'];
+export const REALM_MAPS = [
+  "elements",
+  "characters",
+  "audios",
+  "codes",
+  "designs3D",
+  "images",
+];
 
 export class Realm extends Schema {
   id: string;
