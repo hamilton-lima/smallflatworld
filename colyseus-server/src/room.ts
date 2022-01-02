@@ -36,34 +36,43 @@ export class MyRoom extends Room<RealmSchema> {
       "elements",
       new MessageHandler<SceneElementMemento>(
         this.state.elements,
-        new SceneElementMementoBuilder()
+        SceneElementMementoBuilder.getInstance()
       )
     );
     this.handlers.set(
       "characters",
       new MessageHandler<SceneElementMemento>(
         this.state.characters,
-        new SceneElementMementoBuilder()
+        SceneElementMementoBuilder.getInstance()
       )
     );
     this.handlers.set(
       "audios",
-      new MessageHandler<SceneAudio>(this.state.audios, new SceneAudioBuilder())
+      new MessageHandler<SceneAudio>(
+        this.state.audios,
+        SceneAudioBuilder.getInstance()
+      )
     );
     this.handlers.set(
       "codes",
-      new MessageHandler<SceneCode>(this.state.codes, new SceneCodeBuilder())
+      new MessageHandler<SceneCode>(
+        this.state.codes,
+        SceneCodeBuilder.getInstance()
+      )
     );
     this.handlers.set(
       "designs3D",
       new MessageHandler<SceneDesign3D>(
         this.state.designs3D,
-        new SceneDesign3DBuilder()
+        SceneDesign3DBuilder.getInstance()
       )
     );
     this.handlers.set(
       "images",
-      new MessageHandler<SceneImage>(this.state.images, new SceneImageBuilder())
+      new MessageHandler<SceneImage>(
+        this.state.images,
+        SceneImageBuilder.getInstance()
+      )
     );
   }
 
@@ -88,17 +97,17 @@ export class MyRoom extends Room<RealmSchema> {
     const realm: Realm = JSON.parse(options.realm);
     result.id = realm.id;
     result.name = realm.name;
-    console.log('parsed realm', realm);
+    console.log("parsed realm", realm);
 
     REALM_MAPS.forEach((map) => {
       const input = (realm as any)[map];
       if (input) {
         const entries = Object.entries(input);
-        console.log('build map from entries', map, entries);
-          // TODO: add method to message Handlers to rebuild realm
+        console.log("build map from entries", map, entries);
+        // TODO: add method to message Handlers to rebuild realm
         (result as any)[map] = new MapSchema(input);
       } else {
-        console.log('no data sent for map', map);
+        console.log("no data sent for map", map);
       }
     });
 

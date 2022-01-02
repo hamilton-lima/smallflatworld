@@ -17,6 +17,10 @@ export interface InstanceBuilder<Type> {
 export class SceneElementMementoBuilder
   implements InstanceBuilder<SceneElementMemento>
 {
+  private constructor(){}
+  static instance = new SceneElementMementoBuilder();
+  static getInstance(){ return SceneElementMementoBuilder.instance;}
+
   create(list: MapSchema<SceneElementMemento>, update: SceneElementMemento) {
     const instance = new SceneElementMemento();
     instance.name = update.name;
@@ -45,6 +49,10 @@ export class SceneElementMementoBuilder
 }
 
 export class SceneImageBuilder implements InstanceBuilder<SceneImage> {
+  private constructor(){}
+  static instance = new SceneImageBuilder();
+  static getInstance(){ return SceneImageBuilder.instance;}
+  
   create(list: MapSchema<SceneImage>, update: SceneImage) {
     const instance = new SceneImage().assign(update);
     list.set(instance.name, instance);
@@ -59,6 +67,10 @@ export class SceneImageBuilder implements InstanceBuilder<SceneImage> {
 }
 
 export class SceneDesign3DBuilder implements InstanceBuilder<SceneDesign3D> {
+  private constructor(){}
+  static instance = new SceneDesign3DBuilder();
+  static getInstance(){ return SceneDesign3DBuilder.instance;}
+  
   create(list: MapSchema<SceneDesign3D>, update: SceneDesign3D) {
     const instance = new SceneDesign3D().assign(update);
     list.set(instance.name, instance);
@@ -73,6 +85,10 @@ export class SceneDesign3DBuilder implements InstanceBuilder<SceneDesign3D> {
 }
 
 export class SceneAudioBuilder implements InstanceBuilder<SceneAudio> {
+  private constructor(){}
+  static instance = new SceneAudioBuilder();
+  static getInstance(){ return SceneAudioBuilder.instance;}
+
   create(list: MapSchema<SceneAudio>, update: SceneAudio) {
     const instance = new SceneAudio().assign(update);
     list.set(instance.name, instance);
@@ -87,6 +103,10 @@ export class SceneAudioBuilder implements InstanceBuilder<SceneAudio> {
 }
 
 export class SceneCodeBuilder implements InstanceBuilder<SceneCode> {
+  private constructor(){}
+  static instance = new SceneCodeBuilder();
+  static getInstance(){ return SceneCodeBuilder.instance;}
+
   create(list: MapSchema<SceneCode>, update: SceneCode) {
     const instance = new SceneCode();
     instance.name = update.name;
