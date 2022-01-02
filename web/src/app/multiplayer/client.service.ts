@@ -30,7 +30,7 @@ export class MessageSender2Server<Type> {
 
     if (this.owner.room) {
       console.log('send to server', message);
-      this.owner.room.send(message.action, message);
+      this.owner.room.send(this.targetName, message);
     } else {
       console.warn('Sending message to server before connecting', message);
     }
@@ -50,26 +50,27 @@ export class MessageSender2Server<Type> {
 }
 
 export class MessageFromServerListener<Type> {
-  public readonly onAdd: Subject<Type> = new Subject();
-  public readonly onChange: Subject<Type> = new Subject();
-  public readonly onRemove: Subject<Type> = new Subject();
+  public onAdd: Subject<Type>;
+  public onChange: Subject<Type>;
+  public onRemove: Subject<Type>;
 
   constructor(list: MapSchema<Type>) {
-    list.onAdd = this.add;
-    list.onChange = this.change;
-    list.onRemove = this.remove;
-  }
+    this.onAdd = new Subject();
+    this.onChange = new Subject();
+    this.onRemove = new Subject();
+    const self = this;
 
-  add(item: Type, key: string) {
-    this.onAdd.next(item);
-  }
+    list.onAdd = (item: Type, key: string) => {
+      self.onAdd.next(item);
+    }
 
-  change(item: Type, key: string) {
-    this.onAdd.next(item);
-  }
+    list.onChange = (item: Type, key: string) => {
+      self.onChange.next(item);
+    }
 
-  remove(item: Type, key: string) {
-    this.onAdd.next(item);
+    list.onRemove = (item: Type, key: string) => {
+      self.onRemove.next(item);
+    }
   }
 }
 

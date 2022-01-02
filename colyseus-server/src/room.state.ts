@@ -52,6 +52,7 @@ export class SceneDesign3D extends Schema {
   @type("string") base64: string;
 }
 
+
 export class SceneAudio extends Schema {
   @type("string") name: string;
   @type("string") base64: string;
