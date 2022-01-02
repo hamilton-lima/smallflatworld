@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RealmService } from 'src/app/realm/realm.service';
+import { ConfigurationService } from 'src/app/shared/configuration.service';
 import { ClientService } from '../client.service';
 
 @Component({
@@ -7,13 +9,20 @@ import { ClientService } from '../client.service';
   styleUrls: ['./share.component.scss'],
 })
 export class ShareComponent implements OnInit {
-  constructor(public service: ClientService) {}
+  constructor(
+    public service: ClientService,
+    private realm: RealmService,
+    private configuration: ConfigurationService
+  ) {}
 
   ngOnInit(): void {}
 
-  start() {
+  async start() {
     console.log('start');
-    this.service.share();
+    const currentRealm = this.realm.getCurrentRealm();
+    const realmJSON = this.realm.toJSON(currentRealm);
+    const config = await this.configuration.getConfiguration();
+    this.service.share(realmJSON, config.characterID);
   }
 
   stop() {

@@ -11,7 +11,7 @@ import {
   Vector3Memento,
 } from "./room.state";
 import { MapSchema, Schema } from "@colyseus/schema";
-import { Type } from "@gamestdio/timer";
+
 export interface InstanceBuilder<Type> {
   create(list: MapSchema<Type>, update: Type): Type;
   update(list: MapSchema<Type>, update: Type): Type;
@@ -130,10 +130,13 @@ class MessageHandler<Type extends Schema> {
 }
 
 export class MyRoom extends Room<RealmSchema> {
-  handlers: Map<string, MessageHandler<any>>;
+  handlers: Map<string, MessageHandler<any>> = new Map();
 
   constructor() {
     super();
+  }
+
+  setup(){
     this.handlers.set(
       "elements",
       new MessageHandler<SceneElementMemento>(
@@ -170,11 +173,10 @@ export class MyRoom extends Room<RealmSchema> {
   }
 
   onCreate(options: any) {
+    console.log('on create', options);
     const realm = new RealmSchema();
-    realm.elements.set("foo", new SceneElementMemento());
-    realm.elements.set("bar", new SceneElementMemento());
-    realm.elements.delete("bar");
     this.setState(realm);
+    this.setup();
 
     // Add message handlers for each map
     REALM_MAPS.forEach((map) => {
@@ -187,7 +189,7 @@ export class MyRoom extends Room<RealmSchema> {
   }
 
   onJoin(client: Client, options: any) {
-    console.log(client.sessionId, "joined!");
+    console.log(client.sessionId, "joined!", options);
   }
 
   onLeave(client: Client, consented: boolean) {
