@@ -96,11 +96,20 @@ export class MyRoom extends Room<RealmSchema> {
   buildState(options: RealmShareOptions): RealmSchema {
     const realm: Realm = JSON.parse(options.realm);
     const result = RealmSchemaBuilder.getInstance().create(realm);
-    console.log('created realm schema', result);
+    console.log("created realm schema", result);
     return result;
   }
 
-  onJoin(client: Client, options: any) {
+  onJoin(client: Client, options: RealmShareOptions) {
+    const character = this.state.characters.get(options.characterId);
+    if (character) {
+      const joinedCharacter =
+        SceneElementMementoBuilder.getInstance().createDefault(
+          options.characterId
+        );
+      this.state.characters.set(options.characterId, joinedCharacter);
+    }
+
     console.log(client.sessionId, "joined!", options);
   }
 

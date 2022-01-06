@@ -124,14 +124,14 @@ export class ClientService {
     this.server.share(realmJSON, characterID);
   }
 
-  join(realmUUID: string) {
+  join(realmUUID: string, characterID: string) {
     this.realmUUID = null;
     this.server.onStateUpdate.subscribe((realm: Realm) => {
       this.realmUUID = realm.id;
       this.afterJoin.next(realm);
       this.setupMessageHandler();
     });
-    this.server.join(realmUUID);
+    this.server.join(realmUUID, characterID);
   }
 
   setupMessageHandler() {

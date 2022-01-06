@@ -118,6 +118,17 @@ export class SceneElementMementoBuilder
     current.code.assign(update.code);
     return current;
   }
+
+  createDefault(characterId: string): SceneElementMemento {
+    const memento = <SceneElementMemento>{
+      name: characterId,
+      skipColision: false,
+      position: { x: 0, y: 0, z: 0 },
+      rotation: { x: 0, y: 0, z: 0 },
+      scaling: { x: 1, y: 1, z: 1 },
+    };
+    return this.create(memento);
+  }
 }
 
 export class SceneImageBuilder implements InstanceBuilder<SceneImage> {

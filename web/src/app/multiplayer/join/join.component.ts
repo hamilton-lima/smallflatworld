@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ConfigurationService } from 'src/app/shared/configuration.service';
 import { ClientService } from '../client.service';
 
 @Component({
@@ -14,14 +15,17 @@ export class JoinComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public service: ClientService
+    public service: ClientService,
+    private configuration: ConfigurationService
   ) {}
 
   ngOnInit(): void {}
 
-  join() {
+  async join() {
     const realmUUID = this.form.get('realmUUID').value;
+    const config = await this.configuration.getConfiguration();
+
     console.log('join', realmUUID);
-    this.service.join(realmUUID);
+    this.service.join(realmUUID, config.characterID);
   }
 }

@@ -42,10 +42,10 @@ export class ServerService {
     }
   }
 
-  async join(realmUUID: string) {
+  async join(realmUUID: string, characterID: string) {
     try {
       this.room = await this.colyseusClient.joinById(realmUUID, {
-        /* options */
+        characterID: characterID,
       });
       this.listenForUpdates();
       console.log('joined successfully', this.room);
@@ -59,7 +59,11 @@ export class ServerService {
       console.error('Trying to listen to room updates with no room defined');
     } else {
       this.room.onStateChange.once((state) => {
-        console.log('state change', state.elements);
+        console.log(
+          'characters from state change',
+          Object.entries(state.characters.entries())
+        );
+
         // TODO: convert RealmSchema to Realm
         this.onStateUpdate.next(<Realm>state);
       });
