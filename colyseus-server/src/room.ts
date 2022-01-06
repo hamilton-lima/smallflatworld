@@ -102,7 +102,8 @@ export class MyRoom extends Room<RealmSchema> {
 
   onJoin(client: Client, options: RealmShareOptions) {
     const character = this.state.characters.get(options.characterId);
-    if (character) {
+    console.log('character found?', character);
+    if (!character) {
       const joinedCharacter =
         SceneElementMementoBuilder.getInstance().createDefault(
           options.characterId
@@ -110,7 +111,9 @@ export class MyRoom extends Room<RealmSchema> {
       this.state.characters.set(options.characterId, joinedCharacter);
     }
 
-    console.log(client.sessionId, "joined!", options);
+    const counter = this.state.characters.size;
+
+    console.log(client.sessionId, "joined!", options, "total characters", counter);
   }
 
   onLeave(client: Client, consented: boolean) {

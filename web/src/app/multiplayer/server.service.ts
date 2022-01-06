@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Realm, RealmSchema } from '../../../../colyseus-server/src/room.state';
+import {
+  Realm,
+  RealmSchema,
+  SceneElementMemento,
+} from '../../../../colyseus-server/src/room.state';
 import { Client, Room } from 'colyseus.js';
 
 @Injectable({
@@ -58,10 +62,23 @@ export class ServerService {
     if (!this.room) {
       console.error('Trying to listen to room updates with no room defined');
     } else {
+      this.room.state.characters.onAdd = (
+        add: SceneElementMemento,
+        key: string
+      ) => {
+        console.log('add to characters', add, key);
+      };
+
+      this.room.state.characters.onChange = (
+        update: SceneElementMemento,
+        key: string
+      ) => {
+        console.log('update on characters', update, key);
+      };
+
       this.room.onStateChange.once((state) => {
         console.log(
-          'characters from state change',
-          Object.entries(state.characters.entries())
+          'first update with room state, CONVERT DATA TO LOCAL Realm'
         );
 
         // TODO: convert RealmSchema to Realm
