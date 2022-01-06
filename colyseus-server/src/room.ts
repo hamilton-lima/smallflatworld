@@ -75,6 +75,14 @@ export class MyRoom extends Room<RealmSchema> {
         SceneImageBuilder.getInstance()
       )
     );
+
+    this.state.characters.onAdd = function(add, key){
+      console.log('on add triggered on server side', key, add);
+    };
+
+    this.state.characters.onChange = function(add, key){
+      console.log('on change triggered on server side', key, add);
+    };
   }
 
   onCreate(options: RealmShareOptions) {
@@ -112,8 +120,9 @@ export class MyRoom extends Room<RealmSchema> {
     }
 
     const counter = this.state.characters.size;
+    this.state.characters.triggerAll();
 
-    console.log(client.sessionId, "joined!", options, "total characters", counter);
+    console.log(client.sessionId, "joined!", options, "total characters", counter, "state.name", this.state.name);
   }
 
   onLeave(client: Client, consented: boolean) {
