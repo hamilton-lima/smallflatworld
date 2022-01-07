@@ -1,21 +1,20 @@
-
 export enum Actions {
-  Share = "share",
-  Join = "join",
-  Update = "update",
-  Delete = "delete",
-  Ping = "ping",
-  DeleteImage = "delete-image",
-  DeleteAudio = "delete-audio",
-  DeleteCode = "delete-code",
-  DeleteDesign3D = "delete-design3D",
-  DeleteElement = "DeleteElement",
-  UpdateDesigns3D = "UpdateDesigns3D",
-  UpdateCodes = "UpdateCodes",
-  UpdateAudios = "UpdateAudios",
-  UpdateImages = "UpdateImages",
-  UpdateElements = "UpdateElements",
-  AddElement = "AddElement",
+  Share = 'share',
+  Join = 'join',
+  Update = 'update',
+  Delete = 'delete',
+  Ping = 'ping',
+  DeleteImage = 'delete-image',
+  DeleteAudio = 'delete-audio',
+  DeleteCode = 'delete-code',
+  DeleteDesign3D = 'delete-design3D',
+  DeleteElement = 'DeleteElement',
+  UpdateDesigns3D = 'UpdateDesigns3D',
+  UpdateCodes = 'UpdateCodes',
+  UpdateAudios = 'UpdateAudios',
+  UpdateImages = 'UpdateImages',
+  UpdateElements = 'UpdateElements',
+  AddElement = 'AddElement',
 }
 
 export interface Named {
@@ -28,53 +27,53 @@ export class Vector3Memento {
   z: number;
 }
 
-export class CodeDefinition  {
+export class CodeDefinition {
   code: string;
   blocklyDefinition: string;
 }
 
-export class SceneElementMemento  implements Named {
+export class SceneElementMemento implements Named {
   name: string;
   componentID: string;
   position: Vector3Memento = new Vector3Memento();
-   rotation: Vector3Memento = new Vector3Memento();
-   scaling: Vector3Memento = new Vector3Memento();
-   code: CodeDefinition = new CodeDefinition();
+  rotation: Vector3Memento = new Vector3Memento();
+  scaling: Vector3Memento = new Vector3Memento();
+  code: CodeDefinition = new CodeDefinition();
   imageName: string;
-   skipColision: boolean;
+  skipColision: boolean;
 }
 
-export class SceneImage  implements Named {
+export class SceneImage implements Named {
   name: string;
   base64: string;
 }
 
-export class SceneDesign3D  implements Named {
+export class SceneDesign3D implements Named {
   name: string;
   base64: string;
 }
 
-export class SceneAudio  implements Named {
+export class SceneAudio implements Named {
   name: string;
   base64: string;
 }
 
-export class SceneCode  implements Named {
+export class SceneCode implements Named {
   name: string;
   label: string;
-   code: CodeDefinition = new CodeDefinition();
+  code: CodeDefinition = new CodeDefinition();
 }
 
 export const REALM_MAPS = [
-  "elements",
-  "characters",
-  "audios",
-  "codes",
-  "designs3D",
-  "images",
+  'elements',
+  'characters',
+  'audios',
+  'codes',
+  'designs3D',
+  'images',
 ];
 
-export class Realm  {
+export class Realm {
   id: string;
   name: string;
   characters = new Map<string, SceneElementMemento>();
