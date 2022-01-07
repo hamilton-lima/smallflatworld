@@ -38,3 +38,4 @@ To be included items from mindmap and previous roadmap
 # to be evaluated
 
 - Add https://twitter.com/quaternius assets to the library
+- Add winston as logger at the server side

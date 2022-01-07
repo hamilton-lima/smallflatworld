@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>GUB JS playgroung</title>
+</head>
+
+<body>
+    Look at the console...
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <script>
+        localStorage.clear();
+        gun = GUN();
+        gun.get('smallflatworld').put({});
+
+        var realm2 = { id: "potato" };
+        gun.get('smallflatworld').get('realms').get('potato').put(realm2);
+
+        var realm1 = { id: "banana" };
+        var banana = gun.get('smallflatworld').get('realms').get('banana').put(realm1);
+
+        var characters = gun.get('smallflatworld').get('realms').get('banana').get('characters');
+
+        function extractCharacterName(path) {
+            if (path) {
+                const array = path.split('/');
+                if (array.length >= 2) {
+                    return array[array.length - 2];
+                }
+            } else {
+                return undefined;
+            }
+        }
+
+        characters.map().get('position').on((data, key) => {
+            const path = data['_']['#'];
+            const character = extractCharacterName(path);
+            console.log('map().on()', key, data, character);
+        });
+
+        characters.get('somebody').put({ name: "that guy" });
+        characters.get('somebody').get('position').put({ x: 1, y: 1, z: 1 });
+        characters.get('somebody').get('rotation').put({ x: 0, y: 0, z: 0 });
+
+        characters.get('somebody else').get('position').put({ x: 2, y: 2, z: 2 });
+
+        characters.get('somebody').get('position').put({ x: Math.random() });
+        characters.get('somebody').get('position').put({ x: Math.random() });
+        characters.get('somebody').get('position').put({ x: Math.random() });
+    </script>
+</body>
+
+</html>
