@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
-const DEFAULT_SERVER = 'ws://localhost:3000';
+const DEFAULT_SERVER = 'http://localhost:8765/gun';
 
 @Component({
   selector: 'app-connect',

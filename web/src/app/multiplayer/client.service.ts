@@ -115,13 +115,13 @@ export class ClientService {
     this.setupMessageHandler();
   }
 
-  share(realmJSON: string, characterID: string) {
+  share(realm: Realm, characterID: string) {
     this.server.onShare.subscribe((id: string) => {
       console.log('onshare subscription', id);
       this.realmUUID = id;
       this.setupMessageHandler();
     });
-    this.server.share(realmJSON, characterID);
+    this.server.share(realm, characterID);
   }
 
   join(realmUUID: string, characterID: string) {

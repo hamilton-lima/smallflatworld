@@ -5,85 +5,74 @@ import {
   RealmSchema,
   SceneElementMemento,
 } from '../../../../colyseus-server/src/room.state';
-import { Client, Room } from 'colyseus.js';
-
+import Gun from 'gun/gun';
+import { GunClient } from './gun-client';
+import { chromaticAberrationPixelShader } from '@babylonjs/core/Shaders/chromaticAberration.fragment';
 @Injectable({
   providedIn: 'root',
 })
 export class ServerService {
-  private colyseusClient: Client;
   public readonly onShare: Subject<string> = new Subject();
   public readonly onStateUpdate: Subject<Realm> = new Subject();
-  room: Room<RealmSchema>;
+
+  gun: any;
+  client: GunClient;
 
   constructor() {}
 
-  connect(server: string) {
-    console.log('client class', Client);
-    this.colyseusClient = new Client(server);
+  connect(url: string) {
+    this.gun = new Gun(url);
+    this.client = new GunClient(this.gun);
     return true;
   }
 
   close() {
-    if (this.room) {
-      this.room.leave();
-    } else {
-      console.error('Trying to leave room that is not defined');
-    }
+    console.error('leave not implemented');
   }
 
-  async share(realmJSON: string, characterID: string) {
+  async share(realm: Realm, characterID: string) {
     try {
-      this.room = await this.colyseusClient.create('realm', {
-        realm: realmJSON,
-        characterID: characterID,
-      });
-      this.listenForUpdates();
-      this.onShare.next(this.room.id);
-      console.log('joined successfully', this.room);
+      this.client.share(realm, characterID);
+      this.client.join(realm.id, characterID);
+      // this.listenForUpdates();
+      // this.onShare.next(this.room.id);
+      console.log('shared and joined successfully');
     } catch (e) {
-      console.error('join error', e);
+      console.error('share and join error', e);
     }
   }
 
   async join(realmUUID: string, characterID: string) {
     try {
-      this.room = await this.colyseusClient.joinById(realmUUID, {
-        characterID: characterID,
-      });
-      this.listenForUpdates();
-      console.log('joined successfully', this.room);
+      this.client.join(realmUUID, characterID);
+      // this.listenForUpdates();
+      // this.onShare.next(this.room.id);
+      console.log('joined successfully');
     } catch (e) {
       console.error('join error', e);
     }
   }
 
   listenForUpdates() {
-    if (!this.room) {
-      console.error('Trying to listen to room updates with no room defined');
-    } else {
-      this.room.state.characters.onAdd = (
-        add: SceneElementMemento,
-        key: string
-      ) => {
-        console.log('add to characters', add, key);
-      };
+    // this.room.state.characters.onAdd = (
+    //   add: SceneElementMemento,
+    //   key: string
+    // ) => {
+    //   console.log('add to characters', add, key);
+    // };
 
-      this.room.state.characters.onChange = (
-        update: SceneElementMemento,
-        key: string
-      ) => {
-        console.log('update on characters', update, key);
-      };
+    // this.room.state.characters.onChange = (
+    //   update: SceneElementMemento,
+    //   key: string
+    // ) => {
+    //   console.log('update on characters', update, key);
+    // };
 
-      this.room.onStateChange.once((state) => {
-        console.log(
-          'first update with room state, CONVERT DATA TO LOCAL Realm'
-        );
+    // this.room.onStateChange.once((state) => {
+    //   console.log('first update with room state, CONVERT DATA TO LOCAL Realm');
 
-        // TODO: convert RealmSchema to Realm
-        this.onStateUpdate.next(<Realm>state);
-      });
-    }
+    //   // TODO: convert RealmSchema to Realm
+    //   this.onStateUpdate.next(<Realm>state);
+    // });
   }
 }
