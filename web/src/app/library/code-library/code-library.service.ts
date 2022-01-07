@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CodeDefinition, Realm, SceneCode } from '../../../../../colyseus-server/src/room.state';
+import { CodeDefinition, Realm, SceneCode } from 'src/app/realm/realm.model';
 import { CodingService } from '../../coding/coding.service';
 import { RunnerService } from '../../coding/runner.service';
 import { ClientService } from '../../multiplayer/client.service';

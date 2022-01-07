@@ -4,7 +4,7 @@ import { AudioPlayerService } from 'src/app/shared/audio-player.service';
 import { ConfirmOptions, ConfirmService } from 'src/app/shared/confirm.service';
 import { InputService } from 'src/app/shared/input.service';
 import { NotifyService } from 'src/app/shared/notify.service';
-import { SceneAudio } from '../../../../../colyseus-server/src/room.state';
+import { SceneAudio } from 'src/app/realm/realm.model';
 import { AudioService } from './audio.service';
 
 @Component({

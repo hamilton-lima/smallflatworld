@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Tools } from '@babylonjs/core';
 import { EventsBrokerService } from 'src/app/shared/events-broker.service';
-import { Vector3Memento } from '../../../../../colyseus-server/src/room.state';
+import { Vector3Memento } from 'src/app/realm/realm.model';
 
 @Component({
   selector: 'app-position-panel',

@@ -1,4 +1,4 @@
-import { Realm } from '../../../../colyseus-server/src/room.state';
+import { Realm } from 'src/app/realm/realm.model';
 
 export class GunClient{
   

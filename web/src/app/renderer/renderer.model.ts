@@ -1,5 +1,5 @@
 import { Engine, Camera, Scene, HemisphericLight, Mesh, Vector3, AnimationGroup } from '@babylonjs/core';
-import { CodeDefinition } from '../../../../colyseus-server/src/room.state';
+import { CodeDefinition } from 'src/app/realm/realm.model';
 
 export class CharacterAnimations {
   jump: AnimationGroup;

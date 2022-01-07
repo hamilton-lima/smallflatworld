@@ -9,7 +9,7 @@ import {
   SceneElementMemento,
   SceneImage,
   Vector3Memento, REALM_MAPS,
-} from '../../../../colyseus-server/src/room.state';
+} from 'src/app/realm/realm.model';
 import { ConfigurationService } from '../shared/configuration.service';
 import { Subject } from 'rxjs';
 import { EventsBrokerService } from '../shared/events-broker.service';

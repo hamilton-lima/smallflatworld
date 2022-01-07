@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import {
-  Realm,
-  RealmSchema,
-  SceneElementMemento,
-} from '../../../../colyseus-server/src/room.state';
+import { Realm } from 'src/app/realm/realm.model';
 import Gun from 'gun/gun';
 import { GunClient } from './gun-client';
-import { chromaticAberrationPixelShader } from '@babylonjs/core/Shaders/chromaticAberration.fragment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -60,17 +56,14 @@ export class ServerService {
     // ) => {
     //   console.log('add to characters', add, key);
     // };
-
     // this.room.state.characters.onChange = (
     //   update: SceneElementMemento,
     //   key: string
     // ) => {
     //   console.log('update on characters', update, key);
     // };
-
     // this.room.onStateChange.once((state) => {
     //   console.log('first update with room state, CONVERT DATA TO LOCAL Realm');
-
     //   // TODO: convert RealmSchema to Realm
     //   this.onStateUpdate.next(<Realm>state);
     // });

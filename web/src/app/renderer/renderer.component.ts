@@ -10,7 +10,7 @@ import { EngineState, SceneElement } from './renderer.model';
 import { KeyboardService } from './keyboard.service';
 import { LocalClipboardService} from './local-clipboard.service';
 import { Vector2 } from '@babylonjs/core';
-import { SceneElementMemento } from '../../../../colyseus-server/src/room.state';
+import { SceneElementMemento } from 'src/app/realm/realm.model';
 import { buildVector3 } from '../renderer/builders';
 
 @Component({

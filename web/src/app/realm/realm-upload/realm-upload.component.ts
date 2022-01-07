@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { RendererService } from 'src/app/renderer/renderer.service';
-import { Realm } from '../../../../../colyseus-server/src/room.state';
+import { Realm } from 'src/app/realm/realm.model';
 import { RealmService } from '../realm.service';
 
 @Component({

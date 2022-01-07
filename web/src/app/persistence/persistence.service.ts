@@ -11,7 +11,7 @@ import {
 import { Configuration } from './persistence.model';
 import Dexie from 'dexie';
 import { PersistenceDataChecker } from './persistence.data-checker';
-import { Realm, SceneAudio, SceneCode, SceneDesign3D, SceneElementMemento, SceneImage } from '../../../../colyseus-server/src/room.state';
+import { Realm, SceneAudio, SceneCode, SceneDesign3D, SceneElementMemento, SceneImage } from 'src/app/realm/realm.model';
 
 const uniqueNameConfig: Config = {
   dictionaries: [adjectives, colors, animals, names],

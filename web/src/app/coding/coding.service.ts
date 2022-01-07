@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { CodeDefinition, SceneCode } from '../../../../colyseus-server/src/room.state';
+import { CodeDefinition, SceneCode } from 'src/app/realm/realm.model';
 import { RealmService } from '../realm/realm.service';
 
 export class CodeEditRequest {

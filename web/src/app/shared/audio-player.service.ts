@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Tone from 'tone';
-import { SceneAudio } from '../../../../colyseus-server/src/room.state';
+import { SceneAudio } from 'src/app/realm/realm.model';
 
 class NoteDef {
   note: Tone.Unit.Frequency;

@@ -23,10 +23,7 @@ import {
   EditorMode,
   EditorModeService,
 } from './editor-mode.service';
-import {
-  CodeDefinition,
-  SceneElementMemento,
-} from '../../../../colyseus-server/src/room.state';
+import { CodeDefinition, SceneElementMemento } from 'src/app/realm/realm.model';
 import { InputService } from '../shared/input.service';
 import { CodingService } from '../coding/coding.service';
 import { RunnerService } from '../coding/runner.service';
@@ -436,7 +433,7 @@ export class EditorService {
     if (!this.current) {
       this.notify.warn(
         "Err... I don't know what to add to the scene... select from the " +
-        'Library on the left.'
+          'Library on the left.'
       );
       return;
     }
@@ -453,7 +450,7 @@ export class EditorService {
     const templateMesh = await this.library.getMesh(
       scene,
       this.current.id,
-      imageName,
+      imageName
     );
     const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
     let position: Vector3;

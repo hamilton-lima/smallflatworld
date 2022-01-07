@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { EventsBrokerService } from 'src/app/shared/events-broker.service';
 import { NotifyService } from 'src/app/shared/notify.service';
-import { CodeDefinition } from '../../../../../colyseus-server/src/room.state';
+import { CodeDefinition } from 'src/app/realm/realm.model';
 import { CodeEditRequest, CodingService } from '../coding.service';
 
 @Component({

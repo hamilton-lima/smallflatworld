@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { CodeDefinition } from '../../../../../colyseus-server/src/room.state';
+import { CodeDefinition } from 'src/app/realm/realm.model';
 import { BlocklyConfig, BlocklyService } from './code-blockly.service';
 
 @Component({

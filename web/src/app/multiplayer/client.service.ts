@@ -8,7 +8,7 @@ import {
   SceneDesign3D,
   Realm,
   REALM_MAPS,
-} from '../../../../colyseus-server/src/room.state';
+} from 'src/app/realm/realm.model';
 import { ServerService } from './server.service';
 import { MapSchema } from '@colyseus/schema';
 
@@ -28,12 +28,12 @@ export class MessageSender2Server<Type> {
       data: item,
     });
 
-    if (this.owner.room) {
-      console.log('send to server', message);
-      this.owner.room.send(this.targetName, message);
-    } else {
-      console.warn('Sending message to server before connecting', message);
-    }
+    // if (this.owner.room) {
+    //   console.log('send to server', message);
+    //   this.owner.room.send(this.targetName, message);
+    // } else {
+    //   console.warn('Sending message to server before connecting', message);
+    // }
   }
 
   add(item: Type) {
@@ -86,12 +86,12 @@ export class MessageHandler<Type> {
 
     let list: MapSchema<Type>;
 
-    if (owner.room) {
-      list = owner.room.state[targetName];
-    } else {
-      // no server connection, create dummy MapSchema
-      list = new MapSchema<Type>();
-    }
+    // if (owner.room) {
+    //   list = owner.room.state[targetName];
+    // } else {
+    //   // no server connection, create dummy MapSchema
+    //   list = new MapSchema<Type>();
+    // }
     this.from = new MessageFromServerListener(list);
 
   }
