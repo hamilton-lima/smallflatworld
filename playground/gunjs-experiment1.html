@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
     <script>
         localStorage.clear();
-        gun = GUN();
+        gun = GUN("http://localhost:8765/gun");
         gun.get('smallflatworld').put({});
 
         var realm2 = { id: "potato" };

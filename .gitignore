@@ -1,3 +1,4 @@
 node_modules
 server/dist
 server/.nyc_output
+gun-server/data
