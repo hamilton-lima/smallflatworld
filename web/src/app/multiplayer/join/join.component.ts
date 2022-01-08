@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { RealmService } from 'src/app/realm/realm.service';
 import { ConfigurationService } from 'src/app/shared/configuration.service';
 import { ClientService } from '../client.service';
 
@@ -16,7 +17,8 @@ export class JoinComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public service: ClientService,
-    private configuration: ConfigurationService
+    private configuration: ConfigurationService,
+    private realm: RealmService
   ) {}
 
   ngOnInit(): void {}
@@ -24,8 +26,9 @@ export class JoinComponent implements OnInit {
   async join() {
     const realmUUID = this.form.get('realmUUID').value;
     const config = await this.configuration.getConfiguration();
+    const character = this.realm.getCurrentRealm().characters.get(config.characterID);
 
     console.log('join', realmUUID);
-    this.service.join(realmUUID, config.characterID);
+    this.service.join(realmUUID, character);
   }
 }

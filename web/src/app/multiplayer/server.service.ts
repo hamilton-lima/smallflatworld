@@ -1,8 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Realm } from 'src/app/realm/realm.model';
+import { Realm, SceneElementMemento } from 'src/app/realm/realm.model';
 import Gun from 'gun/gun';
 import { GunClient } from './gun-client';
+
+export interface IServerTransport {
+  share(realm: Realm);
+  shareRealm(realm: Realm);
+  shareSceneElement(
+    mapName: 'characters' | 'elements',
+    realmID: string,
+    memento: SceneElementMemento
+  );
+  join(realmID: string, character: SceneElementMemento);
+}
 
 @Injectable({
   providedIn: 'root',
@@ -12,24 +23,28 @@ export class ServerService {
   public readonly onStateUpdate: Subject<Realm> = new Subject();
 
   gun: any;
-  client: GunClient;
+  transport: GunClient;
 
   constructor() {}
 
   connect(url: string) {
     this.gun = new Gun(url);
-    this.client = new GunClient(this.gun);
+    this.transport = new GunClient(this.gun);
     return true;
+  }
+
+  getServerTransport(): IServerTransport {
+    return this.transport;
   }
 
   close() {
     console.error('leave not implemented');
   }
 
-  async share(realm: Realm, characterID: string) {
+  async share(realm: Realm, character: SceneElementMemento) {
     try {
-      this.client.share(realm, characterID);
-      this.client.join(realm.id, characterID);
+      this.transport.share(realm);
+      this.transport.join(realm.id, character);
       // this.listenForUpdates();
       // this.onShare.next(this.room.id);
       console.log('shared and joined successfully');
@@ -38,9 +53,9 @@ export class ServerService {
     }
   }
 
-  async join(realmUUID: string, characterID: string) {
+  async join(realmUUID: string, character: SceneElementMemento) {
     try {
-      this.client.join(realmUUID, characterID);
+      this.transport.join(realmUUID, character);
       // this.listenForUpdates();
       // this.onShare.next(this.room.id);
       console.log('joined successfully');

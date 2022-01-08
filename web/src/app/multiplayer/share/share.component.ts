@@ -21,7 +21,9 @@ export class ShareComponent implements OnInit {
     console.log('start');
     const currentRealm = this.realm.getCurrentRealm();
     const config = await this.configuration.getConfiguration();
-    this.service.share(currentRealm, config.characterID);
+    const character = this.realm.getCurrentRealm().characters.get(config.characterID);
+
+    this.service.share(currentRealm, character);
   }
 
   stop() {

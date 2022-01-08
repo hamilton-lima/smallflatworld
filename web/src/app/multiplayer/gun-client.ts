@@ -1,22 +1,19 @@
 import { Realm, SceneElementMemento } from 'src/app/realm/realm.model';
+import { IServerTransport } from './server.service';
 
-export class GunClient {
-  // TODO: a type would be lovely... ;)
+// TODO: receive updates when character moves
+
+export class GunClient implements IServerTransport {
   gun: any;
   constructor(gun: any) {
     this.gun = gun;
   }
 
-  share(realm: Realm, characterID: string) {
+  share(realm: Realm) {
     this.shareRealm(realm);
-
-    const character: SceneElementMemento = realm.characters.get(characterID);
-    this.shareSceneElement('characters', realm.id, character);
-
-    this.join(realm.id);
   }
 
-  private shareRealm(realm: Realm) {
+  shareRealm(realm: Realm) {
     const gunRealm = this.gun
       .get('smallflatworld')
       .get('realms')
@@ -26,7 +23,7 @@ export class GunClient {
     return gunRealm;
   }
 
-  private shareSceneElement(
+  shareSceneElement(
     mapName: 'characters' | 'elements',
     realmID: string,
     memento: SceneElementMemento
@@ -52,12 +49,14 @@ export class GunClient {
     gunSceneElement.get('code').put(memento.code);
   }
 
-  join(realmID: string) {
+  join(realmID: string, character: SceneElementMemento) {
     const gunCharacters = this.gun
       .get('smallflatworld')
       .get('realms')
       .get(realmID)
       .get('characters');
+
+    this.shareSceneElement('characters', realmID, character);
 
     gunCharacters
       .map()

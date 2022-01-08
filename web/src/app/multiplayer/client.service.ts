@@ -10,7 +10,6 @@ import {
   REALM_MAPS,
 } from 'src/app/realm/realm.model';
 import { ServerService } from './server.service';
-import { MapSchema } from '@colyseus/schema';
 
 class Message<Type> {
   action: 'add' | 'update' | 'remove';
@@ -54,23 +53,23 @@ export class MessageFromServerListener<Type> {
   public onChange: Subject<Type>;
   public onRemove: Subject<Type>;
 
-  constructor(list: MapSchema<Type>) {
+  constructor() {
     this.onAdd = new Subject();
     this.onChange = new Subject();
     this.onRemove = new Subject();
     const self = this;
 
-    list.onAdd = (item: Type, key: string) => {
-      self.onAdd.next(item);
-    }
+    // list.onAdd = (item: Type, key: string) => {
+    //   self.onAdd.next(item);
+    // }
 
-    list.onChange = (item: Type, key: string) => {
-      self.onChange.next(item);
-    }
+    // list.onChange = (item: Type, key: string) => {
+    //   self.onChange.next(item);
+    // }
 
-    list.onRemove = (item: Type, key: string) => {
-      self.onRemove.next(item);
-    }
+    // list.onRemove = (item: Type, key: string) => {
+    //   self.onRemove.next(item);
+    // }
   }
 }
 
@@ -84,7 +83,7 @@ export class MessageHandler<Type> {
   ) {
     this.to = new MessageSender2Server(owner, targetName);
 
-    let list: MapSchema<Type>;
+    // let list: MapSchema<Type>;
 
     // if (owner.room) {
     //   list = owner.room.state[targetName];
@@ -92,10 +91,11 @@ export class MessageHandler<Type> {
     //   // no server connection, create dummy MapSchema
     //   list = new MapSchema<Type>();
     // }
-    this.from = new MessageFromServerListener(list);
+    // this.from = new MessageFromServerListener(list);
 
   }
 }
+
 
 @Injectable({
   providedIn: 'root',
@@ -115,23 +115,23 @@ export class ClientService {
     this.setupMessageHandler();
   }
 
-  share(realm: Realm, characterID: string) {
+  share(realm: Realm, character: SceneElementMemento) {
     this.server.onShare.subscribe((id: string) => {
       console.log('onshare subscription', id);
       this.realmUUID = id;
       this.setupMessageHandler();
     });
-    this.server.share(realm, characterID);
+    this.server.share(realm, character);
   }
 
-  join(realmUUID: string, characterID: string) {
+  join(realmUUID: string, character: SceneElementMemento) {
     this.realmUUID = null;
     this.server.onStateUpdate.subscribe((realm: Realm) => {
       this.realmUUID = realm.id;
       this.afterJoin.next(realm);
       this.setupMessageHandler();
     });
-    this.server.join(realmUUID, characterID);
+    this.server.join(realmUUID, character);
   }
 
   setupMessageHandler() {
