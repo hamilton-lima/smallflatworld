@@ -18,7 +18,7 @@ class Message<Type> {
 }
 
 export class MessageSender2Server<Type> {
-  constructor(private owner: ServerService, private targetName: string) { }
+  constructor(private owner: ServerService, private targetName: string) {}
 
   send(type: string, item: Type) {
     const message = Object.assign(new Message<Type>(), {
@@ -27,12 +27,12 @@ export class MessageSender2Server<Type> {
       data: item,
     });
 
-    // if (this.owner.room) {
-    //   console.log('send to server', message);
-    //   this.owner.room.send(this.targetName, message);
-    // } else {
-    //   console.warn('Sending message to server before connecting', message);
-    // }
+    const transport = this.owner.getServerTransport();
+
+    if( transport && transport.getRealmID()){
+      // TODO: remove this, will need a sender for each type
+      transport.shareSceneElement("elements", item as any);
+    }
   }
 
   add(item: Type) {
@@ -53,11 +53,21 @@ export class MessageFromServerListener<Type> {
   public onChange: Subject<Type>;
   public onRemove: Subject<Type>;
 
-  constructor() {
+  constructor(private owner: ServerService, private targetName: string) {
     this.onAdd = new Subject();
     this.onChange = new Subject();
     this.onRemove = new Subject();
     const self = this;
+
+    const transport = owner.getServerTransport();
+    if (transport && transport.getRealmID()) {
+      const subject = transport.getMapListener(targetName);
+      if (subject) {
+        subject.subscribe((message) => {
+          console.log('message from server', message);
+        });
+      }
+    }
 
     // list.onAdd = (item: Type, key: string) => {
     //   self.onAdd.next(item);
@@ -77,25 +87,11 @@ export class MessageHandler<Type> {
   to: MessageSender2Server<Type>;
   from: MessageFromServerListener<Type>;
 
-  constructor(
-    private owner: ServerService,
-    private targetName: string
-  ) {
+  constructor(private owner: ServerService, private targetName: string) {
     this.to = new MessageSender2Server(owner, targetName);
-
-    // let list: MapSchema<Type>;
-
-    // if (owner.room) {
-    //   list = owner.room.state[targetName];
-    // } else {
-    //   // no server connection, create dummy MapSchema
-    //   list = new MapSchema<Type>();
-    // }
-    // this.from = new MessageFromServerListener(list);
-
+    this.from = new MessageFromServerListener(owner, targetName);
   }
 }
-
 
 @Injectable({
   providedIn: 'root',

@@ -139,10 +139,10 @@ export class RealmService {
     const found = this.getCharacter();
 
     if (found) {
-      Object.assign(found, character);
-      // this.currentRealm.characters[found].position = character.position;
-      // this.currentRealm.characters[found].rotation = character.rotation;
-      // this.currentRealm.characters[found].scaling = character.scaling;
+      found.position = character.position;
+      found.rotation = character.rotation;
+      found.scaling = character.scaling;
+      found.code = character.code;
       this.broker.onUpdateCharacter.next(character);
       return this._updateRealm();
     }

@@ -1,3 +1,5 @@
+import { makeStateKey } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
 import { Realm, SceneElementMemento } from 'src/app/realm/realm.model';
 import { IServerTransport } from './server.service';
 
@@ -5,8 +7,13 @@ import { IServerTransport } from './server.service';
 
 export class GunClient implements IServerTransport {
   gun: any;
+  realmID: string;
   constructor(gun: any) {
     this.gun = gun;
+  }
+
+  getRealmID(): string {
+    return this.realmID;
   }
 
   share(realm: Realm) {
@@ -20,18 +27,24 @@ export class GunClient implements IServerTransport {
       .get(realm.id)
       .put({ name: realm.name });
 
+    this.realmID = realm.id;
     return gunRealm;
   }
 
   shareSceneElement(
     mapName: 'characters' | 'elements',
-    realmID: string,
     memento: SceneElementMemento
   ) {
+    
+    if (!this.realmID) {
+      console.warn('sending updates without sharing realm');
+      return;
+    }
+
     const gunSceneElement = this.gun
       .get('smallflatworld')
       .get('realms')
-      .get(realmID)
+      .get(this.realmID)
       .get(mapName)
       .get(memento.name);
 
@@ -56,17 +69,56 @@ export class GunClient implements IServerTransport {
       .get(realmID)
       .get('characters');
 
-    this.shareSceneElement('characters', realmID, character);
-
-    gunCharacters
-      .map()
-      .get('position')
-      .on((data, key) => {
-        const soul = this.getSoul(data);
-        const character = this.extractCharacterName(soul);
-        console.log('character position updated', key, data, character);
-      });
+    this.realmID = realmID;
+    this.shareSceneElement('characters', character);
   }
+
+  getMapListener(mapName: string): Subject<any> {
+    if (!this.realmID) {
+      return null;
+    }
+
+    const subject = new Subject();
+    const updatableElement = this.gun
+      .get('smallflatworld')
+      .get('realms')
+      .get(this.realmID)
+      .get(mapName);
+
+    updatableElement.map().on((data, key) => {
+      const soul = this.getSoul(data);
+      const name = this.extractCharacterName(soul);
+      subject.next({ key: key, data: data, character: name });
+      console.log('character position updated', key, data, name);
+    });
+
+    return subject;
+  }
+
+  // getMapListenerWithField(mapName: string, field: string): Subject<any> {
+  //   if (!this.realmID) {
+  //     return null;
+  //   }
+
+  //   const subject = new Subject();
+  //   const updatableElement = this.gun
+  //     .get('smallflatworld')
+  //     .get('realms')
+  //     .get(this.realmID)
+  //     .get(mapName);
+
+  //   updatableElement
+  //     .map()
+  //     .get(field)
+  //     .on((data, key) => {
+  //       const soul = this.getSoul(data);
+  //       const name = this.extractCharacterName(soul);
+  //       subject.next({ key: key, data: data, character: name });
+  //       console.log('character position updated', key, data, name);
+  //     });
+
+  //   return subject;
+  // }
 
   getSoul(data) {
     if (data['_'] && data['_']['#']) {

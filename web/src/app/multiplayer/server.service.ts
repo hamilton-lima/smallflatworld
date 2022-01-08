@@ -9,10 +9,12 @@ export interface IServerTransport {
   shareRealm(realm: Realm);
   shareSceneElement(
     mapName: 'characters' | 'elements',
-    realmID: string,
     memento: SceneElementMemento
   );
   join(realmID: string, character: SceneElementMemento);
+  getRealmID(): string;
+  getMapListener(mapName: string): Subject<any>;
+  // getMapListenerWithField(mapName: string, field: string): Subject<any>;
 }
 
 @Injectable({
