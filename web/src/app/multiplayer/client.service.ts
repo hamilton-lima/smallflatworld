@@ -9,6 +9,7 @@ import {
   Realm,
   REALM_MAPS,
 } from 'src/app/realm/realm.model';
+import { EventsBrokerService } from '../shared/events-broker.service';
 import { ServerService } from './server.service';
 
 class Message<Type> {
@@ -29,9 +30,9 @@ export class MessageSender2Server<Type> {
 
     const transport = this.owner.getServerTransport();
 
-    if( transport && transport.getRealmID()){
+    if (transport && transport.getRealmID()) {
       // TODO: remove this, will need a sender for each type
-      transport.shareSceneElement("elements", item as any);
+      transport.shareSceneElement('elements', item as any);
     }
   }
 
@@ -107,7 +108,10 @@ export class ClientService {
   designs3D: MessageHandler<SceneDesign3D>;
   images: MessageHandler<SceneImage>;
 
-  constructor(private server: ServerService) {
+  constructor(
+    private server: ServerService,
+    private broker: EventsBrokerService
+  ) {
     this.setupMessageHandler();
   }
 
@@ -131,6 +135,16 @@ export class ClientService {
   }
 
   setupMessageHandler() {
+    this.broker.onUpdateCharacter.subscribe((character) => {
+      console.log('client service character', character);
+      const transport = this.server.getServerTransport();
+      if (transport && transport.getRealmID()) {
+        transport.shareSceneElement('characters', character);
+      } else {
+        console.warn('not connected to send character updates');
+      }
+    });
+
     REALM_MAPS.forEach((name) => {
       this[name] = new MessageHandler(this.server, name);
     });
