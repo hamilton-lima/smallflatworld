@@ -123,6 +123,47 @@ export class GunClient implements IServerTransport {
     return subject;
   }
 
+  getRealm(): Subject<Realm> {
+    if (!this.realmID) {
+      return null;
+    }
+
+    const realm = new Realm();
+    const subject = new Subject<Realm>();
+    const gunRealm = this.gun
+      .get('smallflatworld')
+      .get('realms')
+      .get(this.realmID);
+
+    const promises = [];
+    promises.push(this.getRealmFields(gunRealm,realm));
+
+    Promise.all(promises).then((_)=>{
+      subject.next(realm);
+    });
+
+    return subject;
+  }
+
+  getRealmFields(gunRealm: any, realm: Realm){
+    return new Promise<void>((resolve) => {
+      gunRealm.map().once((data, key) => {
+        realm.name = data.name;
+        resolve();
+      });
+    });
+  }
+
+  getCharacters(gunRealm: any, realm: Realm){
+    return new Promise<void>((resolve) => {
+      gunRealm.get('characters').map().once((data, key) => {
+        realm.name = data.name;
+        resolve();
+      });
+    });
+  }
+
+
   // getMapListenerWithField(mapName: string, field: string): Subject<any> {
   //   if (!this.realmID) {
   //     return null;

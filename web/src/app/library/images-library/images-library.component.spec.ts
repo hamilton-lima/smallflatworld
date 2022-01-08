@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { APP_TESTBED_MODULE } from 'src/app/app.testbed';
 
 import { ImagesLibraryComponent } from './images-library.component';
 
@@ -7,10 +8,7 @@ describe('ImagesLibraryComponent', () => {
   let fixture: ComponentFixture<ImagesLibraryComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ImagesLibraryComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
   }));
 
   beforeEach(() => {

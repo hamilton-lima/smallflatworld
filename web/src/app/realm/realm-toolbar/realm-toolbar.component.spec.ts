@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { APP_TESTBED_MODULE } from 'src/app/app.testbed';
 
 import { RealmToolbarComponent } from './realm-toolbar.component';
 
@@ -7,10 +8,7 @@ describe('RealmToolbarComponent', () => {
   let fixture: ComponentFixture<RealmToolbarComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RealmToolbarComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
   }));
 
   beforeEach(() => {

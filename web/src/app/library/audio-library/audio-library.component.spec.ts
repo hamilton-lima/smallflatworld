@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { APP_TESTBED_MODULE } from 'src/app/app.testbed';
 
 import { AudioLibraryComponent } from './audio-library.component';
 
@@ -7,10 +8,7 @@ describe('AudioLibraryComponent', () => {
   let fixture: ComponentFixture<AudioLibraryComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AudioLibraryComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { APP_TESTBED_MODULE } from 'src/app/app.testbed';
 
 import { EditorModePickerComponent } from './editor-mode-picker.component';
 
@@ -7,10 +8,7 @@ describe('EditorModePickerComponent', () => {
   let fixture: ComponentFixture<EditorModePickerComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EditorModePickerComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule(APP_TESTBED_MODULE).compileComponents();
   }));
 
   beforeEach(() => {

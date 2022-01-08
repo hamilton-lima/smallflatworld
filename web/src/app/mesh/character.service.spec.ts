@@ -15,12 +15,6 @@ describe('CharacterService', () => {
     loader = TestBed.inject(MeshLoaderService);
 
     spyOn(loader, 'load').and.returnValue(Promise.resolve(new Mesh('test')));
-    spyOn(loader, 'loadAllAnimations').and.returnValue(Promise.resolve([]));
-    
   });
 
-  // TODO: Fix this test
-  // it('should be created', () => {
-  //   expect(service).toBeTruthy();
-  // });
 });
