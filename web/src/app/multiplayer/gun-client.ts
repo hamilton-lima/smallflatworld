@@ -1,6 +1,11 @@
 import { makeStateKey } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
-import { Realm, SceneElementMemento } from 'src/app/realm/realm.model';
+import {
+  CodeDefinition,
+  Realm,
+  SceneElementMemento,
+  Vector3Memento,
+} from 'src/app/realm/realm.model';
 import { IServerTransport } from './server.service';
 
 // TODO: receive updates when character moves
@@ -35,7 +40,6 @@ export class GunClient implements IServerTransport {
     mapName: 'characters' | 'elements',
     memento: SceneElementMemento
   ) {
-    
     if (!this.realmID) {
       console.warn('sending updates without sharing realm');
       return;
@@ -48,18 +52,43 @@ export class GunClient implements IServerTransport {
       .get(mapName)
       .get(memento.name);
 
-    gunSceneElement.put({
+    const fields = {
       name: memento.name,
-      componentID: memento.componentID,
-      imageName: memento.imageName,
-      skipColision: memento.skipColision,
-    });
+      componentID: memento.componentID || '',
+      imageName: memento.imageName || '',
+      skipColision: memento.skipColision || false,
+    };
 
-    gunSceneElement.get('position').put(memento.position);
-    gunSceneElement.get('rotation').put(memento.rotation);
-    gunSceneElement.get('scaling').put(memento.scaling);
-    gunSceneElement.get('position').put(memento.position);
-    gunSceneElement.get('code').put(memento.code);
+    console.log('fields', fields);
+    gunSceneElement.put(fields);
+
+    gunSceneElement
+      .get('position')
+      .put(memento.position || new Vector3Memento());
+    gunSceneElement
+      .get('rotation')
+      .put(memento.rotation || new Vector3Memento());
+    gunSceneElement.get('scaling').put(memento.scaling || new Vector3Memento());
+    gunSceneElement
+      .get('position')
+      .put(memento.position || new Vector3Memento());
+    gunSceneElement.get('code').put(memento.code || new CodeDefinition());
+  }
+
+  fixBoolean(value: boolean, fallback: boolean) {
+    if (typeof value === undefined) {
+      return fallback;
+    } else {
+      return value;
+    }
+  }
+
+  fixString(value: string, fallback: string) {
+    if (typeof value === undefined) {
+      return fallback;
+    } else {
+      return value;
+    }
   }
 
   join(realmID: string, character: SceneElementMemento) {
