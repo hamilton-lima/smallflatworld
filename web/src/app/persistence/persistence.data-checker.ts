@@ -26,6 +26,7 @@ export class PersistenceDataChecker {
     };
 
     this.checkCharacter(result);
+    this.checkCharacterName(result);
     this.checkElements(result);
 
     if (result.realm.images === undefined) {
@@ -80,6 +81,16 @@ export class PersistenceDataChecker {
     return result;
   }
 
+  // make sure character name matches id from map
+  checkCharacterName(result: DataCheckResult) {
+    result.realm.characters.forEach((value, key) => {
+      if (value.name != key) {
+        value.name = key;
+        result.updates++;
+      }
+    });
+  }
+
   private checkElements(result: DataCheckResult) {
     if (result.realm.elements === undefined) {
       result.realm.elements = new Map<string, SceneElementMemento>();
@@ -95,13 +106,13 @@ export class PersistenceDataChecker {
   }
 
   private checkCharacter(result: DataCheckResult) {
-    console.log('characters 4', result.realm.characters);
+    console.log('checkCharacter(1)', result.realm.characters);
     if (result.realm.characters === undefined) {
       result.realm.characters = new Map<string, SceneElementMemento>();
       result.updates++;
     }
 
-    console.log('characters after 3', result.realm.characters);
+    console.log('checkCharacter(2)', result.realm.characters);
     if (Array.isArray(result.realm.characters)) {
       const replacement = new Map<string, SceneElementMemento>();
       result.realm.characters.forEach((one) => {
@@ -111,6 +122,6 @@ export class PersistenceDataChecker {
       result.updates++;
     }
 
-    console.log('characters after 1', result.realm.characters);
+    console.log('checkCharacter(3)', result.realm.characters);
   }
 }
