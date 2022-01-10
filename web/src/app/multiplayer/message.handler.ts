@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs';
 import { SceneElementMemento } from '../realm/realm.model';
+import { GunMessageUpdate } from './gun-client';
 import { ServerService } from './server.service';
 
 export enum MessageType {
@@ -31,55 +32,37 @@ export abstract class IMessageSender2Server<Type> {
 }
 
 export abstract class IMessageFromServerListener<Type> {
-  public onAdd: Subject<Type>;
-  public onChange: Subject<Type>;
-  public onRemove: Subject<Type>;
+  abstract onAdd(): Subject<Type>;
+  abstract onChange(): Subject<Type>;
+  abstract onRemove(): Subject<Type>;
 
   constructor(private owner: ServerService, private targetName: string) {
-    this.onAdd = new Subject();
-    this.onChange = new Subject();
-    this.onRemove = new Subject();
-    const self = this;
-
     const transport = owner.getServerTransport();
     if (transport && transport.getRealmID()) {
       const subject = transport.getMapListener(targetName);
       if (subject) {
-        subject.subscribe((message) => {
-          console.log('message from server', message);
+        subject.subscribe((message: GunMessageUpdate) => {
           this.handle(message);
         });
       }
     }
-
-    // list.onAdd = (item: Type, key: string) => {
-    //   self.onAdd.next(item);
-    // }
-
-    // list.onChange = (item: Type, key: string) => {
-    //   self.onChange.next(item);
-    // }
-
-    // list.onRemove = (item: Type, key: string) => {
-    //   self.onRemove.next(item);
-    // }
   }
 
   abstract handle(message: any);
 }
 
 export abstract class IMessageHandler<Type> {
-  to: IMessageSender2Server<Type>;
-  from: IMessageFromServerListener<Type>;
-
-  // constructor(private owner: ServerService, private targetName: string) {
-  //   this.to = new IMessageSender2Server(owner, targetName);
-  //   this.from = new IMessageFromServerListener(owner, targetName);
-  // }
+  abstract to(): IMessageSender2Server<Type>;
+  abstract from(): IMessageFromServerListener<Type>;
 }
 
 export class SceneElementMementoSender extends IMessageSender2Server<SceneElementMemento> {
+  constructor(owner: ServerService, targetName: string) {
+    super(owner, targetName);
+  }
+
   send(type: MessageType, item: SceneElementMemento) {
+    console.log('send scenelement', type, item);
     const transport = this.getOwner().getServerTransport();
     if (transport && transport.getRealmID()) {
       transport.shareSceneElement('elements', item as any);
@@ -88,28 +71,82 @@ export class SceneElementMementoSender extends IMessageSender2Server<SceneElemen
 }
 
 export class SceneElementMementoReceiver extends IMessageFromServerListener<SceneElementMemento> {
-  handle(message: any) {
-    console.log('message from server sceneelement memento', message);
+  private _onAdd: Subject<SceneElementMemento>;
+  private _onChange: Subject<SceneElementMemento>;
+  private _onRemove: Subject<SceneElementMemento>;
+
+  constructor(owner: ServerService, targetName: string) {
+    super(owner, targetName);
+    this._onAdd = new Subject<SceneElementMemento>();
+    this._onChange = new Subject<SceneElementMemento>();
+    this._onRemove = new Subject<SceneElementMemento>();
+  }
+
+  onAdd(): Subject<SceneElementMemento> {
+    return this._onAdd;
+  }
+
+  onChange(): Subject<SceneElementMemento> {
+    return this._onChange;
+  }
+
+  onRemove(): Subject<SceneElementMemento> {
+    return this._onRemove;
+  }
+
+  handle(message: GunMessageUpdate) {
+    console.log('handle(SceneElementMemento)', message);
+
+    const element = new SceneElementMemento();
+    element.name = message.data.name;
+    element.componentID = message.data.componentID;
+    element.skipColision = message.data.skipColision;
+
+    // code: Object{#: ...},
+    // position: Object{#: ...},
+    // rotation: Object{#: ...},
+    // scaling: Object{#: ...},
+
+    this._onAdd.next(element);
   }
 }
 
 export class SceneElementMementoHandler extends IMessageHandler<SceneElementMemento> {
+  private _to: SceneElementMementoSender;
+  private _from: SceneElementMementoReceiver;
+
   constructor(private owner: ServerService, private targetName: string) {
     super();
-    super.to = new SceneElementMementoSender(owner, targetName);
-    super.from = new SceneElementMementoReceiver(owner, targetName);
+    this._to = new SceneElementMementoSender(owner, targetName);
+    this._from = new SceneElementMementoReceiver(owner, targetName);
+  }
+
+  to(): IMessageSender2Server<SceneElementMemento> {
+    return this._to;
+  }
+
+  from(): IMessageFromServerListener<SceneElementMemento> {
+    return this._from;
   }
 }
 
 // TODO: Remove dummy implementations
 export class MessageHandler<Type> extends IMessageHandler<Type> {
-  to: IMessageSender2Server<Type>;
-  from: IMessageFromServerListener<Type>;
+  private _to: IMessageSender2Server<Type>;
+  private _from: IMessageFromServerListener<Type>;
 
   constructor(private owner: ServerService, private targetName: string) {
     super();
-    this.to = new MessageSender2Server<Type>(owner, targetName);
-    this.from = new MessageFromServerListener<Type>(owner, targetName);
+    this._to = new MessageSender2Server<Type>(owner, targetName);
+    this._from = new MessageFromServerListener<Type>(owner, targetName);
+  }
+
+  to(): IMessageSender2Server<Type> {
+    return this._to;
+  }
+
+  from(): IMessageFromServerListener<Type> {
+    return this._from;
   }
 }
 
@@ -119,14 +156,37 @@ export class MessageSender2Server<Type> extends IMessageSender2Server<Type> {
   }
 
   send(type: MessageType, item: Type) {
-    console.log('empty sender', item);
+    //console.log('empty sender', item);
   }
 }
 
 export class MessageFromServerListener<
   Type
 > extends IMessageFromServerListener<Type> {
-  handle(message: any) {
-    console.log('empty message from server handler', message);
+  private _onAdd: Subject<Type>;
+  private _onChange: Subject<Type>;
+  private _onRemove: Subject<Type>;
+
+  constructor(owner: ServerService, targetName: string) {
+    super(owner, targetName);
+    this._onAdd = new Subject<Type>();
+    this._onChange = new Subject<Type>();
+    this._onRemove = new Subject<Type>();
+  }
+
+  onAdd(): Subject<Type> {
+    return this._onAdd;
+  }
+
+  onChange(): Subject<Type> {
+    return this._onChange;
+  }
+
+  onRemove(): Subject<Type> {
+    return this._onRemove;
+  }
+
+  handle(message: GunMessageUpdate) {
+    // console.log('empty message from server handler', message);
   }
 }

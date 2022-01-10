@@ -48,14 +48,14 @@ export class AudioService {
   }
 
   add(audio: SceneAudio) {
-    this.client.audios.to.update(audio);
+    this.client.audios.to().update(audio);
     this.realm.addAudio(audio).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   remove(audio: SceneAudio) {
-    this.client.audios.to.remove(audio);
+    this.client.audios.to().remove(audio);
     return this.realm.deleteAudio(audio.name).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });

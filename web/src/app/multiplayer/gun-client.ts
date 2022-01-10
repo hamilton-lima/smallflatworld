@@ -8,6 +8,11 @@ import {
 import { IServerTransport } from './server.service';
 
 // TODO: receive updates when character moves
+export class GunMessageUpdate {
+  key: string;
+  data: any;
+  soul: string;
+}
 
 export class GunClient implements IServerTransport {
   gun: any;
@@ -29,7 +34,7 @@ export class GunClient implements IServerTransport {
       .get('smallflatworld')
       .get('realms')
       .get(realm.id)
-      .put({ name: realm.name });
+      .put({ name: realm.name || 'empty-realm-name' });
 
     this.realmID = realm.id;
     return gunRealm;
@@ -116,8 +121,8 @@ export class GunClient implements IServerTransport {
     updatableElement.map().on((data, key) => {
       const soul = this.getSoul(data);
       const name = this.extractCharacterName(soul);
-      subject.next({ key: key, data: data, character: name });
-      console.log('character position updated', key, data, name);
+      subject.next(<GunMessageUpdate>{ key: key, data: data, soul: name });
+      // console.log('character position updated', key, data, name);
     });
 
     return subject;
@@ -136,17 +141,17 @@ export class GunClient implements IServerTransport {
       .get(this.realmID);
 
     const promises = [];
-    promises.push(this.getRealmFields(gunRealm,realm));
+    promises.push(this.getRealmFields(gunRealm, realm));
     // call similar to getMap for each field.
 
-    Promise.all(promises).then((_)=>{
+    Promise.all(promises).then((_) => {
       subject.next(realm);
     });
 
     return subject;
   }
 
-  getRealmFields(gunRealm: any, realm: Realm){
+  getRealmFields(gunRealm: any, realm: Realm) {
     return new Promise<void>((resolve) => {
       gunRealm.map().once((data, key) => {
         realm.name = data.name;
@@ -155,15 +160,17 @@ export class GunClient implements IServerTransport {
     });
   }
 
-  getCharacters(gunRealm: any, realm: Realm){
+  getCharacters(gunRealm: any, realm: Realm) {
     return new Promise<void>((resolve) => {
-      gunRealm.get('characters').map().once((data, key) => {
-        realm.name = data.name;
-        resolve();
-      });
+      gunRealm
+        .get('characters')
+        .map()
+        .once((data, key) => {
+          realm.name = data.name;
+          resolve();
+        });
     });
   }
-
 
   // getMapListenerWithField(mapName: string, field: string): Subject<any> {
   //   if (!this.realmID) {

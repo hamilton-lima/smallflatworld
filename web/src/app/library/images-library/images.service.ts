@@ -44,14 +44,14 @@ export class ImagesService {
   }
 
   add(image: SceneImage) {
-    this.client.images.to.add(image);
+    this.client.images.to().add(image);
     this.realm.addImage(image).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   remove(image:SceneImage) {
-    this.client.images.to.remove(image);
+    this.client.images.to().remove(image);
     this.realm.deleteImage(image.name).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });

@@ -44,14 +44,14 @@ export class Design3dService {
   }
 
   add(toAdd: SceneDesign3D) {
-    this.client.designs3D.to.update(toAdd);
+    this.client.designs3D.to().update(toAdd);
     this.realm.addDesign3D(toAdd).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   remove(design3D: SceneDesign3D) {
-    this.client.designs3D.to.remove(design3D);
+    this.client.designs3D.to().remove(design3D);
     this.realm.deleteDesign3D(design3D.name).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });

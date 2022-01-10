@@ -109,7 +109,7 @@ export class EditorService {
   // propagate the update to realm and multiplayer
   async propagateUpdate(element: SceneElementMemento) {
     await this.realm.update(element);
-    this.client.elements.to.update(element);
+    this.client.elements.to().update(element);
   }
 
   isValidSelection() {
@@ -213,7 +213,7 @@ export class EditorService {
     found.dispose();
 
     const toRemove = this.realm.get(found.name);
-    this.client.elements.to.remove(toRemove);
+    this.client.elements.to().remove(toRemove);
     await this.realm.delete(found.name);
   }
 
@@ -495,7 +495,7 @@ export class EditorService {
     // update local realm and send client event
     const memento = sceneElement2Memento(element);
     await this.realm.add(memento);
-    this.client.elements.to.update(memento);
+    this.client.elements.to().update(memento);
     return mesh;
   }
 

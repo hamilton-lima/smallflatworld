@@ -7,7 +7,6 @@ import {
   SceneImage,
   SceneDesign3D,
   Realm,
-  REALM_MAPS,
 } from 'src/app/realm/realm.model';
 import { EventsBrokerService } from '../shared/events-broker.service';
 import { ServerService } from './server.service';

@@ -44,21 +44,21 @@ export class CodeLibraryService {
   }
 
   add(code: SceneCode) {
-    this.client.codes.to.update(code);
+    this.client.codes.to().update(code);
     this.realm.addCode(code).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   update(code: SceneCode) {
-    this.client.codes.to.update(code);
+    this.client.codes.to().update(code);
     this.realm.updateCode(code).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
   }
 
   remove(code: SceneCode) {
-    this.client.codes.to.remove(code);
+    this.client.codes.to().remove(code);
     return this.realm.deleteCode(code.name).then((_) => {
       this.propagateChanges(this.realm.getCurrentRealm());
     });
