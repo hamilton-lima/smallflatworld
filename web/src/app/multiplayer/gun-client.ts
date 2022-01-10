@@ -137,6 +137,7 @@ export class GunClient implements IServerTransport {
 
     const promises = [];
     promises.push(this.getRealmFields(gunRealm,realm));
+    // call similar to getMap for each field.
 
     Promise.all(promises).then((_)=>{
       subject.next(realm);
