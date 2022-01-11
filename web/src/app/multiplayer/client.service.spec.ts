@@ -57,18 +57,25 @@ fdescribe('ClientService', () => {
     memento.name = 'first';
 
     memento.position.x = 1;
+    memento.position.y = 1;
+    memento.position.z = 1;
     service.elements.to().add(memento);
 
     service.elements.from().onAdd().subscribe( newGuy =>{
       expect(newGuy).toBeTruthy();
       expect(newGuy.name).toBe('first');
       expect(newGuy.position.x).toBe(3);
+      expect(newGuy.position.y).toBe(4);
+      expect(newGuy.position.z).toBe(5);
       done();
     });
     
     memento.position.x = 3;
+    memento.position.y = 4;
+    memento.position.z = 5;
     service.elements.to().update(memento);
   });
+
 
   // it('should generate event with state update after listen2Updates', (done) => {
   //   done();

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Realm, SceneElementMemento, Vector3Memento } from 'src/app/realm/realm.model';
+import { CodeDefinition, Realm, SceneElementMemento, Vector3Memento } from 'src/app/realm/realm.model';
 import Gun from 'gun/gun';
 import { GunClient } from './gun-client';
 
 export interface IServerTransport {
+  getCode(soul: string): Promise<CodeDefinition>;
   share(realm: Realm);
   shareRealm(realm: Realm);
   shareSceneElement(

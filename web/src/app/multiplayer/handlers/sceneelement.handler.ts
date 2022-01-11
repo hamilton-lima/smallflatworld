@@ -56,22 +56,11 @@ export class SceneElementMementoReceiver extends IMessageFromServerListener<Scen
     element.skipColision = message.data.skipColision;
 
     const transport = this.getOwner().getServerTransport();
-    // const positionSoul = message.data.position['#'];
-    
-    // console.log('position object', JSON.stringify(message.data.position));
-    // console.log('position soul', positionSoul);
-    // transport.get(positionSoul).then( position => {
-    //   console.log('--------------- position', position);
-    // })
   
+    element.code = await transport.getCode(message.data.code['#']);
     element.position = await transport.getVector3Memento(message.data.position['#']);
-    // #
-    // smallflatworld/realms/test-bananas/elements/first/position
-
-    // code: Object{#: ...},
-    // position: Object{#: ...},
-    // rotation: Object{#: ...},
-    // scaling: Object{#: ...},
+    element.rotation = await transport.getVector3Memento(message.data.rotation['#']);
+    element.scaling = await transport.getVector3Memento(message.data.scaling['#']);
 
     this._onAdd.next(element);
   }
