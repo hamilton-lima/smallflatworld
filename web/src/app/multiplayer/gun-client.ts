@@ -216,4 +216,21 @@ export class GunClient implements IServerTransport {
       return undefined;
     }
   }
+
+  async getVector3Memento(soul: string): Promise<Vector3Memento> {
+    const result = new Vector3Memento();
+    const remoteData = await this.get(soul);
+    Object.assign(result, remoteData);
+    console.log('remoteData', remoteData, result);
+    return result;
+  }
+
+  get(soul: string): Promise<any> {
+    return new Promise<any>((resolve) => {
+      this.gun.get(soul).once((data, key) => {
+        console.log('key,data', key, data);
+        resolve(data);
+      });
+    });
+  }
 }

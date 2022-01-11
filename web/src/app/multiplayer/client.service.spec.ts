@@ -42,6 +42,34 @@ fdescribe('ClientService', () => {
     service.elements.to().add(memento);
   });
 
+  it('should handle update of element position', (done) => {
+
+    serverService.connect( 'http://localhost:8765/gun');
+
+    const realm = new Realm();
+    realm.id = 'test-bananas';
+    realm
+    const character = new SceneElementMemento();
+    character.name = 'banana';
+    service.share(realm, character);
+
+    const memento = new SceneElementMemento();
+    memento.name = 'first';
+
+    memento.position.x = 1;
+    service.elements.to().add(memento);
+
+    service.elements.from().onAdd().subscribe( newGuy =>{
+      expect(newGuy).toBeTruthy();
+      expect(newGuy.name).toBe('first');
+      expect(newGuy.position.x).toBe(3);
+      done();
+    });
+    
+    memento.position.x = 3;
+    service.elements.to().update(memento);
+  });
+
   // it('should generate event with state update after listen2Updates', (done) => {
   //   done();
   //   // const spyNext = spyOn(service.onUpdate, 'next').and.callThrough();

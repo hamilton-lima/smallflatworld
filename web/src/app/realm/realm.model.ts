@@ -22,9 +22,9 @@ export interface Named {
 }
 
 export class Vector3Memento {
-  x: number;
-  y: number;
-  z: number;
+  x: number = 0;
+  y: number = 0;
+  z: number = 0;
 }
 
 export class CodeDefinition {

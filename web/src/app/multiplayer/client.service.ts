@@ -10,7 +10,8 @@ import {
 } from 'src/app/realm/realm.model';
 import { EventsBrokerService } from '../shared/events-broker.service';
 import { ServerService } from './server.service';
-import { MessageHandler, SceneElementMementoHandler} from './message.handler';
+import { MessageHandler } from './handlers/message.handler';
+import { SceneElementMementoHandler } from './handlers/sceneelement.handler';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +61,7 @@ export class ClientService {
       } 
     });
 
-    this.elements = new SceneElementMementoHandler(this.server, 'elements');
+    this.elements = new SceneElementMementoHandler(this.server);
     this.characters = new MessageHandler<SceneElementMemento>(this.server, 'characters');
     this.audios = new MessageHandler<SceneAudio>(this.server, 'audios');
     this.codes = new MessageHandler<SceneCode>(this.server, 'codes');

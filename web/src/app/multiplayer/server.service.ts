@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Realm, SceneElementMemento } from 'src/app/realm/realm.model';
+import { Realm, SceneElementMemento, Vector3Memento } from 'src/app/realm/realm.model';
 import Gun from 'gun/gun';
 import { GunClient } from './gun-client';
 
@@ -14,6 +14,8 @@ export interface IServerTransport {
   join(realmID: string, character: SceneElementMemento);
   getRealmID(): string;
   getMapListener(mapName: string): Subject<any>;
+  get(soul:string): Promise<any>;
+  getVector3Memento(soul: string): Promise<Vector3Memento>;
   // getMapListenerWithField(mapName: string, field: string): Subject<any>;
 }
 
