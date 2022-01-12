@@ -18,25 +18,23 @@ export class SceneElementMementoSender extends IMessageSender2Server<SceneElemen
     console.log('send scenelement', type, item);
     const transport = this.getOwner().getServerTransport();
     if (transport && transport.getRealmID()) {
-      transport.shareSceneElement('elements', item as any);
+      if (type === MessageType.remove) {
+        transport.shareSceneElement('elements', item as any);
+      } else {
+        transport.removeSceneElement('elements', item as any);
+      }
     }
   }
 }
 
 export class SceneElementMementoReceiver extends IMessageFromServerListener<SceneElementMemento> {
-  private _onAdd: Subject<SceneElementMemento>;
   private _onChange: Subject<SceneElementMemento>;
   private _onRemove: Subject<SceneElementMemento>;
 
   constructor(owner: ServerService) {
     super(owner, 'elements');
-    this._onAdd = new Subject<SceneElementMemento>();
     this._onChange = new Subject<SceneElementMemento>();
     this._onRemove = new Subject<SceneElementMemento>();
-  }
-
-  onAdd(): Subject<SceneElementMemento> {
-    return this._onAdd;
   }
 
   onChange(): Subject<SceneElementMemento> {
@@ -48,21 +46,32 @@ export class SceneElementMementoReceiver extends IMessageFromServerListener<Scen
   }
 
   async handle(message: GunMessageUpdate) {
-    console.log('handle(SceneElementMemento)', message);
-
+    console.log('handle(SceneElementMemento)', JSON.stringify(message));
     const element = new SceneElementMemento();
-    element.name = message.data.name;
-    element.componentID = message.data.componentID;
-    element.skipColision = message.data.skipColision;
 
-    const transport = this.getOwner().getServerTransport();
-  
-    element.code = await transport.getCode(message.data.code['#']);
-    element.position = await transport.getVector3Memento(message.data.position['#']);
-    element.rotation = await transport.getVector3Memento(message.data.rotation['#']);
-    element.scaling = await transport.getVector3Memento(message.data.scaling['#']);
+    if (message.data) {
+      element.name = message.data.name;
+      element.componentID = message.data.componentID;
+      element.skipColision = message.data.skipColision;
 
-    this._onAdd.next(element);
+      const transport = this.getOwner().getServerTransport();
+
+      element.code = await transport.getCode(message.data.code['#']);
+      element.position = await transport.getVector3Memento(
+        message.data.position['#']
+      );
+      element.rotation = await transport.getVector3Memento(
+        message.data.rotation['#']
+      );
+      element.scaling = await transport.getVector3Memento(
+        message.data.scaling['#']
+      );
+
+      this._onChange.next(element);
+    } else {
+      element.name = message.key;
+      this._onRemove.next(element);
+    }
   }
 }
 

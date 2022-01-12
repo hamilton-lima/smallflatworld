@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { CodeDefinition, Realm, SceneElementMemento, Vector3Memento } from 'src/app/realm/realm.model';
+import {
+  CodeDefinition,
+  Realm,
+  SceneElementMemento,
+  Vector3Memento,
+} from 'src/app/realm/realm.model';
 import Gun from 'gun/gun';
 import { GunClient } from './gun-client';
 
 export interface IServerTransport {
+  removeSceneElement(
+    mapName: 'characters' | 'elements',
+    memento: SceneElementMemento
+  );
   getCode(soul: string): Promise<CodeDefinition>;
   share(realm: Realm);
   shareRealm(realm: Realm);
@@ -15,7 +24,7 @@ export interface IServerTransport {
   join(realmID: string, character: SceneElementMemento);
   getRealmID(): string;
   getMapListener(mapName: string): Subject<any>;
-  get(soul:string): Promise<any>;
+  get(soul: string): Promise<any>;
   getVector3Memento(soul: string): Promise<Vector3Memento>;
   // getMapListenerWithField(mapName: string, field: string): Subject<any>;
 }
@@ -70,7 +79,7 @@ export class ServerService {
   }
 
   listenForFirstUpdate() {
-    if(this.transport && this.transport.getRealmID()){
+    if (this.transport && this.transport.getRealmID()) {
       // this.transport.listenToFirstUpdate().subscribe( update =>{
       //   console.log('first update on server.service', update);
       //   //   this.onStateUpdate.next(<Realm>state);

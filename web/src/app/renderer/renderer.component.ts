@@ -76,11 +76,6 @@ export class RendererComponent implements AfterViewInit {
         engineState.engine.hideLoadingUI();
 
         // subscribe to updates from multiplayer client
-        this.client.elements.from().onAdd().subscribe((element: SceneElementMemento) => {
-          const converted = this.memento2Vector3(element);
-          this.service.update(engineState, [converted]);
-        });
-
         this.client.elements.from().onChange().subscribe((element: SceneElementMemento) => {
           const converted = this.memento2Vector3(element);
           this.service.update(engineState, [converted]);

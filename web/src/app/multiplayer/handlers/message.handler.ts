@@ -31,7 +31,6 @@ export abstract class IMessageSender2Server<Type> {
 }
 
 export abstract class IMessageFromServerListener<Type> {
-  abstract onAdd(): Subject<Type>;
   abstract onChange(): Subject<Type>;
   abstract onRemove(): Subject<Type>;
 
@@ -46,7 +45,6 @@ export abstract class IMessageFromServerListener<Type> {
       if (subject) {
         subject.subscribe(async (message: GunMessageUpdate) => {
           await this.handle(message);
-          console.log('handle', message);
         });
       }
     }
@@ -94,19 +92,13 @@ export class MessageSender2Server<Type> extends IMessageSender2Server<Type> {
 export class MessageFromServerListener<
   Type
 > extends IMessageFromServerListener<Type> {
-  private _onAdd: Subject<Type>;
   private _onChange: Subject<Type>;
   private _onRemove: Subject<Type>;
 
   constructor(owner: ServerService, targetName: string) {
     super(owner, targetName);
-    this._onAdd = new Subject<Type>();
     this._onChange = new Subject<Type>();
     this._onRemove = new Subject<Type>();
-  }
-
-  onAdd(): Subject<Type> {
-    return this._onAdd;
   }
 
   onChange(): Subject<Type> {

@@ -79,6 +79,18 @@ export class GunClient implements IServerTransport {
     gunSceneElement.get('code').put(memento.code || new CodeDefinition());
   }
 
+  removeSceneElement(mapName: 'characters' | 'elements', memento: SceneElementMemento) {
+    const gunSceneElement = this.gun
+    .get('smallflatworld')
+    .get('realms')
+    .get(this.realmID)
+    .get(mapName)
+    .get(memento.name);
+
+    gunSceneElement.put( null );
+  }
+
+
   fixBoolean(value: boolean, fallback: boolean) {
     if (typeof value === undefined) {
       return fallback;
@@ -122,7 +134,6 @@ export class GunClient implements IServerTransport {
       const soul = this.getSoul(data);
       const name = this.extractCharacterName(soul);
       subject.next(<GunMessageUpdate>{ key: key, data: data, soul: name });
-      // console.log('character position updated', key, data, name);
     });
 
     return subject;
@@ -198,7 +209,7 @@ export class GunClient implements IServerTransport {
   // }
 
   getSoul(data) {
-    if (data['_'] && data['_']['#']) {
+    if ( data && data['_'] && data['_']['#']) {
       return data['_']['#'];
     } else {
       console.error('This data has no SOUL! :)', data);

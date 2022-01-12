@@ -5,7 +5,7 @@ import { Realm, SceneElementMemento } from '../realm/realm.model';
 import { ClientService } from './client.service';
 import { ServerService } from './server.service';
 
-fdescribe('ClientService', () => {
+describe('ClientService', () => {
   let service: ClientService;
   let serverService: ServerService;
 
@@ -25,7 +25,6 @@ fdescribe('ClientService', () => {
 
     const realm = new Realm();
     realm.id = 'test-bananas';
-    realm
     const character = new SceneElementMemento();
     character.name = 'banana';
     service.share(realm, character);
@@ -33,7 +32,7 @@ fdescribe('ClientService', () => {
     const memento = new SceneElementMemento();
     memento.name = 'first';
 
-    service.elements.from().onAdd().subscribe( newGuy =>{
+    service.elements.from().onChange().subscribe( newGuy =>{
       expect(newGuy).toBeTruthy();
       expect(newGuy.name).toBe('first');
       done();
@@ -48,7 +47,6 @@ fdescribe('ClientService', () => {
 
     const realm = new Realm();
     realm.id = 'test-bananas';
-    realm
     const character = new SceneElementMemento();
     character.name = 'banana';
     service.share(realm, character);
@@ -61,7 +59,7 @@ fdescribe('ClientService', () => {
     memento.position.z = 1;
     service.elements.to().add(memento);
 
-    service.elements.from().onAdd().subscribe( newGuy =>{
+    service.elements.from().onChange().subscribe( newGuy =>{
       expect(newGuy).toBeTruthy();
       expect(newGuy.name).toBe('first');
       expect(newGuy.position.x).toBe(3);
@@ -74,6 +72,31 @@ fdescribe('ClientService', () => {
     memento.position.y = 4;
     memento.position.z = 5;
     service.elements.to().update(memento);
+  });
+
+  fit('should remove and element correctly', (done) => {
+
+    serverService.connect( 'http://localhost:8765/gun');
+
+    const realm = new Realm();
+    realm.id = 'test-bananas';
+    const character = new SceneElementMemento();
+    character.name = 'banana';
+    service.share(realm, character);
+
+    const memento = new SceneElementMemento();
+    memento.name = 'first';
+
+    service.elements.to().add(memento);
+
+    service.elements.from().onRemove().subscribe( newGuy =>{
+      expect(newGuy).toBeTruthy();
+      expect(newGuy.name).toBe('first');
+      done();
+    })
+
+    service.elements.to().remove(memento);
+
   });
 
 
