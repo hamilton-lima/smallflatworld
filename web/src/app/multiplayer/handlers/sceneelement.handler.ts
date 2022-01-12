@@ -19,9 +19,9 @@ export class SceneElementMementoSender extends IMessageSender2Server<SceneElemen
     const transport = this.getOwner().getServerTransport();
     if (transport && transport.getRealmID()) {
       if (type === MessageType.remove) {
-        transport.shareSceneElement('elements', item as any);
-      } else {
         transport.removeSceneElement('elements', item as any);
+      } else {
+        transport.shareSceneElement('elements', item as any);
       }
     }
   }
@@ -49,7 +49,7 @@ export class SceneElementMementoReceiver extends IMessageFromServerListener<Scen
     console.log('handle(SceneElementMemento)', JSON.stringify(message));
     const element = new SceneElementMemento();
 
-    if (message.data) {
+    if (message.data != null) {
       element.name = message.data.name;
       element.componentID = message.data.componentID;
       element.skipColision = message.data.skipColision;

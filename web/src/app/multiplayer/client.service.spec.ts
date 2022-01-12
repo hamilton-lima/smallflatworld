@@ -74,7 +74,7 @@ describe('ClientService', () => {
     service.elements.to().update(memento);
   });
 
-  fit('should remove and element correctly', (done) => {
+  it('should remove and element correctly', (done) => {
 
     serverService.connect( 'http://localhost:8765/gun');
 
