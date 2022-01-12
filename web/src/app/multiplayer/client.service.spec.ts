@@ -20,8 +20,7 @@ describe('ClientService', () => {
   });
 
   it('should handle adding a new element', (done) => {
-
-    serverService.connect( 'http://localhost:8765/gun');
+    serverService.connect('http://localhost:8765/gun');
 
     const realm = new Realm();
     realm.id = 'test-bananas';
@@ -32,18 +31,20 @@ describe('ClientService', () => {
     const memento = new SceneElementMemento();
     memento.name = 'first';
 
-    service.elements.from().onChange().subscribe( newGuy =>{
-      expect(newGuy).toBeTruthy();
-      expect(newGuy.name).toBe('first');
-      done();
-    })
+    service.elements
+      .from()
+      .onChange()
+      .subscribe((newGuy) => {
+        expect(newGuy).toBeTruthy();
+        expect(newGuy.name).toBe('first');
+        done();
+      });
 
     service.elements.to().add(memento);
   });
 
   it('should handle update of element position', (done) => {
-
-    serverService.connect( 'http://localhost:8765/gun');
+    serverService.connect('http://localhost:8765/gun');
 
     const realm = new Realm();
     realm.id = 'test-bananas';
@@ -59,15 +60,22 @@ describe('ClientService', () => {
     memento.position.z = 1;
     service.elements.to().add(memento);
 
-    service.elements.from().onChange().subscribe( newGuy =>{
-      expect(newGuy).toBeTruthy();
-      expect(newGuy.name).toBe('first');
-      expect(newGuy.position.x).toBe(3);
-      expect(newGuy.position.y).toBe(4);
-      expect(newGuy.position.z).toBe(5);
-      done();
-    });
-    
+    service.elements
+      .from()
+      .onChange()
+      .subscribe((newGuy) => {
+        expect(newGuy).toBeTruthy();
+        expect(newGuy.name).toBe('first');
+        // wait until the last state to be 3,4,5
+        if (
+          newGuy.position.x == 3 &&
+          newGuy.position.y == 4 &&
+          newGuy.position.z == 5
+        ) {
+          done();
+        }
+      });
+
     memento.position.x = 3;
     memento.position.y = 4;
     memento.position.z = 5;
@@ -75,8 +83,7 @@ describe('ClientService', () => {
   });
 
   it('should remove and element correctly', (done) => {
-
-    serverService.connect( 'http://localhost:8765/gun');
+    serverService.connect('http://localhost:8765/gun');
 
     const realm = new Realm();
     realm.id = 'test-bananas';
@@ -89,16 +96,17 @@ describe('ClientService', () => {
 
     service.elements.to().add(memento);
 
-    service.elements.from().onRemove().subscribe( newGuy =>{
-      expect(newGuy).toBeTruthy();
-      expect(newGuy.name).toBe('first');
-      done();
-    })
+    service.elements
+      .from()
+      .onRemove()
+      .subscribe((newGuy) => {
+        expect(newGuy).toBeTruthy();
+        expect(newGuy.name).toBe('first');
+        done();
+      });
 
     service.elements.to().remove(memento);
-
   });
-
 
   // it('should generate event with state update after listen2Updates', (done) => {
   //   done();
