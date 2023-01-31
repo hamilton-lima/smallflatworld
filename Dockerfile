@@ -8,7 +8,7 @@ RUN mkdir -p /usr/src/app/server
 # install web dependencies
 COPY web/package.json /usr/src/app/web
 WORKDIR /usr/src/app/web
-RUN npm install
+RUN yarn install
 
 # install server dependencies
 COPY server/package.json /usr/src/app/server
@@ -23,7 +23,7 @@ WORKDIR /usr/src/app/web
 RUN ./node_modules/.bin/hbs --data package.json src/app/version.hbs --stdout > src/app/version.ts
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
-RUN ./node_modules/@angular/cli/bin/ng build --prod 
+RUN ./node_modules/.bin/ng build --configuration production
 
 # base image
 FROM nginx:alpine
