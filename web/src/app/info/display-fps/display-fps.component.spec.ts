@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DisplayFPSComponent } from './display-fps.component';
 
@@ -6,7 +6,7 @@ describe('DisplayFPSComponent', () => {
   let component: DisplayFPSComponent;
   let fixture: ComponentFixture<DisplayFPSComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DisplayFPSComponent ]
     })
