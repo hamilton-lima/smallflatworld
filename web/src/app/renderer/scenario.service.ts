@@ -36,7 +36,7 @@ export class ScenarioService {
     engineState.character.checkCollisions = true;
 
     engineState.character.ellipsoid = new Vector3(1, 1, 1);
-    //engineState.character.ellipsoidOffset = new Vector3(0, 2.5, 0);
+    engineState.character.ellipsoidOffset = new Vector3(0, 0.5, 0);
   }
 
   buildRealm(engineState: EngineState): Promise<void> {
@@ -46,15 +46,18 @@ export class ScenarioService {
       console.info('Loading ' + total + ' elements');
       console.info('Scene BEFORE ', engineState.scene.meshes);
 
-      const loaded = await this.character.load(engineState);
-      engineState.character = loaded.character;
-      engineState.animations = loaded.animations;
-      
-      // engineState.character = this.mesh.getBox(engineState.scene);
+      // const loaded = await this.character.load(engineState);
+      // engineState.character = loaded.character;
+      // engineState.animations = loaded.animations;
+
+      engineState.character = this.mesh.getBox(engineState.scene);
       engineState.character.isVisible = true;
 
       const mat = new StandardMaterial('mat', engineState.scene);
-      const texture = new Texture('/assets/character/box/eggplant-character.png', engineState.scene);
+      const texture = new Texture(
+        '/assets/character/box/eggplant-character.png',
+        engineState.scene
+      );
       mat.diffuseTexture = texture;
       engineState.character.material = mat;
 
