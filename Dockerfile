@@ -1,5 +1,5 @@
 # prepare builder
-FROM node:13.8.0 as builder
+FROM node:16.13.2 as builder
 
 RUN mkdir -p /usr/src/app
 RUN mkdir -p /usr/src/app/web
