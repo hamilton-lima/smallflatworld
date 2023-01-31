@@ -13,7 +13,7 @@ RUN yarn install
 # install server dependencies
 COPY server/package.json /usr/src/app/server
 WORKDIR /usr/src/app/server
-RUN npm install
+RUN yarn install
 
 # copy source files
 COPY . /usr/src/app
