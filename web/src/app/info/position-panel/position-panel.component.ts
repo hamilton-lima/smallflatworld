@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Tools } from '@babylonjs/core';
+import { CHARACTER_ELLIPSOID_OFFSET_Y } from 'src/app/renderer/scenario.service';
 import { EventsBrokerService } from 'src/app/shared/events-broker.service';
 import { Vector3Memento } from '../../../../../server/src/events.model';
 
@@ -28,6 +29,7 @@ export class PositionPanelComponent implements OnInit {
 
     this.broker.onUpdateCharacter.subscribe((character) => {
       this.characterPosition = character.position;
+      this.characterPosition.y -= CHARACTER_ELLIPSOID_OFFSET_Y;
       const normalizedRad = character.rotation.y % (2 * Math.PI);
       const angle = Tools.ToDegrees(normalizedRad);
       this.rotateCompass(angle);

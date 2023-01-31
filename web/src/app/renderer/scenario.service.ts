@@ -16,6 +16,8 @@ import { EngineState, SceneElement } from './renderer.model';
 import { SceneService } from '../shared/scene.service';
 import { CharacterService } from '../mesh/character.service';
 
+export const CHARACTER_ELLIPSOID_OFFSET_Y = 0.5;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,7 +38,11 @@ export class ScenarioService {
     engineState.character.checkCollisions = true;
 
     engineState.character.ellipsoid = new Vector3(1, 1, 1);
-    engineState.character.ellipsoidOffset = new Vector3(0, 0.5, 0);
+    engineState.character.ellipsoidOffset = new Vector3(
+      0,
+      CHARACTER_ELLIPSOID_OFFSET_Y,
+      0
+    );
   }
 
   buildRealm(engineState: EngineState): Promise<void> {

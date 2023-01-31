@@ -8,12 +8,12 @@ RUN mkdir -p /usr/src/app/server
 # install web dependencies
 COPY web/package.json /usr/src/app/web
 WORKDIR /usr/src/app/web
-RUN npm install
+RUN yarn install
 
 # install server dependencies
 COPY server/package.json /usr/src/app/server
 WORKDIR /usr/src/app/server
-RUN npm install
+RUN yarn install
 
 # copy source files
 COPY . /usr/src/app
