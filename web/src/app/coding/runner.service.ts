@@ -50,6 +50,12 @@ function teleportCharacterImpl(destination: Position) {
   sharedContext.movement.teleport(engineState.character, position, rotation);
 }
 
+function turnCharacterImpl(degrees: number) {
+  console.log('turn', degrees);
+  const engineState = sharedContext.broker.engineState.getValue();
+  sharedContext.movement.rotate(engineState.character, degrees);
+}
+
 function createImpl(
   library: string,
   component: string,
@@ -108,11 +114,13 @@ class CodeRunner {
   constructor(uuid: string, code: string) {
     try {
       // variables exposed to eval()
+      const position = new Position(0, 0, 0);
       const message = showMessage;
       const bottomMessage = showBottomMessage;
       const playSound = playSoundByName;
       const create = createImpl;
       const teleport = teleportCharacterImpl;
+      const turn = turnCharacterImpl;
       const onClick = this.onClickHandlers;
 
       // execute the code

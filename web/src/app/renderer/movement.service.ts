@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Mesh, Ray, Scene, Vector3 } from '@babylonjs/core';
+import { Mesh, Ray, Scene, Tools, Vector3 } from '@babylonjs/core';
 import { RealmService } from '../realm/realm.service';
 import { mesh2Memento } from './builders';
 import { CameraService } from './camera.service';
@@ -109,9 +109,9 @@ export class MovementService {
     if (moved || rotated || falling) {
       this.camera.setTarget(character);
       this.realm.updateCharacter(mesh2Memento(character));
-      this.animateWalk(engineState)
+      this.animateWalk(engineState);
     } else {
-      this.animateWalkStop(engineState)
+      this.animateWalkStop(engineState);
     }
   }
 
@@ -137,6 +137,11 @@ export class MovementService {
     character.position = position;
     character.rotation = rotation;
 
+    this.realm.updateCharacter(mesh2Memento(character));
+  }
+
+  rotate(character: Mesh, degrees: number) {
+    character.rotation.y += Tools.ToRadians(degrees);
     this.realm.updateCharacter(mesh2Memento(character));
   }
 }

@@ -40,12 +40,13 @@ export class CameraService {
     camera.attachControl(engineState.engine.getRenderingCanvas(), true);
     camera.inputs.remove(camera.inputs.attached.keyboard);
 
-    //enable only first mouse button
-    const mouseInput = (this.camera.inputs.attached.pointers as ArcRotateCameraPointersInput);
+    // enable only first mouse button
+    const mouseInput = this.camera.inputs.attached
+      .pointers as ArcRotateCameraPointersInput;
     mouseInput.buttons = [0];
 
     // prevent camera to go thru ground
-    camera.collisionRadius = Vector3.One();
+    camera.collisionRadius = new Vector3(5, 5, 5);
     camera.checkCollisions = true;
 
     this.setTarget(character);
