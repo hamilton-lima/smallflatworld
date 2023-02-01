@@ -108,6 +108,7 @@ class CodeRunner {
   constructor(uuid: string, code: string) {
     try {
       // variables exposed to eval()
+      const position = new Position(0, 0, 0);
       const message = showMessage;
       const bottomMessage = showBottomMessage;
       const playSound = playSoundByName;
