@@ -442,6 +442,7 @@ export class EditorService {
 
     const faceId = pickInfo.faceId;
     let picked = <Mesh>pickInfo.pickedMesh;
+
     const imageName = this.image.getCurrentImageName();
 
     let skipColision = false;
@@ -457,12 +458,15 @@ export class EditorService {
     const dimensions = templateMesh.getBoundingInfo().boundingBox.extendSize;
     let position: Vector3;
 
+
     // if picking ground add to the clicking position
     if (picked.name == 'ground') {
-      position = pickInfo.pickedPoint;
+      position = this.calculatePositionOverTheGround(
+        pickInfo.pickedPoint,
+        dimensions
+      );
     } else {
       const parent = this.mesh.getParent(picked);
-
       position = this.calcSnapPositionCenterOfCubeFace(
         faceId,
         parent,
@@ -499,6 +503,12 @@ export class EditorService {
     await this.realm.add(memento);
     this.client.update(memento);
     return mesh;
+  }
+  
+  calculatePositionOverTheGround(point: Vector3, dimensions: Vector3): Vector3 {
+    const position = point.clone();
+    position.y = dimensions.y;
+    return position;
   }
 
   async setCurrentComponent(component: LibraryComponent) {
