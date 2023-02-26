@@ -21,9 +21,13 @@ jobs:
       working-directory: ./web
       run: npm ci
 
+    - name: Setup web version basedon package.json version
+      working-directory: ./web
+      run: ./node_modules/.bin/hbs --data package.json src/app/version.hbs --stdout > src/app/version.ts
+
     - name: Build the Angular app
       working-directory: ./web
-      run: ng build --prod --output-path=dist
+      run: ./node_modules/.bin/ng build --configuration production --output-path=dist
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
