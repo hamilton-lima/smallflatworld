@@ -32,12 +32,13 @@ jobs:
     - name: Copy to .public
       run: mkdir -p .public/play && cp -r web/dist/* .public/play
 
-    - name: Debug after build
-      working-directory: .public/play
-      run: pwd && ls -alh dist
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
 
-    - name: Empty landing page
-      run: echo "<html><body>Empty page</body></html>" >> ./public/index.html
+    - name: Build
+      run: hugo --minify 
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

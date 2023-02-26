@@ -1,0 +1,35 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "My New Hugo Site"
+theme = "freelancer"
+
+[params]
+  tagLine = "Graphic Artist - Web Designer - Illustrator"
+  homePosts = 3
+  homeProjects = 3
+
+  aboutLeft = "Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization."
+  aboutRight = "You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!"
+
+[params.location]
+  lineOne = "2215 John Daniel Drive"
+  lineTwo = "Clark, MO 65243" 
+
+[params.sbform]
+      token = ""
+
+[params.homebutton]
+  text = "Free Donwload"
+  link = "https://startbootstrap.com/theme/freelancer/" 
+  icon = "fa-download"
+
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = false
+[[related.indices]]
+  name = 'tags'
+  weight = 100
+[[related.indices]]
+  name = 'date'
+  weight = 10
