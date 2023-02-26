@@ -27,7 +27,7 @@ jobs:
 
     - name: Build the Angular app
       working-directory: ./web
-      run: ./node_modules/.bin/ng build --configuration production --output-path=dist --base-href /play/
+      run: ./node_modules/.bin/ng build --configuration production --output-path=dist --base-href /smallflatworld/play
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
