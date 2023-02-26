@@ -10,10 +10,10 @@ jobs:
 
     steps:
     - name: Checkout the code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: 16.13.2
 
@@ -30,7 +30,7 @@ jobs:
       run: ./node_modules/.bin/ng build --configuration production --output-path=dist --base-href /smallflatworld/play/
 
     - name: Copy to .public
-      run: mkdir -p .public/play && cp -r web/dist/* .public/play
+      run: mkdir -p ./public/play && cp -r web/dist/* ./public/play
 
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
@@ -39,6 +39,9 @@ jobs:
 
     - name: Build
       run: hugo --minify --source blog
+
+    - name: Show content to be published
+      run: find ./public
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

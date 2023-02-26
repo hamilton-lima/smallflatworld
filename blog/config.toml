@@ -4,24 +4,24 @@ title = "Small flat world"
 theme = "freelancer"
 
 [params]
-  tagLine = "Graphic Artist - Web Designer - Illustrator"
+  tagLine = "Tag line to be included here"
   homePosts = 3
   homeProjects = 3
 
   aboutLeft = "Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization."
   aboutRight = "You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!"
 
-[params.location]
-  lineOne = "Made in Canada"
-  lineTwo = "With a Brazilian soul" 
+# [params.location]
+#   lineOne = "Made in Canada"
+#   lineTwo = "With a Brazilian soul" 
 
 [params.sbform]
       token = ""
 
 [params.homebutton]
-  text = "Free Donwload"
-  link = "https://startbootstrap.com/theme/freelancer/" 
-  icon = "fa-download"
+  text = "Play"
+  link = "play" 
+  icon = "fa-play"
 
 [related]
   includeNewer = true
