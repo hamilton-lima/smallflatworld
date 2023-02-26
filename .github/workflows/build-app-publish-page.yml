@@ -27,10 +27,13 @@ jobs:
 
     - name: Build the Angular app
       working-directory: ./web
-      run: ./node_modules/.bin/ng build --configuration production --output-path=/.public/play --base-href /smallflatworld/play/
+      run: ./node_modules/.bin/ng build --configuration production --output-path=dist --base-href /smallflatworld/play/
+
+    - name: Copy to .public
+      run: cp -r web/dist/* .public/play
 
     - name: Debug after build
-      working-directory: /.public/play
+      working-directory: .public/play
       run: pwd && ls -alh dist
 
     - name: Empty landing page
