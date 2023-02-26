@@ -17,16 +17,16 @@ jobs:
       with:
         node-version: 16.x
 
-    - name: Change current folder
-      run: cd web
-
     - name: Install dependencies
+      working-directory: ./web
       run: npm install
 
     - name: Build the Angular app
+      working-directory: ./web
       run: ng build --prod --output-path=dist
 
     - name: Deploy to GitHub Pages
+      working-directory: ./web
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
