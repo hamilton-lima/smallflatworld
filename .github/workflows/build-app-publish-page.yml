@@ -38,7 +38,7 @@ jobs:
         hugo-version: 'latest'
 
     - name: Build
-      run: hugo --minify 
+      run: hugo --minify --source blog
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
