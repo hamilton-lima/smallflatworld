@@ -27,15 +27,17 @@ jobs:
 
     - name: Build the Angular app
       working-directory: ./web
-      run: ./node_modules/.bin/ng build --configuration production --output-path=dist --base-href /smallflatworld/play/
+      run: ./node_modules/.bin/ng build --configuration production --output-path=/.public/play --base-href /smallflatworld/play/
 
     - name: Debug after build
-      working-directory: ./web
+      working-directory: /.public/play
       run: pwd && ls -alh dist
+
+    - name: Empty landing page
+      run: echo "<html><body>Empty page</body></html>" >> ./public/index.html
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./web/dist
-        destination_dir: play
+        publish_dir: ./public
