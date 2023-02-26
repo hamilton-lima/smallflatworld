@@ -30,7 +30,7 @@ jobs:
       run: ./node_modules/.bin/ng build --configuration production --output-path=dist --base-href /smallflatworld/play/
 
     - name: Copy to .public
-      run: mkdir .public/play && cp -r web/dist/* .public/play
+      run: mkdir -p .public/play && cp -r web/dist/* .public/play
 
     - name: Debug after build
       working-directory: .public/play
