@@ -39,7 +39,7 @@ jobs:
 
       # --destination folder is relative to the source folder
       - name: Build
-        run: hugo --minify --source blog --destination ../public
+        run: hugo --minify --source blog --destination ../public --baseURL https://hamiltonlima.com/smallflatworld/
 
       - name: Show content to be published
         run: find ./public
