@@ -1,6 +1,6 @@
-baseURL = "http://example.org/"
+baseURL = "http://smallflatworld.com"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Small flat world"
 theme = "freelancer"
 
 [params]
@@ -12,8 +12,8 @@ theme = "freelancer"
   aboutRight = "You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!"
 
 [params.location]
-  lineOne = "2215 John Daniel Drive"
-  lineTwo = "Clark, MO 65243" 
+  lineOne = "Made in Canada"
+  lineTwo = "With a Brazilian soul" 
 
 [params.sbform]
       token = ""
