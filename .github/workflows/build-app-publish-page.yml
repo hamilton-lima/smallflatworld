@@ -15,11 +15,11 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 16.x
+        node-version: 16.13.2
 
     - name: Install dependencies
       working-directory: ./web
-      run: npm install
+      run: npm ci
 
     - name: Build the Angular app
       working-directory: ./web
